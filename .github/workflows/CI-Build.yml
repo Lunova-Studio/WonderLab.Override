@@ -53,14 +53,14 @@ jobs:
       - name: Update code
         shell: cmd
         working-directory: ./
-        run: |
-          ./.build/update_code.bat
-          python ./.build/add_commit_sha.py ${{ github.sha }}
+        run: ./.build/update_code.bat
 
       - name: Build
         shell: powershell
         working-directory: ./
-        run: ./.build/build_windows.ps1
+        run: |
+          python ./.build/add_commit_sha.py ${{ github.sha }}
+          ./.build/build_windows.ps1
 
       - name: Upload x64 build artifacts
         uses: actions/upload-artifact@v3
@@ -96,12 +96,12 @@ jobs:
       run: |
           sudo add-apt-repository universe
           sudo apt install libfuse2
-          python ./.build/add_commit_sha.py ${{ github.sha }}
     - name: Get version
       id: package_version
       uses: Blessing-Studio/get-csproj-version@main
       with:
         file: WonderLab/WonderLab.csproj
+    - run: python ./.build/add_commit_sha.py ${{ github.sha }}
     - name: Build
       run: pupnet --runtime linux-${{ matrix.arch }} --kind appimage -y -o WonderLab.${{ steps.package_version.outputs.version }}.linux-${{ matrix.arch }}.AppImage
     - name: Upload build artifacts
@@ -126,13 +126,13 @@ jobs:
         run: |
           chmod a+x ./.build/update_code.sh
           ./.build/update_code.sh
-          python ./.build/add_commit_sha.py ${{ github.sha }}
   
       - name: Build
         shell: bash
         working-directory: ./
         run: |
           chmod a+x ./.build/build_osx.sh
+          python ./.build/add_commit_sha.py ${{ github.sha }}
           ./.build/build_osx.sh
 
       - name: Upload x64 build artifacts
