@@ -32,6 +32,8 @@
 								Header="{DynamicResource Settings_About}">
 					<ui:SettingCardItem Description="{DynamicResource Settings_About_Version}">
 						<HyperlinkButton Content="2.0.0"
+										 Command="{Binding JumpToLinkCommand}"
+										 CommandParameter="https://github.com/Blessing-Studio/WonderLab.Override/"
 										 Foreground="{DynamicResource SecondaryBrush600}"/>
 					</ui:SettingCardItem>
 

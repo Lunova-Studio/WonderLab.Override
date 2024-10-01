@@ -13,6 +13,8 @@
 	<!--Download-->
 	<sys:String x:Key="Nav_Download_ExtraResource">扩展资源</sys:String>
 	<sys:String x:Key="Download_Search_Watermark">猜你想搜</sys:String>
+	<sys:String x:Key="Download_Minecraft">下载 Minecraft</sys:String>
+	<sys:String x:Key="Download_Tips1">在此寻你所寻</sys:String>
 
 	<!--Multiplayer-->
 	<sys:String x:Key="Multiplayer_NetworkInfo">网络信息</sys:String>
@@ -106,9 +108,6 @@
 	<sys:String x:Key="Settings_DebugMode_Change">调试（Debug）模式</sys:String>
 
 	<sys:String x:Key="Settings_OOBE">一键跳转 OOBE</sys:String>
- 
-	<sys:String x:Key="Settings_Font">字体设置</sys:String>
-	<sys:String x:Key="Settings_Font_Change">选择字体</sys:String>
 
 	<!--Launch-->
 	<sys:String x:Key="Settings_Launch_Folder">Minecraft 目录设置</sys:String>
@@ -131,7 +130,7 @@
 
 	<!--Network-->
 	<sys:String x:Key="Settings_Mirror">镜像源设置</sys:String>
-	<sys:String x:Key="Settings_Mirror_Change">启用镜像源</sys:String>
+	<sys:String x:Key="Settings_Mirror_Change">用镜像源</sys:String>
 	<sys:String x:Key="Settings_Download">下载设置</sys:String>
 	<sys:String x:Key="Settings_Download_MaxThreads">最大下载线程数</sys:String>
 	<sys:String x:Key="Settings_Download_MaxParts">大文件下载分片数</sys:String>
@@ -145,7 +144,7 @@
 	<sys:String x:Key="OOBE_Start">开始吧！</sys:String>
 	<sys:String x:Key="OOBE_Sorry">对不起，但是我们目前没有完成此功能</sys:String>
 
-	<!--TestUser-->
+	<!--InsiderUser-->
 	<sys:String x:Key="Dialog_TestUser_RequestUUID">请输入测试版许可证</sys:String>
 	<sys:String x:Key="Dialog_TestUser_InputUUID">请输入您的测试用户 UUID：</sys:String>
 

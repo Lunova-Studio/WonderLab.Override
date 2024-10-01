@@ -37,7 +37,7 @@
 								  Margin="8 0 0 0"
 								  RowDefinitions="Auto,Auto">
 								<TextBlock FontSize="12"
-										   Text="猜你想搜"
+										   Text="{DynamicResource Download_Search_Watermark}"
 										   Foreground="{DynamicResource DefaultBrush400}"/>
 								
 								<TextBlock Grid.Row="1"
@@ -84,9 +84,9 @@
 							Classes="card"
 							HorizontalAlignment="Stretch">
 						<StackPanel Margin="12 8">
-							<TextBlock Text="Download Minecraft"/>
+							<TextBlock Text="{DynamicResource Download_Minecraft}"/>
 
-							<TextBlock Text="Find all versions of Minecraft for Windows, Mac, and Linux."
+							<TextBlock Text="{DynamicResource Download_Tips1}"
 									   FontSize="12"
 									   Opacity="0.8"/>
 						</StackPanel>

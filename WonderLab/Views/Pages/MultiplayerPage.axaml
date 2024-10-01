@@ -15,7 +15,7 @@
 				</ItemsPanelTemplate>
 			</ItemsControl.ItemsPanel>
 
-			<ui:SettingCard Header="{DynamicResource Multiplayer_InternetInfo}">
+			<ui:SettingCard Header="{DynamicResource Multiplayer_NetworkInfo}">
 				<ui:SettingCardItem Description="{DynamicResource Multiplayer_IfUPNP}">
 					<Panel>
 						<HyperlinkButton Content="{Binding IsSupportUPnP}"

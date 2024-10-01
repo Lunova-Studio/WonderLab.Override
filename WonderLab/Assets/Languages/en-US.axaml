@@ -13,11 +13,13 @@
 	<!--Download-->
 	<sys:String x:Key="Nav_Download_ExtraResource">Extra Resource</sys:String>
 	<sys:String x:Key="Download_Search_Watermark">Tap here to search</sys:String>
+	<sys:String x:Key="Download_Minecraft">Download Minecraft</sys:String>
+	<sys:String x:Key="Download_Tips1">Find all versions Minecraft here</sys:String>
 
 	<!--Multiplayer-->
 	<sys:String x:Key="Multiplayer_NetworkInfo">Network Info</sys:String>
 	<sys:String x:Key="Multiplayer_IfUPNP">Support UPNP</sys:String>
-	<sys:String x:Key="Multiplayer_EnvNAT">NAT status</sys:String>
+	<sys:String x:Key="Multiplayer_EnvNAT">NAT Status</sys:String>
 	
 	<sys:String x:Key="Multiplayer_Action">Action</sys:String>
 	<sys:String x:Key="Multiplayer_Action_Connect">Connect</sys:String>
@@ -102,14 +104,10 @@
 	<sys:String x:Key="Settings_Lang">Language Settings</sys:String>
 	<sys:String x:Key="Settings_Lang_Change">Select your language</sys:String>
 
-
 	<sys:String x:Key="Settings_DebugMode">Debug Mode Settings</sys:String>
 	<sys:String x:Key="Settings_DebugMode_Change">Debug mode</sys:String>
 
 	<sys:String x:Key="Settings_OOBE">Jump to OOBE</sys:String>
- 
-	<sys:String x:Key="Settings_Font">Font Settings</sys:String>
-	<sys:String x:Key="Settings_Font_Change">Select font</sys:String>
 
 	<!--Launch-->
 	<sys:String x:Key="Settings_Launch_Folder">Minecraft Directory Settings</sys:String>

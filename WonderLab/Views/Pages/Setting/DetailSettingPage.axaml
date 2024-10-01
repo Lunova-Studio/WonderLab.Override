@@ -53,7 +53,7 @@
 							IsVisible="{Binding IsImage}"
 							Header="{DynamicResource Settings_Background_Image}">
 				<ui:SettingCardItem Description="{DynamicResource Settings_Background_ImageChange}">
-					<Button Content="{DynamicResource Browse}"
+					<Button Content="{DynamicResource Item_Browse}"
 							Command="{Binding SearchCommand}"/>
 				</ui:SettingCardItem>
 
