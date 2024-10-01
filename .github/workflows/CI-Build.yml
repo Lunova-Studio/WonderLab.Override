@@ -53,7 +53,9 @@ jobs:
       - name: Update code
         shell: cmd
         working-directory: ./
-        run: ./.build/update_code.bat
+        run: |
+          ./.build/update_code.bat
+          python ./.build/add_commit_sha.py ${{ github.sha }}
 
       - name: Build
         shell: powershell
@@ -72,7 +74,7 @@ jobs:
           name: Windows_arm64
           path: 'WonderLab.Desktop/bin/Release/${{ env.target-version }}/publish/win-arm64/*.zip'
 
-  build_Linux_Appimage:
+  build_Linux:
     strategy:
       matrix:
         arch: ["x64", "arm", "arm64"]
@@ -94,6 +96,7 @@ jobs:
       run: |
           sudo add-apt-repository universe
           sudo apt install libfuse2
+          python ./.build/add_commit_sha.py ${{ github.sha }}
     - name: Get version
       id: package_version
       uses: Blessing-Studio/get-csproj-version@main
@@ -123,6 +126,7 @@ jobs:
         run: |
           chmod a+x ./.build/update_code.sh
           ./.build/update_code.sh
+          python ./.build/add_commit_sha.py ${{ github.sha }}
   
       - name: Build
         shell: bash
@@ -148,7 +152,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_REF: $ github.ref
-    needs: [build_Windows, build_MacOS, build_Linux_Appimage]
+    needs: [build_Windows, build_MacOS, build_Linux]
     steps:
     - uses: nelonoel/branch-name@v1
 
