@@ -135,7 +135,7 @@
 						</StackPanel>
 					</ui:SettingCardItem>
 
-					<ui:SettingCardItem Description="部分图标引用自">
+					<ui:SettingCardItem Description="{DynamicResource Settings_About_IncludedIconLib}">
 						<StackPanel Spacing="10"
 									Orientation="Horizontal">
 							<HyperlinkButton Content="pdimu"

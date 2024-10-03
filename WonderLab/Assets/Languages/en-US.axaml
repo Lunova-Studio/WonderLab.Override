@@ -9,9 +9,22 @@
 
 	<!--Home-->
 	<sys:String x:Key="Home_Launch">Launch</sys:String>
+	<sys:String x:Key="No_Game_Core">There is no gmae core, click here to choose</sys:String>
+	
+	<sys:String x:Key="GMP_AllCore">All Game Cores</sys:String>
+	<sys:String x:Key="GMP_InstallCore">Install a new game core</sys:String>
+	<sys:String x:Key="GMP_ModPack">Local modpacks</sys:String>
+	<sys:String x:Key="GMP_SearchCore">Search from your game library...</sys:String>
+
+	<!--Task Manager-->
+	<sys:String x:Key="Task_Manager">Tasks Center</sys:String>
+	<sys:String x:Key="Task_Running">Running </sys:String>
+	<sys:String x:Key="Task_Count"> task</sys:String>
+	<sys:String x:Key="Task_List">Task List</sys:String>
+	<sys:String x:Key="Task_NothingToDo">There is nothing to do</sys:String>
 
 	<!--Download-->
-	<sys:String x:Key="Nav_Download_ExtraResource">Extra Resource</sys:String>
+	<sys:String x:Key="Download_ExtraResource">Extra Resource</sys:String>
 	<sys:String x:Key="Download_Search_Watermark">Tap here to search</sys:String>
 	<sys:String x:Key="Download_Minecraft">Download Minecraft</sys:String>
 	<sys:String x:Key="Download_Tips1">Find all versions Minecraft here</sys:String>
@@ -62,14 +75,16 @@
 	<sys:String x:Key="Settings_About_Thanks_ServerSupport">Server support</sys:String>
 	<sys:String x:Key="Settings_About_Thanks_TechSupport">Technical support</sys:String>
 	
+	<sys:String x:Key="Settings_About_IncludedIconLib">Icon library references</sys:String>
 	<sys:String x:Key="Settings_About_IncludedOSLib">Open Source Library References</sys:String>
 	
 	<!--Account-->
-	<sys:String x:Key="Settings_Account">Account Settings</sys:String>
+	<sys:String x:Key="Settings_Account_Title">Account Settings</sys:String>
+	<sys:String x:Key="Settings_Account_Action">Account Actions</sys:String>
 	<sys:String x:Key="Settings_Account_Add_Description">Add new account</sys:String>
 
 	<sys:String x:Key="Dialog_Account_Choose">Choose account type</sys:String>
-	<sys:String x:Key="Dialog_Account_Choose_Tip">Choose an account type, accounts' infomation will be saved in this machine</sys:String>
+	<sys:String x:Key="Dialog_Account_Choose_Tip">Choose an account type, accounts' infomation will be saved locally</sys:String>
 
 	<sys:String x:Key="Dialog_Account_MS_Add">Add Microsoft account</sys:String>
 	<sys:String x:Key="Dialog_Account_MS_Add_Tip1">Use authentication code</sys:String>
@@ -86,23 +101,30 @@
 	<sys:String x:Key="Dialog_Account_Offline_New">Add offline account</sys:String>
 	<sys:String x:Key="Dialog_Account_Offline_InputName">Enter name</sys:String>
 
+	<sys:String x:Key="Settings_Account_ActionsForThis">Operation for this account</sys:String>
+	
+	<sys:String x:Key="Dialog_NeverUsed">Last used: never used</sys:String>
+
 	<sys:String x:Key="Account_MS">Microsoft</sys:String>
-	<sys:String x:Key="Account_ThirdParty">Third-party</sys:String>
 	<sys:String x:Key="Account_Offline">Offline</sys:String>
+	<sys:String x:Key="Account_ThirdParty">Third Party</sys:String>
 
 	<!--Detail-->
+	<sys:String x:Key="Settings_Appearance_Title">Appearance Settings</sys:String>
 	<sys:String x:Key="Settings_Appearance">Appearance Settings</sys:String>
 	<sys:String x:Key="Settings_Appearance_Theme">Theme</sys:String>
 
+	<sys:String x:Key="Settings_PanelKeepCenter">Keep botton panel center</sys:String>
+
 	<sys:String x:Key="Settings_Background_Mode">Background rendering mode</sys:String>
-	<sys:String x:Key="Settings_Background_Image">Background Pictue Settings</sys:String>
-	<sys:String x:Key="Settings_Background_ImageChange">Change pictue</sys:String>
+	<sys:String x:Key="Settings_Background_Image">Background Picture Settings</sys:String>
+	<sys:String x:Key="Settings_Background_ImageChange">Change picture</sys:String>
 	<sys:String x:Key="Settings_Background_ParallaxEffects">Background parallax effects</sys:String>
 	<sys:String x:Key="Settings_Background_GradualBlur">Wallpaper gradual blur</sys:String>
 	<sys:String x:Key="Settings_Background_BlurValue">Wallpaper blur value</sys:String>
 
 	<sys:String x:Key="Settings_Lang">Language Settings</sys:String>
-	<sys:String x:Key="Settings_Lang_Change">Select your language</sys:String>
+	<sys:String x:Key="Settings_Lang_Change">Select language</sys:String>
 
 	<sys:String x:Key="Settings_DebugMode">Debug Mode Settings</sys:String>
 	<sys:String x:Key="Settings_DebugMode_Change">Debug mode</sys:String>
@@ -110,6 +132,7 @@
 	<sys:String x:Key="Settings_OOBE">Jump to OOBE</sys:String>
 
 	<!--Launch-->
+	<sys:String x:Key="Settings_Launch_Title">Launch Settings</sys:String>
 	<sys:String x:Key="Settings_Launch_Folder">Minecraft Directory Settings</sys:String>
 	<sys:String x:Key="Settings_Launch_Folder_Select">Select directory</sys:String>
 	<sys:String x:Key="Settings_Launch_Folder_New">Add directory</sys:String>
@@ -126,9 +149,10 @@
 	<sys:String x:Key="Settings_Launch_Game_MemoryAuto">Auto allocate suitable memory</sys:String>	
 
 	<sys:String x:Key="Settings_Launch_Independent">Game direcotories isolated</sys:String>
-	<sys:String x:Key="Settings_Launch_FullScreen">Full screen mode</sys:String>
+	<sys:String x:Key="Settings_Launch_FullScreen">Full screen</sys:String>
 
 	<!--Network-->
+	<sys:String x:Key="Settings_Network_Title">Network Settings</sys:String>
 	<sys:String x:Key="Settings_Mirror">Mirror Settings</sys:String>
 	<sys:String x:Key="Settings_Mirror_Change">Enable mirror download</sys:String>
 	<sys:String x:Key="Settings_Download">Download Settings</sys:String>
@@ -144,7 +168,7 @@
 	<sys:String x:Key="OOBE_Start">Launch!</sys:String>
 	<sys:String x:Key="OOBE_Sorry">Sorry, isn't finished</sys:String>
 
-	<!--TestUser-->
+	<!--InsiderUser-->
 	<sys:String x:Key="Dialog_TestUser_RequestUUID">Your testing-user token</sys:String>
 	<sys:String x:Key="Dialog_TestUser_InputUUID">Enter your testing-user's UUID: </sys:String>
 
@@ -159,8 +183,11 @@
 	<sys:String x:Key="Item_Search">Search</sys:String>
 	<sys:String x:Key="Item_Next">Next</sys:String>
 	<sys:String x:Key="Item_Yes">Sure</sys:String>
+	<sys:String x:Key="Item_Cancel">Cancel</sys:String>
 	<sys:String x:Key="Item_Continue">Continue</sys:String>
 	<sys:String x:Key="Item_Sync">Refresh</sys:String>
+	<sys:String x:Key="Item_Unknown">Unknown</sys:String>
+	<sys:String x:Key="Item_Reselect">Reselect</sys:String>
 
 	<sys:String x:Key="Item_Theme_Light">Light</sys:String>
 	<sys:String x:Key="Item_Theme_Dark">Dark</sys:String>
@@ -174,10 +201,10 @@
 	
 	<!--Info-->
 	<sys:String x:Key="Info_DebugMode_Changed">You have been changed Debug option, restart launcher to make it work!</sys:String>
-	
-	<sys:String x:Key="Unknown">Unknown</sys:String>
-	<sys:String x:Key="ExpandInterface">Expand</sys:String>
-	<sys:String x:Key="CollapseInterface">Collapse</sys:String>
-	<sys:String x:Key="GameSearchBoxWatermark">Find your game core here</sys:String>
+
+	<!--DragDropSelect-->
+	<sys:String x:Key="DDS_ThisAsk">This?</sys:String>
+	<sys:String x:Key="DDS_EnsureLaunchAsk">Are you sure about launching with this profile?</sys:String>
+	<sys:String x:Key="DDS_DragProfile">Drag profile here</sys:String>
 
 </ResourceDictionary>

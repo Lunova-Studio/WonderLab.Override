@@ -9,9 +9,22 @@
 
 	<!--Home-->
 	<sys:String x:Key="Home_Launch">启动</sys:String>
+	<sys:String x:Key="No_Game_Core">未选择任何核心，点击展开选择页面</sys:String>
+
+	<sys:String x:Key="GMP_AllCore">全部核心</sys:String>
+	<sys:String x:Key="GMP_InstallCore">安装新的游戏核心</sys:String>
+	<sys:String x:Key="GMP_ModPack">导入本地整合包</sys:String>
+	<sys:String x:Key="GMP_SearchCore">搜索游戏库...</sys:String>
+
+	<!--Task Manager-->
+	<sys:String x:Key="Task_Manager">任务中心</sys:String>
+	<sys:String x:Key="Task_Running">当前正在执行</sys:String>
+	<sys:String x:Key="Task_Count">个任务</sys:String>
+	<sys:String x:Key="Task_List">任务列表</sys:String>
+	<sys:String x:Key="Task_NothingToDo">今日无事可做</sys:String>
 
 	<!--Download-->
-	<sys:String x:Key="Nav_Download_ExtraResource">扩展资源</sys:String>
+	<sys:String x:Key="Download_ExtraResource">扩展资源</sys:String>
 	<sys:String x:Key="Download_Search_Watermark">猜你想搜</sys:String>
 	<sys:String x:Key="Download_Minecraft">下载 Minecraft</sys:String>
 	<sys:String x:Key="Download_Tips1">在此寻你所寻</sys:String>
@@ -62,10 +75,12 @@
 	<sys:String x:Key="Settings_About_Thanks_ServerSupport">服务器支持</sys:String>
 	<sys:String x:Key="Settings_About_Thanks_TechSupport">技术支持</sys:String>
 	
+	<sys:String x:Key="Settings_About_IncludedIconLib">部分图标引用自</sys:String>
 	<sys:String x:Key="Settings_About_IncludedOSLib">开源库引用</sys:String>
 	
 	<!--Account-->
-	<sys:String x:Key="Settings_Account">账户设置</sys:String>
+	<sys:String x:Key="Settings_Account_Title">账户设置</sys:String>
+	<sys:String x:Key="Settings_Account_Action">账户操作</sys:String>
 	<sys:String x:Key="Settings_Account_Add_Description">添加新账户</sys:String>
 
 	<sys:String x:Key="Dialog_Account_Choose">选择验证类型</sys:String>
@@ -86,13 +101,20 @@
 	<sys:String x:Key="Dialog_Account_Offline_New">增添离线账户</sys:String>
 	<sys:String x:Key="Dialog_Account_Offline_InputName">请输入名称</sys:String>
 
-	<sys:String x:Key="Account_MS">微软</sys:String>
-	<sys:String x:Key="Account_ThirdParty">第三方</sys:String>
-	<sys:String x:Key="Account_Offline">离线</sys:String>
+	<sys:String x:Key="Settings_Account_ActionsForThis">此账户可以执行的操作</sys:String>
+
+	<sys:String x:Key="Dialog_NeverUsed">上次使用: 从未使用</sys:String>
+
+	<sys:String x:Key="Account_MS">微软账号</sys:String>
+	<sys:String x:Key="Account_Offline">离线账号</sys:String>
+	<sys:String x:Key="Account_ThirdParty">第三方账号</sys:String>
 
 	<!--Detail-->
+	<sys:String x:Key="Settings_Appearance_Title">个性化设置</sys:String>
 	<sys:String x:Key="Settings_Appearance">外观设置</sys:String>
 	<sys:String x:Key="Settings_Appearance_Theme">主题</sys:String>
+
+	<sys:String x:Key="Settings_PanelKeepCenter">底栏居中对齐</sys:String>
 
 	<sys:String x:Key="Settings_Background_Mode">背景渲染模式</sys:String>
 	<sys:String x:Key="Settings_Background_Image">背景图片设置</sys:String>
@@ -110,6 +132,7 @@
 	<sys:String x:Key="Settings_OOBE">一键跳转 OOBE</sys:String>
 
 	<!--Launch-->
+	<sys:String x:Key="Settings_Launch_Title">启动设置</sys:String>
 	<sys:String x:Key="Settings_Launch_Folder">Minecraft 目录设置</sys:String>
 	<sys:String x:Key="Settings_Launch_Folder_Select">选择目录</sys:String>
 	<sys:String x:Key="Settings_Launch_Folder_New">增加目录</sys:String>
@@ -129,6 +152,7 @@
 	<sys:String x:Key="Settings_Launch_FullScreen">全屏模式</sys:String>
 
 	<!--Network-->
+	<sys:String x:Key="Settings_Network_Title">网络设置</sys:String>
 	<sys:String x:Key="Settings_Mirror">镜像源设置</sys:String>
 	<sys:String x:Key="Settings_Mirror_Change">用镜像源</sys:String>
 	<sys:String x:Key="Settings_Download">下载设置</sys:String>
@@ -159,9 +183,12 @@
 	<sys:String x:Key="Item_Search">搜索</sys:String>
 	<sys:String x:Key="Item_Next">下一步</sys:String>
 	<sys:String x:Key="Item_Yes">确定</sys:String>
+	<sys:String x:Key="Item_Cancel">取消</sys:String>
 	<sys:String x:Key="Item_Continue">继续</sys:String>
 	<sys:String x:Key="Item_Sync">刷新</sys:String>
-
+	<sys:String x:Key="Item_Unknown">未知</sys:String>
+	<sys:String x:Key="Item_Reselect">重新选择</sys:String>
+	
 	<sys:String x:Key="Item_Theme_Light">亮色</sys:String>
 	<sys:String x:Key="Item_Theme_Dark">暗色</sys:String>
 	<sys:String x:Key="Item_Theme_Auto">自适应</sys:String>
@@ -174,10 +201,10 @@
 	
 	<!--Info-->
 	<sys:String x:Key="Info_DebugMode_Changed">您更改了调试（Debug）模式选项，如要使功能生效请重启程序！</sys:String>
-	
-	<sys:String x:Key="Unknown">未知</sys:String>
-	<sys:String x:Key="ExpandInterface">展开界面</sys:String>
-	<sys:String x:Key="CollapseInterface">收起界面</sys:String>
-	<sys:String x:Key="GameSearchBoxWatermark">在此处查找您的本地游戏实例</sys:String>
 
+	<!--DragDropSelect-->
+	<sys:String x:Key="DDS_ThisAsk">就用这个？</sys:String>
+	<sys:String x:Key="DDS_EnsureLaunchAsk">确定用此档案启动游戏？</sys:String>
+	<sys:String x:Key="DDS_DragProfile">拖动档案至此处</sys:String>
+	
 </ResourceDictionary>

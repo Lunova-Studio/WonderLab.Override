@@ -17,7 +17,7 @@
 			</ItemsControl.ItemsPanel>
 
 			<TextBlock FontSize="24"
-					   Text="个性化设置"
+					   Text="{DynamicResource Settings_Account_Title}"
 					   Margin="0 0 0 8"
 					   FontWeight="Bold"
 					   VerticalAlignment="Top"
@@ -25,7 +25,7 @@
 					   Effect="{StaticResource LowTextBlockShadow}"/>
 
 			<ui:SettingCard Glyph="&#xE716;"
-							Header="{DynamicResource Settings_Account}"
+							Header="{DynamicResource Settings_Account_Action}"
 							Grid.Row="0">
 				<ui:SettingCardItem Description="{DynamicResource Settings_Account_Add_Description}">
 					<Button Content="{DynamicResource Item_Add}"
@@ -83,7 +83,7 @@
 
 											<TextBlock FontSize="12"
 													   Grid.Row="1"
-													   Text="{DynamicResource Account_MS}"/>
+													   Text="{Binding Account.Type}"/>
 										</Grid>
 										
 										<Grid Height="0"
@@ -177,7 +177,7 @@
 												</Border>
 												
 												<TextBlock Grid.Row="4"
-														   Text="这个账户可以执行的操作："/>
+														   Text="{DynamicResource Settings_Account_ActionsForThis}"/>
 
 												<StackPanel Grid.Row="5"
 															Spacing="0"

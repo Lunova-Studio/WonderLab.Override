@@ -107,7 +107,7 @@
 							<TextBlock Grid.Row="3"
 									   FontSize="10"
 									   Margin="08"
-									   Text="上次使用：从未使用"
+									   Text="{DynamicResource Dialog_NeverUsed}"
 									   Foreground="{DynamicResource DefaultBrush400}"
 									   HorizontalAlignment="Center"/>
 						</Grid>

@@ -78,8 +78,8 @@ public sealed partial class AccountSettingPageViewModel : ViewModelBase {
     private void AccountChangeHandle(object obj, AccountChangeNotificationMessage accountMessage) {
         if (Accounts.Remove(accountMessage.Account)) {
             _notificationService.QueueJob(new NotificationViewData {
-                Title = "成功",
-                Content = $"已成功将账户 {accountMessage.Account.Account.Name} 移除！",
+                Title = "Success",
+                Content = $"鎴愬姛绉婚櫎 {accountMessage.Account.Account.Name} 璐︽埛",
                 NotificationType = NotificationType.Success
             });
         }

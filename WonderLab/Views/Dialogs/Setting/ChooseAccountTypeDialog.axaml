@@ -14,8 +14,7 @@
 		</ui:DialogContentPanel.Content>
 		<ui:DialogContentPanel.BottomBarContent>
 			<StackPanel Orientation="Horizontal">
-				<Button Width="65"
-						Content="{DynamicResource Account_MS}"
+				<Button Content="{DynamicResource Account_MS}"
 						Grid.Column="2"
 						Margin="10 0 0 0"
 						VerticalAlignment="Stretch"
@@ -25,8 +24,7 @@
 						HorizontalContentAlignment="Center"
 						Command="{Binding ChooseAccountTypeCommand}"/>
 
-				<Button Width="65"
-						Content="{DynamicResource Account_ThirdParty}"
+				<Button Content="{DynamicResource Account_ThirdParty}"
 						Grid.Column="2"
 						Margin="10 0 0 0"
 						VerticalAlignment="Stretch"
@@ -36,8 +34,7 @@
 						HorizontalContentAlignment="Center"
 						Command="{Binding ChooseAccountTypeCommand}"/>
 
-				<Button Width="65"
-						Content="{DynamicResource Account_Offline}"
+				<Button Content="{DynamicResource Account_Offline}"
 						Grid.Column="2"
 						Margin="10 0 0 0"
 						CommandParameter="Offline"

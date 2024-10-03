@@ -104,15 +104,15 @@
 									<Grid Grid.Column="0"
 										  RowDefinitions="Auto, Auto">
 										<TextBlock FontSize="12"
-												   Text="任务中心"
+												   Text="{DynamicResource Task_Manager}"
 												   TextAlignment="Right"/>
 
 										<TextBlock Grid.Row="1"
 												   FontSize="12"
 												   TextAlignment="Right">
-											<Run Text="当前正在执行"/>
+											<Run Text="{DynamicResource Task_Running}"/>
 											<Run Text="{Binding Tasks.Count}"/>
-											<Run Text="个任务"/>
+											<Run Text="{DynamicResource Task_Count}"/>
 										</TextBlock>
 									</Grid>
 								</Grid>

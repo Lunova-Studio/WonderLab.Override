@@ -16,7 +16,7 @@
 			</ItemsControl.ItemsPanel>
 
 			<TextBlock FontSize="24"
-					   Text="个性化设置"
+					   Text="{DynamicResource Settings_Appearance_Title}"
 					   Margin="0 0 0 8"
 					   FontWeight="Bold"
 					   VerticalAlignment="Top"
@@ -25,7 +25,7 @@
 			
 			<ui:SettingCard Glyph="&#xE793;"
 							Header="{DynamicResource Settings_Appearance}">
-				<ui:SettingCardItem Description="底栏居中对齐">
+				<ui:SettingCardItem Description="{DynamicResource Settings_PanelKeepCenter}">
 					<ToggleSwitch OnContent=""
 								  OffContent=""
 								  Margin="0 0 -10 0"
@@ -111,20 +111,7 @@
 							Content="{DynamicResource Item_Jump}"/>
 				</ui:SettingCardItem>
 			</ui:SettingCard>
-
-			<ui:SettingCard IsVisible="False" Header="{DynamicResource Settings_Font}">
-				<ui:SettingCardItem Description="{DynamicResource Settings_Font_Change}">
-					<ComboBox ItemsSource="{Binding Fonts}">
-						<ComboBox.ItemTemplate>
-							<DataTemplate>
-								<TextBlock Text="{Binding Name}"
-										   VerticalAlignment="Center"
-										   HorizontalAlignment="Left"/>
-							</DataTemplate>
-						</ComboBox.ItemTemplate>
-					</ComboBox>
-				</ui:SettingCardItem>
-			</ui:SettingCard>
+			
 		</ItemsControl>
 	</ui:SmoothScrollViewer>
 </UserControl>

@@ -15,7 +15,7 @@
 						   PrimaryButtonCommand="{Binding AuthenticateCommand}">
 		<ui:DialogContentPanel.Content>
 			<StackPanel Spacing="10">
-				<TextBox Watermark=""
+				<TextBox Watermark="{DynamicResource Dialog_Account_ThirdParty_URL}"
 						 Text="{Binding Url}"
 						 UseFloatingWatermark="False"/>
 

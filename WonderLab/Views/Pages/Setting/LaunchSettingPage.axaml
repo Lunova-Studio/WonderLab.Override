@@ -17,7 +17,7 @@
 			</ItemsControl.ItemsPanel>
 
 			<TextBlock FontSize="24"
-					   Text="启动设置"
+					   Text="{DynamicResource Settings_Launch_Title}"
 					   Margin="0 0 0 8"
 					   FontWeight="Bold"
 					   VerticalAlignment="Top"

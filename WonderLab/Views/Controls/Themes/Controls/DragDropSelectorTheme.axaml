@@ -84,7 +84,7 @@
 									</controls:FontIcon.Transitions>
 								</controls:FontIcon>
 
-								<TextBlock Text="就这个?"
+								<TextBlock Text="{DynamicResource DDS_ThisAsk}"
 										   FontSize="14"
 										   Opacity="0"
 										   FontWeight="Bold"
@@ -105,7 +105,7 @@
 										   FontSize="12"
 										   Margin="0 8 0 0"
 										   Name="PART_SubTextBlock"
-										   Text="确定以这个档案启动游戏吗"
+										   Text="{DynamicResource DDS_EnsureLaunchAsk}"
 										   HorizontalAlignment="Center">
 									<TextBlock.Transitions>
 										<Transitions>
@@ -120,7 +120,7 @@
 								<TextBlock Grid.Row="1"
 										   FontSize="12"
 										   Margin="0 8 0 0"
-										   Text="将档案拖至此处"
+										   Text="{DynamicResource DDS_DragProfile}"
 										   Name="PART_TextBlock"
 										   HorizontalAlignment="Center">
 									<TextBlock.Transitions>
@@ -144,7 +144,7 @@
 							  ColumnDefinitions="Auto, Auto, Auto">
 							<Button Width="180"
 									Height="35"
-									Content="取消启动"
+									Content="{DynamicResource Item_Cancel}"
 									Classes="launchbutton"
 									Name="PART_CancelButton"
 									Command="{TemplateBinding CancelCommand}"
@@ -152,7 +152,7 @@
 
 							<Button Width="0"
 									Height="35"
-									Content="确定"
+									Content="{DynamicResource Item_Yes}"
 									Grid.Column="1"
 									Classes="launchbutton"
 									Name="PART_ConfirmButton"
@@ -163,7 +163,7 @@
 							<Button Width="0"
 									Height="35"
 									Grid.Column="3"
-									Content="重新选择"
+									Content="{DynamicResource Item_Reselect}"
 									Margin="8 0 0 0" 
 									CornerRadius="12"
 									IsVisible="False"

@@ -40,7 +40,7 @@
 
 				<controls:NavigationViewItem Height="30"
 											 Icon="&#xECA5;"
-											 Content="扩展资源"
+											 Content="{DynamicResource Download_ExtraResource}"
 											 CommandParameter="SearchPage"
 											 Command="{Binding NavigationToCommand}"
 											 Foreground="{DynamicResource SuccessBaseColor}"/>

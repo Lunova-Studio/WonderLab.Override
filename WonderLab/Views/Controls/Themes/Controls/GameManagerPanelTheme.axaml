@@ -28,7 +28,7 @@
 										Margin="36 16"
 										Orientation="Vertical">
 								<TextBlock FontSize="22"
-										   Text="所有核心"
+										   Text="{DynamicResource GMP_AllCore}"
 										   Margin="0 6 0 2"
 										   FontWeight="Bold"
 										   VerticalAlignment="Top"
@@ -135,14 +135,14 @@
 								<StackPanel Spacing="8"
 											Orientation="Horizontal">
 									<Button CornerRadius="12"
-											Content="安装新的游戏核心"/>
+											Content="{DynamicResource GMP_InstallCore}"/>
 									<Button CornerRadius="12"
-											Content="导入游戏整合包"/>
+											Content="{DynamicResource GMP_ModPack}"/>
 								</StackPanel>
 
 								<TextBox Height="35"
 										 Grid.Row="2"
-										 Watermark="搜索你的游戏库..."/>
+										 Watermark="{DynamicResource GMP_SearchCore}"/>
 							</Grid>
 						</Border>
 					</Grid>

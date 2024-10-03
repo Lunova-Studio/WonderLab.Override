@@ -67,7 +67,7 @@
 								        CommandParameter="{TemplateBinding PrimaryButtonCommandParameter}"/>
 
 								<Button Width="65"
-										Content="关闭"
+										Content="{DynamicResource Item_Cancel}"
 										Grid.Column="2"
 										Margin="8 0 0 0"
 										Name="closeButton"
