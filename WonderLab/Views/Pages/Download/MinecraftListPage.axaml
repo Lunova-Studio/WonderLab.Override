@@ -4,10 +4,13 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 x:Class="WonderLab.Views.Pages.Download.MinecraftListPage"
+			 xmlns:wb="using:WonderLab.Behaviors"
 			 xmlns:ui="using:WonderLab.Views.Controls"
 			 xmlns:vm="using:WonderLab.ViewModels.Pages.Download"
-			 xmlns:mlm="using:MinecraftLaunch.Classes.Models.Install"
+			 xmlns:vd="using:WonderLab.Classes.Datas.ViewData"
 			 xmlns:ail="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+			 xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+			 xmlns:ia="clr-namespace:Avalonia.Xaml.Interactions.Core;assembly=Avalonia.Xaml.Interactions"
 			 x:DataType="vm:MinecraftListPageViewModel">
 	<UserControl.Styles>
 		<Style Selector="ListBoxItem">
@@ -59,13 +62,18 @@
 			<Setter Property="Margin" Value="8 0 0 0"/>
 		</Style>
 	</UserControl.Styles>
-	
 	<Grid>
-		<ui:PageSwitcher ItemsSource="{Binding MinecraftList}">
+		<ui:PageSwitcher SelectedItem="{Binding ActiveMinecraft,Mode=TwoWay}"
+						 ItemsSource="{Binding MinecraftList}">
 			<ui:PageSwitcher.ItemTemplate>
-				<DataTemplate DataType="mlm:VersionManifestEntry">
+				<DataTemplate DataType="vd:MinecraftViewData">
 					<Grid Margin="12 0"
+						  Background="Transparent"
 						  ColumnDefinitions="Auto, 1*, Auto">
+						<i:Interaction.Behaviors>
+							<wb:PointerPressedBehavior Command="{Binding NavigateToDialogCommand}"/>
+						</i:Interaction.Behaviors>
+						
 						<Border Width="30"
 								Height="30"
 								CornerRadius="5"
@@ -74,19 +82,19 @@
 								BorderBrush="{DynamicResource ContentBrush4}">
 							<Border.Background>
 								<ImageBrush Stretch="UniformToFill"
-											Source="{Binding Type, Converter={StaticResource MinecraftTypeIconConverter}}"/>
+											Source="{Binding Minecraft.Type, Converter={StaticResource MinecraftTypeIconConverter}}"/>
 							</Border.Background>
 						</Border>
-						
+
 						<Grid Margin="8 0 0 0"
 							  Grid.Column="1"
 							  RowDefinitions="Auto, Auto">
 							<TextBlock FontSize="14"
-									   Text="{Binding Id}"/>
+									   Text="{Binding Minecraft.Id}"/>
 
 							<TextBlock Grid.Row="1"
 									   FontSize="12"
-									   Text="{Binding ReleaseTime}"
+									   Text="{Binding Minecraft.ReleaseTime}"
 									   Foreground="{DynamicResource DefaultBrush400}"/>
 						</Grid>
 
@@ -95,15 +103,15 @@
 									Orientation="Horizontal"
 									VerticalAlignment="Center">
 							<Border Padding="6 3"
-									CornerRadius="4" 
+									CornerRadius="4"
 									HorizontalAlignment="Center"
 									Background="{DynamicResource SuccessBrush500}">
 								<TextBlock FontSize="12"
 										   VerticalAlignment="Center"
-										   Text="{Binding Type, Converter={StaticResource MinecraftTypeConverter}}"/>
+										   Text="{Binding Minecraft.Type, Converter={StaticResource MinecraftTypeConverter}}"/>
 							</Border>
 
-							<ui:FontIcon FontSize="14" 
+							<ui:FontIcon FontSize="14"
 										 Glyph="&#xE76C;"
 										 VerticalAlignment="Center"/>
 						</StackPanel>

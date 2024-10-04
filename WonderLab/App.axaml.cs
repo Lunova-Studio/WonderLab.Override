@@ -4,19 +4,16 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
-
 using CommunityToolkit.Mvvm.Messaging;
-
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.ApplicationInsights.Extensibility;
 using MinecraftLaunch.Components.Fetcher;
-
-using System;
 using Serilog;
+using System;
 using System.IO;
-
+using WonderLab.Classes;
 using WonderLab.Services;
 using WonderLab.Services.Auxiliary;
 using WonderLab.Services.Download;
@@ -25,25 +22,24 @@ using WonderLab.Services.Navigation;
 using WonderLab.Services.UI;
 using WonderLab.Services.Wrap;
 using WonderLab.ViewModels.Dialogs;
+using WonderLab.ViewModels.Dialogs.Download;
+using WonderLab.ViewModels.Dialogs.Multiplayer;
 using WonderLab.ViewModels.Dialogs.Setting;
-using WonderLab.Classes.Interfaces;
 using WonderLab.ViewModels.Pages;
+using WonderLab.ViewModels.Pages.Download;
 using WonderLab.ViewModels.Pages.Navigation;
 using WonderLab.ViewModels.Pages.Oobe;
 using WonderLab.ViewModels.Pages.Setting;
 using WonderLab.ViewModels.Windows;
 using WonderLab.Views.Dialogs;
+using WonderLab.Views.Dialogs.Multiplayer;
 using WonderLab.Views.Dialogs.Setting;
 using WonderLab.Views.Pages;
+using WonderLab.Views.Pages.Download;
 using WonderLab.Views.Pages.Navigation;
 using WonderLab.Views.Pages.Oobe;
 using WonderLab.Views.Pages.Setting;
 using WonderLab.Views.Windows;
-using WonderLab.Classes;
-using WonderLab.Views.Dialogs.Multiplayer;
-using WonderLab.ViewModels.Dialogs.Multiplayer;
-using WonderLab.ViewModels.Pages.Download;
-using WonderLab.Views.Pages.Download;
 
 namespace WonderLab;
 
@@ -115,7 +111,7 @@ public sealed partial class App : Application {
 
     private static void ConfigureView(IServiceCollection services) {
         ConfigureViewModel(services);
-        
+
         //Pages
         services.AddSingleton<HomePage>();
         services.AddSingleton<MultiplayerPage>();
@@ -141,6 +137,7 @@ public sealed partial class App : Application {
 
         //Dialog
         services.AddTransient<FileDropDialog>();
+        services.AddTransient<GameInstallDialog>();
         services.AddTransient<AccountDropDialog>();
         services.AddTransient<TestUserCheckDialog>();
         services.AddTransient<RecheckToOobeDialog>();
@@ -214,6 +211,7 @@ public sealed partial class App : Application {
 
         //Dialog
         services.AddTransient<FileDropDialogViewModel>();
+        services.AddTransient<GameInstallDialogViewModel>();
         services.AddTransient<AccountDropDialogViewModel>();
         services.AddTransient<TestUserCheckDialogViewModel>();
         services.AddTransient<RecheckToOobeDialogViewModel>();

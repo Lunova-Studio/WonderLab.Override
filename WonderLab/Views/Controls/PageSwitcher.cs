@@ -14,7 +14,7 @@ using Avalonia.Interactivity;
 
 namespace WonderLab.Views.Controls;
 
-public sealed class PageSwitcher : ItemsControl {
+public sealed class PageSwitcher : SelectingItemsControl {
     private Button _gobackButton;
     private Button _goforwardButton;
     private TextBlock _numericalIndicator;

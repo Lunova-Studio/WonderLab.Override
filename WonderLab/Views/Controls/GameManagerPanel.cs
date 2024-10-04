@@ -74,9 +74,5 @@ public sealed class GameManagerPanel : SelectingItemsControl {
 
             EffectControl.Margin = change.GetNewValue<bool>() ? new(-20) : new();
         }
-
-        if (change.Property == SelectedItemProperty) {
-            Debug.WriteLine(SelectedItem.ToString());
-        }
     }
 }

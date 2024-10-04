@@ -23,6 +23,8 @@
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Border MinWidth="{TemplateBinding MinWidth}"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center"
 						Background="{TemplateBinding Background}"
 						BorderBrush="{TemplateBinding BorderBrush}"
 						CornerRadius="{TemplateBinding CornerRadius}"
@@ -47,15 +49,15 @@
 						
 						<ContentPresenter Grid.Row="1"
 										  Margin="16 0 16 16"
-						                  Content="{TemplateBinding Content}"/>
+										  Content="{TemplateBinding Content}"/>
 						
-					    <Border Grid.Row="2"
+						<Border Grid.Row="2"
 								Padding="16"
 								CornerRadius="0 0 14 14"
 								BorderThickness="0 2 0 0"
 								BorderBrush="{TemplateBinding BorderBrush}">
 							<Grid HorizontalAlignment="Right"
-								  ColumnDefinitions="Auto, Auto, Auto">							
+								  ColumnDefinitions="Auto, Auto, Auto">
 								<Button Width="65"
 										VerticalAlignment="Stretch"
 										HorizontalAlignment="Stretch"

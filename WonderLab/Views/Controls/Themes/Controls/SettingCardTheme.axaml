@@ -9,7 +9,7 @@
 	<ControlTheme x:Key="{x:Type controls:SettingCard}" TargetType="controls:SettingCard">
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Expander>
+				<Expander IsExpanded="True">
 					<Expander.Header>
 						<Grid Margin="4" ColumnDefinitions="Auto, 1*">
 							<controls:FontIcon FontSize="20"

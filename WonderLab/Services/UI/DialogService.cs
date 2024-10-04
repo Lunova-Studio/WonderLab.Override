@@ -21,6 +21,7 @@ public sealed class DialogService {
     private readonly WindowService _windowService;
     private readonly Dictionary<string, Func<object>> _dialogs = new() {
         { nameof(FileDropDialog), App.ServiceProvider.GetRequiredService<FileDropDialog> },
+        { nameof(GameInstallDialog), App.ServiceProvider.GetRequiredService<GameInstallDialog> },
         { nameof(AccountDropDialog), App.ServiceProvider.GetRequiredService<AccountDropDialog> },
         { nameof(TestUserCheckDialog), App.ServiceProvider.GetRequiredService<TestUserCheckDialog> },
         { nameof(RecheckToOobeDialog), App.ServiceProvider.GetRequiredService<RecheckToOobeDialog> },

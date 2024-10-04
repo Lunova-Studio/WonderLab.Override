@@ -1,0 +1,123 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:ui="using:WonderLab.Views.Controls"
+			 xmlns:vd="using:WonderLab.Classes.Datas.ViewData"
+			 xmlns:vm="using:WonderLab.ViewModels.Dialogs.Download"
+			 xmlns:wb="using:WonderLab.Behaviors"
+			 xmlns:i="clr-namespace:Avalonia.Xaml.Interactivity;assembly=Avalonia.Xaml.Interactivity"
+			 x:DataType="vm:GameInstallDialogViewModel"
+			 x:Class="WonderLab.GameInstallDialog">
+	<ui:DialogContentPanel Title="安装核心"
+						   MinWidth="650"
+						   IsCloseButtonVisible="True"
+						   IsPrimaryButtonVisible="True"
+						   PrimaryButtonContent="下一步">
+		<ui:DialogContentPanel.Content>
+			<Grid RowDefinitions="Auto, Auto"
+				  VerticalAlignment="Top">
+				<TextBlock FontSize="22"
+						   FontWeight="Bold"
+						   VerticalAlignment="Top"
+						   HorizontalAlignment="Left"
+						   Effect="{StaticResource LowTextBlockShadow}">
+					<Run>"</Run>
+					<Run Text="{Binding Minecraft.Minecraft.Id}"/>
+					<Run>"</Run>
+				</TextBlock>
+
+				<ui:SmoothScrollViewer Grid.Row="1"
+									   MaxHeight="360"
+									   Margin="0 8 0 0"
+									   VerticalAlignment="Top"
+									   ScrollViewer.VerticalScrollBarVisibility="Hidden">
+					<Grid RowDefinitions="Auto, 8, Auto">
+						<ui:SettingCard Glyph="&#xE713;"
+										Header="游戏核心基础设置">
+							<ui:SettingCardItem Description="游戏 Id">
+								<TextBox Watermark="24w39a"
+										 UseFloatingWatermark="False"/>
+							</ui:SettingCardItem>
+
+							<ui:SettingCardItem Description="是否独立于其他版本">
+								<ToggleSwitch OnContent=""
+											  OffContent=""
+											  Margin="0 0 -10 0"/>
+							</ui:SettingCardItem>
+						</ui:SettingCard>
+
+						<ItemsControl Grid.Row="2"
+									  ItemsSource="{Binding ModLoaderDatas}">
+							<ItemsControl.ItemsPanel>
+								<ItemsPanelTemplate>
+									<StackPanel Spacing="8"/>
+								</ItemsPanelTemplate>
+							</ItemsControl.ItemsPanel>
+							
+							<ItemsControl.ItemTemplate>
+								<DataTemplate x:DataType="vd:ModLoaderViewData">
+									<Border Grid.Row="6"
+											Padding="16 8"
+											CornerRadius="12"
+											BorderThickness="2"
+											IsEnabled="{Binding IsEnabled}"
+											BorderBrush="{DynamicResource ContentBrush4}"
+											Background="{DynamicResource ExpanderHeaderBackground}">
+										<Grid ColumnDefinitions="Auto, Auto, 1*, Auto">
+											<Border Width="30"
+													Height="30"
+													CornerRadius="5"
+													BorderThickness="2"
+													BorderBrush="{DynamicResource ContentBrush4}">
+												<Border.Background>
+													<ImageBrush Stretch="UniformToFill"
+																Source="resm:WonderLab.Assets.Images.Icons.release_minecraft.png"/>
+												</Border.Background>
+											</Border>
+											
+											<TextBlock Grid.Column="1"
+													   Margin="8 0 0 0"
+													   VerticalAlignment="Center"
+													   Text="{Binding LoaderType}"/>
+
+											<ui:ProgressRing Width="18"
+															 Height="18"
+															 Grid.Column="3"
+															 BorderThickness="2"
+															 IsIndeterminate="True"
+															 Name="PART_ProgressRing"
+															 VerticalAlignment="Center"
+															 HorizontalAlignment="Right">
+												<i:Interaction.Behaviors>
+													<wb:EmptyListVisibleBehavior ItemsSource="{Binding Entrys}"/>
+												</i:Interaction.Behaviors>
+											</ui:ProgressRing>
+
+											<StackPanel Spacing="8"
+														Grid.Column="3"
+														Orientation="Horizontal"
+														VerticalAlignment="Center"
+														IsVisible="{Binding ElementName=PART_ProgressRing, Path=IsVisible, Converter={StaticResource BooleanReverseConverter}}">
+												<Button Width="22"
+														Height="22"
+														Content="&#xE8BB;"
+														Classes="titlebarbutton"
+														IsVisible="{Binding IsActive}"
+														Command="{Binding RemoveCommand}"/>
+
+												<ComboBox SelectedItem="{Binding Entry}"
+														  ItemsSource="{Binding Entrys}"/>
+											</StackPanel>
+										</Grid>
+									</Border>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</Grid>
+				</ui:SmoothScrollViewer>
+			</Grid>
+		</ui:DialogContentPanel.Content>
+	</ui:DialogContentPanel>
+</UserControl>

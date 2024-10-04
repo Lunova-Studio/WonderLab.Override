@@ -1,17 +1,18 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MinecraftLaunch.Classes.Models.Install;
 using System.Collections;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using System.Linq;
+using WonderLab.Classes.Datas.ViewData;
 using WonderLab.Services.Download;
 
 namespace WonderLab.ViewModels.Pages.Download;
+
 public sealed partial class MinecraftListPageViewModel : ViewModelBase {
+    [ObservableProperty] private object _activeMinecraft;
     [ObservableProperty] private IEnumerable _minecraftList;
 
     public MinecraftListPageViewModel(DownloadService downloadService) {
-        _ = Task.Run(async () => {
-            MinecraftList = await downloadService.GetMinecraftListAsync();
+        RunBackgroundWork(async () => {
+            MinecraftList = (await downloadService.GetMinecraftListAsync()).Select(x => new MinecraftViewData(x));
         });
     }
 }

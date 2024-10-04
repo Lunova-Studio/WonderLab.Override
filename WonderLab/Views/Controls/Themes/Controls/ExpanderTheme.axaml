@@ -20,7 +20,8 @@
 						ClipToBounds="{TemplateBinding ClipToBounds}"
 						CornerRadius="{TemplateBinding CornerRadius}"
 						BorderThickness="{TemplateBinding BorderThickness}">
-					<Border Name="PART_InnerBorder" CornerRadius="{TemplateBinding CornerRadius}">
+					<Border Name="PART_InnerBorder"
+							CornerRadius="{TemplateBinding CornerRadius}">
 						<Grid RowDefinitions="Auto, Auto">
 							<controls:ContentExpandControl Grid.Row="1"
 														   Name="PART_ContentExpand"

@@ -16,6 +16,7 @@
 					<Grid RowDefinitions="1*, 10, Auto">
 						<ListBox Background="{TemplateBinding Background}"
 								 ItemsPanel="{TemplateBinding ItemsPanel}"
+								 SelectedItem="{TemplateBinding SelectedItem}"
 								 ItemTemplate="{TemplateBinding ItemTemplate}"
 								 ItemsSource="{TemplateBinding SelectPageItems}"
 								 ScrollViewer.VerticalScrollBarVisibility="Hidden">
