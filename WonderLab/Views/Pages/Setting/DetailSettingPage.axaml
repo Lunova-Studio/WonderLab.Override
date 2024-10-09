@@ -42,6 +42,7 @@
 
 				<ui:SettingCardItem Description="{DynamicResource Settings_Background_Mode}">
 					<ComboBox SelectedIndex="{Binding BackgroundIndex}">
+						<ComboBoxItem Content="彩色背景"/>
 						<ComboBoxItem Content="{DynamicResource Item_Background_Mica}"/>
 						<ComboBoxItem Content="{DynamicResource Item_Background_Acrylic}"/>
 						<ComboBoxItem Content="{DynamicResource Item_Background_Image}"/>
@@ -50,7 +51,7 @@
 			</ui:SettingCard>
 
 			<ui:SettingCard Glyph="&#xE8B9;"
-							IsVisible="{Binding IsImage}"
+							IsVisible="{Binding IsImageMode}"
 							Header="{DynamicResource Settings_Background_Image}">
 				<ui:SettingCardItem Description="{DynamicResource Settings_Background_ImageChange}">
 					<Button Content="{DynamicResource Item_Browse}"

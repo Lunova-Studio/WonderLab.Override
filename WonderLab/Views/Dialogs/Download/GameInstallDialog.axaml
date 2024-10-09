@@ -89,11 +89,8 @@
 															 IsIndeterminate="True"
 															 Name="PART_ProgressRing"
 															 VerticalAlignment="Center"
-															 HorizontalAlignment="Right">
-												<i:Interaction.Behaviors>
-													<wb:EmptyListVisibleBehavior ItemsSource="{Binding Entrys}"/>
-												</i:Interaction.Behaviors>
-											</ui:ProgressRing>
+															 HorizontalAlignment="Right"
+															 IsVisible="{Binding IsLoaded}"/>
 
 											<StackPanel Spacing="8"
 														Grid.Column="3"
@@ -107,8 +104,8 @@
 														IsVisible="{Binding IsActive}"
 														Command="{Binding RemoveCommand}"/>
 
-												<ComboBox SelectedItem="{Binding Entry}"
-														  ItemsSource="{Binding Entrys}"/>
+												<ComboBox ItemsSource="{Binding Entrys, Mode=TwoWay}"
+														  SelectedItem="{Binding ActiveEntry, Mode=TwoWay}"/>
 											</StackPanel>
 										</Grid>
 									</Border>

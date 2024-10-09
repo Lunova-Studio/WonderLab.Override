@@ -5,14 +5,12 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using WonderLab.Classes.Datas.MessageData;
 using WonderLab.Classes.Datas.ViewData;
-using WonderLab.Classes.Enums;
 using WonderLab.Services;
 using WonderLab.Services.UI;
 using WonderLab.ViewModels.Dialogs.Setting;
-using WonderLab.Views.Dialogs.Setting;
+using WonderLab.Views.Windows;
 
 namespace WonderLab.ViewModels.Pages.Setting;
 
@@ -25,7 +23,6 @@ public sealed partial class DetailSettingPageViewModel : ViewModelBase {
     private readonly NotificationService _notificationService;
     private readonly WeakReferenceMessenger _weakReferenceMessenger;
 
-    [ObservableProperty] private bool _isImage = false;
     [ObservableProperty] private bool _isDebugMode = false;
     [ObservableProperty] private bool _isEnableBlur = false;
     [ObservableProperty] private bool _isAlignCenter = false;
@@ -34,7 +31,12 @@ public sealed partial class DetailSettingPageViewModel : ViewModelBase {
     [ObservableProperty] private int _themeIndex = 0;
     [ObservableProperty] private int _parallaxMode = 0;
     [ObservableProperty] private int _languageIndex = 0;
-    [ObservableProperty] private int _backgroundIndex = 0;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsImageMode))]
+    private int _backgroundIndex = 0;
+
+    public bool IsImageMode => BackgroundIndex is 3;
 
     public List<FontFamily> Fonts { get; }
 
@@ -78,7 +80,7 @@ public sealed partial class DetailSettingPageViewModel : ViewModelBase {
     [RelayCommand]
     private void Search() {
         _settingService.Data.ImagePath = string.Empty;
-        _windowService.SetBackground(BackgroundIndex);
+        _themeService.RefreshBackground(_windowService.MainWindow as MainWindow);
     }
 
     [RelayCommand]
@@ -95,9 +97,8 @@ public sealed partial class DetailSettingPageViewModel : ViewModelBase {
                 _settingService.Data.ThemeIndex = ThemeIndex;
                 break;
             case nameof(BackgroundIndex):
-                _windowService.SetBackground(BackgroundIndex);
                 _settingService.Data.BackgroundIndex = BackgroundIndex;
-                IsImage = BackgroundIndex is 2;
+                _themeService.RefreshBackground(_windowService.MainWindow as MainWindow);
                 break;
             case nameof(LanguageIndex):
                 _languageService.SetLanguage(LanguageIndex);

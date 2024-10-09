@@ -1,12 +1,13 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using Avalonia.Xaml.Interactivity;
 using System.Collections;
 using System.Collections.Specialized;
 
 namespace WonderLab.Behaviors;
 
-public sealed class EmptyListVisibleBehavior : Behavior<Control> {
+public sealed class EmptyListVisibleBehavior : Behavior {
     public bool IsObservableCollection => ItemsSource is INotifyCollectionChanged;
 
     public static readonly StyledProperty<IList> ItemsSourceProperty =
@@ -20,6 +21,17 @@ public sealed class EmptyListVisibleBehavior : Behavior<Control> {
     protected override void OnAttached() {
         base.OnAttached();
 
+        if (AssociatedObject is Control control) {
+            control.Loaded += OnLoaded;
+            control.Unloaded += OnUnloaded;
+        }
+    }
+
+    private void UpdateVisibility() {
+        (AssociatedObject as Control).IsVisible = ItemsSource == null || ItemsSource.Count == 0;
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs e) {
         if (IsObservableCollection) {
             (ItemsSource as INotifyCollectionChanged).CollectionChanged += OnCollectionChanged;
         }
@@ -27,16 +39,10 @@ public sealed class EmptyListVisibleBehavior : Behavior<Control> {
         UpdateVisibility();
     }
 
-    protected override void OnDetaching() {
-        base.OnDetaching();
-
+    private void OnUnloaded(object sender, RoutedEventArgs e) {
         if (IsObservableCollection) {
             (ItemsSource as INotifyCollectionChanged).CollectionChanged -= OnCollectionChanged;
         }
-    }
-
-    private void UpdateVisibility() {
-        AssociatedObject.IsVisible = ItemsSource == null || ItemsSource.Count == 0;
     }
 
     private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {

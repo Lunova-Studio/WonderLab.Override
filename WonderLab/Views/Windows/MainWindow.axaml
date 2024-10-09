@@ -22,7 +22,8 @@
 		Icon="/Assets/Images/wonderlab.ico"
 		Loaded="OnLoaded" 
 		DragDrop.AllowDrop="True"
-		FontFamily="{StaticResource DefaultFontFamily}">
+		FontFamily="{StaticResource DefaultFontFamily}"
+		TransparencyBackgroundFallback="{DynamicResource ColourBackground}">
 	<i:Interaction.Behaviors>
 		<ia:EventTriggerBehavior EventName="Loaded" SourceObject="Window">
 			<ia:CallMethodAction TargetObject="{Binding}" MethodName="OnLoaded"/>
@@ -35,10 +36,10 @@
 						   IsHitTestVisible="False">
 				<ExperimentalAcrylicBorder.Material>
 					<ExperimentalAcrylicMaterial
-						BackgroundSource="Digger"
-						TintColor="Black"
 						TintOpacity="1"
-						MaterialOpacity="0.65" />
+						MaterialOpacity="0.65" 
+						BackgroundSource="Digger"
+						TintColor="{DynamicResource LayoutBackgroundColor}"/>
 				</ExperimentalAcrylicBorder.Material>
 			</ExperimentalAcrylicBorder>
 

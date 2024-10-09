@@ -63,10 +63,13 @@ public sealed partial class App : Application {
         BindingPlugins.DataValidators.RemoveAt(0);
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
             Window window = SettingService.IsInitialize ? GetService<OobeWindow>() : GetService<MainWindow>();
-            desktop.MainWindow = window;
 
+            desktop.MainWindow = window;
             window.DataContext = SettingService.IsInitialize ? GetService<OobeWindowViewModel>() : GetService<MainWindowViewModel>();
+
             desktop.Exit += async (sender, args) => await _host.StopAsync();
+            desktop.ShutdownRequested += async (sender, args) =>
+            await _host.StopAsync();
         }
 
         base.OnFrameworkInitializationCompleted();

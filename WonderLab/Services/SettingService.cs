@@ -125,13 +125,11 @@ internal sealed class SettingBackgroundService : BackgroundService {
         if (SettingService.IsInitialize) {
             _languageService.SetLanguage(0);
             _themeService.SetCurrentTheme(3);
-            _windowService.SetBackground(0);
             return;
         }
 
         _themeService.SetCurrentTheme(_settingData.ThemeIndex);
         _languageService.SetLanguage(_settingData.LanguageIndex);
-        _windowService.SetBackground(_settingData.BackgroundIndex);
     }
 
     public override Task StopAsync(CancellationToken cancellationToken) {

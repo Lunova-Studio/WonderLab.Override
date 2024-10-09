@@ -27,34 +27,30 @@ public sealed class WindowService {
     private Action<PointerEventArgs> _pointerMovedAction;
     private Action<PointerEventArgs> _pointerExitedAction;
 
-    private static Window _mainWindow;
+    public Window MainWindow { get; }
 
     private readonly WrapService _wrapService;
     private readonly SettingService _settingService;
     private readonly ILogger<WindowService> _logger;
 
-    public bool IsLoaded => _mainWindow.IsLoaded;
-    public double ActualWidth => _mainWindow.Bounds.Width;
-    public double ActualHeight => _mainWindow.Bounds.Height;
+    public bool IsLoaded => MainWindow.IsLoaded;
+    public double ActualWidth => MainWindow.Bounds.Width;
+    public double ActualHeight => MainWindow.Bounds.Height;
 
     public WindowService(SettingService settingService, WrapService wrapService, ILogger<WindowService> logger) {
         _logger = logger;
         _wrapService = wrapService;
         _settingService = settingService;
 
-        _mainWindow = SettingService.IsInitialize
+        MainWindow = SettingService.IsInitialize
             ? App.ServiceProvider.GetService<OobeWindow>()
             : App.ServiceProvider.GetService<MainWindow>();
 
-        _mainWindow.ActualThemeVariantChanged += (_, args) => {
-            if (_mainWindow.TransparencyLevelHint.Any(x => x == WindowTransparencyLevel.AcrylicBlur)) {
-                SetBackground(1);
+        MainWindow.ActualThemeVariantChanged += (_, args) => {
+            if (MainWindow.TransparencyLevelHint.Any(x => x == WindowTransparencyLevel.AcrylicBlur)) {
+                //SetBackground(1);
             }
         };
-    }
-
-    public static void ChangeToOobe() {
-        _mainWindow = App.ServiceProvider.GetService<OobeWindow>();
     }
 
     public void Close() {
@@ -62,79 +58,23 @@ public sealed class WindowService {
             _wrapService.Close();
         }
 
-        _mainWindow.Close();
+        MainWindow.Close();
     }
 
     public async void CopyText(string text) {
-        await _mainWindow.Clipboard.SetTextAsync(text);
-    }
-
-    public async void SetBackground(int type) {
-        if (Design.IsDesignMode) {
-            return;
-        }
-
-        var main = _mainWindow as MainWindow;
-        if (main is null) {
-            return;
-        }
-
-        main.Background = Brushes.Transparent;
-        main.AcrylicMaterial.IsVisible = false;
-        main.imageBox.IsVisible = false;
-
-        switch (type) {
-            case 0:
-                main.TransparencyLevelHint = [WindowTransparencyLevel.Mica];
-                break;
-            case 1:
-                main.AcrylicMaterial.IsVisible = true;
-                main.TransparencyLevelHint = [WindowTransparencyLevel.AcrylicBlur];
-                var tintColor = main.ActualThemeVariant == ThemeVariant.Dark ? Colors.Black : Colors.White;
-
-                main.AcrylicMaterial.Material = new() {
-                    TintOpacity = 0.5d,
-                    TintColor = tintColor,
-                    MaterialOpacity = 0.4d,
-                    BackgroundSource = AcrylicBackgroundSource.Digger
-                };
-                break;
-            case 2:
-                main.imageBox.IsVisible = true;
-                string path = _settingService.Data.ImagePath;
-                if (string.IsNullOrEmpty(path)) {
-                    _dialogService = App.ServiceProvider.GetService<DialogService>();
-
-                    var result = await Task.Run(async () => await _dialogService.OpenFilePickerAsync([
-                        new FilePickerFileType("图像文件") { Patterns = new List<string>() { "*.png", "*.jpg", "*.jpeg", "*.tif", "*.tiff" } }
-                    ], "打开文件"));
-
-                    if (result is null) {
-                        return;
-                    }
-
-                    path = result.FullName;
-                }
-
-                var mainVM = (main.DataContext as MainWindowViewModel);
-                mainVM.ImagePath = path;
-                mainVM.BlurRadius = _settingService.Data.BlurRadius;
-                mainVM.IsEnableBlur = _settingService.Data.IsEnableBlur;
-                _settingService.Data.ImagePath = path;
-                break;
-        }
+        await MainWindow.Clipboard.SetTextAsync(text);
     }
 
     public void SetWindowState(WindowState state) {
-        _mainWindow.WindowState = state;
+        MainWindow.WindowState = state;
     }
 
     public void BeginMoveDrag(PointerPressedEventArgs args) {
-        _mainWindow.BeginMoveDrag(args);
+        MainWindow.BeginMoveDrag(args);
     }
 
     public void HandlePropertyChanged(AvaloniaProperty property, Action action) {
-        _mainWindow.PropertyChanged += (_, args) => {
+        MainWindow.PropertyChanged += (_, args) => {
             if (args.Property == property) {
                 action?.Invoke();
             }
@@ -143,24 +83,24 @@ public sealed class WindowService {
 
     public void RegisterPointerMoved(Action<PointerEventArgs> action) {
         _pointerMovedAction = action;
-        _mainWindow.PointerMoved += OnPointerMoved;
+        MainWindow.PointerMoved += OnPointerMoved;
     }
 
     public void RegisterPointerExited(Action<PointerEventArgs> action) {
         _pointerExitedAction = action;
-        _mainWindow.PointerExited += OnPointerExited;
+        MainWindow.PointerExited += OnPointerExited;
     }
 
     public void UnregisterPointerMoved() {
-        _mainWindow.PointerMoved -= OnPointerMoved;
+        MainWindow.PointerMoved -= OnPointerMoved;
     }
 
     public void UnregisterPointerExited() {
-        _mainWindow.PointerExited -= OnPointerExited;
+        MainWindow.PointerExited -= OnPointerExited;
     }
 
     public IStorageProvider GetStorageProvider() {
-        return _mainWindow.StorageProvider;
+        return MainWindow.StorageProvider;
     }
 
     private void OnPointerMoved(object sender, PointerEventArgs e) {

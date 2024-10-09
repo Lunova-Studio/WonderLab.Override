@@ -1,25 +1,19 @@
 ﻿using Avalonia.Controls;
-using Avalonia.Input;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using WonderLab.Classes.Datas.MessageData;
 using WonderLab.Classes.Datas.ViewData;
 using WonderLab.Classes.Enums;
 using WonderLab.Classes.Interfaces;
-using WonderLab.Extensions;
 using WonderLab.Services;
 using WonderLab.Services.Game;
 using WonderLab.Services.Navigation;
 using WonderLab.Services.UI;
-using WonderLab.ViewModels.Dialogs;
 using WonderLab.ViewModels.Pages;
 using WonderLab.ViewModels.Pages.Navigation;
-using WonderLab.Views.Controls;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WonderLab.ViewModels.Windows;
 
@@ -48,8 +42,8 @@ public sealed partial class MainWindowViewModel : ViewModelBase {
     [ObservableProperty] private bool _isOpenTaskListPanel;
     [ObservableProperty] private bool _isOpenBackgroundPanel;
 
-    [ObservableProperty] private ReadOnlyObservableCollection<GameViewData> _gameEntries;
     [ObservableProperty] private ReadOnlyObservableCollection<TaskViewData> _tasks;
+    [ObservableProperty] private ReadOnlyObservableCollection<GameViewData> _gameEntries;
     [ObservableProperty] private ReadOnlyObservableCollection<INotification> _notifications;
 
     [ObservableProperty] private Control _homePage;
@@ -70,10 +64,26 @@ public sealed partial class MainWindowViewModel : ViewModelBase {
         _notificationService = notificationService;
         _weakReferenceMessenger = weakReferenceMessenger;
 
-        weakReferenceMessenger.Register<BlurEnableMessage>(this, BlurEnableValueHandle);
-        weakReferenceMessenger.Register<BlurRadiusChangeMessage>(this, BlurRadiusChangeHandle);
-        weakReferenceMessenger.Register<AlignCenterChangeMessage>(this, AlignCenterChangeHandle);
-        weakReferenceMessenger.Register<ParallaxModeChangeMessage>(this, ParallaxModeChangeHandle);
+        weakReferenceMessenger.Register<BlurEnableMessage>(this, (_, arg) => {
+            IsEnableBlur = arg.IsEnableBlur;
+        });
+
+        weakReferenceMessenger.Register<BlurRadiusChangeMessage>(this, (_, arg) => {
+            BlurRadius = arg.BlurRadius;
+        });
+
+        weakReferenceMessenger.Register<AlignCenterChangeMessage>(this, (_, arg) => {
+            IsAlignCenter = arg.IsAlignCenter;
+        });
+
+        weakReferenceMessenger.Register<ParallaxModeChangeMessage>(this, (_, arg) => {
+            ParallaxMode = arg.ParallaxMode switch {
+                0 => ParallaxMode.None,
+                1 => ParallaxMode.Flat,
+                2 => ParallaxMode.Solid,
+                _ => ParallaxMode.None
+            };
+        });
 
         weakReferenceMessenger.Register<SettingDataChangedMessage>(this, (_, _) => {
             _gameService = App.GetService<GameService>();
@@ -116,27 +126,6 @@ public sealed partial class MainWindowViewModel : ViewModelBase {
         }
     }
 
-    private void BlurEnableValueHandle(object obj, BlurEnableMessage blurEnable) {
-        IsEnableBlur = blurEnable.IsEnableBlur;
-    }
-
-    private void AlignCenterChangeHandle(object obj, AlignCenterChangeMessage alignCenter) {
-        IsAlignCenter = alignCenter.IsAlignCenter;
-    }
-
-    private void BlurRadiusChangeHandle(object obj, BlurRadiusChangeMessage blurRadiusChange) {
-        BlurRadius = blurRadiusChange.BlurRadius;
-    }
-
-    private void ParallaxModeChangeHandle(object obj, ParallaxModeChangeMessage parallaxModeChange) {
-        ParallaxMode = parallaxModeChange.ParallaxMode switch {
-            0 => ParallaxMode.None,
-            1 => ParallaxMode.Flat,
-            2 => ParallaxMode.Solid,
-            _ => ParallaxMode.None
-        };
-    }
-
     public void OnLoaded() {
         Tasks = new(_taskService.DisplayTasks);
         Notifications = new(_notificationService.Notifications);
@@ -150,25 +139,7 @@ public sealed partial class MainWindowViewModel : ViewModelBase {
         };
 
         HomePage = _navigationService.NavigationToHome();
-
         GameEntries = _gameService.GameEntries;
-    }
-
-    public void OnDrop(object sender, DragEventArgs args) {
-        if (args.Data.GetDataFormats().Contains(DragDropSelector.DEFAULT_DRAG_DATAFORMAT)) {
-            return;
-        }
-
-        var file = args.Data.GetFiles().First();
-        _dialogService.ShowContentDialog<FileDropDialogViewModel>(file);
-    }
-
-    public void OnDragEnter(object sender, DragEventArgs args) {
-        _dialogService.ShowContentDialog<FileDropDialogViewModel>();
-    }
-
-    public void OnDragLeave(object sender, DragEventArgs args) {
-        _dialogService.CloseContentDialog();
     }
 
     protected override void OnPropertyChanged(PropertyChangedEventArgs e) {
@@ -176,7 +147,6 @@ public sealed partial class MainWindowViewModel : ViewModelBase {
 
         if (e.PropertyName is nameof(ActiveGameEntry)) {
             _gameService.ActivateGameViewEntry(ActiveGameEntry);
-            _weakReferenceMessenger.Send(new ActiveGameEntryMessage(ActiveGameEntry));
         }
     }
 }

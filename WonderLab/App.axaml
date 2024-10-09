@@ -32,6 +32,14 @@
 
 	<Application.Resources>
 		<ResourceDictionary>
+			<LinearGradientBrush x:Key="ColourBackground" StartPoint="10% 100%" EndPoint="90% 0%">
+				<LinearGradientBrush.GradientStops>
+					<GradientStop Color="#FFB1CFD5" Offset="-0.1"/>
+					<GradientStop Color="#FFCBE1F8" Offset="0.4"/>
+					<GradientStop Color="#FFC0C5DD" Offset="1.1"/>
+				</LinearGradientBrush.GradientStops>
+			</LinearGradientBrush>
+			
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceInclude Source="/Views/Controls/Themes/ColorTheme.axaml"/>
 				<ResourceInclude Source="/Views/Controls/Themes/Controls/FrameTheme.axaml"/>
