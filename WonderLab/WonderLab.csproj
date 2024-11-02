@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
+		<Version>2.0.1</Version>
 		<Nullable>disable</Nullable>
 		<LangVersion>latest</LangVersion>
-		<Version>2.4.0<Version/>
 		<TargetFramework>net8.0</TargetFramework>
 		<AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
 	</PropertyGroup>

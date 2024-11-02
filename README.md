@@ -4,7 +4,7 @@
 
 <div align="center">
 
-# WonderLab.Remake
+# WonderLab.Override
 
 真正的下一代跨平台 Minecraft 启动器
 

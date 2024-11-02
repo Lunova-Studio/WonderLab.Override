@@ -4,7 +4,7 @@
 
 <div align="center">
 
-# WonderLab.Remake
+# WonderLab.Override
 
 The true NEXT generation cross-platform Minecraft launcher
 
