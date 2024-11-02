@@ -59,7 +59,6 @@ jobs:
         shell: powershell
         working-directory: ./
         run: |
-          python ./.build/add_commit_sha.py ${{ github.sha }}
           ./.build/build_windows.ps1
 
       - name: Upload x64 build artifacts
@@ -101,7 +100,6 @@ jobs:
       uses: Blessing-Studio/get-csproj-version@main
       with:
         file: WonderLab/WonderLab.csproj
-    - run: python ./.build/add_commit_sha.py ${{ github.sha }}
     - name: Build
       run: pupnet --runtime linux-${{ matrix.arch }} --kind appimage -y -o WonderLab.${{ steps.package_version.outputs.version }}.linux-${{ matrix.arch }}.AppImage
     - name: Upload build artifacts
@@ -132,7 +130,6 @@ jobs:
         working-directory: ./
         run: |
           chmod a+x ./.build/build_osx.sh
-          python ./.build/add_commit_sha.py ${{ github.sha }}
           ./.build/build_osx.sh
 
       - name: Upload x64 build artifacts
