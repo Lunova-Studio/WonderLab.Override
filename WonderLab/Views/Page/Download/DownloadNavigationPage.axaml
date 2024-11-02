@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:i="using:Avalonia.Xaml.Interactivity"
+			 xmlns:w="using:WonderLab"
+			 xmlns:wb="using:WonderLab.Controls.Media.Behaviors"
+			 x:Class="WonderLab.Views.Page.Download.DownloadNavigationPage">
+	<Border CornerRadius="12"
+			ClipToBounds="True"
+			BorderThickness="1.5"
+			Background="{DynamicResource ContentBrush2}"
+			BorderBrush="{DynamicResource ContentBrush4}">
+		<Grid RowDefinitions="Auto, 1*">
+			<ListBox Classes="SelectorBar">
+				<ListBoxItem Tag="&#xE719;"
+							 Foreground="{DynamicResource NormalAccentBrush}"
+							 Content="{I18N {x:Static w:LanguageKeys.Main_Home}}"/>
+
+				<ListBoxItem Tag="&#xF133;"
+							 Foreground="{DynamicResource NormalAccentBrush}"
+							 Content="{I18N {x:Static w:LanguageKeys.Main_Download}}"/>
+			</ListBox>
+		</Grid>
+	</Border>
+</UserControl>

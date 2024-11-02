@@ -1,0 +1,70 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:i="using:Avalonia.Xaml.Interactivity"
+			 xmlns:w="using:WonderLab"
+			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:wb="using:WonderLab.Controls.Media.Behaviors"
+			 xmlns:wt="using:WonderLab.Controls.Media.Transitions"
+			 xmlns:wa="using:WonderLab.Controls.Media.Attachments"
+			 x:Class="WonderLab.Views.Page.Setting.SettingNavigationPage">
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Loaded">
+			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
+	
+	<Border CornerRadius="12"
+			ClipToBounds="True"
+			BorderThickness="1.5"
+			Background="{DynamicResource ContentBrush2}"
+			BorderBrush="{DynamicResource ContentBrush4}">
+		<Grid ColumnDefinitions="Auto, 1*">
+			<ListBox Width="155"
+					 Padding="4 10"
+					 Classes="sidebar"
+					 CornerRadius="12 0 0 12"
+					 BorderThickness="0 0 1 0"
+					 SelectedIndex="{Binding ActivePageIndex}"
+					 BorderBrush="{DynamicResource ContentBrush4}">
+				<Interaction.Behaviors>
+					<EventTriggerBehavior EventName="SelectionChanged" >
+						<InvokeCommandAction Command="{Binding ChangeActivePageCommand}"/>
+					</EventTriggerBehavior>
+				</Interaction.Behaviors>
+
+				<ListBoxItem Tag="&#xE945;"
+							 Foreground="{DynamicResource NormalAccentBrush}"
+							 Content="{I18N {x:Static w:LanguageKeys.Nav_Settings_Launch}}"/>
+
+				<ListBoxItem Tag="&#xE716;"
+							 Foreground="{DynamicResource NormalAccentBrush}"
+							 Content="{I18N {x:Static w:LanguageKeys.Nav_Settings_Account}}"/>
+
+				<ListBoxItem Tag="&#xE701;"
+							 Foreground="{DynamicResource NormalAccentBrush}"
+							 Content="{I18N {x:Static w:LanguageKeys.Nav_Settings_Network}}"/>
+
+				<ListBoxItem Tag="&#xE790;"
+							 Foreground="{DynamicResource NormalAccentBrush}"
+							 Content="{I18N {x:Static w:LanguageKeys.Nav_Settings_Appearance}}"/>
+
+				<ListBoxItem Tag="&#xE736;"
+							 Foreground="{DynamicResource NormalAccentBrush}"
+							 Content="{I18N {x:Static w:LanguageKeys.Nav_Settings_About}}"/>
+			</ListBox>
+
+			<wc:Frame Margin="36 0"
+					  Grid.Column="1"
+					  PageKey="{Binding ActivePageKey}"
+					  PageProvider="{Binding PageProvider}">
+				<wc:Frame.PageTransition>
+					<wt:EntrancePageTransition Duration="0:0:0.5"
+											   Easing="ExponentialEaseInOut"/>
+				</wc:Frame.PageTransition>
+			</wc:Frame>
+		</Grid>
+	</Border>
+</UserControl>

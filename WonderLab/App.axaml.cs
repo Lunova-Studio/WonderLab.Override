@@ -1,230 +1,145 @@
 ﻿using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using Avalonia.Threading;
-using CommunityToolkit.Mvvm.Messaging;
-using Microsoft.ApplicationInsights.Extensibility;
+using Avalonia.Markup.Xaml.MarkupExtensions;
+using Avalonia.Media;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using MinecraftLaunch.Components.Fetcher;
 using Serilog;
 using System;
 using System.IO;
-using WonderLab.Classes;
+using WonderLab.Extensions;
+using WonderLab.Extensions.Hosting;
 using WonderLab.Services;
-using WonderLab.Services.Auxiliary;
-using WonderLab.Services.Download;
-using WonderLab.Services.Game;
-using WonderLab.Services.Navigation;
+using WonderLab.Services.Launch;
 using WonderLab.Services.UI;
-using WonderLab.Services.Wrap;
-using WonderLab.ViewModels.Dialogs;
-using WonderLab.ViewModels.Dialogs.Download;
-using WonderLab.ViewModels.Dialogs.Multiplayer;
-using WonderLab.ViewModels.Dialogs.Setting;
-using WonderLab.ViewModels.Pages;
-using WonderLab.ViewModels.Pages.Download;
-using WonderLab.ViewModels.Pages.Navigation;
-using WonderLab.ViewModels.Pages.Oobe;
-using WonderLab.ViewModels.Pages.Setting;
-using WonderLab.ViewModels.Windows;
-using WonderLab.Views.Dialogs;
-using WonderLab.Views.Dialogs.Multiplayer;
-using WonderLab.Views.Dialogs.Setting;
-using WonderLab.Views.Pages;
-using WonderLab.Views.Pages.Download;
-using WonderLab.Views.Pages.Navigation;
-using WonderLab.Views.Pages.Oobe;
-using WonderLab.Views.Pages.Setting;
-using WonderLab.Views.Windows;
+using WonderLab.ViewModels.Page;
+using WonderLab.ViewModels.Page.Download;
+using WonderLab.ViewModels.Page.Setting;
+using WonderLab.ViewModels.Window;
+using WonderLab.Views.Page;
+using WonderLab.Views.Page.Download;
+using WonderLab.Views.Page.Setting;
 
 namespace WonderLab;
 
 public sealed partial class App : Application {
-    private const string CONNECTION_STRING = "InstrumentationKey=2fd6d1c2-c40c-4a49-87bf-6883f625a901;IngestionEndpoint=https://australiaeast-1.in.applicationinsights.azure.com/;LiveEndpoint=https://australiaeast.livediagnostics.monitor.azure.com/;ApplicationId=bb052d56-b930-4bcd-94dc-97fe2b6111f4";
+    private const string LOG_OUTPUT_TEMPLATE = "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz}] ({SourceContext}): {Message:lj}{NewLine}{Exception}";
 
-    private static IHost _host = default!;
-    public static IServiceProvider ServiceProvider => _host.Services;
+    public static IServiceProvider ServiceProvider { get; private set; }
 
-    public static T GetService<T>() => ServiceProvider.GetRequiredService<T>();
+    public static TKey Get<TKey>() {
+        return ServiceProvider.GetRequiredService<TKey>();
+    }
+
+    public override void Initialize() {
+        AvaloniaXamlLoader.Load(this);
+    }
 
     public override void RegisterServices() {
         base.RegisterServices();
 
-        var bulider = CreateHostBuilder();
-        _host = bulider.Build();
-        _host.Start();
+        _ = ConfigureIoC(out var host).RunAsync();
+        ServiceProvider = host.Services;
     }
 
     public override void OnFrameworkInitializationCompleted() {
         BindingPlugins.DataValidators.RemoveAt(0);
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
-            Window window = SettingService.IsInitialize ? GetService<OobeWindow>() : GetService<MainWindow>();
+            desktop.Exit += OnExit;
+            desktop.Startup += OnStartup;
 
-            desktop.MainWindow = window;
-            window.DataContext = SettingService.IsInitialize ? GetService<OobeWindowViewModel>() : GetService<MainWindowViewModel>();
-
-            desktop.Exit += async (sender, args) => await _host.StopAsync();
-            desktop.ShutdownRequested += async (sender, args) =>
-            await _host.StopAsync();
+            desktop.MainWindow = Get<MainWindow>();
+            desktop.MainWindow.DataContext = Get<MainWindowViewModel>();
         }
 
+        AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
         base.OnFrameworkInitializationCompleted();
     }
 
-    private static IHostBuilder CreateHostBuilder() {
-        var builder = Host.CreateDefaultBuilder()
-            //.ConfigureServices(ConfigureApplicationInsights)
-            .ConfigureServices(ConfigureServices)
-            .ConfigureServices(ConfigureView)
-            .ConfigureServices(services => {
-                services.AddSingleton<JavaFetcher>();
-                services.AddSingleton<WeakReferenceMessenger>();
-                services.AddSingleton<ITelemetryInitializer, TelemetryInitializer>();
-                services.AddSingleton(_ => Dispatcher.UIThread);
-            })
-            .ConfigureLogging(builder => {
-                builder.ClearProviders();
-                Log.Logger = new LoggerConfiguration()
-                .Enrich
-                .FromLogContext()
-                //.WriteTo.ApplicationInsights(new TelemetryConfiguration() {
-                //    ConnectionString = CONNECTION_STRING,
-                //}, TelemetryConverter.Traces)
-                .WriteTo.File(Path.Combine("logs", $"WonderLog.log"),
-                rollingInterval: RollingInterval.Day,
-                outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz}] ({SourceContext}): {Message:lj}{NewLine}{Exception}")
-                .CreateLogger();
-
-                builder.AddSerilog(Log.Logger);
-            });
-
-        return builder;
+    private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e) {
+        var logger = ServiceProvider.GetRequiredService<ILogger<Application>>();
+        logger.LogError((e.ExceptionObject as Exception).Message);
     }
 
-    private static void ConfigureApplicationInsights(IServiceCollection services) {
-        services.AddApplicationInsightsTelemetryWorkerService(option => {
-            option.ConnectionString = CONNECTION_STRING;
-            option.EnableDebugLogger = false;
-        });
+    private void OnExit(object sender, ControlledApplicationLifetimeExitEventArgs e) {
+        var configService = Get<ConfigService>();
+        configService.Save();
+
+        var logger = Get<ILogger<Application>>();
+        logger.LogInformation("Exiting, exitcode is {exitCode}", e.ApplicationExitCode);
     }
 
-    private static void ConfigureView(IServiceCollection services) {
-        ConfigureViewModel(services);
+    private void OnStartup(object sender, ControlledApplicationLifetimeStartupEventArgs e) {
+        var configService = Get<ConfigService>();
+        configService.Load();
 
-        //Pages
-        services.AddSingleton<HomePage>();
-        services.AddSingleton<MultiplayerPage>();
+        Get<GameService>().Initialize();
 
-        services.AddSingleton<OobeWelcomePage>();
-        services.AddSingleton<OobeAccountPage>();
-        services.AddSingleton<OobeLanguagePage>();
+        //Override AccentColors
+        Current.Resources["NormalAccentBrush"] =
+            configService.Entries.ActiveAccentColor.ToColor().ToBrush();
 
-        services.AddSingleton<SettingNavigationPage>();
-        services.AddSingleton<DownloadNavigationPage>();
+        Current.Resources["DarkAccentBrush1"] =
+            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(-0.15f).ToBrush();
 
-        services.AddSingleton<SearchPage>();
+        Current.Resources["DarkAccentBrush2"] =
+            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(-0.30f).ToBrush();
 
-        services.AddSingleton<AboutPage>();
-        services.AddSingleton<DetailSettingPage>();
-        services.AddSingleton<LaunchSettingPage>();
-        services.AddSingleton<NetworkSettingPage>();
-        services.AddSingleton<AccountSettingPage>();
+        Current.Resources["LightAccentBrush1"] =
+            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(0.15f).ToBrush();
 
-        //Windows
-        services.AddSingleton<MainWindow>();
-        services.AddSingleton<OobeWindow>();
+        Current.Resources["LightAccentBrush2"] =
+            configService.Entries.ActiveAccentColor.ToColor().GetColorAfterLuminance(0.30f).ToBrush();
 
-        //Dialog
-        services.AddTransient<FileDropDialog>();
-        services.AddTransient<GameInstallDialog>();
-        services.AddTransient<AccountDropDialog>();
-        services.AddTransient<TestUserCheckDialog>();
-        services.AddTransient<RecheckToOobeDialog>();
-        services.AddTransient<RefreshAccountDialog>();
-        services.AddTransient<JoinMutilplayerDialog>();
-        services.AddTransient<CreateMutilplayerDialog>();
-        services.AddTransient<ChooseAccountTypeDialog>();
-        services.AddTransient<OfflineAuthenticateDialog>();
-        services.AddTransient<YggdrasilAuthenticateDialog>();
-        services.AddTransient<MicrosoftAuthenticateDialog>();
-        services.AddTransient<JoinMutilplayerRequestDialog>();
+        I18NExtension.Culture = new(configService.Entries.ActiveLanguage);
+
+        var themeService = Get<ThemeService>();
+        themeService.ApplyTheme(configService.Entries.ThemeType);
+        themeService.ApplyWindowEffect(configService.Entries.BackgroundType);
     }
 
-    private static void ConfigureServices(IServiceCollection services) {
-        services.AddTransient<BackendService>();
-        services.AddTransient<DownloadService>();
+    private static IHost ConfigureIoC(out IHost host) {
+        var builder = new AvaloniaHostBuilder();
 
-        services.AddSingleton<GameService>();
-        services.AddSingleton<TaskService>();
-        services.AddSingleton<WrapService>();
-        services.AddSingleton<SkinService>();
-        services.AddSingleton<UPnPService>();
-        services.AddSingleton<ThemeService>();
-        services.AddSingleton<LaunchService>();
-        services.AddSingleton<UpdateService>();
-        services.AddSingleton<DialogService>();
-        services.AddSingleton<WindowService>();
-        services.AddSingleton<SettingService>();
-        services.AddSingleton<AccountService>();
-        services.AddSingleton<LanguageService>();
-        services.AddSingleton<GameNewsService>();
-        services.AddSingleton<MinecraftListPage>();
-        services.AddSingleton<NotificationService>();
-        services.AddSingleton<OobeNavigationService>();
-        services.AddSingleton<HostNavigationService>();
-        services.AddSingleton<SettingNavigationService>();
-        services.AddSingleton<DownloadNavigationService>();
+        //Configure Service
+        builder.Services.AddSingleton<TaskService>();
+        builder.Services.AddSingleton<GameService>();
+        builder.Services.AddSingleton<ThemeService>();
+        builder.Services.AddSingleton<ConfigService>();
 
-        services.AddHostedService<SettingBackgroundService>();
+        //Configure Window
+        builder.Services.AddSingleton<MainWindow>();
+        builder.Services.AddSingleton<MainWindowViewModel>();
 
-        //services.AddScoped<TelemetryService>();
-    }
+        //Configure Page
+        var page = builder.PageProvider;
+        page.AddPage<HomePage, HomePageViewModel>("Home");
+        page.AddPage<GamePage, GamePageViewModel>("Game");
+        page.AddPage<TaskListPage, TaskListPageViewModel>("TaskList");
+        page.AddPage<MultiplayerPage, MultiplayerPageViewModel>("Multiplayer");
 
-    private static void ConfigureViewModel(IServiceCollection services) {
-        services.AddTransient<HomePageViewModel>();
-        services.AddSingleton<MultiplayerPageViewModel>();
+        //Setting
+        page.AddPage<SettingNavigationPage, SettingNavigationPageViewModel>("Setting/Navigation");
+        page.AddPage<LaunchPage, LaunchPageViewModel>("Setting/Launch");
+        page.AddPage<AccountPage, AccountPageViewModel>("Setting/Account");
+        page.AddPage<NetworkPage, NetworkPageViewModel>("Setting/Network");
+        page.AddPage<AppearancePage, AppearancePageViewModel>("Setting/Appearance");
+        page.AddPage<AboutPage, AboutPageViewModel>("Setting/About");
 
-        //Window
-        services.AddSingleton<MainWindowViewModel>();
-        services.AddSingleton<OobeWindowViewModel>();
+        //Download
+        page.AddPage<DownloadNavigationPage, DownloadNavigationPageViewModel>("Download/Navigation");
 
-        //Oobe Page
-        services.AddSingleton<OobeWelcomePageViewModel>();
-        services.AddSingleton<OobeAccountPageViewModel>();
-        services.AddSingleton<OobeLanguagePageViewModel>();
+        //Configure Logging
+        Log.Logger = new LoggerConfiguration().WriteTo
+            .Console(outputTemplate: LOG_OUTPUT_TEMPLATE).WriteTo
+            .File(Path.Combine("logs", $"WonderLog.log"), rollingInterval: RollingInterval.Day, outputTemplate: LOG_OUTPUT_TEMPLATE)
+            .CreateLogger();
 
-        //Navigation Page
-        services.AddSingleton<SettingNavigationPageViewModel>();
-        services.AddSingleton<DownloadNavigationPageViewModel>();
-
-        //Download Page
-        services.AddSingleton<SearchPageViewModel>();
-        services.AddSingleton<MinecraftListPageViewModel>();
-
-        //Setting Page
-        services.AddSingleton<AboutPageViewModel>();
-        services.AddSingleton<DetailSettingPageViewModel>();
-        services.AddSingleton<LaunchSettingPageViewModel>();
-        services.AddSingleton<AccountSettingPageViewModel>();
-        services.AddSingleton<NetworkSettingPageViewModel>();
-
-        //Dialog
-        services.AddTransient<FileDropDialogViewModel>();
-        services.AddTransient<GameInstallDialogViewModel>();
-        services.AddTransient<AccountDropDialogViewModel>();
-        services.AddTransient<TestUserCheckDialogViewModel>();
-        services.AddTransient<RecheckToOobeDialogViewModel>();
-        services.AddTransient<RefreshAccountDialogViewModel>();
-        services.AddTransient<JoinMutilplayerDialogViewModel>();
-        services.AddTransient<CreateMutilplayerDialogViewModel>();
-        services.AddTransient<ChooseAccountTypeDialogViewModel>();
-        services.AddTransient<OfflineAuthenticateDialogViewModel>();
-        services.AddTransient<YggdrasilAuthenticateDialogViewModel>();
-        services.AddTransient<MicrosoftAuthenticateDialogViewModel>();
-        services.AddTransient<JoinMutilplayerRequestDialogViewModel>();
+        builder.Logging.AddSerilog(Log.Logger);
+        return host = builder.Build();
     }
 }

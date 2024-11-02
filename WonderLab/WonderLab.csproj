@@ -1,14 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<Branch>lsaac</Branch>
-		<Version>2.0.1</Version>
 		<Nullable>disable</Nullable>
 		<LangVersion>latest</LangVersion>
+		<Version>2.4.0<Version/>
 		<TargetFramework>net8.0</TargetFramework>
-		<NoWarn>CS1701;CS1702;VSTHRD110;VSTHRD002;VSTHRD101;VSTHRD100</NoWarn>
-
-		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+		<AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -16,122 +12,80 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<AvaloniaResource Remove="Assets\Fonts\DinPro.ttf" />
-		<AvaloniaResource Remove="Assets\Fonts\SegoeFluentIcons.ttf" />
-		<AvaloniaResource Remove="Assets\Images\Icons\old_minecraft.png" />
-		<AvaloniaResource Remove="Assets\Images\Icons\release_minecraft.png" />
-		<AvaloniaResource Remove="Assets\Images\Icons\snapshot_minecraft.png" />
-		<AvaloniaResource Remove="Assets\Images\steve.png" />
-		<AvaloniaResource Remove="Assets\Languages\en-US.axaml" />
-		<AvaloniaResource Remove="Assets\Languages\ja-JP.axaml" />
-		<AvaloniaResource Remove="Assets\Languages\ru-RU.axaml" />
-		<AvaloniaResource Remove="Assets\Languages\zh-CN.axaml" />
-		<AvaloniaResource Remove="Assets\Languages\zh-TW.axaml" />
-		<AvaloniaResource Remove="Assets\mods.json" />
-		<AvaloniaResource Remove="Assets\WonderLab.Backend" />
+	  <AvaloniaResource Remove="Assets\Font\DinPro.ttf" />
+	  <AvaloniaResource Remove="Assets\Font\SegoeFluentIcons.ttf" />
+	  <AvaloniaResource Remove="Assets\Image\Icon\loader_minecraft.png" />
+	  <AvaloniaResource Remove="Assets\Image\Icon\old_minecraft.png" />
+	  <AvaloniaResource Remove="Assets\Image\Icon\release_minecraft.png" />
+	  <AvaloniaResource Remove="Assets\Image\Icon\snapshot_minecraft.png" />
+	  <AvaloniaResource Remove="Assets\Language\Languages.Designer.cs" />
+	  <AvaloniaResource Remove="Assets\Language\Languages.resx" />
+	  <AvaloniaResource Remove="Assets\Language\Languages.zh-Hans.resx" />
+	  <AvaloniaResource Remove="Assets\Language\Languages.zh-Hant.resx" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Remove="Assets\Fonts\DinPro.ttf" />
-		<None Remove="Assets\Images\Icons\old_minecraft.png" />
-		<None Remove="Assets\Images\Icons\release_minecraft.png" />
-		<None Remove="Assets\Images\Icons\snapshot_minecraft.png" />
-		<None Remove="Assets\Images\steve.png" />
-		<None Remove="Assets\mods.json" />
-		<None Remove="Assets\WonderLab.Backend" />
-		<None Remove="Views\Controls\Themes\Controls\t1o4uer3.0ax~" />
+	  <None Remove="Assets\Font\DinPro.ttf" />
+	  <None Remove="Assets\Font\SegoeFluentIcons.ttf" />
+	  <None Remove="Assets\Image\Icon\loader_minecraft.png" />
+	  <None Remove="Assets\Image\Icon\old_minecraft.png" />
+	  <None Remove="Assets\Image\Icon\release_minecraft.png" />
+	  <None Remove="Assets\Image\Icon\snapshot_minecraft.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="Assets\Fonts\DinPro.ttf" />
-		<EmbeddedResource Include="Assets\Fonts\SegoeFluentIcons.ttf" />
-		<EmbeddedResource Include="Assets\Images\Icons\old_minecraft.png" />
-		<EmbeddedResource Include="Assets\Images\Icons\release_minecraft.png" />
-		<EmbeddedResource Include="Assets\Images\Icons\snapshot_minecraft.png" />
-		<EmbeddedResource Include="Assets\Images\steve.png" />
-		<EmbeddedResource Include="Assets\mods.json" />
-		<EmbeddedResource Include="Assets\WonderLab.Backend" />
+	  <EmbeddedResource Include="Assets\Font\DinPro.ttf" />
+	  <EmbeddedResource Include="Assets\Font\SegoeFluentIcons.ttf" />
+	  <EmbeddedResource Include="Assets\Image\Icon\loader_minecraft.png" />
+	  <EmbeddedResource Include="Assets\Image\Icon\old_minecraft.png" />
+	  <EmbeddedResource Include="Assets\Image\Icon\release_minecraft.png" />
+	  <EmbeddedResource Include="Assets\Image\Icon\snapshot_minecraft.png" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AsyncImageLoader.Avalonia" Version="3.3.0" />
+		<PackageReference Include="Antelcat.I18N.Avalonia" Version="1.0.3" />
 		<PackageReference Include="Avalonia" Version="11.1.3" />
 		<PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.1.0" />
 		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.1.3" />
-		
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
-		
-		<PackageReference Include="DialogHost.Avalonia" Version="0.7.7" />
-		
-		<PackageReference Include="Microsoft.ApplicationInsights.WorkerService" Version="2.22.0" />
-		
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.0-preview.2.24128.5" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="9.0.0-preview.2.24128.5" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
 
-		<PackageReference Include="Serilog" Version="3.1.1" />
-		<PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="4.0.1-dev-00043" />
-		<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-		<PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
-
-		<PackageReference Include="MinecraftLaunch.Skin" Version="1.0.1" />
-		
-		<PackageReference Include="SixLabors.ImageSharp.Drawing" Version="2.1.3" />
 		<PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.1.3" />
+		<PackageReference Include="DialogHost.Avalonia" Version="0.8.1" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.1" />
+		<PackageReference Include="MinecraftLaunch.Skin" Version="1.0.1" />
+		<PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+		<PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
+		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<AvaloniaXaml Update="Assets\Languages\en-US.axaml">
-			<SubType>Designer</SubType>
-		</AvaloniaXaml>
+		<Folder Include="Views\DialogContent\" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<AvaloniaXaml Update="Assets\Languages\zh-CN.axaml">
-			<SubType>Designer</SubType>
-		</AvaloniaXaml>
+	  <ProjectReference Include="..\WonderLab.Infrastructure\WonderLab.Infrastructure.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Update="Views\Dialogs\Multiplayer\CreateMutilplayerDialog.axaml.cs">
-		  <DependentUpon>CreateMutilplayerDialog.axaml</DependentUpon>
-		</Compile>
-		<Compile Update="Views\Dialogs\Setting\ChooseAccountTypeDialog.axaml.cs">
-			<DependentUpon>ChooseAccountTypeDialog.axaml</DependentUpon>
-		</Compile>
+	  <Compile Update="Assets\Language\Languages.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Languages.resx</DependentUpon>
+	  </Compile>
+	  <EmbeddedResource Update="Assets\Language\Languages.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Languages.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
-		<UpToDateCheckInput Remove="Views\Windows\OobeWindow.axaml" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<AvaloniaXaml Update="Assets\Languages\ru-RU.axaml">
-			<SubType>Designer</SubType>
-		</AvaloniaXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-		<AvaloniaXaml Update="Assets\Languages\zh-TW.axaml">
-			<SubType>Designer</SubType>
-		</AvaloniaXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-		<UpToDateCheckInput Remove="Views\Controls\Themes\Controls\ImageBoxTheme.axaml" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\refs\BlessingStudio.Wrap\src\BlessingStudio.Wrap\BlessingStudio.Wrap.csproj" />
-	  <ProjectReference Include="..\refs\MinecraftLaunch\MinecraftLaunch\MinecraftLaunch.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <AvaloniaXaml Update="Assets\Languages\ja-JP.axaml">
-	    <SubType>Designer</SubType>
-	  </AvaloniaXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <UpToDateCheckInput Remove="Views\Pages\Download\MinecraftListPage.axaml" />
+	  <Compile Update="Assets\Language\Languages.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Languages.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Views\Page\Setting\SettingNavigationPage.axaml.cs">
+	    <DependentUpon>SettingNavigationPage.axaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 </Project>

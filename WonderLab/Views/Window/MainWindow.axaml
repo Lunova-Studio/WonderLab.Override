@@ -1,0 +1,81 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		xmlns:w="using:WonderLab"
+		xmlns:wc="using:WonderLab.Controls"
+		xmlns:wb="using:WonderLab.Controls.Media.Behaviors"
+		xmlns:wa="using:WonderLab.Controls.Media.Attachments"
+		x:Class="WonderLab.MainWindow"
+		Classes="wonder"
+		Tag="{Binding BackgroundOpacity, FallbackValue=0}">	
+	<Grid RowDefinitions="1* Auto">
+		<wc:Frame Margin="16 12"
+				  DefaultPageKey="Home"
+				  PageKey="{Binding PageKey}"
+				  PageProvider="{Binding PageProvider}"/>
+		
+		<ListBox Grid.Row="1"
+				 Classes="SelectorBar"
+				 Name="PART_SelectorBar"
+				 SelectedIndex="{Binding ActivePageIndex}">
+			<Interaction.Behaviors>
+				<EventTriggerBehavior EventName="SelectionChanged" >
+					<InvokeCommandAction Command="{Binding ChangeActivePageCommand}"/>
+				</EventTriggerBehavior>
+			</Interaction.Behaviors>
+
+			<ListBox.Tag>
+				<Button Classes="ripple"
+						Margin="0 5 0 5"
+						CornerRadius="10"
+						Padding="10 1 10 1"
+						Background="Transparent"
+						VerticalAlignment="Center"
+						Command="{Binding GoToTaskListCommand}">
+					<Grid ColumnDefinitions="Auto, Auto">
+						<wc:FontIcon Glyph="&#xE7E7;"
+									 FontSize="18"
+									 Grid.Column="1"
+									 Margin="8 0 0 0"
+									 VerticalAlignment="Center"/>
+
+						<Grid Grid.Column="0"
+							  RowDefinitions="Auto, Auto">
+							<TextBlock FontSize="12"
+									   HorizontalAlignment="Right"
+									   Text="{I18N {x:Static w:LanguageKeys.Task_Manager}}"/>
+
+							<TextBlock Grid.Row="1"
+									   FontSize="12"
+									   HorizontalAlignment="Right">
+								<TextBlock.Text>
+									<I18N Key="{x:Static w:LanguageKeys.Task_ActiveInfo}">
+										<Binding Path="Tasks.Count"/>
+									</I18N>
+								</TextBlock.Text>
+							</TextBlock>
+						</Grid>
+					</Grid>
+				</Button>
+			</ListBox.Tag>
+			
+			<ListBoxItem Tag="&#xEA8A;"
+						 Foreground="{DynamicResource NormalAccentBrush}"
+						 Content="{I18N {x:Static w:LanguageKeys.Main_Home}}"/>
+			
+			<ListBoxItem Tag="&#xEDDC;"
+						 Foreground="{DynamicResource NormalAccentBrush}"
+						 Content="{I18N {x:Static w:LanguageKeys.Main_Download}}"/>
+			
+			<ListBoxItem Tag="&#xF0B9;"
+						 Foreground="{DynamicResource NormalAccentBrush}"
+						 Content="{I18N {x:Static w:LanguageKeys.Main_Multiplayer}}"/>
+			
+			<ListBoxItem Tag="&#xF8B0;"
+						 Foreground="{DynamicResource NormalAccentBrush}"
+						 Content="{I18N {x:Static w:LanguageKeys.Main_Settings}}"/>
+		</ListBox>
+	</Grid>
+</Window>

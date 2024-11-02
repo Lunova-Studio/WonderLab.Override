@@ -1,0 +1,79 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wc="using:WonderLab.Controls">
+	<ControlTheme x:Key="{x:Type wc:SettingExpander}" TargetType="wc:SettingExpander">
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Expander IsExpanded="True">
+					<Expander.Header>
+						<Grid Margin="4" ColumnDefinitions="Auto, 1*">
+							<wc:FontIcon FontSize="20"
+										 VerticalAlignment="Center"
+										 HorizontalAlignment="Center"
+										 Glyph="{TemplateBinding Glyph}"/>
+
+							<TextBlock FontSize="14"
+									   Grid.Column="1"
+									   Margin="12 0 0 0"
+									   FontWeight="Regular"
+									   VerticalAlignment="Center"
+									   HorizontalAlignment="Center"
+									   Text="{TemplateBinding Header}"/>
+						</Grid>
+					</Expander.Header>
+
+					<Expander.Content>
+						<ScrollViewer Margin="16 0"
+									  Name="PART_ScrollViewer"
+									  AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+									  VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}"
+									  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+									  HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}"
+									  BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+									  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+									  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}">
+							<ItemsPresenter Name="PART_ItemsPresenter"
+											Margin="{TemplateBinding Padding}"
+											ItemsPanel="{TemplateBinding ItemsPanel}"/>
+						</ScrollViewer>
+					</Expander.Content>
+				</Expander>
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
+
+	<ControlTheme x:Key="{x:Type wc:SettingExpanderItem}" TargetType="wc:SettingExpanderItem">
+		<Setter Property="CornerRadius" Value="0"/>
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<wc:RippleControl RippleOpacity="0.2"
+								  Background="{TemplateBinding Background}"
+								  RippleFill="{DynamicResource DividerBrush}">
+					<Border Background="{TemplateBinding Background}">
+						<Grid RowDefinitions="Auto, Auto">
+							<Grid Margin="5 8"
+								  Name="PART_ContentGrid"
+								  ColumnDefinitions="Auto 15 1*">
+								<TextBlock FontSize="14"
+										   FontWeight="Regular"
+										   VerticalAlignment="Center"
+										   Text="{TemplateBinding Description}"/>
+
+								<ContentPresenter Grid.Column="2"
+												  HorizontalAlignment="Right"
+												  Content="{TemplateBinding Content}"/>
+							</Grid>
+
+							<Separator Margin="0"
+									   Grid.Row="1"
+									   Height="0.6"
+									   HorizontalAlignment="Stretch"
+									   Background="{DynamicResource DividerBrush}"/>
+						</Grid>
+					</Border>
+				</wc:RippleControl>
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
+</ResourceDictionary>

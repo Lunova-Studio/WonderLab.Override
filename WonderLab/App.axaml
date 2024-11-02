@@ -1,89 +1,51 @@
 <Application xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:converter="using:WonderLab.Converters"
-			 xmlns:dha="using:DialogHostAvalonia"
-             x:Class="WonderLab.App"
-             RequestedThemeVariant="Default">
-    <Application.Styles>
-        <FluentTheme/>
-		<dha:DialogHostStyles/>
-		<StyleInclude Source="avares://DialogHost.Avalonia/Styles.xaml"/>
-		<StyleInclude Source="avares://AsyncImageLoader.Avalonia/AdvancedImage.axaml" />
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 x:Class="WonderLab.App"
+			 xmlns:wcc="using:WonderLab.Controls.Media.Converters"
+			 RequestedThemeVariant="Default">
 
-		<Style Selector="dha|DialogHost">
-			<Setter Property="PopupTemplate">
-				<ControlTemplate>
-					<Border Name="PART_ContentBackground"
-							BorderBrush="{Binding Path=(dha:DialogHostStyle.BorderBrush), RelativeSource={RelativeSource FindAncestor, AncestorType=dha:DialogHost}}"
-							BorderThickness="{Binding Path=(dha:DialogHostStyle.BorderThickness), RelativeSource={RelativeSource FindAncestor, AncestorType=dha:DialogHost}}"
-							CornerRadius="{Binding Path=(dha:DialogHostStyle.CornerRadius), RelativeSource={RelativeSource FindAncestor, AncestorType=dha:DialogHost}}"
-							ClipToBounds="{Binding Path=(dha:DialogHostStyle.ClipToBounds), RelativeSource={RelativeSource FindAncestor, AncestorType=dha:DialogHost}}"
-							Background="{Binding Path=Background, RelativeSource={RelativeSource FindAncestor, AncestorType=dha:DialogHost}}">
-						<ContentPresenter Name="PART_ContentPresenter"
-										  Background="{TemplateBinding Background}"
-										  ContentTemplate="{TemplateBinding ContentTemplate}"
-										  Content="{TemplateBinding Content}"
-										  Padding="{TemplateBinding Padding}" />
-					</Border>
-				</ControlTemplate>
-			</Setter>
-		</Style>
+    <Application.Styles>
+        <FluentTheme />
+
+		<StyleInclude Source="/Controls/Style/SideBarStyle.axaml"/>
+		<StyleInclude Source="/Controls/Style/MainWindowStyle.axaml"/>
+		<StyleInclude Source="/Controls/Style/SelectorBarStyle.axaml"/>
+		<StyleInclude Source="avares://DialogHost.Avalonia/Styles.xaml"/>
     </Application.Styles>
 
 	<Application.Resources>
 		<ResourceDictionary>
-			<LinearGradientBrush x:Key="ColourBackground" StartPoint="10% 100%" EndPoint="90% 0%">
-				<LinearGradientBrush.GradientStops>
-					<GradientStop Color="#FFB1CFD5" Offset="-0.1"/>
-					<GradientStop Color="#FFCBE1F8" Offset="0.4"/>
-					<GradientStop Color="#FFC0C5DD" Offset="1.1"/>
-				</LinearGradientBrush.GradientStops>
-			</LinearGradientBrush>
-			
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceInclude Source="/Views/Controls/Themes/ColorTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/FrameTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/ButtonTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/SliderTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/ListBoxTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/TextBoxTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/ComboBoxTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/ExpanderTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/FontIconTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/ImageBoxTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/ImageCardTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/PopupRootTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/SettingCardTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/ListBoxItemTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/ProgressBarTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/PageSwitcherTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/ComboBoxItemTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/ProgressRingTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/SuperTitleBarTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/RippleControlTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/TaskListPanelTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/NavigationViewTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/SettingCardItemTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/AutoCompleteBoxTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/NotificationItemTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/GameManagerPanelTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/DragDropSelectorTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/NavigationViewItemTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/SmoothScrollViewerTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/DialogContentPanelTheme.axaml"/>
-				<ResourceInclude Source="/Views/Controls/Themes/Controls/NotificationListPanelTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ColorTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/FrameTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ButtonTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ExpanderTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/FontIconTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ComboBoxTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/PopupRootTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/TitleBarPlusTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/RippleControlTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/SettingExpanderTheme.axaml"/>
 			</ResourceDictionary.MergedDictionaries>
-
-			<FontFamily x:Key="DefaultFontFamily">resm:WonderLab.Assets.Fonts.DinPro.ttf?assembly=WonderLab#DIN Pro</FontFamily>
-
-			<converter:ModDataConverter x:Key="ModDataConverter"/>
-			<converter:LogSerializeConverter x:Key="LogSerializeConverter"/>
-			<converter:MinecraftTypeConverter x:Key="MinecraftTypeConverter"/>
-			<converter:BooleanReverseConverter x:Key="BooleanReverseConverter"/>
-			<converter:BooleanToIntegerConverter x:Key="BooleanToIntegerConverter"/>
-			<converter:MinecraftTypeIconConverter x:Key="MinecraftTypeIconConverter"/>
-			<converter:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
-			<converter:FitSquarelyWithinAspectRatioConverter x:Key="FitSquarelyWithinAspectRatioConverter"/>
 		</ResourceDictionary>
+
+		<Thickness x:Key="FlyoutContentThemePadding">0</Thickness>
+		
+		<SolidColorBrush x:Key="NormalAccentBrush"/>
+		<SolidColorBrush x:Key="DarkAccentBrush1"/>
+		<SolidColorBrush x:Key="DarkAccentBrush2"/>
+		<SolidColorBrush x:Key="LightAccentBrush1"/>
+		<SolidColorBrush x:Key="LightAccentBrush2"/>
+
+		<wcc:BooleanReverseConverter x:Key="BooleanReverseConverter"/>
+		<wcc:MinecraftTypeIconConverter x:Key="MinecraftTypeIconConverter"/>
+		
+		<LinearGradientBrush x:Key="ColourBackground" StartPoint="10% 100%" EndPoint="90% 0%">
+			<LinearGradientBrush.GradientStops>
+				<GradientStop Color="#FFB1CFD5" Offset="-0.1"/>
+				<GradientStop Color="#FFCBE1F8" Offset="0.4"/>
+				<GradientStop Color="#FFC0C5DD" Offset="1.1"/>
+			</LinearGradientBrush.GradientStops>
+		</LinearGradientBrush>
 	</Application.Resources>
 </Application>

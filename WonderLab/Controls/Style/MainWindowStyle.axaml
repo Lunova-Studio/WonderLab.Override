@@ -1,0 +1,85 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:wc="using:WonderLab.Controls"
+		xmlns:wb="using:WonderLab.Controls.Media.Behaviors"
+		xmlns:dha="using:DialogHostAvalonia">
+	<Design.PreviewWith>
+		<Window/>
+	</Design.PreviewWith>
+
+	<Style Selector="Window.wonder">
+		<Setter Property="Title" Value="WonderLab"/>
+		<Setter Property="Width" Value="840"/>
+		<Setter Property="Height" Value="510"/>
+		<Setter Property="MinWidth" Value="840"/>
+		<Setter Property="MinHeight" Value="510"/>
+		<Setter Property="IsTabStop" Value="True"/>
+		<Setter Property="ExtendClientAreaTitleBarHeightHint" Value="40"/>
+		<Setter Property="ExtendClientAreaToDecorationsHint" Value="True"/>
+		<Setter Property="ExtendClientAreaChromeHints" Value="PreferSystemChrome"/>
+		<Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}"/>
+		<Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
+		<Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource SystemControlBackgroundAltHighBrush}" />
+		
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Panel>
+					<Border IsHitTestVisible="False"
+							Name="PART_TransparencyFallback"/>
+					
+					<Border IsHitTestVisible="False"
+							Background="{TemplateBinding Background}"/>
+					
+					<Panel Background="Transparent"
+						   Margin="{TemplateBinding WindowDecorationMargin}" />
+
+					<Panel IsHitTestVisible="False"
+						   Opacity="{TemplateBinding Tag}"
+						   Background="{DynamicResource DialogOverlayBackground}">
+						<Panel.Transitions>
+							<Transitions>
+								<DoubleTransition Duration="0:0:0.4"
+												  Property="Opacity"
+												  Easing="CircularEaseInOut"/>
+							</Transitions>
+						</Panel.Transitions>
+					</Panel>
+					
+					<ExperimentalAcrylicBorder IsVisible="False" Name="PART_AcrylicBlurMask">
+						<ExperimentalAcrylicBorder.Material>
+							<ExperimentalAcrylicMaterial TintOpacity="0.8"
+														 MaterialOpacity="0.65"
+														 BackgroundSource="Digger"
+														 TintColor="{DynamicResource LayoutBackgroundColor}"/>
+						</ExperimentalAcrylicBorder.Material>
+
+						<Interaction.Behaviors>
+							<wb:IsBlurMaskVisibleBehavior/>
+						</Interaction.Behaviors>
+					</ExperimentalAcrylicBorder>
+
+					<VisualLayerManager>
+						<Grid RowDefinitions="12, Auto, 1*">
+							<wc:TitleBarPlus Grid.Row="1"/>
+
+							<ContentPresenter Grid.Row="2"
+											  Name="PART_ContentPresenter"
+											  Margin="{TemplateBinding Padding}"
+											  Content="{TemplateBinding Content}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+											  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+						</Grid>
+					</VisualLayerManager>
+
+					<dha:DialogHost DialogMargin="0"
+									CloseOnClickAway="False"
+									Identifier="PART_DialogHost"
+									DisableOpeningAnimation="True"
+									dha:DialogHostStyle.CornerRadius="14"
+									OverlayBackground="{DynamicResource DialogOverlayBackground}"/>
+				</Panel>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+</Styles>

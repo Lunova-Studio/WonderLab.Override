@@ -1,0 +1,124 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="1450"
+			 xmlns:w="using:WonderLab"
+			 xmlns:wc="using:WonderLab.Controls"
+			 x:Class="WonderLab.Views.Page.Setting.LaunchPage">
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Loaded">
+			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
+	
+	<ScrollViewer>
+		<ItemsControl Margin="0 24 0 16">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel Spacing="4"/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+
+			<TextBlock FontSize="28"
+					   Margin="0 0 0 12"
+					   FontWeight="Bold"
+					   VerticalAlignment="Top"
+					   HorizontalAlignment="Left"
+					   Effect="{StaticResource LowTextBlockShadow}"
+					   Text="{I18N {x:Static w:LanguageKeys.Settings_Launch_Title}}"/>
+
+			<wc:SettingExpander Glyph="&#xE8B7;"
+								Header="{I18N {x:Static w:LanguageKeys.Settings_Launch_Folder}}">
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Launch_Folder_Select}}">
+					<ComboBox ItemsSource="{Binding Folders}"
+							  SelectedItem="{Binding ActiveFolder, Mode=TwoWay}"/>
+				</wc:SettingExpanderItem>
+
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Launch_Folder_Add}}">
+					<Button CornerRadius="6"
+							Command="{Binding BrowserFolderCommand}"
+							Content="{I18N {x:Static w:LanguageKeys.Item_Browse}}"/>
+				</wc:SettingExpanderItem>
+
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Launch_Folder_Remove}}">
+					<Button CornerRadius="6"
+							CommandParameter="Folder"
+							Command="{Binding RemoveItemCommand}"
+							Content="{I18N {x:Static w:LanguageKeys.Item_Remove}}"/>
+				</wc:SettingExpanderItem>
+			</wc:SettingExpander>
+
+			<wc:SettingExpander Glyph="&#xE8A5;"
+								Header="{I18N {x:Static w:LanguageKeys.Settings_Launch_Java}}">
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Launch_Java_Select}}">
+					<ComboBox ItemsSource="{Binding Javas}"
+							  SelectedItem="{Binding ActiveJava, Mode=TwoWay}">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding JavaPath}"/>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</wc:SettingExpanderItem>
+
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Launch_Java_Add}}">
+					<StackPanel Spacing="8"
+								Orientation="Horizontal">
+						<Button CornerRadius="6"
+								CommandParameter="Java"
+								Command="{Binding BrowserJavaCommand}"
+								Content="{I18N {x:Static w:LanguageKeys.Item_Browse}}"/>
+
+						<Button CornerRadius="6"
+								Command="{Binding SearchJavaCommand}"
+								Content="{I18N {x:Static w:LanguageKeys.Item_Search}}"/>
+					</StackPanel>
+				</wc:SettingExpanderItem>
+
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Launch_Java_Remove}}">
+					<Button CornerRadius="6"
+							CommandParameter="Java"
+							Command="{Binding RemoveItemCommand}"
+							Content="{I18N {x:Static w:LanguageKeys.Item_Remove}}"/>
+				</wc:SettingExpanderItem>
+
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Launch_Java_SelectAuto}}">
+					<ToggleSwitch OnContent=""
+								  OffContent=""
+								  Margin="0 0 -10 0"
+								  IsChecked="{Binding IsAutoSelectJava}"/>
+				</wc:SettingExpanderItem>
+			</wc:SettingExpander>
+
+			<wc:SettingExpander Glyph="&#xE7FC;"
+								Header="{I18N {x:Static w:LanguageKeys.Settings_Launch_Game}}">
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Launch_Game_Memory}}">
+					<TextBox Text="{Binding MaxMemory}"
+							 UseFloatingWatermark="False"/>
+				</wc:SettingExpanderItem>
+
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Launch_Game_MemoryAuto}}">
+					<ToggleSwitch OnContent=""
+								  OffContent=""
+								  Margin="0 0 -10 0"
+								  IsChecked="{Binding IsAutoAllocateMemory}"/>
+				</wc:SettingExpanderItem>
+
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Launch_Independent}}">
+					<ToggleSwitch OnContent=""
+								  OffContent=""
+								  Margin="0 0 -10 0"
+								  IsChecked="{Binding IsGameIndependent}"/>
+				</wc:SettingExpanderItem>
+
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Launch_FullScreen}}">
+					<ToggleSwitch OnContent=""
+								  OffContent=""
+								  Margin="0 0 -10 0"
+								  IsChecked="{Binding IsFullScreen}"/>
+				</wc:SettingExpanderItem>
+			</wc:SettingExpander>
+		</ItemsControl>
+	</ScrollViewer>
+</UserControl>

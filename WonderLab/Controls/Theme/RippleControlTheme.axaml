@@ -1,0 +1,28 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wc="using:WonderLab.Controls">
+	<ControlTheme x:Key="{x:Type wc:RippleControl}" TargetType="wc:RippleControl">
+		<Setter Property="Background" Value="Transparent"/>
+
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Border ClipToBounds="True"
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						CornerRadius="{TemplateBinding CornerRadius}"
+						BorderThickness="{TemplateBinding BorderThickness}">
+					<Grid>
+						<ContentPresenter Name="Content"
+										  Content="{TemplateBinding Content}"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"/>
+
+						<Canvas IsHitTestVisible="False"
+								VerticalAlignment="Stretch"
+								HorizontalAlignment="Stretch"
+								x:Name="PART_RippleCanvasRoot"/>
+					</Grid>
+				</Border>
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
+</ResourceDictionary>

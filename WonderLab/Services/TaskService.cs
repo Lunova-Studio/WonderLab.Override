@@ -1,28 +1,33 @@
-﻿using WonderLab.Classes.Interfaces;
-using System.Collections.ObjectModel;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Threading;
 using Microsoft.Extensions.Logging;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using Avalonia.Threading;
-using WonderLab.Classes.Datas.ViewData;
-using WonderLab.Classes.Datas.TaskData;
+using WonderLab.Infrastructure.Interfaces;
+using WonderLab.Infrastructure.Models;
 
 namespace WonderLab.Services;
 
-public sealed partial class TaskService(ILogger<TaskService> logger) : ObservableObject {
-    private readonly ILogger<TaskService> _logger = logger;
+public sealed class TaskService {
+    private ObservableCollection<TaskModel> _tasks;
+    private readonly ILogger<TaskService> _logger;
 
-    [ObservableProperty] private ObservableCollection<TaskViewData> _displayTasks = [];
+    public ReadOnlyObservableCollection<TaskModel> Tasks { get; }
 
-    public void QueueJob(ITaskJob<TaskProgressData> job) {
-        _ = Task.Run(async () => {
-            job.Completed += (_, _) => {
-                DisplayTasks.Remove(new(job));
-            };
-            
-            await Dispatcher.UIThread.InvokeAsync(() => {
-                DisplayTasks.Add(new(job));
-            }, DispatcherPriority.Background);
-        });
+    public TaskService(ILogger<TaskService> logger) {
+        _tasks = [];
+        _logger = logger;
+
+        Tasks = new(_tasks);
     }
+
+    public void QueueJob(ITaskJob<TaskProgress> job) => Task.Run(async () => {
+        job.Completed += (_, _) => {
+            _tasks.Remove(new(job));
+        };
+
+        await Dispatcher.UIThread.InvokeAsync(() => {
+            _tasks.Add(new(job));
+            _logger.LogDebug("The job name is {}", job.JobName);
+        }, DispatcherPriority.Background);
+    });
 }

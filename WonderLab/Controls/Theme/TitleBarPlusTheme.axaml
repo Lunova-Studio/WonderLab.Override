@@ -1,0 +1,65 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wc="using:WonderLab.Controls">
+	<ControlTheme x:Key="{x:Type wc:TitleBarPlus}" TargetType="wc:TitleBarPlus">
+		<Setter Property="MinWidth" Value="300"/>
+		<Setter Property="Height" Value="28"/>
+		<Setter Property="CornerRadius" Value="16"/>
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="Margin" Value="8 0"/>
+		<Setter Property="VerticalAlignment" Value="Top"/>
+		<Setter Property="IsHitTestVisible" Value="True"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource ContentBrush4}"/>
+		<Setter Property="Foreground" Value="{DynamicResource ButtonForeground}"/>
+		<Setter Property="Background" Value="{DynamicResource TitleBarBackground}"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Grid ColumnDefinitions="1*, Auto"
+					  Height="{TemplateBinding Height}"
+					  Margin="{TemplateBinding Margin}"
+					  MinWidth="{TemplateBinding MinWidth}">
+					<Border Name="PART_DragLayoutBorder"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							CornerRadius="{TemplateBinding CornerRadius}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							IsHitTestVisible="False">
+						<TextBlock Margin="16 0"
+								   FontWeight="Bold"
+								   Name="TitleTextBlock"
+								   VerticalAlignment="Center"
+								   HorizontalAlignment="Left"
+								   Text="{TemplateBinding Title}"/>
+					</Border>
+
+					<Border Grid.Column="1"
+							Margin="12 0 0 0"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							CornerRadius="{TemplateBinding CornerRadius}"
+							BorderThickness="{TemplateBinding BorderThickness}">
+						<Grid Margin="15 0" ColumnDefinitions="Auto Auto">
+							<Button Width="22"
+									Height="22"
+									FontSize="12"
+									Classes="icon"
+									Content="&#xE921;"
+									Name="PART_MinimizeButton"
+									Foreground="{TemplateBinding Foreground}"/>
+
+							<Button Width="22"
+									Height="22"
+									FontSize="12"
+									Classes="icon"
+									Grid.Column="1"
+									Margin="5 0 0 0"
+									Content="&#xE8BB;"
+									Name="PART_CloseButton"
+									Foreground="{TemplateBinding Foreground}"/>
+						</Grid>
+					</Border>
+				</Grid>
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
+</ResourceDictionary>

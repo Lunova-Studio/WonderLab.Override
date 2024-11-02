@@ -1,59 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	<PropertyGroup>
-		<Version>2.0.0</Version>
-		<Nullable>enable</Nullable>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net8.0</TargetFramework>
-		<ApplicationManifest>app.manifest</ApplicationManifest>
-		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
-		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
-		<UseAppHost>true</UseAppHost>
-	</PropertyGroup>
-	<ItemGroup>
-	  <None Remove="wonderlab.icns" />
-	  <None Remove="wonderlab.png" />
-	</ItemGroup>
-	<ItemGroup>
-	  <AvaloniaResource Include="wonderlab.icns">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </AvaloniaResource>
-	  <AvaloniaResource Include="wonderlab.png" />
-	</ItemGroup>
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <!--If you are willing to use Windows/MacOS native APIs you will need to create 3 projects.
+    One for Windows with net8.0-windows TFM, one for MacOS with net8.0-macos and one with net8.0 TFM for Linux.-->
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Avalonia.Desktop" Version="11.1.3" />
-		<PackageReference Include="Dotnet.Bundle" Version="*" />
-	</ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia.Desktop" Version="11.1.3" />
+  </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\WonderLab\WonderLab.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Include="wonderlab.ico" />
-		<Content Include="wonderlab.png">
-			<LinuxPath>/usr/share/icons/wonderlab.png</LinuxPath>
-		</Content>
-
-		<Content Include="wonderlab.desktop">
-			<LinuxPath>/usr/share/applications/wonderlab.desktop</LinuxPath>
-		</Content>
-	</ItemGroup>
-
-	<PropertyGroup>
-		<SignAssembly>True</SignAssembly>
-		<CFBundleVersion>2.0.0</CFBundleVersion>
-		<CFBundleName>WonderLab.Desktop</CFBundleName>
-		<CFBundlePackageType>APPL</CFBundlePackageType>
-		<NSPrincipalClass>NSApplication</NSPrincipalClass>
-		<CFBundleIconFile>wonderlab.icns</CFBundleIconFile>
-		<CFBundleDisplayName>WonderLab</CFBundleDisplayName>
-		<NSHighResolutionCapable>true</NSHighResolutionCapable>
-		<StartupObject>WonderLab.Desktop.Program</StartupObject>
-		<CFBundleExecutable>WonderLab.Desktop</CFBundleExecutable>
-		<CFBundleShortVersionString>2.0.0</CFBundleShortVersionString>
-		<UserSecretsId>650eae67-f1f5-4fc8-9914-ea217ada8a3b</UserSecretsId>
-		<CFBundleIdentifier>com.blessing-studio.wonderlab</CFBundleIdentifier>
-		<ApplicationIcon>wonderlab.ico</ApplicationIcon>
-	</PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WonderLab\WonderLab.csproj" />
+  </ItemGroup>
 </Project>

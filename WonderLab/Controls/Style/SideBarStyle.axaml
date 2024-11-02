@@ -1,0 +1,136 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:wc="using:WonderLab.Controls">
+	<Design.PreviewWith>
+		<Border Padding="20">
+			<ListBox Width="200" Classes="sidebar">
+				<ListBoxItem Content="1"/>
+				<ListBoxItem Content="2"/>
+				<ListBoxItem Content="3"/>
+				<ListBoxItem Content="4"/>
+			</ListBox>
+		</Border>
+	</Design.PreviewWith>
+
+	<Style Selector="ListBox.sidebar">
+		<Setter Property="Background" Value="{DynamicResource SelectorBarBackground}"/>
+		<Setter Property="ItemsPanel">
+			<ItemsPanelTemplate>
+				<StackPanel Spacing="8" Orientation="Vertical"/>
+			</ItemsPanelTemplate>
+		</Setter>
+
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Border Name="border"
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						CornerRadius="{TemplateBinding CornerRadius}"
+						ClipToBounds="{TemplateBinding ClipToBounds}"
+						BorderThickness="{TemplateBinding BorderThickness}">
+					<Border.Transitions>
+						<Transitions>
+							<DoubleTransition Property="Width"
+											  Duration="0:0:0.35"/>
+						</Transitions>
+					</Border.Transitions>
+					
+					<ScrollViewer Name="PART_ScrollViewer"
+								  AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+								  VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}"
+								  IsScrollInertiaEnabled="{TemplateBinding (ScrollViewer.IsScrollInertiaEnabled)}"
+								  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+								  HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}"
+								  IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
+								  BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+								  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+								  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}">
+						<ItemsPresenter Name="PART_ItemsPresenter"
+										Margin="{TemplateBinding Padding}"
+										ItemsPanel="{TemplateBinding ItemsPanel}"/>
+					</ScrollViewer>
+				</Border>
+			</ControlTemplate>
+		</Setter>
+		
+		<Setter Property="ItemContainerTheme">
+			<ControlTheme TargetType="ListBoxItem">
+				<Setter Property="Margin" Value="8 0"/>
+				<Setter Property="ClipToBounds" Value="False"/>
+				<Setter Property="Foreground" Value="{DynamicResource ContentBrush4}"/>
+				<Setter Property="Transitions">
+					<Transitions>
+						<BrushTransition Duration="0:0:0.25"
+										 Property="Foreground"
+										 Easing="ExponentialEaseOut"/>
+
+						<BrushTransition Duration="0:0:0.25"
+										 Property="Background"
+										 Easing="ExponentialEaseOut"/>
+
+						<EffectTransition Duration="0:0:0.25"
+										  Property="Effect"
+										  Easing="ExponentialEaseOut"/>
+					</Transitions>
+				</Setter>
+
+				<Setter Property="Template">
+					<ControlTemplate>
+						<Border Height="25.5"
+								MinWidth="78"
+								CornerRadius="18"
+								ClipToBounds="False"
+								Name="PART_LayoutBorder"
+								Background="Transparent"
+								Transitions="{TemplateBinding Transitions}">
+							<Border.Effect>
+								<DropShadowEffect OffsetX="0"
+												  OffsetY="0"
+												  BlurRadius="0.1"
+												  Color="#16000000"/>
+							</Border.Effect>
+
+							<Grid Margin="12 0"
+								  VerticalAlignment="Center"
+								  ColumnDefinitions="Auto, Auto">
+								<wc:FontIcon Name="Icon"
+											 FontSize="14"
+											 VerticalAlignment="Center"
+											 Glyph="{TemplateBinding Tag}"
+											 Transitions="{TemplateBinding Transitions}"
+											 Foreground="{Binding #PART_TextBlock.Foreground}"/>
+
+
+								<TextBlock Grid.Column="1"
+										   Margin="8 0 0 0"
+										   Name="PART_TextBlock"
+										   VerticalAlignment="Center"
+										   Text="{TemplateBinding Content}"
+										   Transitions="{TemplateBinding Transitions}"
+										   Foreground="{DynamicResource DefaultBrush500}"/>
+							</Grid>
+						</Border>
+					</ControlTemplate>
+				</Setter>
+
+				<Style Selector="^:selected /template/ TextBlock#PART_TextBlock">
+					<Setter Property="Foreground" Value="{TemplateBinding Foreground}"/>
+				</Style>
+
+				<Style Selector="^:pointerover /template/ Border#PART_LayoutBorder">
+					<Setter Property="Background" Value="{DynamicResource ButtonBackgroundPointerOver}"/>
+				</Style>
+
+				<Style Selector="^:selected /template/ Border#PART_LayoutBorder">
+					<Setter Property="Background" Value="{DynamicResource SelectorBarItemSelectedBackground}"/>
+					<Setter Property="Effect">
+						<DropShadowEffect BlurRadius="5"
+										  OffsetX="0"
+										  OffsetY="0"
+										  Color="#a1a1aa"/>
+					</Setter>
+				</Style>
+			</ControlTheme>
+		</Setter>
+	</Style>
+</Styles>

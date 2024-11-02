@@ -1,6 +1,0 @@
-[submodule "refs/BlessingStudio.Wrap"]
-	path = refs/BlessingStudio.Wrap
-	url = https://github.com/Blessing-Studio/BlessingStudio.Wrap
-[submodule "refs/MinecraftLaunch"]
-	path = refs/MinecraftLaunch
-	url = https://github.com/Blessing-Studio/MinecraftLaunch.git

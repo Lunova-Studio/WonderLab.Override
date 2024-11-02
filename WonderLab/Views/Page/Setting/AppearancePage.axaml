@@ -1,0 +1,176 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:w="using:WonderLab"
+			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:wem="using:WonderLab.Extensions.Markup"
+			 xmlns:wie="using:WonderLab.Infrastructure.Enums"
+			 x:Class="WonderLab.Views.Page.Setting.AppearancePage">
+	<UserControl.Styles>
+		<Style Selector="ListBox.colorbox">
+			<Setter Property="MaxWidth" Value="441"/>
+			
+			<Setter Property="ItemsPanel">
+				<ItemsPanelTemplate>
+					<WrapPanel/>
+				</ItemsPanelTemplate>
+			</Setter>
+			
+			<Setter Property="ItemContainerTheme">
+				<ControlTheme TargetType="ListBoxItem">
+					<Setter Property="Width" Value="35" />
+					<Setter Property="Height" Value="35" />
+					<Setter Property="MinWidth" Value="0" />
+					<Setter Property="Margin" Value="1 1 0 0" />
+					<Setter Property="Template">
+						<ControlTemplate>
+							<Panel>
+								<Border CornerRadius="4"
+										BorderThickness="2"
+										Name="Root">
+									<Border.Background>
+										<SolidColorBrush Color="{Binding}" />
+									</Border.Background>
+								</Border>
+
+								<Border Width="18"
+										Height="18"
+										Name="Check"
+										Margin="0 2 2 0"
+										CornerRadius="0 4 0 4"
+										VerticalAlignment="Top"
+										HorizontalAlignment="Right"
+										Background="{DynamicResource LayoutForeground}">
+									<wc:FontIcon FontSize="14"
+												 Glyph="&#xE73E;"
+												 VerticalAlignment="Center"
+												 HorizontalAlignment="Center">
+										<wc:FontIcon.Foreground>
+											<SolidColorBrush Color="{Binding}" />
+										</wc:FontIcon.Foreground>
+									</wc:FontIcon>
+								</Border>
+							</Panel>
+						</ControlTemplate>
+					</Setter>
+
+					<Style Selector="^ /template/ Border#Check">
+						<Setter Property="IsVisible" Value="False" />
+					</Style>
+					<Style Selector="^:pointerover /template/ Border#Root">
+						<Setter Property="BorderBrush" Value="{DynamicResource LayoutForeground}" />
+					</Style>
+
+					<Style Selector="^:selected /template/ Border#Root">
+						<Setter Property="BorderBrush" Value="{DynamicResource LayoutForeground}" />
+					</Style>
+					<Style Selector="^:selected /template/ Border#Check">
+						<Setter Property="IsVisible" Value="True" />
+					</Style>
+				</ControlTheme>
+			</Setter>
+		</Style>
+	</UserControl.Styles>
+
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Loaded">
+			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
+	
+	<ScrollViewer ScrollViewer.VerticalScrollBarVisibility="Hidden">
+		<ItemsControl Margin="0 24 0 16">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel Spacing="4"/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+			
+			<TextBlock FontSize="24"
+					   Margin="0 0 0 12"
+					   FontWeight="Bold"
+					   VerticalAlignment="Top"
+					   HorizontalAlignment="Left"
+					   Effect="{StaticResource LowTextBlockShadow}"
+					   Text="{I18N {x:Static w:LanguageKeys.Settings_Appearance_Title}}"/>
+
+			<wc:SettingExpander Glyph="&#xE793;"
+								Name="PART_SettingExpander"
+								Header="{I18N {x:Static w:LanguageKeys.Settings_Appearance}}">
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Appearance_Theme}}">
+					<ComboBox SelectedItem="{Binding ThemeType}"
+							  ItemsSource="{wem:EnumBinding {x:Type wie:ThemeType}}"/>
+				</wc:SettingExpanderItem>
+
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Background_Mode}}">
+					<ComboBox SelectedItem="{Binding BackgroundType}"
+							  ItemsSource="{wem:EnumBinding {x:Type wie:BackgroundType}}"/>
+				</wc:SettingExpanderItem>
+
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Appearance_Color}}">
+					<ListBox Classes="colorbox"
+							 ItemsSource="{Binding Colors}"
+							 SelectedItem="{Binding Color}">
+					</ListBox>
+				</wc:SettingExpanderItem>
+
+				<wc:SettingExpanderItem IsVisible="{Binding IsImageBackground}"
+										Description="选取一种背景图片的颜色">
+					<ListBox Classes="colorbox"
+							 ItemsSource="{Binding ImageColors}"
+							 SelectedItem="{Binding Color}">
+					</ListBox>
+				</wc:SettingExpanderItem>
+			</wc:SettingExpander>
+
+			<wc:SettingExpander Glyph="&#xE8B9;"
+								IsVisible="{Binding IsImageBackground}"
+								Header="{I18N {x:Static w:LanguageKeys.Settings_Background_Image}}">
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Background_ImageChange}}">
+					<Button Command="{Binding BrowserImageCommand}"
+							Content="{I18N {x:Static w:LanguageKeys.Item_Browse}}"/>
+				</wc:SettingExpanderItem>
+
+				<wc:SettingExpanderItem Description="当前图像">
+					<TextBox IsReadOnly="True"
+							 Text="{Binding ActiveImage}"/>
+				</wc:SettingExpanderItem>
+			</wc:SettingExpander>
+
+			<wc:SettingExpander Glyph="&#xF2B7;"
+								Header="{I18N {x:Static w:LanguageKeys.Settings_Language}}">
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Language_Change}}">
+					<ComboBox SelectedItem="{Binding Language}"
+							  ItemsSource="{Binding Languages}">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock VerticalAlignment="Center"
+										   Text="{Binding DisplayName}"/>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</wc:SettingExpanderItem>
+			</wc:SettingExpander>
+
+			<wc:SettingExpander Glyph="&#xEBE8;"
+								Header="{I18N {x:Static w:LanguageKeys.Settings_DebugMode}}">
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_DebugMode_Change}}">
+					<ToggleSwitch OnContent=""
+								  OffContent=""
+								  Margin="0 0 -10 0"
+								  IsChecked="{Binding IsDebugMode}"
+								  Command="{Binding NotificationCommand}"
+								  CommandParameter="{DynamicResource Info_DebugMode_Changed}"/>
+				</wc:SettingExpanderItem>
+
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_OOBE}}">
+					<Button Command="{Binding PressOobeCommand}"
+							IsEnabled="{Binding IsDebugMode}"
+							Content="{DynamicResource Item_Jump}"/>
+				</wc:SettingExpanderItem>
+			</wc:SettingExpander>
+		</ItemsControl>
+	</ScrollViewer>
+</UserControl>

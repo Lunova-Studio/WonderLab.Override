@@ -1,0 +1,53 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:i="using:Avalonia.Xaml.Interactivity"
+			 xmlns:w="using:WonderLab"
+			 xmlns:wb="using:WonderLab.Controls.Media.Behaviors"
+			 x:Class="WonderLab.Views.Page.HomePage">
+	<Grid VerticalAlignment="Bottom"
+		  HorizontalAlignment="Left"
+		  RowDefinitions="Auto, 10, Auto">
+		<Button Padding="0"
+				CornerRadius="12"
+				Background="Transparent"
+				Command="{Binding NavigationToGameCommand}">
+			<Border MinWidth="155"
+					Padding="12 6"
+					CornerRadius="12"
+					BorderThickness="2"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Bottom"
+					Effect="{StaticResource TextBlockShadow}"
+					BorderBrush="{DynamicResource NormalAccentBrush}"
+					Background="{DynamicResource GameManagerPanelBackground}">
+				<Grid RowDefinitions="Auto, Auto">
+					<TextBlock FontSize="16"
+							   FontWeight="Bold"
+							   Text="{Binding ActiveGame.Entry.Id}"/>
+					
+					<TextBlock Grid.Row="1"
+							   FontSize="12"
+							   Margin="0 2 0 0"
+							   Foreground="{DynamicResource DefaultBrush400}"
+							   Text="{Binding ActiveGame.Entry.Version}"/>
+				</Grid>
+			</Border>
+		</Button>
+
+		<Button Grid.Row="2"
+				Height="45"
+				Width="155"
+				Classes="launch"
+				CornerRadius="16"
+				Command="{Binding LaunchCommand}"
+				Effect="{StaticResource TextBlockShadow}">
+			<TextBlock FontSize="16"
+					   FontWeight="Bold"
+					   Foreground="{DynamicResource ContentBrush1}"
+					   Text="{I18N {x:Static w:LanguageKeys.Home_Launch}}"/>
+		</Button>
+	</Grid>
+</UserControl>

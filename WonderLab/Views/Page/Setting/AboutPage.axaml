@@ -1,0 +1,194 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:w="using:WonderLab"
+			 xmlns:wc="using:WonderLab.Controls"
+			 x:Class="WonderLab.Views.Page.Setting.AboutPage">
+	<ScrollViewer>
+		<Grid Margin="0 24 0 16"
+			  RowDefinitions="Auto, Auto, Auto">
+			<TextBlock FontSize="20"
+					   Text="WonderLab"
+					   FontWeight="SemiBold"
+					   VerticalAlignment="Top"
+					   HorizontalAlignment="Left"/>
+
+			<TextBlock Grid.Row="1"
+					   FontSize="12"
+					   FontWeight="Regular"
+					   Text="{I18N {x:Static w:LanguageKeys.Settings_About_Copyright}}"/>
+
+			<ItemsControl Grid.Row="2"
+						  Margin="0 16 0 0">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Spacing="4"/>
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
+
+				<wc:SettingExpander Glyph="&#xE946;"
+									Header="{I18N {x:Static w:LanguageKeys.Settings_About}}">
+					<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_About_Version}}">
+						<HyperlinkButton Content="2.0.0"
+										 Command="{Binding JumpToLinkCommand}"
+										 Foreground="{DynamicResource SecondaryBrush600}"
+										 CommandParameter="https://github.com/Blessing-Studio/WonderLab.Override/"/>
+					</wc:SettingExpanderItem>
+
+					<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_About_Donate}}">
+						<HyperlinkButton Content="爱发电"
+										 Command="{Binding JumpToLinkCommand}"
+										 Foreground="{DynamicResource SecondaryBrush600}"
+										 CommandParameter="https://afdian.com/a/WonderLab"/>
+					</wc:SettingExpanderItem>
+				</wc:SettingExpander>
+
+				<wc:SettingExpander Glyph="&#xEC7A;"
+									Header="{I18N {x:Static w:LanguageKeys.Settings_About_Developers}}">
+					<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_About_Developers_QC}}">
+						<StackPanel Spacing="10"
+									Orientation="Horizontal">
+							<HyperlinkButton Content="任天天🍰"
+											 Command="{Binding JumpToLinkCommand}"
+											 CommandParameter="https://github.com/ruattd"
+											 Foreground="{DynamicResource SecondaryBrush600}"/>
+
+							<HyperlinkButton Content="КРАШ-2073"
+											 Command="{Binding JumpToLinkCommand}"
+											 CommandParameter="https://github.com/tsavpyn"
+											 Foreground="{DynamicResource SecondaryBrush600}"/>
+						</StackPanel>
+					</wc:SettingExpanderItem>
+
+					<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_About_Developers_DT}}">
+						<StackPanel Spacing="10"
+									Orientation="Horizontal">
+							<HyperlinkButton Content="dream_pep"
+											 Command="{Binding JumpToLinkCommand}"
+											 CommandParameter="https://github.com/dream0090"
+											 Foreground="{DynamicResource SecondaryBrush600}"/>
+
+							<HyperlinkButton Content="Starcloudsea"
+											 Command="{Binding JumpToLinkCommand}"
+											 Foreground="{DynamicResource SecondaryBrush600}"
+											 CommandParameter="https://github.com/Starcloudsea"/>
+						</StackPanel>
+					</wc:SettingExpanderItem>
+
+					<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_About_Developers_FE}}">
+						<StackPanel Spacing="10"
+									Orientation="Horizontal">
+							<HyperlinkButton Content="YangSpring114"
+											 Command="{Binding JumpToLinkCommand}"
+											 Foreground="{DynamicResource SecondaryBrush600}"
+											 CommandParameter="https://github.com/YangSpring114"/>
+						</StackPanel>
+					</wc:SettingExpanderItem>
+
+					<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_About_Developers_BE}}">
+						<StackPanel Spacing="10"
+									Orientation="Horizontal">
+							<HyperlinkButton Content="YangSpring114"
+											 Command="{Binding JumpToLinkCommand}"
+											 Foreground="{DynamicResource SecondaryBrush600}"
+											 CommandParameter="https://github.com/YangSpring114"/>
+
+							<HyperlinkButton Content="JWJUN233233"
+											 Command="{Binding JumpToLinkCommand}"
+											 Foreground="{DynamicResource SecondaryBrush600}"
+											 CommandParameter="https://github.com/JWJUN233233"/>
+
+							<HyperlinkButton Content="mailset"
+											 Command="{Binding JumpToLinkCommand}"
+											 CommandParameter="https://github.com/mailset"
+											 Foreground="{DynamicResource SecondaryBrush600}"/>
+						</StackPanel>
+					</wc:SettingExpanderItem>
+				</wc:SettingExpander>
+
+				<wc:SettingExpander Glyph="&#xE805;"
+									Header="{I18N {x:Static w:LanguageKeys.Settings_About_Thanks}}">
+					<wc:SettingExpanderItem Description="{DynamicResource Settings_About_Thanks_ServerSupport}">
+						<StackPanel Spacing="10"
+									Orientation="Horizontal">
+							<HyperlinkButton Content="泽托维尔克"
+											 Command="{Binding JumpToLinkCommand}"
+											 Foreground="{DynamicResource SecondaryBrush600}"
+											 CommandParameter="https://github.com/SentientWaste"/>
+						</StackPanel>
+					</wc:SettingExpanderItem>
+
+					<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_About_Thanks_TechSupport}}">
+						<StackPanel Spacing="10"
+									Orientation="Horizontal">
+							<HyperlinkButton Content="Natsurainko"
+											 Command="{Binding JumpToLinkCommand}"
+											 Foreground="{DynamicResource SecondaryBrush600}"
+											 CommandParameter="https://github.com/natsurainko"/>
+
+							<HyperlinkButton Content="llr下一你了亲并"
+											 Command="{Binding JumpToLinkCommand}"
+											 Foreground="{DynamicResource SecondaryBrush600}"
+											 CommandParameter="https://github.com/laolarou726"/>
+						</StackPanel>
+					</wc:SettingExpanderItem>
+
+					<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_About_IncludedIconLib}}">
+						<StackPanel Spacing="10"
+									Orientation="Horizontal">
+							<HyperlinkButton Content="pdimu"
+											 Command="{Binding JumpToLinkCommand}"
+											 Foreground="{DynamicResource SecondaryBrush600}"
+											 CommandParameter="https://github.com/pdimu"/>
+						</StackPanel>
+					</wc:SettingExpanderItem>
+				</wc:SettingExpander>
+
+				<wc:SettingExpander Glyph="&#xE7B8;"
+									Header="{I18N {x:Static w:LanguageKeys.Settings_About_IncludedOSLib}}">
+					<wc:SettingExpanderItem Description="AvaloniaUI">
+						<StackPanel Spacing="10"
+									Orientation="Horizontal">
+							<HyperlinkButton Content="Github"
+											 Command="{Binding JumpToLinkCommand}"
+											 Foreground="{DynamicResource SecondaryBrush600}"
+											 CommandParameter="https://github.com/AvaloniaUI/Avalonia"/>
+						</StackPanel>
+					</wc:SettingExpanderItem>
+
+					<wc:SettingExpanderItem Description="CommunityToolkit.Mvvm">
+						<StackPanel Spacing="10"
+									Orientation="Horizontal">
+							<HyperlinkButton Content="Github"
+											 Command="{Binding JumpToLinkCommand}"
+											 Foreground="{DynamicResource SecondaryBrush600}"
+											 CommandParameter="https://github.com/CommunityToolkit/dotnet"/>
+						</StackPanel>
+					</wc:SettingExpanderItem>
+
+					<wc:SettingExpanderItem Description="Avalonia.Xaml.Behaviors">
+						<StackPanel Spacing="10"
+									Orientation="Horizontal">
+							<HyperlinkButton Content="Github"
+											 Command="{Binding JumpToLinkCommand}"
+											 Foreground="{DynamicResource SecondaryBrush600}"
+											 CommandParameter="https://github.com/AvaloniaUI/Avalonia.Xaml.Behaviors"/>
+						</StackPanel>
+					</wc:SettingExpanderItem>
+
+					<wc:SettingExpanderItem Description="MinecraftLaunch">
+						<StackPanel Spacing="10"
+									Orientation="Horizontal">
+							<HyperlinkButton Content="Github"
+											 Command="{Binding JumpToLinkCommand}"
+											 Foreground="{DynamicResource SecondaryBrush600}"
+											 CommandParameter="https://github.com/Blessing-Studio/MinecraftLaunch"/>
+						</StackPanel>
+					</wc:SettingExpanderItem>
+				</wc:SettingExpander>
+			</ItemsControl>
+		</Grid>
+	</ScrollViewer>
+</UserControl>
