@@ -59,6 +59,7 @@ jobs:
         shell: powershell
         working-directory: ./
         run: |
+          python ./.build/add_commit_sha.py
           ./.build/build_windows.ps1
 
       - name: Upload x64 build artifacts
@@ -95,6 +96,7 @@ jobs:
       run: |
           sudo add-apt-repository universe
           sudo apt install libfuse2
+          python ./.build/add_commit_sha.py
     - name: Get version
       id: package_version
       uses: Blessing-Studio/get-csproj-version@main
@@ -130,6 +132,7 @@ jobs:
         working-directory: ./
         run: |
           chmod a+x ./.build/build_osx.sh
+          python ./.build/add_commit_sha.py
           ./.build/build_osx.sh
 
       - name: Upload x64 build artifacts

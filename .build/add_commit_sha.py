@@ -10,6 +10,6 @@ def alter(file,old_str,new_str):
         f.write(file_data)
 commit_sha = sys.argv[1]
 
-alter("WonderLab/Views/Pages/Setting/AboutPage.axaml", "<HyperlinkButton Content=\"2.0.0\"", "<HyperlinkButton Content=\"2.0.0 "+commit_sha[:7]+" build\"")
-alter("WonderLab/Views/Pages/Setting/AboutPage.axaml", "CommandParameter=\"https://github.com/Blessing-Studio/WonderLab.Override/\"", "CommandParameter=\"https://github.com/Blessing-Studio/WonderLab.Override/commit/"+commit_sha+"\"")
+alter("WonderLab/Views/Page/Setting/AboutPage.axaml", "<HyperlinkButton Content=\"2.0.0\"", "<HyperlinkButton Content=\"2.0.0 "+commit_sha[:7]+" build\"")
+alter("WonderLab/Views/Page/Setting/AboutPage.axaml", "CommandParameter=\"https://github.com/Blessing-Studio/WonderLab.Override/\"", "CommandParameter=\"https://github.com/Blessing-Studio/WonderLab.Override/commit/"+commit_sha+"\"")
 
