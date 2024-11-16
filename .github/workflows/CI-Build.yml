@@ -185,7 +185,7 @@ jobs:
         repo_token: "${{ secrets.GITHUB_TOKEN }}"
         prerelease: false
         automatic_release_tag: AutoBuild_${{ env.BRANCH_NAME }}
-        title: "${{ env.BRANCH_NAME }} 分支 - 测试渠道"
+        title: "${{ env.BRANCH_NAME }} - testing channel"
         files: |
             *.zip
             *.AppImage

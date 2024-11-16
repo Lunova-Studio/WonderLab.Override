@@ -457,5 +457,6 @@ $RECYCLE.BIN/
 ## WonderLab debug files
 ##
 
-logs/*
+logs
 wl_config.json
+Deploy
