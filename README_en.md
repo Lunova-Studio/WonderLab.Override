@@ -1,12 +1,12 @@
 <p align="center">
-<img src="http://blessing-studio.cn/wp-content/uploads/2024/06/组件-7-1.png"/>
+<img src="/WonderLab/Assets/Image/App/logo.48.png"/>
 </p>
 
 <div align="center">
 
 # WonderLab.Override
 
-The true NEXT generation cross-platform Minecraft launcher
+The powerful NEXT generation cross-platform Minecraft launcher
 
 ![Downloads](https://img.shields.io/github/downloads/Blessing-Studio/WonderLab.Override/total?logo=github&label=%E4%B8%8B%E8%BD%BD%E9%87%8F&style=for-the-badge&color=44cc11)
 ![Star](https://img.shields.io/github/stars/Blessing-Studio/WonderLab.Override?logo=github&label=Star&style=for-the-badge)
@@ -24,15 +24,12 @@ WonderLab is a cross-platform Minecraft launcher, supports auto-update, Modrinth
 
 Language support: 简体中文, 繁体中文, 文言華夏, English(US), Русский язык, 日本語
 
-> [!IMPORTANT]
-> Attention, this is a testing version, network is needed, check if you have the ability to test!
-
 > [!WARNING]
-> This branch is `feature` insider branch，a rolling-release, unstable version  works with many unknowns
+> This branch is `feature` insider testing branch，a rolling-release, unstable version  works with many unknowns
 
-## How to install
+## How to use
 
-Docs [here](https://wiki.blessing-studio.cn/zh_CN/wonderlab/install.html)
+Docs [here](https://wiki.blessing-studio.cn/zh_CN/wonderlab/index.html)
 
 ## Report issues
 
@@ -50,57 +47,52 @@ Also, your [`PRs`](https://github.com/Blessing-Studio/WonderLab.Override/pulls) 
 
 ## Credits
 
-### bangbang93
+### [bangbang93](https://github.com/bangbang93)
 
-Provides BMCLAPI mirror
+Provide BMCLAPI mirror
 
 [Ai-Fa-Dian](https://afdian.net/a/bangbang93)
-[GitHub](https://github.com/bangbang93)
 
 ## Developers
 
-### [Xilu](https://baka_hs.gitee.io/xilu-baka/)
+### [Xilu](https://github.com/YangSpring114)
 
 A C# programming lover, likes doing something useful or useless
 
-[GitHub](https://github.com/YangSpring114)
 [Bilibili](https://space.bilibili.com/1098028524)
 [Ai-Fa-Dian](https://afdian.net/a/WonderLab)
+[blog](https://baka_hs.gitee.io/xilu-baka/)
 
-### Ddggdd135
+### [Ddggdd135](https://github.com/JWJUN233233)
 
 A student who likes programming, a Minecraft master and C# lover
 
-[GitHub](https://github.com/JWJUN233233)
 [Bilibili](https://space.bilibili.com/1049351987)
 
-### Starcloudsea
+### [Starcloudsea](https://github.com/Starcloudsea)
 
 A developer who wants to make something interesting, C# lover and video maker
 
 In progress: BadMcen Launcher
 
-[GitHub](https://github.com/Starcloudsea)
-[Bilibili](https://space.bilibili.com/2123349162?spm_id_from=333.1007.0.0)
+[Bilibili](https://space.bilibili.com/2123349162)
 [Ai-Fa-Dian](https://afdian.net/a/Starcloudsea)
 
-### [mail_set](https://blogs.mailset.top)
+### [mail_set](https://github.com/mailset)
 
-A Archer who loves Linux (Windows is also needed when gaming)
+An Archer who loves Linux (Windows is also needed when gaming)
 
-[Github](https://github.com/mailset)
 [Bilibili](https://space.bilibili.com/435654748)
 [Blog](https://blogs.mailset.top)
 
-### dream_pep
+### [dream_pep](https://github.com/dream0090)
 
 A strange UI designer, always forgets to fix UI (Nah)
 
-[Github](https://github.com/dream0090)
-[Page](https://serverhub.cc)
+[website](https://serverhub.cc)
 
 ### [FTS427](https://github.com/FTS427)
 
 `WonderLab`'s `AUR` maintainer，an Archer
 
-[website](https://www.fts427.top/)
+[blog](https://www.fts427.top/)

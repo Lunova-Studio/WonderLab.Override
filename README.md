@@ -1,5 +1,5 @@
 <p align="center">
-<img src="http://blessing-studio.cn/wp-content/uploads/2024/06/组件-7-1.png"/>
+<img src="/WonderLab/Assets/Image/App/logo.48.png"/>
 </p>
 
 <div align="center">
@@ -26,15 +26,12 @@ WonderLab 是一个跨平台 Minecraft 启动器，支持自动更新、Modrinth
 
 支持的语言：简体中文、繁体中文、文言華夏、English(US)、Русский язык、日本語
 
-> [!IMPORTANT]
-> 请您注意，本版本为测试版本，需要联网激活，请在下载前确认您是否有测试资格！
-
 > [!WARNING]
-> 当前分支为 `feature` 内部测试分支，是一个 更新速率快、不稳定、附带多种未知功能 的版本
+> 当前分支为 `feature` 测试分支，是一个 更新速率快、不稳定、附带多种未知功能 的版本
 
-## 如何安装
+## 食用文档
 
-请到 [这里](https://wiki.blessing-studio.cn/zh_CN/wonderlab/install.html) 查看详细文档
+请移步至 [此处](https://wiki.blessing-studio.cn/zh_CN/wonderlab/index.html) 查看如何食用
 
 ## 反馈问题
 
@@ -52,57 +49,52 @@ WonderLab 是一个跨平台 Minecraft 启动器，支持自动更新、Modrinth
 
 ## 鸣谢
 
-### bangbang93
+### [bangbang93](https://github.com/bangbang93)
 
 提供 BMCLAPI 镜像源
 
 [爱发电](https://afdian.net/a/bangbang93)
-[GitHub](https://github.com/bangbang93)
 
 ## 开发团队
 
-### [Xilu](https://baka_hs.gitee.io/xilu-baka/)
+### [Xilu](https://github.com/YangSpring114)
 
 一个平平无奇的 C# 程序设计爱好者，平时喜欢整有用的以及没用的烂活
 
-[GitHub](https://github.com/YangSpring114)
-[Bilibili](https://space.bilibili.com/1098028524?spm_id_from=333.999.0.0)
+[Bilibili](https://space.bilibili.com/1098028524)
 [爱发电](https://afdian.net/a/WonderLab)
+[blog](https://baka_hs.gitee.io/xilu-baka/)
 
-### Ddggdd135
+### [Ddggdd135](https://github.com/JWJUN233233)
 
 一个喜欢编程的学生, Minecraft 肝帝, C# 爱好者
 
-[GitHub](https://github.com/JWJUN233233)
 [Bilibili](https://space.bilibili.com/1049351987)
 
-### Starcloudsea
+### [Starcloudsea](https://github.com/Starcloudsea)
 
 啥活都想整的没脑子 C# 编程爱好者和视频创作者
 
 正在创作: BadMcen Launcher
 
-[GitHub](https://github.com/Starcloudsea)
-[Bilibili](https://space.bilibili.com/2123349162?spm_id_from=333.1007.0.0)
+[Bilibili](https://space.bilibili.com/2123349162)
 [爱发电](https://afdian.net/a/Starcloudsea)
 
-### [mail_set](https://blogs.mailset.top)
+### [mail_set](https://github.com/mailset)
 
 一个热爱 Linux 的 Arch 使用者（虽然打游戏还是会用 Windows）
 
-[Github](https://github.com/mailset)
 [Bilibili](https://space.bilibili.com/435654748)
 [Blog](https://blogs.mailset.top)
 
-### dream_pep
+### [dream_pep](https://github.com/dream0090)
 
 一个奇怪的 UI 设计师，经常忘记修 UI 文件（bushi）
 
-[Github](https://github.com/dream0090)
-[Page](https://serverhub.cc)
+[website](https://serverhub.cc)
 
 ### [FTS427](https://github.com/FTS427)
 
 现 `WonderLab` 的 `AUR` 维护者，archlinux 用户
 
-[website](https://www.fts427.top/)
+[blog](https://www.fts427.top/)
