@@ -38,7 +38,7 @@
 
 			<TextBlock Margin="0 20 0 0"
 					   Classes="BodyStrong"
-					   Text="保存的游戏账户"/>
+					   Text="{I18N {x:Static w:LanguageKeys.AC_Saved}}"/>
 
 			<Panel Margin="0 8 0 0">
 				<StackPanel Spacing="8"
@@ -51,7 +51,7 @@
 								 HorizontalAlignment="Center"/>
 
 					<TextBlock Classes="BodyStrong"
-							   Text="没有任何账户"/>
+							   Text="{I18N {x:Static w:LanguageKeys.Task_Info_Nothing}}"/>
 				</StackPanel>
 
 				<ItemsRepeater ItemsSource="{Binding Accounts}">

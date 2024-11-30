@@ -389,4 +389,28 @@
     <value>Manage Game Cores</value>
     <comment/>
   </data>
+  <data name="Game_Install" xml:space="preserve">
+    <value>Install Game Cores</value>
+    <comment/>
+  </data>
+  <data name="Game_ALL" xml:space="preserve">
+    <value>All cores</value>
+    <comment/>
+  </data>
+  <data name="Game_Starred" xml:space="preserve">
+    <value>Starred Cores</value>
+    <comment/>
+  </data>
+  <data name="AC_Saved" xml:space="preserve">
+    <value>Saved Accounts</value>
+    <comment/>
+  </data>
+  <data name="Settings_Appearance_Monet" xml:space="preserve">
+    <value>Dynamical color</value>
+    <comment/>
+  </data>
+  <data name="Settings_Background_This" xml:space="preserve">
+    <value>Image used</value>
+    <comment/>
+  </data>
 </root>

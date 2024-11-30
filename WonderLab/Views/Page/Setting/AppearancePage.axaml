@@ -116,7 +116,7 @@
 				</wc:SettingExpanderItem>
 
 				<wc:SettingExpanderItem IsVisible="{Binding IsImageBackground}"
-										Description="选取一种背景图片的颜色">
+										Description="{I18N {x:Static w:LanguageKeys.Settings_Appearance_Monet}}">
 					<ListBox Classes="colorbox"
 							 ItemsSource="{Binding ImageColors}"
 							 SelectedItem="{Binding Color}">
@@ -132,7 +132,7 @@
 							Content="{I18N {x:Static w:LanguageKeys.Item_Browse}}"/>
 				</wc:SettingExpanderItem>
 
-				<wc:SettingExpanderItem Description="当前图像">
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Background_This}}">
 					<TextBox IsReadOnly="True"
 							 Text="{Binding ActiveImage}"/>
 				</wc:SettingExpanderItem>

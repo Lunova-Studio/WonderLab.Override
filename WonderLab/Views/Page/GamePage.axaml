@@ -140,14 +140,14 @@
 					   VerticalAlignment="Top"
 					   HorizontalAlignment="Left"
 					   Effect="{StaticResource LowTextBlockShadow}"
-					   Text="核心管理"/>
+					   Text="{I18N {x:Static w:LanguageKeys.Game_Manager}}"/>
 
 			<WrapPanel Margin="0 12"
 					   Orientation="Horizontal">
 				<Button FontSize="14"
 						Margin="0 0 8 0"
 						FontWeight="Regular"
-						Content="安装核心"/>
+						Content="{I18N {x:Static w:LanguageKeys.Game_Install}}"/>
 
 				<HyperlinkButton FontSize="14"
 								 FontWeight="Regular"
@@ -156,7 +156,7 @@
 			</WrapPanel>
 
 			<TextBlock Classes="BodyStrong"
-					   Text="收藏的核心"
+					   Text="{I18N {x:Static w:LanguageKeys.Game_Starred}}"
 					   IsVisible="{Binding IsCollectionGamesVisible, Mode=OneWay}"/>
 
 			<ListBox Margin="0 12 0 24"
@@ -166,7 +166,7 @@
 					 IsVisible="{Binding IsCollectionGamesVisible}"/>
 
 			<TextBlock Classes="BodyStrong"
-					   Text="所有核心"/>
+					   Text="{I18N {x:Static w:LanguageKeys.Game_ALL}}"/>
 
 			<ListBox Margin="0 12"
 					 CornerRadius="8"
