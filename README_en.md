@@ -95,4 +95,4 @@ A strange UI designer, always forgets to fix UI (Nah)
 
 `WonderLab`'s `AUR` maintainer，an Archer
 
-[blog](https://www.fts427.top/)
+[Blog](https://www.fts427.top/)

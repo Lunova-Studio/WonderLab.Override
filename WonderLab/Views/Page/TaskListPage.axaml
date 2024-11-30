@@ -12,7 +12,7 @@
 					   Margin="0 12 0 0"
 					   VerticalAlignment="Top"
 					   HorizontalAlignment="Left"
-					   Text="任务中心"/>
+					   Text="{I18N {x:Static w:LanguageKeys.Task_Manager}}"/>
 
 			<StackPanel Spacing="8"
 						Grid.Row="1"
@@ -24,7 +24,7 @@
 							 HorizontalAlignment="Center"/>
 
 				<TextBlock Classes="BodyStrong"
-						   Text="没有新任务"/>
+						   Text="{I18N {x:Static w:LanguageKeys.Task_Info_Nothing}"/>
 			</StackPanel>
 
 			<ItemsControl Grid.Row="1"

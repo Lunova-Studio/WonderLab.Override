@@ -76,7 +76,7 @@
 										<Button Classes="icon"
 												FontSize="14"
 												Content="&#xE735;"
-												ToolTip.Tip="取消收藏"
+												ToolTip.Tip="{I18N {x:Static w:LanguageKeys.Item_Fav_Cancel}}"
 												ToolTip.ShowDelay="0"
 												ToolTip.Placement="Pointer"
 												CommandParameter="{Binding}"
@@ -85,7 +85,7 @@
 
 										<Button Classes="icon"
 												Content="&#xE734;"
-												ToolTip.Tip="收藏"
+												ToolTip.Tip="{I18N {x:Static w:LanguageKeys.Item_Fav_Add}}"
 												ToolTip.ShowDelay="0"
 												ToolTip.Placement="Pointer"
 												CommandParameter="{Binding}"
@@ -94,14 +94,14 @@
 
 										<Button Classes="icon"
 												Content="&#xE74D;"
-												ToolTip.Tip="卸载"
+												ToolTip.Tip="{I18N {x:Static w:LanguageKeys.Item_Remove}}"
 												ToolTip.ShowDelay="0"
 												ToolTip.Placement="Pointer"
 												Command="{Binding $parent[ListBox].DataContext.DeleteCommand}"/>
 
 										<Button Classes="icon"
 												Content="&#xE713;"
-												ToolTip.Tip="详细设置"
+												ToolTip.Tip="{I18N {x:Static w:LanguageKeys.Item_Detail}}"
 												ToolTip.ShowDelay="0"
 												ToolTip.Placement="Pointer"
 												Command="{Binding $parent[ListBox].DataContext.GoToGameSettingCommand}"/>

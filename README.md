@@ -107,6 +107,6 @@ WonderLab 是一个跨平台 Minecraft 启动器，支持自动更新、Modrinth
 
 ### [FTS427](https://github.com/FTS427)
 
-现 `WonderLab` 的 `AUR` 维护者，archlinux 用户
+现 `WonderLab` 的 `AUR` 维护者，时不时翻译
 
-[blog](https://www.fts427.top/)
+[Blog](https://www.fts427.top/)

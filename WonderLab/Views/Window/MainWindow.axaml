@@ -97,7 +97,7 @@
 													  ToolTip.Tip="{Binding Game.Entry.Id, Mode=OneWay}">
 											<ToggleButton.Flyout>
 												<MenuFlyout Placement="TopEdgeAlignedRight">
-													<MenuItem Header="结束游戏"
+													<MenuItem Header="{I18N {x:Static w:LanguageKeys.Game_Stop}}"
 															  CommandParameter="{Binding}"
 															  Command="{Binding $parent[ListBox].DataContext.KillGameProcessCommand}">
 														<MenuItem.Icon>
@@ -107,8 +107,8 @@
 													
 													<Separator/>
 													
-													<MenuItem Header="打开日志文件夹"/>
-													<MenuItem Header="打开实时日志窗口"/>
+													<MenuItem Header="{I18N {x:Static w:LanguageKeys.Game_LogDir}}"/>
+													<MenuItem Header="{I18N {x:Static w:LanguageKeys.Game_Log}}"/>
 												</MenuFlyout>
 											</ToggleButton.Flyout>
 
