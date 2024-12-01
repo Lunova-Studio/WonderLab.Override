@@ -278,7 +278,7 @@
     <comment/>
   </data>
   <data name="Settings_Launch_Folder" xml:space="preserve">
-    <value> .minecraft Folder Settings</value>
+    <value>.minecraft Folder Settings</value>
     <comment/>
   </data>
   <data name="Settings_Launch_Folder_Select" xml:space="preserve">
@@ -411,6 +411,42 @@
   </data>
   <data name="Settings_Background_This" xml:space="preserve">
     <value>Image used</value>
+    <comment/>
+  </data>
+  <data name="AC_Choose_Type" xml:space="preserve">
+    <value>Choose account type</value>
+    <comment/>
+  </data>
+  <data name="AC_Offline" xml:space="preserve">
+    <value>Offline</value>
+    <comment/>
+  </data>
+  <data name="AC_MS" xml:space="preserve">
+    <value>Microsoft Account</value>
+    <comment/>
+  </data>
+  <data name="AC_Thirdparty" xml:space="preserve">
+    <value>Third-party Server Account</value>
+    <comment/>
+  </data>
+  <data name="Item_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment/>
+  </data>
+  <data name="AC_Yuuka" xml:space="preserve">
+    <value>E-mail</value>
+    <comment/>
+  </data>
+  <data name="AC_Passwd" xml:space="preserve">
+    <value>Password</value>
+    <comment/>
+  </data>
+  <data name="Item_Save" xml:space="preserve">
+    <value>Save</value>
+    <comment/>
+  </data>
+  <data name="AC_Name" xml:space="preserve">
+    <value>Account Name</value>
     <comment/>
   </data>
 </root>

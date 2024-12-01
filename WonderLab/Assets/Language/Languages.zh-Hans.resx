@@ -357,4 +357,60 @@
     <value>添加</value>
     <comment/>
   </data>
+  <data name="Game_Stop" xml:space="preserve">
+    <value>停止游戏实例</value>
+    <comment/>
+  </data>
+  <data name="Game_LogDir" xml:space="preserve">
+    <value>打开日志文件夹</value>
+    <comment/>
+  </data>
+  <data name="Game_Log" xml:space="preserve">
+    <value>打开实时日志</value>
+    <comment/>
+  </data>
+  <data name="Task_Info_Nothing" xml:space="preserve">
+    <value>今日无事可做 ;)</value>
+    <comment/>
+  </data>
+  <data name="Item_Fav_Cancel" xml:space="preserve">
+    <value>取消收藏</value>
+    <comment/>
+  </data>
+  <data name="Item_Fav_Add" xml:space="preserve">
+    <value>收藏</value>
+    <comment/>
+  </data>
+  <data name="Item_Detail" xml:space="preserve">
+    <value>详情信息</value>
+    <comment/>
+  </data>
+  <data name="Game_Manager" xml:space="preserve">
+    <value>核心管理中心</value>
+    <comment/>
+  </data>
+  <data name="Game_Install" xml:space="preserve">
+    <value>添加新核心</value>
+    <comment/>
+  </data>
+  <data name="Game_ALL" xml:space="preserve">
+    <value>所有核心</value>
+    <comment/>
+  </data>
+  <data name="Game_Starred" xml:space="preserve">
+    <value>收藏核心</value>
+    <comment/>
+  </data>
+  <data name="AC_Saved" xml:space="preserve">
+    <value>保存的账户</value>
+    <comment/>
+  </data>
+  <data name="Settings_Appearance_Monet" xml:space="preserve">
+    <value>动态取色</value>
+    <comment/>
+  </data>
+  <data name="Settings_Background_This" xml:space="preserve">
+    <value>正在使用图片</value>
+    <comment/>
+  </data>
 </root>

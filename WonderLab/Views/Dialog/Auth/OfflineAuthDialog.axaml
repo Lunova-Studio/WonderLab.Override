@@ -7,11 +7,11 @@
 	<Grid Margin="16 24 16 0"
 		  RowDefinitions="Auto, Auto, Auto">
 		<TextBlock Classes="Subtitle"
-				   Text="创建新账户"/>
+				   Text="{I18N {x:Static w:LanguageKeys.Settings_Account_Desciption}}"/>
 
 		<TextBox Grid.Row="1"
 				 Margin="0 16 0 24"
-				 Watermark="账户名称"
+				 Watermark="{I18N {x:Static w:LanguageKeys.AC_Name}}"
 				 Text="{Binding UserName}"/>
 		
 		<Border Grid.Row="2"
@@ -25,11 +25,11 @@
 				  ColumnDefinitions="Auto, Auto">
 				<Button Grid.Column="0"
 						Margin="0 0 8 0"
-						Content="取消"
+						Content="{I18N {x:Static w:LanguageKeys.Item_Cancel}}"
 						Command="{Binding CloseCommand}"/>
 
 				<Button Grid.Column="1"
-						Content="保存"
+						Content="{I18N {x:Static w:LanguageKeys.Item_Save}}"
 						Command="{Binding SaveCommand}"/>
 			</Grid>
 		</Border>

@@ -7,7 +7,7 @@
 	<Grid Margin="16 24 16 0"
 		  RowDefinitions="Auto, Auto, Auto">
 		<TextBlock Classes="Subtitle"
-				   Text="创建新账户"/>
+				   Text="{I18N {x:Static w:LanguageKeys.Account_Add_Desciption}}"/>
 
 		<StackPanel Grid.Row="1"
 					Spacing="8"
@@ -17,10 +17,10 @@
 					 IsEnabled="{Binding IsUseLittleSkin, Converter={StaticResource BooleanReverseConverter}}"
 					 Text="{Binding YggdrasilServerUrl}"/>
 
-			<TextBox Watermark="电子邮箱"
+			<TextBox Watermark="{I18N {x:Static w:LanguageKeys.AC_Yuuka}}"
 					 Text="{Binding Email}"/>
 
-			<TextBox Watermark="密码"
+			<TextBox Watermark="{I18N {x:Static w:LanguageKeys.AC_Passwd}}"
 					 Text="{Binding Password}"/>
 
 			<CheckBox FontSize="14"
@@ -40,11 +40,11 @@
 				  ColumnDefinitions="Auto, Auto">
 				<Button Grid.Column="0"
 						Margin="0 0 8 0"
-						Content="取消"
+						Content="{I18N {x:Static w:LanguageKeys.Item_Cancel}}"
 						Command="{Binding CloseCommand}"/>
 
 				<Button Grid.Column="1"
-						Content="保存"
+						Content="{I18N {x:Static w:LanguageKeys.Item_Save}}"
 						Command="{Binding SaveCommand}"/>
 			</Grid>
 		</Border>

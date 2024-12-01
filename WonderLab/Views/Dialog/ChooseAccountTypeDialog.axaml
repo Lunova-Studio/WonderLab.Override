@@ -7,7 +7,7 @@
 	<Grid Margin="16 24 16 0"
 		  RowDefinitions="Auto, Auto, Auto">
 		<TextBlock Classes="Subtitle"
-				   Text="选择账户类型"/>
+				   Text="{I18N {x:Static w:LanguageKeys.AC_Choose_Type}}"/>
 
 		<TextBlock Grid.Row="1"
 				   Classes="Body"
@@ -23,20 +23,20 @@
 				BorderBrush="{DynamicResource ContentColor3}">
 			<Grid ColumnDefinitions="Auto, Auto, Auto, 1*, Auto">
 				<Button Grid.Column="0"
-						Content="离线"
+						Content="{I18N {x:Static w:LanguageKeys.AC_Offline}}"
 						Command="{Binding GoToOfflineAuthCommand}"/>
 				
 				<Button Margin="8 0"
 						Grid.Column="1"
-						Content="第三方"
+						Content="{I18N {x:Static w:LanguageKeys.AC_Thirdparty}}"
 						Command="{Binding GoToYggdrasilAuthCommand}"/>
 				
 				<Button Grid.Column="2"
-						Content="微软"
+						Content="{I18N {x:Static w:LanguageKeys.AC_MS}}"
 						Command="{Binding GoToMicrosoftAuthCommand}"/>
 
 				<Button Grid.Column="4"
-						Content="关闭"
+						Content="{I18N {x:Static w:LanguageKeys.Item_Cancel}}"
 						Command="{Binding CloseCommand}"/>
 			</Grid>
 		</Border>
