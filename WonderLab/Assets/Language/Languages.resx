@@ -278,7 +278,7 @@
     <comment/>
   </data>
   <data name="Settings_Launch_Folder" xml:space="preserve">
-    <value>.minecraft Folder Settings</value>
+    <value> .minecraft Folder Settings</value>
     <comment/>
   </data>
   <data name="Settings_Launch_Folder_Select" xml:space="preserve">

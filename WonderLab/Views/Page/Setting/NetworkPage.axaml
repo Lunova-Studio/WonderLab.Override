@@ -3,6 +3,46 @@
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:w="using:WonderLab"
+			 xmlns:wc="using:WonderLab.Controls"
 			 x:Class="WonderLab.Views.Page.Setting.NetworkPage">
-  Welcome to Avalonia!
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Loaded">
+			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
+
+	<ScrollViewer>
+		<ItemsControl Margin="0 24 0 16">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel Spacing="4"/>
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+
+			<TextBlock Classes="Title"
+					   Margin="0 0 0 12"
+					   VerticalAlignment="Top"
+					   HorizontalAlignment="Left"
+					   Effect="{StaticResource LowTextBlockShadow}"
+					   Text="网络设置"/>
+
+			<wc:SettingExpander Glyph="&#xE8B7;"
+								Header="{I18N {x:Static w:LanguageKeys.Settings_Launch_Folder}}">
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Launch_Folder_Select}}">
+					<ToggleSwitch OnContent=""
+								  OffContent=""
+								  Margin="0 0 -10 0"
+								  IsChecked="{Binding IsUseMirrorDownloadSource}"/>
+				</wc:SettingExpanderItem>
+
+				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Launch_Folder_Add}}">
+					<Slider Width="250"
+							Minimum="1"
+							Maximum="256"
+							Value="{Binding MultiThreadsCount}"/>
+				</wc:SettingExpanderItem>
+			</wc:SettingExpander>
+		</ItemsControl>
+	</ScrollViewer>
 </UserControl>

@@ -95,12 +95,12 @@
 							<Grid Margin="12 0"
 								  VerticalAlignment="Center"
 								  ColumnDefinitions="Auto, Auto">
-								<wc:FontIcon Name="Icon"
-											 FontSize="14"
+								<wc:FontIcon FontSize="14"
+											 Name="PART_FontIcon"
 											 VerticalAlignment="Center"
 											 Glyph="{TemplateBinding Tag}"
 											 Transitions="{TemplateBinding Transitions}"
-											 Foreground="{Binding #PART_TextBlock.Foreground}"/>
+											 Foreground="{DynamicResource DefaultBrush500}"/>
 
 
 								<TextBlock Classes="Body"
@@ -115,6 +115,10 @@
 						</Border>
 					</ControlTemplate>
 				</Setter>
+
+				<Style Selector="^:selected /template/ wc|FontIcon#PART_FontIcon">
+					<Setter Property="Foreground" Value="{TemplateBinding Foreground}"/>
+				</Style>
 				
 				<Style Selector="^:selected /template/ TextBlock#PART_TextBlock">
 					<Setter Property="Foreground" Value="{TemplateBinding Foreground}"/>

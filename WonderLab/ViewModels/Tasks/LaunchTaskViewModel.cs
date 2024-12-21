@@ -54,6 +54,7 @@ public sealed partial class LaunchTaskViewModel : ObservableObject, ITaskJob<Tas
             case 3:
                 TaskSteps[1].TaskStatus = TaskStatus.RanToCompletion;
                 TaskSteps[2].TaskStatus = TaskStatus.Running;
+                TaskSteps[2].Speed = value.Speed;
                 TaskSteps[2].Progress = value.Progress;
                 break;
             case 4:

@@ -1,0 +1,185 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:w="using:WonderLab"
+			 xmlns:wc="using:WonderLab.Controls"
+			 x:Class="WonderLab.Views.Page.Download.MinecraftNewsPage">
+	<UserControl.Styles>
+		<Style Selector="Button.newcard">
+			<Setter Property="CornerRadius" Value="12" />
+			<Setter Property="Foreground" Value="White" />
+			<Setter Property="BorderThickness" Value="2.55" />
+			<Setter Property="VerticalAlignment" Value="Stretch" />
+			<Setter Property="HorizontalAlignment" Value="Stretch" />
+			<Setter Property="BorderBrush" Value="{DynamicResource ComboBoxBorderBrush}" />
+			<Setter Property="Transitions">
+				<Transitions>
+					<TransformOperationsTransition Duration="0:0:.35"
+												   Property="RenderTransform"
+												   Easing="ExponentialEaseOut"/>
+				</Transitions>
+			</Setter>
+			
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border ClipToBounds="True"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							CornerRadius="{TemplateBinding CornerRadius}"
+							BorderThickness="{TemplateBinding BorderThickness}">
+						<Border Padding="12"
+								CornerRadius="0 0 10 10"
+								VerticalAlignment="Bottom"
+								HorizontalAlignment="Stretch"
+								Background="#96000000">
+							<Grid RowDefinitions="Auto, Auto">
+								<Border  Padding="4 4 4 1"
+										 CornerRadius="4"
+										 HorizontalAlignment="Left"
+										 Background="{DynamicResource NormalAccentBrush}">
+									<TextBlock Text="News"
+											   FontSize="14"
+											   FontWeight="Normal"
+											   FontFamily="{StaticResource MinecraftFontFamily}"/>
+								</Border>
+								
+								<ContentPresenter Grid.Row="1"
+												  FontSize="20"
+												  Margin="0 8 0 0"
+												  TextWrapping="WrapWithOverflow"
+												  Content="{TemplateBinding Content}"
+												  FontFamily="{StaticResource MinecraftFontFamily}"
+												  ContentTemplate="{TemplateBinding ContentTemplate}"
+												  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+												  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+							</Grid>
+						</Border>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="Button.newcard:pointerover">
+			<Setter Property="RenderTransform" Value="scale(1.01)"/>
+		</Style>
+	</UserControl.Styles>
+	
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Loaded">
+			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
+	
+	<ScrollViewer VerticalScrollBarVisibility="Hidden">
+		<Panel>
+			<Grid Margin="0 24 0 0"
+				  IsVisible="{Binding IsNetworkAvailable}"
+				  RowDefinitions="Auto, Auto, Auto, Auto, Auto">
+				<TextBlock Classes="Title"
+						   Margin="0 12 0 0"
+						   VerticalAlignment="Top"
+						   HorizontalAlignment="Left"
+						   Text="资源中心"/>
+
+				<TextBlock Grid.Row="1"
+						   Margin="0 12"
+						   Classes="BodyStrong"
+						   Text="Minecraft 新闻"
+						   IsVisible="{Binding IsCollectionGamesVisible, Mode=OneWay}"/>
+
+				<ItemsRepeater Grid.Row="2" 
+							   Margin="0 0 0 24"
+							   ItemsSource="{Binding MinecraftNews}">
+					<ItemsRepeater.Layout>
+						<UniformGridLayout MinRowSpacing="4"
+										   MinColumnSpacing="4"
+										   MinItemWidth="300"
+										   MinItemHeight="200"
+										   ItemsStretch="Fill"
+										   ItemsJustification="Start"/>
+					</ItemsRepeater.Layout>
+
+					<ItemsRepeater.ItemTemplate>
+						<DataTemplate>
+							<Button Classes="newcard"
+									Content="{Binding}">
+								<Button.Background>
+									<ImageBrush Stretch="UniformToFill" Source="C:\Users\wxysd\Desktop\总整包\素材库\图片素材\杂项\71446383_p0.jpg"/>
+								</Button.Background>
+							</Button>
+						</DataTemplate>
+					</ItemsRepeater.ItemTemplate>
+				</ItemsRepeater>
+
+				<TextBlock Grid.Row="3"
+						   Margin="0 12"
+						   Classes="BodyStrong"
+						   Text="Curseforge 热门"
+						   IsVisible="True"/>
+
+				<ItemsRepeater Grid.Row="4"
+							   Margin="0 0 0 24">
+					<ItemsRepeater.Layout>
+						<UniformGridLayout MinItemWidth="260"
+										   ItemsStretch="Fill"
+										   MinRowSpacing="4"
+										   MinColumnSpacing="4"
+										   ItemsJustification="Start"/>
+					</ItemsRepeater.Layout>
+
+					<ItemsRepeater.ItemTemplate>
+						<DataTemplate>
+							<Button Classes="newcard"
+									Content="{Binding}">
+								<Button.Background>
+									<ImageBrush Stretch="UniformToFill" Source="C:\Users\wxysd\Desktop\总整包\素材库\图片素材\杂项\71446383_p0.jpg"/>
+								</Button.Background>
+							</Button>
+						</DataTemplate>
+					</ItemsRepeater.ItemTemplate>
+				</ItemsRepeater>
+				
+				<!--<ItemsControl Grid.Row="2"
+							  Margin="0 12"
+							  IsVisible="{Binding HasTask}"
+							  ItemsSource="{Binding Tasks, Mode=TwoWay}">
+				</ItemsControl>
+				
+
+				
+				-->
+			</Grid>
+
+			<StackPanel Spacing="8"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center"
+						IsVisible="{Binding IsNetworkAvailable, Converter={StaticResource BooleanReverseConverter}}">
+				<wc:FontIcon FontSize="28"
+							 Glyph="&#xF384;"
+							 HorizontalAlignment="Center"/>
+
+				<TextBlock Classes="BodyStrong"
+						   Text="当前无网络连接"/>
+				
+				<Button Classes="icon"
+						Width="35"
+						Height="35"
+						FontSize="18"
+						Content="&#xE72C;"
+						CornerRadius="114514"
+						HorizontalAlignment="Center"
+						Command="{Binding RefreshNetworkCommand}"/>
+			</StackPanel>
+
+			<!--<Button MaxWidth="350" Classes="newcard" HorizontalAlignment="Center"
+					VerticalAlignment="Center"
+					Content="Minecraft 1.21.4 Release Candidate 3">
+				<Button.Background>
+					<ImageBrush Stretch="UniformToFill" Source="C:\Users\wxysd\Desktop\总整包\素材库\图片素材\杂项\71446383_p0.jpg"/>
+				</Button.Background>
+			</Button>-->
+		</Panel>
+	</ScrollViewer>
+</UserControl>

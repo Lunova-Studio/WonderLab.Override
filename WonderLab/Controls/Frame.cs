@@ -86,9 +86,7 @@ public sealed class Frame : TemplatedControl {
 
         if (change.Property == PageKeyProperty && PageProvider is not null) {
             var page = await Dispatcher.UIThread.InvokeAsync(() => PageProvider.GetPage(change.GetNewValue<string>()), DispatcherPriority.Background);
-            Dispatcher.UIThread.Post(() => {
-                RunAnimation(page);
-            }, DispatcherPriority.ApplicationIdle);
+            RunAnimation(page);
         }
     }
 }

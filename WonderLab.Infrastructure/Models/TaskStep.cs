@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using MinecraftLaunch.Components.Downloader;
 
 namespace WonderLab.Infrastructure.Models;
 
@@ -14,6 +15,12 @@ public sealed partial class TaskStep : ObservableObject {
     [NotifyPropertyChangedFor(nameof(ProgressText))]
     private double _progress;
 
-    public string ProgressText => Progress.ToString("P2");
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(ProgressText))]
+    private double? _speed = null;
+
     public string ProgressIcon => TaskStatus is TaskStatus.RanToCompletion ? "\uE73E" : "\uE712";
+    public string ProgressText => Speed is null
+        ? $"{StepName} - {Progress:P2}"
+        : $"{StepName} - {Progress:P2} - {FileDownloader.GetSpeedText(Speed.GetValueOrDefault())}";
 }

@@ -42,7 +42,9 @@
 		<SolidColorBrush x:Key="DarkAccentBrush2"/>
 		<SolidColorBrush x:Key="LightAccentBrush1"/>
 		<SolidColorBrush x:Key="LightAccentBrush2"/>
-		
+
+		<FontFamily x:Key="MinecraftFontFamily">resm:WonderLab.Assets.Font.MinecraftTen.ttf?assembly=WonderLab#Minecraft Ten</FontFamily>
+
 		<wcc:BooleanReverseConverter x:Key="BooleanReverseConverter"/>
 		<wcc:MinecraftTypeIconConverter x:Key="MinecraftTypeIconConverter"/>
 		<wcc:FitSquarelyWithinAspectRatioConverter x:Key="FitSquarelyWithinAspectRatioConverter"/>

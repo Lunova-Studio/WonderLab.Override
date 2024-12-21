@@ -13,6 +13,7 @@ using Avalonia.Threading;
 using WonderLab.Infrastructure.Models;
 using WonderLab.Services;
 using WonderLab.Services.Launch;
+using WonderLab.Extensions;
 
 namespace WonderLab.ViewModels.Page.Setting;
 
@@ -29,6 +30,7 @@ public sealed partial class LaunchPageViewModel : ObservableObject {
     [ObservableProperty] private bool _isGameIndependent;
     [ObservableProperty] private bool _isAutoAllocateMemory;
 
+    [ObservableProperty] private int _maxMemory;
     [ObservableProperty] private string _activeFolder;
     [ObservableProperty] private JavaEntry _activeJava;
     [ObservableProperty] private ReadOnlyObservableCollection<string> _folders;
@@ -43,14 +45,16 @@ public sealed partial class LaunchPageViewModel : ObservableObject {
 
     [RelayCommand]
     private void OnLoaded() {
-        _javaEntrys = new(Config.Javas);
-        _minecraftFolders = new(Config.MinecraftFolders);
+        Dispatcher.UIThread.Post(() => {
+            _javaEntrys = new(Config.Javas);
+            _minecraftFolders = new(Config.MinecraftFolders);
 
-        Javas = new(_javaEntrys);
-        Folders = new(_minecraftFolders);
+            Javas = new(_javaEntrys);
+            Folders = new(_minecraftFolders);
 
-        ActiveJava = Config.ActiveJava;
-        ActiveFolder = Config.ActiveMinecraftFolder;
+            ActiveJava = Config.ActiveJava;
+            ActiveFolder = Config.ActiveMinecraftFolder;
+        });
     }
 
     [RelayCommand]
@@ -120,6 +124,9 @@ public sealed partial class LaunchPageViewModel : ObservableObject {
             case nameof(ActiveFolder):
                 _gameService.RefreshGames();
                 Config.ActiveMinecraftFolder = ActiveFolder;
+                break;
+            case nameof(MaxMemory):
+                Config.MaxMemory = MaxMemory;
                 break;
             case nameof(ActiveJava):
                 Config.ActiveJava = ActiveJava;

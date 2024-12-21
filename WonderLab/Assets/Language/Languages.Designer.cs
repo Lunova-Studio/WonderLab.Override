@@ -61,6 +61,78 @@ namespace WonderLab.Assets.Language {
         }
         
         /// <summary>
+        ///   查找类似 Saved Accounts 的本地化字符串。
+        /// </summary>
+        internal static string AC_Saved {
+            get {
+                return ResourceManager.GetString("AC_Saved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 All cores 的本地化字符串。
+        /// </summary>
+        internal static string Game_ALL {
+            get {
+                return ResourceManager.GetString("Game_ALL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Install Game Cores 的本地化字符串。
+        /// </summary>
+        internal static string Game_Install {
+            get {
+                return ResourceManager.GetString("Game_Install", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Open logs window 的本地化字符串。
+        /// </summary>
+        internal static string Game_Log {
+            get {
+                return ResourceManager.GetString("Game_Log", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Open logs directory 的本地化字符串。
+        /// </summary>
+        internal static string Game_LogDir {
+            get {
+                return ResourceManager.GetString("Game_LogDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Manage Game Cores 的本地化字符串。
+        /// </summary>
+        internal static string Game_Manager {
+            get {
+                return ResourceManager.GetString("Game_Manager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Starred Cores 的本地化字符串。
+        /// </summary>
+        internal static string Game_Starred {
+            get {
+                return ResourceManager.GetString("Game_Starred", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Stop 的本地化字符串。
+        /// </summary>
+        internal static string Game_Stop {
+            get {
+                return ResourceManager.GetString("Game_Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Launch 的本地化字符串。
         /// </summary>
         internal static string Home_Launch {
@@ -84,6 +156,33 @@ namespace WonderLab.Assets.Language {
         internal static string Item_Browse {
             get {
                 return ResourceManager.GetString("Item_Browse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Full info 的本地化字符串。
+        /// </summary>
+        internal static string Item_Detail {
+            get {
+                return ResourceManager.GetString("Item_Detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Star 的本地化字符串。
+        /// </summary>
+        internal static string Item_Fav_Add {
+            get {
+                return ResourceManager.GetString("Item_Fav_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Unstar 的本地化字符串。
+        /// </summary>
+        internal static string Item_Fav_Cancel {
+            get {
+                return ResourceManager.GetString("Item_Fav_Cancel", resourceCulture);
             }
         }
         
@@ -358,6 +457,15 @@ namespace WonderLab.Assets.Language {
         }
         
         /// <summary>
+        ///   查找类似 Dynamical color 的本地化字符串。
+        /// </summary>
+        internal static string Settings_Appearance_Monet {
+            get {
+                return ResourceManager.GetString("Settings_Appearance_Monet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Theme 的本地化字符串。
         /// </summary>
         internal static string Settings_Appearance_Theme {
@@ -399,6 +507,15 @@ namespace WonderLab.Assets.Language {
         internal static string Settings_Background_Mode {
             get {
                 return ResourceManager.GetString("Settings_Background_Mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Image used 的本地化字符串。
+        /// </summary>
+        internal static string Settings_Background_This {
+            get {
+                return ResourceManager.GetString("Settings_Background_This", resourceCulture);
             }
         }
         
@@ -588,6 +705,15 @@ namespace WonderLab.Assets.Language {
         internal static string Task_ActiveInfo {
             get {
                 return ResourceManager.GetString("Task_ActiveInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 There is nothing to do ;) 的本地化字符串。
+        /// </summary>
+        internal static string Task_Info_Nothing {
+            get {
+                return ResourceManager.GetString("Task_Info_Nothing", resourceCulture);
             }
         }
         

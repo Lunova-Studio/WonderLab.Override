@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Classes.Interfaces;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using WonderLab.Extensions.Hosting.UI;
 using WonderLab.Infrastructure.Models;
 using WonderLab.Infrastructure.Models.Launch;
@@ -59,10 +60,6 @@ public sealed partial class MainWindowViewModel : ObservableObject {
 
     [RelayCommand]
     private void KillGameProcess(GameProcess gameProcess) {
-        if (gameProcess.ProcessWatcher.Process.HasExited) {
-            return;
-        }
-
         gameProcess.ProcessWatcher.Process.Kill();
     }
 }

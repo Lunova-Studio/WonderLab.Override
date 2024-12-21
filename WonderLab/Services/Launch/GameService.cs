@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using MinecraftLaunch.Classes.Interfaces;
 using MinecraftLaunch.Classes.Models.Game;
+using MinecraftLaunch.Components.Checker;
 using MinecraftLaunch.Components.Resolver;
 using MinecraftLaunch.Extensions;
 using System;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using WonderLab.Infrastructure.Models.Launch;
 
 namespace WonderLab.Services.Launch;
@@ -26,13 +28,14 @@ public sealed class GameService {
     public IGameResolver GameResolver { get; private set; }
     public ReadOnlyObservableCollection<GameModel> Games { get; }
 
+
     public GameService(ConfigService configService, ILogger<GameService> logger) {
         _logger = logger;
         _configService = configService;
         Games = new ReadOnlyObservableCollection<GameModel>(_gameEntries);
 
         if (!string.IsNullOrEmpty(_configService?.Entries?.ActiveMinecraftFolder)) {
-            Initialize();
+            _ = Task.Run(Initialize);
         }
     }
 

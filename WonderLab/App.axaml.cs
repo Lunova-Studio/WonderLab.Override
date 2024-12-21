@@ -144,6 +144,7 @@ public sealed class App : Application {
         page.AddPage<AboutPage, AboutPageViewModel>("Setting/About");
 
         //Download
+        page.AddPage<MinecraftNewsPage, MinecraftNewsPageViewModel>("Download/News");
         page.AddPage<DownloadNavigationPage, DownloadNavigationPageViewModel>("Download/Navigation");
 
         //Configure Logging

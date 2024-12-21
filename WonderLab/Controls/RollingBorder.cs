@@ -25,9 +25,22 @@ public sealed class RollingBorder : Border {
     private void UpdateClip() {
         var rate = Percent / 100;
         var rect = Bounds.Inflate(50);
-        rect = rect.WithHeight(rect.Height * rate);
+
+        // 调整矩形的起始位置和高度以实现从中间向上下展开
+        var newHeight = rect.Height * rate;
+        var offsetY = (rect.Height - newHeight) / 2;
+        rect = new Rect(rect.X, rect.Y + offsetY, rect.Width, newHeight);
+
         Clip = new RectangleGeometry(rect);
     }
+
+
+    //private void UpdateClip() {
+    //    var rate = Percent / 100;
+    //    var rect = Bounds.Inflate(50);
+    //    rect = rect.WithHeight(rect.Height * rate);
+    //    Clip = new RectangleGeometry(rect);
+    //}
 
     protected override void OnSizeChanged(SizeChangedEventArgs e) {
         base.OnSizeChanged(e);

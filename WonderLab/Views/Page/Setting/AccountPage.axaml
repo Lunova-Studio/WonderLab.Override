@@ -6,6 +6,7 @@
 			 xmlns:w="using:WonderLab"
 			 xmlns:wc="using:WonderLab.Controls"
 			 xmlns:wb="using:WonderLab.Controls.Media.Behaviors"
+			 xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
 			 x:Class="WonderLab.Views.Page.Setting.AccountPage">
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
@@ -28,7 +29,7 @@
 					   HorizontalAlignment="Left"
 					   Text="{I18N {x:Static w:LanguageKeys.Settings_Account_Title}}"/>
 
-			<wc:SettingExpander Glyph="&#xE8B7;"
+			<wc:SettingExpander Glyph="&#xE716;"
 								Header="{I18N {x:Static w:LanguageKeys.Settings_Account_Title}}">
 				<wc:SettingExpanderItem Description="{I18N {x:Static w:LanguageKeys.Settings_Account_Add_Description}}">
 					<Button Command="{Binding CreateAccountCommand}"

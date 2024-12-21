@@ -7,6 +7,8 @@ using System;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp;
+using Avalonia.Threading;
+using System.Threading.Tasks;
 
 namespace WonderLab.Extensions;
 
@@ -47,4 +49,38 @@ public static class AvaloniaExtension {
         stream.Position = 0;
         return new Bitmap(stream);
     }
+
+    public static void SyncPost(this Dispatcher dispatcher, Action action) {
+        dispatcher.SyncPost(DispatcherPriority.Normal, action);
+    }
+
+    public static async void SyncPost(this Dispatcher dispatcher, DispatcherPriority priority, Action action) {
+        bool isDone = false;
+
+        dispatcher.Post(() => {
+            action.Invoke();
+            isDone = true;
+        }, priority);
+
+        while (!isDone) {
+            await Task.Delay(75);
+        }
+    }
 }
+
+
+//public static void SynchronousTryEnqueue(this DispatcherQueue dispatcher, DispatcherQueueHandler callback)
+//    => dispatcher.SynchronousTryEnqueue(DispatcherQueuePriority.Normal, callback);
+
+//public static void SynchronousTryEnqueue(this DispatcherQueue dispatcher, DispatcherQueuePriority priority, DispatcherQueueHandler callback) {
+//    bool taskDone = false;
+
+//    dispatcher.TryEnqueue(priority, () =>
+//    {
+//        callback.Invoke();
+//        taskDone = true;
+//    });
+
+//    while (!taskDone)
+//        Task.Delay(75).Wait();
+//}
