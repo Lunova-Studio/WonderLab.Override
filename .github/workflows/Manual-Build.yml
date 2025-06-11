@@ -35,7 +35,6 @@ jobs:
           echo "build_number=$build_number" >> $GITHUB_OUTPUT
           echo "Build number: $build_number"
 
-
   get_time:
     runs-on: ubuntu-latest
     outputs:
@@ -63,7 +62,7 @@ jobs:
           uses: actions/checkout@v4
           with:
             fetch-depth: 0
-            ref: dev
+            ref: main
         - name: Time
           id: date
           run: |
@@ -161,7 +160,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: dev
+          ref: main
           fetch-depth: 0
       - name: Time
         id: date
