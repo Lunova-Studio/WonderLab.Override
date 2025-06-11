@@ -3,12 +3,34 @@
              x:Class="WonderLab.App"
              xmlns:monet="using:Monet.Avalonia"
 			 xmlns:wc="using:WonderLab.Media.Converters"
+			 xmlns:wc1="using:WonderLab.Controls"
 			 xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
              RequestedThemeVariant="Default">
     <Application.Styles>
         <FluentTheme />
 		<monet:MonetColors/>
 		<dialogHostAvalonia:DialogHostStyles/>
+
+		<Style Selector="ContentControl.tip">
+			<Setter Property="FontSize" Value="26"/>
+			<Setter Property="VerticalAlignment" Value="Center"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+
+			<Setter Property="Template">
+				<ControlTemplate>
+					<StackPanel Spacing="8"
+								HorizontalAlignment="Center"
+								IsVisible="{TemplateBinding IsVisible}">
+						<wc1:FontIcon Glyph="&#xF133;"
+									 HorizontalAlignment="Center"
+									 FontSize="{TemplateBinding FontSize}"/>
+
+						<TextBlock Classes="BodyStrong"
+								   Text="{TemplateBinding Content}"/>
+					</StackPanel>
+				</ControlTemplate>
+			</Setter>
+		</Style>
     </Application.Styles>
 
 	<Application.Resources>

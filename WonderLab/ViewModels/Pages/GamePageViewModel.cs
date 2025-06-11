@@ -15,6 +15,8 @@ public sealed partial class GamePageViewModel : ObservableObject {
     private readonly GameService _gameService;
     private readonly ILogger<GamePageViewModel> _logger;
 
+    [ObservableProperty] private bool _hasMinecrafts;
+
     [ObservableProperty]
     private ReadOnlyObservableCollection<MinecraftEntry> _minecrafts;
 
@@ -27,6 +29,8 @@ public sealed partial class GamePageViewModel : ObservableObject {
     private Task OnLoaded() => Task.Run(() => {
         _gameService?.RefreshGames();
         Minecrafts = new(_gameService.Minecrafts);
+
+        HasMinecrafts = Minecrafts.Count > 0;
     });
 
     [RelayCommand]

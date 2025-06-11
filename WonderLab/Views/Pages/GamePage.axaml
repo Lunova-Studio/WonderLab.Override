@@ -47,6 +47,11 @@
 				   Classes="BodyStrong"
 				   Text="所有游戏"/>
 
+		<ContentControl Classes="tip"
+						Content="未安装任何 Minecraft 实例"
+						IsVisible="{Binding HasMinecrafts, Converter={StaticResource BoolReverseConverter}}"
+						Grid.Row="3"/>
+
 		<ScrollViewer Grid.Row="3">
 			<ItemsRepeater Margin="0 0 16 0" 
 						   Background="Transparent"
