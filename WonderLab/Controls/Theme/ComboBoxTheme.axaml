@@ -83,9 +83,9 @@
 						<Border IsVisible="False"
 								Name="HighlightBackground"
 								CornerRadius="{TemplateBinding CornerRadius}"
+								BorderBrush="{DynamicResource ComboBoxBorderBrush}"
 								BorderThickness="{TemplateBinding BorderThickness}"
-								Background="{DynamicResource ComboBoxBackgroundUnfocused}"
-								BorderBrush="{DynamicResource ComboBoxBackgroundBorderBrushUnfocused}"
+								Background="{DynamicResource ComboBoxBackgroundBrush}"
 								Grid.Column="0"
 								Grid.ColumnSpan="2"/>
 						
@@ -140,13 +140,13 @@
 							   WindowManagerAddShadowHint="False"
 							   MaxHeight="{TemplateBinding MaxDropDownHeight}"
 							   IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}">
-							<Border Margin="8"
-									Name="PopupBorder"
+							<Border Name="PopupBorder"
+									UseLayoutRounding="False"
 									HorizontalAlignment="Stretch"
 									Effect="{DynamicResource ComboBoxDropShadowEffect}"
 									CornerRadius="{DynamicResource NormalCornerRadius}"
+									Background="{DynamicResource ComboBoxBackgroundBrush}"
 									Padding="{DynamicResource ComboBoxDropdownBorderPadding}"
-									Background="{DynamicResource ComboBoxDropDownBackground}"
 									BorderBrush="{DynamicResource ComboBoxDropDownBorderBrush}"
 									BorderThickness="{DynamicResource ComboBoxDropdownBorderThickness}"
 									MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}">
@@ -158,6 +158,40 @@
 													Margin="{DynamicResource ComboBoxDropdownContentMargin}"
 													wa:ItemsPresenterExtensions.AnimatedScroll="True"/>
 								</ScrollViewer>
+
+								<Border.Styles>
+									<Style>
+										<Style.Animations>
+											<Animation FillMode="Both"
+													   Duration="0:0:.2"
+													   Easing="CubicEaseOut">
+												<KeyFrame Cue="0%">
+													<Setter Property="Opacity" Value="0"/>
+												</KeyFrame>
+
+												<KeyFrame Cue="100%">
+													<Setter Property="Opacity" Value="1"/>
+												</KeyFrame>
+											</Animation>
+
+											<Animation FillMode="Both"
+													   Duration="0:0:.35"
+													   Easing="ExponentialEaseOut">
+												<KeyFrame Cue="0%">
+													<Setter Property="Margin" Value="8 0"/>
+												</KeyFrame>
+
+												<KeyFrame Cue="30%">
+													<Setter Property="Margin" Value="8 0"/>
+												</KeyFrame>
+												
+												<KeyFrame Cue="100%">
+													<Setter Property="Margin" Value="8"/>
+												</KeyFrame>
+											</Animation>
+										</Style.Animations>
+									</Style>
+								</Border.Styles>
 							</Border>
 						</Popup>
 					</Grid>

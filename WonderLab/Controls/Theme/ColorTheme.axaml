@@ -101,6 +101,7 @@
 	<SolidColorBrush x:Key="ComboBoxBorderBrush" Color="{DynamicResource OutlineColor}"/>
 	<SolidColorBrush x:Key="ComboBoxForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
 	<SolidColorBrush x:Key="ComboBoxFocusedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="ComboBoxBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
 	<SolidColorBrush x:Key="ComboBoxPointerPressedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
 
 	<SolidColorBrush x:Key="ToggleSwitchBorderBrush" Color="{DynamicResource OutlineColor}"/>
