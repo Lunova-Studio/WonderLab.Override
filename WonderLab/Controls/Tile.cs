@@ -116,10 +116,13 @@ public class Tile : ListBoxItem {
     protected override async void OnLoaded(RoutedEventArgs e) {
         base.OnLoaded(e);
 
-        _index = _childIndexProvider.GetChildIndex(this);
-        _delay = TimeSpan.FromMilliseconds(_index * 15);
+        if (_childIndexProvider is not null) {
+            _index = _childIndexProvider.GetChildIndex(this);
+            _delay = TimeSpan.FromMilliseconds(_index * 15);
 
-        await Task.Delay(200);
+            await Task.Delay(200);
+        }
+
         _ = Dispatcher.UIThread.InvokeAsync(RunAnimation);
     }
 

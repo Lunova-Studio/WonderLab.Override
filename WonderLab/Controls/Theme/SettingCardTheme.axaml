@@ -8,7 +8,7 @@
 	</Design.PreviewWith>
 	
 	<ControlTheme TargetType="wc:SettingCard" x:Key="{x:Type wc:SettingCard}">
-		<Setter Property="Padding" Value="8"/>
+		<Setter Property="Padding" Value="16 12"/>
 		<Setter Property="MinWidth" Value="100"/>
 		<Setter Property="HorizontalAlignment" Value="Stretch"/>
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -26,9 +26,10 @@
 		
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Button Classes="ripple"
+				<Button Classes="ripple" 
 						Width="{TemplateBinding Width}"
 						Height="{TemplateBinding Height}"
+						Padding="{TemplateBinding Padding}"
 						MinWidth="{TemplateBinding MinWidth}"
 						MinHeight="{TemplateBinding MinHeight}"
 						Background="{TemplateBinding Background}"
@@ -40,7 +41,6 @@
 					<Grid RowSpacing="0"
 						  Name="PART_LayoutGrid"
 						  RowDefinitions="auto auto"
-						  Margin="{TemplateBinding Padding}"
 						  ColumnDefinitions="auto auto * auto">
 						<Grid.Transitions>
 							<Transitions>
@@ -49,7 +49,7 @@
 							</Transitions>
 						</Grid.Transitions>
 						
-						<wc:FontIcon FontSize="22"
+						<wc:FontIcon FontSize="20"
 									 VerticalAlignment="Center"
 									 Glyph="{TemplateBinding Icon}"
 									 Foreground="{TemplateBinding Foreground}"/>

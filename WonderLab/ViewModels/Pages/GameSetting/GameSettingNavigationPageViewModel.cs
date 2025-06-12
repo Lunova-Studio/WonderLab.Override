@@ -16,7 +16,6 @@ namespace WonderLab.ViewModels.Pages.GameSetting;
 
 public sealed partial class GameSettingNavigationPageViewModel : DynamicPageViewModelBase {
     private readonly GameService _gameService;
-    private readonly ResourcepackService _resourcepackService;
     private readonly MinecraftEntry _minecraftEntry;
 
     [ObservableProperty] private string _pageKey;
@@ -25,9 +24,8 @@ public sealed partial class GameSettingNavigationPageViewModel : DynamicPageView
     public string MinecraftId => _minecraftEntry.Id;
     public AvaloniaPageProvider PageProvider { get; }
 
-    public GameSettingNavigationPageViewModel(GameService gameService, ResourcepackService resourcepackService, AvaloniaPageProvider avaloniaPageProvider) {
+    public GameSettingNavigationPageViewModel(GameService gameService, AvaloniaPageProvider avaloniaPageProvider) {
         _gameService = gameService;
-        _resourcepackService = resourcepackService;
         _minecraftEntry = _gameService.ActiveGameCache;
 
         PageProvider = avaloniaPageProvider;
@@ -42,11 +40,9 @@ public sealed partial class GameSettingNavigationPageViewModel : DynamicPageView
     [RelayCommand]
     private async Task Save() {
         try {
-            await MinecraftParser.DataProcessors
-                .FirstOrDefault()
+            await MinecraftParser.DataProcessors.FirstOrDefault()
                 .SaveAsync();
 
-            await _resourcepackService.SaveToOptionsAsync(default);
             WeakReferenceMessenger.Default.Send(new NotificationMessage("保存成功", NotificationType.Success));
         } catch (Exception) { }
     }
@@ -60,7 +56,7 @@ public sealed partial class GameSettingNavigationPageViewModel : DynamicPageView
         PageKey = value switch {
             0 => "GameSetting/Setting",
             1 => "GameSetting/Resourcepack",
-            2 => "GameSetting/Resourcepack",
+            2 => "GameSetting/Mod",
             3 => "GameSetting/Resourcepack",
             _ => PageKey ?? "GameSetting/Setting",
         };

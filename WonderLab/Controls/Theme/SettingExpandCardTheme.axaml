@@ -10,15 +10,15 @@
 	</Design.PreviewWith>
 	
 	<ControlTheme TargetType="wc:SettingExpandCard" x:Key="{x:Type wc:SettingExpandCard}">
+		<Setter Property="Padding" Value="16 12"/>
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Expander Name="PART_Expander"
 						  IsExpanded="{TemplateBinding IsExpanded}">
 					<Expander.Header>
 						<Grid Background="Transparent"
-							  Margin="{TemplateBinding Padding}"
 							  ColumnDefinitions="Auto Auto 1* Auto">
-							<wc:FontIcon FontSize="22"
+							<wc:FontIcon FontSize="20"
 										 VerticalAlignment="Center"
 										 Glyph="{TemplateBinding Icon}"
 										 Foreground="{TemplateBinding Foreground}"/>
@@ -36,9 +36,9 @@
 					</Expander.Header>
 
 					<Expander.Content>
-						<ScrollViewer Margin="16 0"
-									  Name="PART_ScrollViewer"
+						<ScrollViewer Name="PART_ScrollViewer"
 									  Background="Transparent"
+									  Margin="{TemplateBinding Padding}"
 									  AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
 									  VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}"
 									  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
@@ -102,29 +102,29 @@
 											Name="PART_BottomBorder"
 											HorizontalAlignment="Stretch"/>
 
-									<ToggleButton Grid.Row="0"
-												  MinHeight="50"
+									<ToggleButton MinHeight="50"
 												  Classes="Basic"
 												  BorderThickness="0"
 												  Name="PART_ToggleButton"
-												  Background="Transparent"
+												  Background="red"
 												  VerticalAlignment="Center"
 												  HorizontalAlignment="Stretch"
 												  HorizontalContentAlignment="Stretch"
 												  BorderBrush="{DynamicResource SukiBorderBrush}"
-												  IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}">
-										<Grid ColumnDefinitions="1* Auto">
-											<ContentPresenter Grid.Column="0"
-															  VerticalAlignment="Center"
+												  IsChecked="{TemplateBinding IsExpanded, Mode=TwoWay}"
+												  Grid.Row="0">
+										<Grid ColumnDefinitions="* auto">
+											<ContentPresenter VerticalAlignment="Center"
 															  HorizontalAlignment="Stretch"
-															  Content="{TemplateBinding Header}"/>
+															  Content="{TemplateBinding Header}"
+															  Grid.Column="0"/>
 
-											<wc:FontIcon Grid.Column="1"
-														 Glyph="&#xE70D;"
-														 Margin="12 0 0 0"
+											<wc:FontIcon Glyph="&#xE70D;"
+														 Margin="16 0 0 0"
 														 VerticalAlignment="Center"
 														 HorizontalAlignment="Right"
-														 Name="PART_IndicateFontIcon">
+														 Name="PART_IndicateFontIcon"
+														 Grid.Column="1">
 												<wc:FontIcon.Transitions>
 													<Transitions>
 														<TransformOperationsTransition Duration="0:0:0.25"

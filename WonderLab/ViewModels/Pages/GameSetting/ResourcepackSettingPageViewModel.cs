@@ -26,4 +26,9 @@ public sealed partial class ResourcepackSettingPageViewModel : ObservableObject 
 
         _logger.LogInformation("Loaded {count} resourcepack", Resourcepacks.Count);
     });
+
+    [RelayCommand]
+    private Task Save() => Task.Run(async () => {
+        await _resourcepackService.SaveToOptionsAsync(default);
+    });
 }
