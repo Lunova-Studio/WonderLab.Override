@@ -184,7 +184,15 @@ public sealed partial class App : Application {
         });
 
         ActualThemeVariantChanged += OnActualThemeVariantChanged;
+        PlatformSettings.ColorValuesChanged += OnColorValuesChanged;
         Get<ILogger<App>>().LogInformation("当前版本号：{version}", new Uri("resm:WonderLab.Assets.Text.dateTime.txt").ToText());
+    }
+
+    private void OnColorValuesChanged(object sender, Avalonia.Platform.PlatformColorValues e) {
+        var settings = Get<SettingService>().Setting;
+        if (settings.IsEnableSystemColor)
+            Get<ThemeService>().UpdateColorScheme(settings.ActiveColorVariant,
+                settings.ActiveColor = e.AccentColor1.ToUInt32());
     }
 
     private void OnActualThemeVariantChanged(object sender, EventArgs e) {

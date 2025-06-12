@@ -10,6 +10,8 @@
 			 xmlns:wb="using:WonderLab.Media.Behaviors"
 			 xmlns:me="using:Monet.Shared.Enums"
              x:Class="WonderLab.AppearancePage">
+	<!--<UserControl.-->
+	
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
 			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
@@ -80,7 +82,66 @@
 							   VerticalAlignment="Center"
 							   Text="使用系统主题色"/>
 
-					<ToggleSwitch Grid.Column="2"/>
+					<ToggleSwitch IsChecked="{Binding IsEnableSystemColor}"
+								  Grid.Column="2"/>
+				</Grid>
+
+				<Separator Height="1"
+						   Opacity="0.65"
+						   Margin="-16 6"
+						   Background="{DynamicResource FlyoutBorderBrush}"/>
+
+				<Grid Margin="16 0 12 0"
+					  ColumnDefinitions="Auto * Auto"
+					  IsEnabled="{Binding IsEnableSystemColor, Converter={StaticResource BoolReverseConverter}}">
+					<TextBlock Classes="Body"
+							   VerticalAlignment="Center"
+							   Text="自定义主题色"/>
+
+					<ComboBox ItemsSource="{Binding Colors}"
+							  SelectedItem="{Binding ActiveColor}"
+							  Grid.Column="2">
+						<ComboBox.ItemTemplate>
+							<DataTemplate>
+								<StackPanel Spacing="8"
+											Orientation="Horizontal">
+									<Border Width="15"
+											Height="15"
+											VerticalAlignment="Center"
+											CornerRadius="{StaticResource FullCornerRadius}"
+											Background="{Binding Key, Converter={StaticResource SolidColorBrushConverter}}"/>
+									
+									<TextBlock Classes="Body"
+											   VerticalAlignment="Center"
+											   Text="{Binding Value}"/>
+								</StackPanel>
+							</DataTemplate>
+						</ComboBox.ItemTemplate>
+					</ComboBox>
+				</Grid>
+
+				<Separator Height="1"
+						   Opacity="0.65"
+						   Margin="-16 6"
+						   IsVisible="{Binding IsBitmapBackground}"
+						   Background="{DynamicResource FlyoutBorderBrush}"/>
+
+				<Grid Margin="16 6 12 6"
+					  ColumnDefinitions="Auto * Auto"
+					  IsVisible="{Binding IsBitmapBackground}"
+					  IsEnabled="{Binding IsEnableSystemColor, Converter={StaticResource BoolReverseConverter}}">
+					<TextBlock Classes="Body"
+							   VerticalAlignment="Center"
+							   Text="使用图片背景主题色"/>
+
+					<ListBox VerticalAlignment="Center"
+							 Grid.Column="2">
+						<ListBox.ItemsPanel>
+							<ItemsPanelTemplate>
+								<VirtualizingStackPanel Orientation="Horizontal"/>
+							</ItemsPanelTemplate>
+						</ListBox.ItemsPanel>
+					</ListBox>
 				</Grid>
 			</wc:SettingExpandCard>
 
@@ -95,7 +156,7 @@
 					   Text="背景"/>
 			
 			<wc:SettingExpandCard Padding="0"
-								  Icon="&#xEF1F;" IsExpanded="True"
+								  Icon="&#xEF1F;"
 								  Header="选择背景方案">
 				<wc:SettingExpandCard.Footer>
 					<ComboBox SelectedItem="{Binding ActiveBackground}"
