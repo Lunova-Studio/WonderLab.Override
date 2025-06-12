@@ -25,7 +25,12 @@ public sealed class ThemeService {
 
     public static readonly Lazy<Bitmap> ReleaseMinecraftIcon = new("resm:WonderLab.Assets.Images.Icons.release_minecraft.png".ToBitmap());
 
-    public ObservableCollection<BackgroundType> BackgroundTypes { get; private set; }
+    public ObservableCollection<BackgroundType> BackgroundTypes { get; } = [
+        BackgroundType.SolidColor,
+        BackgroundType.Bitmap,
+        BackgroundType.Voronoi,
+        BackgroundType.Bubble
+    ];
 
     public FrozenDictionary<uint, string> MonetColors => new Dictionary<uint, string>() {
         [Colors.Red.ToUInt32()] = "Red",
@@ -47,13 +52,6 @@ public sealed class ThemeService {
 
     public void Initialize(WonderWindow window) {
         _hostWindow = window;
-
-        BackgroundTypes = [
-            BackgroundType.SolidColor,
-            BackgroundType.Bitmap,
-            BackgroundType.Voronoi,
-            BackgroundType.Bubble
-        ];
 
         if (EnvironmentUtil.IsMac) {
             BackgroundTypes.Add(BackgroundType.Acrylic);
