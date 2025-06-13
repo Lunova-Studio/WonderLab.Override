@@ -89,10 +89,12 @@
 				<Separator Height="1"
 						   Opacity="0.65"
 						   Margin="-16 6"
-						   Background="{DynamicResource FlyoutBorderBrush}"/>
+						   Background="{DynamicResource FlyoutBorderBrush}"
+						   IsVisible="{Binding IsEnableBitmapColor, Converter={StaticResource BoolReverseConverter}}"/>
 
-				<Grid Margin="16 0 12 0"
+				<Grid Margin="16 3 12 3"
 					  ColumnDefinitions="Auto * Auto"
+					  IsVisible="{Binding IsEnableBitmapColor, Converter={StaticResource BoolReverseConverter}}"
 					  IsEnabled="{Binding IsEnableSystemColor, Converter={StaticResource BoolReverseConverter}}">
 					<TextBlock Classes="Body"
 							   VerticalAlignment="Center"
@@ -126,22 +128,21 @@
 						   IsVisible="{Binding IsBitmapBackground}"
 						   Background="{DynamicResource FlyoutBorderBrush}"/>
 
-				<Grid Margin="16 6 12 6"
-					  ColumnDefinitions="Auto * Auto"
+				<Grid Margin="16 3 12 3"
+					  ColumnDefinitions="auto * auto"
 					  IsVisible="{Binding IsBitmapBackground}"
 					  IsEnabled="{Binding IsEnableSystemColor, Converter={StaticResource BoolReverseConverter}}">
 					<TextBlock Classes="Body"
 							   VerticalAlignment="Center"
 							   Text="使用图片背景主题色"/>
 
-					<ListBox VerticalAlignment="Center"
-							 Grid.Column="2">
-						<ListBox.ItemsPanel>
-							<ItemsPanelTemplate>
-								<VirtualizingStackPanel Orientation="Horizontal"/>
-							</ItemsPanelTemplate>
-						</ListBox.ItemsPanel>
-					</ListBox>
+					<ToggleSwitch IsChecked="{Binding IsEnableBitmapColor}"
+								  Grid.Column="2"/>
+					<!--<Button Width="60"
+							Classes="primary"
+							Content="自动选择"
+							Command="{Binding AutoSelectBitmapPrimaryColorCommand}"
+							Grid.Column="2"/>-->
 				</Grid>
 			</wc:SettingExpandCard>
 

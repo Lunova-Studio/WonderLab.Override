@@ -11,6 +11,7 @@ public record SettingModel {
     [JsonPropertyName("isFullScreen")] public bool IsFullScreen { get; set; }
     [JsonPropertyName("isEnableMirror")] public bool IsEnableMirror { get; set; }
     [JsonPropertyName("isAutoSelectJava")] public bool IsAutoSelectJava { get; set; }
+    [JsonPropertyName("isEnableBitmapColor")] public bool IsEnableBitmapColor { get; set; }
     [JsonPropertyName("isEnableSystemColor")] public bool IsEnableSystemColor { get; set; } = true;
     [JsonPropertyName("isEnableIndependency")] public bool IsEnableIndependency { get; set; } = true;
 
@@ -36,7 +37,6 @@ public record SettingModel {
     [JsonPropertyName("accounts")] public List<Account> Accounts { get; set; } = [];
     [JsonPropertyName("javaEntrys")] public List<JavaEntry> Javas { get; set; } = [];
     [JsonPropertyName("minecraftFolders")] public List<string> MinecraftFolders { get; set; } = [];
-    [JsonPropertyName("imageColorPalette")] public List<uint> ImageColorPalette { get; set; } = [];
 }
 
 [JsonSerializable(typeof(SettingModel))]
