@@ -109,7 +109,9 @@
 			
 			<Setter Property="Template">
 				<ControlTemplate>
-					<wc:RippleControl Background="{TemplateBinding Background}"
+					<wc:RippleControl Width="{TemplateBinding Width}"
+									  Height="{TemplateBinding Height}"
+									  Background="{TemplateBinding Background}"
 									  BorderBrush="{TemplateBinding BorderBrush}"
 									  CornerRadius="{TemplateBinding CornerRadius}"
 									  BorderThickness="{TemplateBinding BorderThickness}"

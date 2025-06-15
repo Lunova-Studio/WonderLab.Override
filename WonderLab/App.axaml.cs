@@ -84,6 +84,7 @@ public sealed partial class App : Application {
         var builder = new AvaloniaHostBuilder();
 
         //Configure Service
+        builder.Services.AddSingleton<ModService>();
         builder.Services.AddSingleton<SaveService>();
         builder.Services.AddSingleton<TaskService>();
         builder.Services.AddSingleton<GameService>();
