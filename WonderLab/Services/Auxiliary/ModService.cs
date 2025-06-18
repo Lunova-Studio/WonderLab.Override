@@ -68,7 +68,6 @@ public sealed class ModService {
             if(mod is not null)
                 Mods.Add(mod);
         }
-            
     }
 
     public void ChangeExtension(Mod mod) {

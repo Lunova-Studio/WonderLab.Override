@@ -22,24 +22,47 @@
 				   Text="模组管理"
 				   Grid.Row="0"/>
 
-		<Button Width="60"
-				Height="35"
-				Padding="0"
-				Classes="ripple"
-				Margin="0 0 16 0"
-				Background="Transparent"
-				VerticalAlignment="Center"
-				HorizontalAlignment="Right"
-				Grid.Row="0">
-			<StackPanel Spacing="8" Orientation="Horizontal">
-				<wc:FontIcon Glyph="&#xE72C;"
-							 VerticalAlignment="Center"/>
-				
-				<TextBlock Classes="Body"
-						   VerticalAlignment="Center"
-						   Text="刷新"/>
-			</StackPanel>
-		</Button>
+		<StackPanel Margin="0 0 16 0"
+					Orientation="Horizontal"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Right"
+					Grid.Row="0">
+			<Button Height="30"
+					Padding="12 0"
+					Classes="ripple"
+					Background="Transparent"
+					Command="{Binding RefreshCommand}">
+				<StackPanel Spacing="7" Orientation="Horizontal">
+					<wc:FontIcon Glyph="&#xF103;"
+								 FontSize="18"
+								 VerticalAlignment="Center"/>
+
+					<TextBlock Classes="Body"
+							   VerticalAlignment="Center"
+							   Text="">
+						<Run Text="共有"/>
+						<Run Text="{Binding UpdateModCount}"/>
+						<Run Text="个模组需要更新"/>
+					</TextBlock>
+				</StackPanel>
+			</Button>
+
+			<Button Width="75"
+					Height="30"
+					Padding="0"
+					Classes="ripple"
+					Background="Transparent"
+					Command="{Binding RefreshCommand}">
+				<StackPanel Spacing="8" Orientation="Horizontal">
+					<wc:FontIcon Glyph="&#xE72C;"
+								 VerticalAlignment="Center"/>
+
+					<TextBlock Classes="Body"
+							   VerticalAlignment="Center"
+							   Text="刷新"/>
+				</StackPanel>
+			</Button>
+		</StackPanel>
 
 		<ContentControl Classes="tip"
 				Content="没有安装任何模组"

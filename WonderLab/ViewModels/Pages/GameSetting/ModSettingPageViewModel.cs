@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ public sealed partial class ModSettingPageViewModel : ObservableObject {
     private CancellationTokenSource _cancellationTokenSource = new();
 
     [ObservableProperty] private bool _hasMods;
+    [ObservableProperty] private int _updateModCount;
     [ObservableProperty] private ReadOnlyObservableCollection<Mod> _mods;
 
     public ModSettingPageViewModel(ModService modService, ILogger<ModSettingPageViewModel> logger) {
@@ -40,7 +42,12 @@ public sealed partial class ModSettingPageViewModel : ObservableObject {
             _logger.LogInformation("checking mod update");
             await _modService.CheckModsUpdateAsync(_cancellationTokenSource.Token);
         } catch (System.Exception) {}
+
+        UpdateModCount = Mods.Where(x => x.CanUpdate).Count();
     }, _cancellationTokenSource.Token);
+
+    [RelayCommand]
+    private Task Refresh() => OnLoaded();
 
     [RelayCommand]
     private void OnDetachedFromVisualTree() {
