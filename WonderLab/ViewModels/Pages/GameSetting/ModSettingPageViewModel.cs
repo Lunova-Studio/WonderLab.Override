@@ -2,6 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using System.Collections.ObjectModel;
+using System.Net.NetworkInformation;
+using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Services.Auxiliary;
 
@@ -11,6 +13,9 @@ public sealed partial class ModSettingPageViewModel : ObservableObject {
     private readonly ModService _modService;
     private readonly ILogger<ModSettingPageViewModel> _logger;
 
+    private CancellationTokenSource _cancellationTokenSource = new();
+
+    [ObservableProperty] private bool _hasMods;
     [ObservableProperty] private ReadOnlyObservableCollection<Mod> _mods;
 
     public ModSettingPageViewModel(ModService modService, ILogger<ModSettingPageViewModel> logger) {
@@ -19,13 +24,28 @@ public sealed partial class ModSettingPageViewModel : ObservableObject {
     }
 
     [RelayCommand]
-    private Task OnLoaded() => Task.Run(() => {
-        _modService.Init();
-        _modService.LoadAll();
-        Mods = new(_modService.Mods);
+    private Task OnLoaded() => Task.Run(async () => {
+        try {
+            _modService.Init();
+            Mods = new(_modService.Mods);
 
-        _logger.LogInformation("Loaded {count} mod", Mods.Count);
-    });
+            _modService.LoadAll(_cancellationTokenSource.Token);
+
+            HasMods = Mods.Count > 0;
+            _logger.LogInformation("Loaded {count} local mod", Mods.Count);
+
+            if (!NetworkInterface.GetIsNetworkAvailable())
+                return;
+
+            _logger.LogInformation("checking mod update");
+            await _modService.CheckModsUpdateAsync(_cancellationTokenSource.Token);
+        } catch (System.Exception) {}
+    }, _cancellationTokenSource.Token);
+
+    [RelayCommand]
+    private void OnDetachedFromVisualTree() {
+        _cancellationTokenSource.Cancel();
+    }
 
     [RelayCommand]
     private Task Save(Mod mod) => Task.Run(() => {

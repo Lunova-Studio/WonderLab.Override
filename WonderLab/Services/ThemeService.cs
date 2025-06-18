@@ -23,6 +23,7 @@ public sealed class ThemeService {
 
     private WonderWindow _hostWindow;
 
+    public static readonly Lazy<Bitmap> LoadingIcon = new("resm:WonderLab.Assets.Images.doro_loading.jpg".ToBitmap());
     public static readonly Lazy<Bitmap> ReleaseMinecraftIcon = new("resm:WonderLab.Assets.Images.Icons.release_minecraft.png".ToBitmap());
 
     public ObservableCollection<BackgroundType> BackgroundTypes { get; } = [

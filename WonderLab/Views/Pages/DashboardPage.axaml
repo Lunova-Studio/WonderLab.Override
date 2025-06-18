@@ -318,7 +318,6 @@
 				   Classes="BodyStrong"
 				   Text="快速启动"/>
 
-
 		<ContentControl Classes="tip"
 						Content="没有任何 Minecraft 单人存档或多人服务器"
 						IsVisible="{Binding HasSaves, Converter={StaticResource BoolReverseConverter}}"

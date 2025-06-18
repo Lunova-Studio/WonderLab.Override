@@ -2,10 +2,20 @@
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 
 namespace WonderLab.Utilities;
 
 public static class HashUtil {
+    public static string GetFileSha1Hash(string filePath) {
+        byte[] data = File.ReadAllBytes(filePath);
+        byte[] hash = SHA1.HashData(data);
+
+        return BitConverter.ToString(hash)
+            .ToLower()
+            .Replace("-", string.Empty);
+    }
+
     public static uint GetFileMurmurHash2(string filePath) {
         byte[] data = File.ReadAllBytes(filePath);
         ReadOnlySpan<byte> filteredData = FilterBytes(data.AsSpan());

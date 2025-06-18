@@ -43,6 +43,7 @@
         <AvaloniaResource Remove="Assets\Font\MinecraftTen.ttf" />
         <AvaloniaResource Remove="Assets\Font\SegoeFluentIcons.ttf" />
         <AvaloniaResource Remove="Assets\gawrgura-13490790.png" />
+        <AvaloniaResource Remove="Assets\Images\doro_loading.jpg" />
         <AvaloniaResource Remove="Assets\Images\Icons\Icon.1024.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\Icon.icns" />
         <AvaloniaResource Remove="Assets\Images\Icons\Icon.png" />
@@ -56,6 +57,7 @@
         <EmbeddedResource Include="Assets\Font\MinecraftTen.ttf" />
         <EmbeddedResource Include="Assets\Font\SegoeFluentIcons.ttf" />
         <EmbeddedResource Include="Assets\gawrgura-13490790.png" />
+        <EmbeddedResource Include="Assets\Images\doro_loading.jpg" />
         <EmbeddedResource Include="Assets\Images\Icons\Icon.1024.png" />
         <EmbeddedResource Include="Assets\Images\Icons\Icon.icns" />
         <EmbeddedResource Include="Assets\Images\Icons\Icon.png" />
@@ -80,7 +82,7 @@
         <PackageReference Include="Tomlyn" Version="0.19.0" />
         <PackageReference Include="Xaml.Behaviors.Avalonia" Version="11.3.0.10" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-preview.5.25277.114" />
-        <PackageReference Include="MinecraftLaunch" Version="4.0.2-preview01" />
+        <PackageReference Include="MinecraftLaunch" Version="4.0.2-preview06" />
         <PackageReference Include="MinecraftLaunch.Skin" Version="1.0.1" />
         <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.1" />
         <PackageReference Include="Serilog.Sinks.Console" Version="6.0.1-dev-00953" />

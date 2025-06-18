@@ -1,14 +1,13 @@
 ﻿using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using DialogHostAvalonia;
 using Flurl.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MinecraftLaunch.Components.Parser;
+using MinecraftLaunch.Components.Provider;
 using MinecraftLaunch.Utilities;
 using Monet.Avalonia;
 using Serilog;
@@ -58,6 +57,7 @@ public sealed partial class App : Application {
 
         _ = ConfigureIoC(out var host).RunAsync();
         ServiceProvider = host.Services;
+        CurseforgeProvider.CurseforgeApiKey = "$2a$10$Awb53b9gSOIJJkdV3Zrgp.CyFP.dI13QKbWn/4UZI4G4ff18WneB6";
     }
 
     public override void OnFrameworkInitializationCompleted() {
@@ -82,6 +82,9 @@ public sealed partial class App : Application {
 
     private static IHost ConfigureIoC(out IHost host) {
         var builder = new AvaloniaHostBuilder();
+
+        builder.Services.AddSingleton<ModrinthProvider>();
+        builder.Services.AddSingleton<CurseforgeProvider>();
 
         //Configure Service
         builder.Services.AddSingleton<ModService>();

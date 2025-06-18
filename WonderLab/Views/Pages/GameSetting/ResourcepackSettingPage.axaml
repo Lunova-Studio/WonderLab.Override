@@ -17,6 +17,11 @@
 				   Classes="BodyStrong"
 				   Text="资源包管理"
 				   Grid.Row="0"/>
+
+		<ContentControl Classes="tip"
+				Content="没有安装任何资源包"
+				IsVisible="{Binding HasResourcepacks, Converter={StaticResource BoolReverseConverter}}"
+				Grid.Row="1"/>
 		
 		<ScrollViewer Grid.Row="1">
 			<ItemsRepeater Margin="0 0 16 0"

@@ -10,6 +10,10 @@
 		<EventTriggerBehavior EventName="Loaded">
 			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
 		</EventTriggerBehavior>
+
+		<EventTriggerBehavior EventName="DetachedFromVisualTree">
+			<InvokeCommandAction Command="{Binding DetachedFromVisualTreeCommand}"/>
+		</EventTriggerBehavior>
 	</Interaction.Behaviors>
 
 	<Grid RowDefinitions="auto *">
@@ -36,7 +40,12 @@
 						   Text="刷新"/>
 			</StackPanel>
 		</Button>
-		
+
+		<ContentControl Classes="tip"
+				Content="没有安装任何模组"
+				IsVisible="{Binding HasMods, Converter={StaticResource BoolReverseConverter}}"
+				Grid.Row="1"/>
+
 		<ScrollViewer Grid.Row="1">
 			<ItemsRepeater Margin="0 0 16 0"
 						   ItemsSource="{Binding Mods}"
@@ -54,12 +63,22 @@
 								 IsEnableAnimation="False"
 								 VerticalContentAlignment="Center">
 							<Grid RowDefinitions="auto auto"
-								  ColumnDefinitions="* auto">
+								  ColumnDefinitions="auto * auto">
+								<Border Width="35"
+										Height="35"
+										Grid.RowSpan="2"
+										CornerRadius="{StaticResource WeakCornerRadius}">
+									<Border.Background>
+										<ImageBrush Stretch="UniformToFill"
+													Source="{Binding Icon}"/>
+									</Border.Background>
+								</Border>
+								
 								<TextBlock Classes="Body"
 										   Margin="8 0 0 0"
 										   HorizontalAlignment="Left"
 										   Text="{Binding DisplayName}"
-										   Grid.Column="0"/>
+										   Grid.Column="1"/>
 
 								<TextBlock Margin="8 0 16 0"
 										   Classes="Caption"
@@ -67,7 +86,7 @@
 										   TextTrimming="CharacterEllipsis"
 										   Text="{Binding Description}"
 										   Grid.Row="1"
-										   Grid.Column="0"/>
+										   Grid.Column="1"/>
 
 								<ToggleSwitch Grid.Column="2"
 											  Grid.RowSpan="2"

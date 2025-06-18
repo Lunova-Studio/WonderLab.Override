@@ -11,6 +11,7 @@ public sealed partial class ResourcepackSettingPageViewModel : ObservableObject 
     private readonly ResourcepackService _resourcepackService;
     private readonly ILogger<ResourcepackSettingPageViewModel> _logger;
 
+    [ObservableProperty] private bool _hasResourcepacks;
     [ObservableProperty] private ReadOnlyObservableCollection<Resourcepack> _resourcepacks;
 
     public ResourcepackSettingPageViewModel(ResourcepackService resourcepackService, ILogger<ResourcepackSettingPageViewModel> logger) {
@@ -24,6 +25,7 @@ public sealed partial class ResourcepackSettingPageViewModel : ObservableObject 
         await _resourcepackService.LoadAllAsync(default);
         Resourcepacks = new(_resourcepackService.Resourcepacks);
 
+        HasResourcepacks = Resourcepacks.Count > 0;
         _logger.LogInformation("Loaded {count} resourcepack", Resourcepacks.Count);
     });
 
