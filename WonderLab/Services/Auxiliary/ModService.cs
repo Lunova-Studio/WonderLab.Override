@@ -6,10 +6,11 @@ using MinecraftLaunch.Components.Provider;
 using MinecraftLaunch.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Tomlyn;
@@ -29,8 +30,6 @@ public sealed class ModService {
     private string _workingPath;
     private bool _isEnableIndependency;
 
-    public ObservableCollection<Mod> Mods { get; } = [];
-
     public ModService(
         GameService gameService,
         SettingService settingService,
@@ -49,25 +48,6 @@ public sealed class ModService {
             _isEnableIndependency = _settingService.Setting.IsEnableIndependency;
 
         _workingPath = _gameService.ActiveGameCache.ToWorkingPath(_isEnableIndependency);
-        Mods.Clear();
-    }
-
-    public void LoadAll(CancellationToken cancellationToken) {
-        var modsPath = Path.Combine(_workingPath, "mods");
-        Directory.CreateDirectory(modsPath);
-
-        var modDatas = Directory.EnumerateFiles(modsPath)
-            .OrderBy(x => x)
-            .Where(x => x.EndsWith(".jar") || x.EndsWith(".jar.disabled"));
-
-        foreach (var modData in modDatas) {
-            if (cancellationToken.IsCancellationRequested)
-                return;
-
-            var mod = ParseMod(modData);
-            if(mod is not null)
-                Mods.Add(mod);
-        }
     }
 
     public void ChangeExtension(Mod mod) {
@@ -80,9 +60,33 @@ public sealed class ModService {
         File.Move(originalPath, mod.Path);
     }
 
-    public async Task CheckModsUpdateAsync(CancellationToken cancellationToken) {
+    public async IAsyncEnumerable<Mod> LoadAllAsync([EnumeratorCancellation] CancellationToken cancellationToken) {
+        var modsPath = Path.Combine(_workingPath, "mods");
+        Directory.CreateDirectory(modsPath);
+
+        var modDatas = Directory.EnumerateFiles(modsPath)
+            .OrderBy(x => x)
+            .Where(x => x.EndsWith(".jar") || x.EndsWith(".jar.disabled"));
+
+        foreach (var modData in modDatas) {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var mod = await Task.Run(() => ParseMod(modData), cancellationToken);
+            if (mod is not null)
+                yield return mod;
+        }
+    }
+
+    public async Task CheckModsUpdateAsync(IEnumerable<Mod> mods, CancellationToken cancellationToken) {
         //Modrinth
-        var modSha1HashDict = Mods.ToDictionary(x => HashUtil.GetFileSha1Hash(x.Path));
+        var sha1HashList = new List<(Mod Mod, string Hash)>();
+        foreach (var mod in mods) {
+            cancellationToken.ThrowIfCancellationRequested();
+            var hash = await HashUtil.GetFileSha1HashAsync(mod.Path);
+            sha1HashList.Add((mod, hash));
+        }
+
+        var modSha1HashDict = sha1HashList.ToDictionary(x => x.Hash, x => x.Mod);
         var mModfiles = await _modrinthProvider.GetModFilesBySha1Async([.. modSha1HashDict.Keys],
             _gameService.ActiveGameCache.Version.VersionId, HashType.SHA1, cancellationToken);
 
@@ -91,7 +95,7 @@ public sealed class ModService {
             cancellationToken)).ToDictionary(info => info.Id);
 
         foreach (var modfile in mModfiles) {
-            if (!modSha1HashDict.TryGetValue(modfile.SourceHash, out var mod)) 
+            if (!modSha1HashDict.TryGetValue(modfile.SourceHash, out var mod))
                 continue;
 
             if (!mModInfoDict.TryGetValue(modfile.Id, out var modInfo))
@@ -117,7 +121,14 @@ public sealed class ModService {
             .Select(kv => kv.Value);
 
         //Curseforge
-        var modHash2Dict = cfMods.ToDictionary(x => HashUtil.GetFileMurmurHash2(x.Path));
+        var murmur2HashList = new List<(Mod Mod, uint Hash)>();
+        foreach (var mod in cfMods) {
+            cancellationToken.ThrowIfCancellationRequested();
+            var hash = await HashUtil.GetFileMurmurHash2Async(mod.Path);
+            murmur2HashList.Add((mod, hash));
+        }
+
+        var modHash2Dict = murmur2HashList.ToDictionary(x => x.Hash, x => x.Mod);
         var cfModfiles = await _curseforgeProvider.GetResourceFilesByFingerprintsAsync([.. modHash2Dict.Keys],
             cancellationToken);
 
@@ -138,7 +149,9 @@ public sealed class ModService {
             mod.DisplayName = modInfo.Name;
             mod.Description = modInfo.Summary ?? "dorodorodo?";
             mod.DownloadUrl = modfile.DownloadUrl;
-            mod.CanUpdate = !modfile.FileFingerprint.Equals(HashUtil.GetFileMurmurHash2(mod.Path));
+            var localHash = modHash2Dict.FirstOrDefault(kv => kv.Value == mod).Key;
+            if (localHash != 0)
+                mod.CanUpdate = !modfile.FileFingerprint.Equals(localHash);
 
             if (!string.IsNullOrEmpty(modInfo.IconUrl)) {
                 _ = Task.Run(async () => {
@@ -148,7 +161,7 @@ public sealed class ModService {
         }
     }
 
-    private Mod ParseMod(string path) {
+    private static Mod ParseMod(string path) {
         var mod = new Mod { Path = path, IsEnabled = Path.GetExtension(path).Equals(".jar") };
         using var zipArchive = ZipFile.OpenRead(path);
 
@@ -196,7 +209,7 @@ public sealed class ModService {
 
             return mod;
 
-        } catch (Exception) {}
+        } catch (Exception) { }
 
         return null;
     }

@@ -3,21 +3,22 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
 
 namespace WonderLab.Utilities;
 
 public static class HashUtil {
-    public static string GetFileSha1Hash(string filePath) {
-        byte[] data = File.ReadAllBytes(filePath);
-        byte[] hash = SHA1.HashData(data);
+    public static async Task<string> GetFileSha1HashAsync(string filePath) {
+        await using var stream = File.OpenRead(filePath);
+        byte[] hash = await Task.Run(() => SHA1.HashData(stream)); //await SHA1.HashDataAsync(stream);
 
         return BitConverter.ToString(hash)
             .ToLower()
             .Replace("-", string.Empty);
     }
 
-    public static uint GetFileMurmurHash2(string filePath) {
-        byte[] data = File.ReadAllBytes(filePath);
+    public static async Task<uint> GetFileMurmurHash2Async(string filePath) {
+        byte[] data = await File.ReadAllBytesAsync(filePath);
         ReadOnlySpan<byte> filteredData = FilterBytes(data.AsSpan());
         return ComputeMurmurHash2(filteredData);
     }
