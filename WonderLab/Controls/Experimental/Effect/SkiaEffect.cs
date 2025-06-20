@@ -41,11 +41,11 @@ public class SkiaEffect {
     /// The compiled <see cref="SKRuntimeEffect"/> that will actually be used in draw calls. 
     /// </summary>
     public SKRuntimeEffect Effect { get; }
-
+    //error: 85: unknown identifier 'smoothstep'\n1 error\n
     private SkiaEffect(string shaderString, string rawShaderString) {
         _shaderString = shaderString;
         _rawShaderString = rawShaderString;
-        var compiledEffect = SKRuntimeEffect.CreateShader(_shaderString, out var errors);
+        var compiledEffect = SKRuntimeEffect.Create(_shaderString, out var errors);
         Effect = compiledEffect ?? throw new ShaderCompilationException(errors);
     }
 
@@ -151,7 +151,7 @@ public class SkiaEffect {
             { "iAlpha", alpha }
         };
 
-        return Effect.ToShader(inputs);
+        return Effect.ToShader(true, inputs);
 
         void Voronoi() {
             if (activeVariant == ThemeVariant.Dark) {
@@ -184,7 +184,7 @@ public class SkiaEffect {
         uniforms.Add("iResolution", new[] { (float)bounds.Width, (float)bounds.Height, 0f });
         uniforms.Add("iTime", timeSeconds * animationScale);
         uniforms.Add("iAlpha", alpha);
-        return Effect.ToShader(uniforms);
+        return Effect.ToShader(true, uniforms);
     }
 
     /// <summary>
