@@ -26,7 +26,7 @@ Language support: 简体中文, 繁体中文, 文言華夏, English(US), Рус�
 
 > [!WARNING]
 >
-> This branch is `feature` insider testing branch，a rolling-release, unstable version  works with many unknowns
+> This branch is `dev`(developing) branch，a rolling-release, unstable version  works with many unknowns
 
 ## UI (feature)
 

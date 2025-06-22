@@ -4,12 +4,6 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '0 2 * * *'
-  push:
-    paths:
-      - '!.github/ISSUE_TEMPLATE'
-      - '!.gitignore'
-      - '!LICENSE'
-      - '!**.md'
 
 env:
   VERSION_FILE_PATH: "./WonderLab/version.txt"
