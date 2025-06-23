@@ -80,14 +80,13 @@ public sealed partial class ModService {
     }
 
     public async Task CheckModsUpdateAsync(IEnumerable<Mod> mods, CancellationToken cancellationToken) {
-        var sha1Tasks = mods.Select(async mod =>
-        {
+        var sha1Tasks = mods.Select(async mod => {
             cancellationToken.ThrowIfCancellationRequested();
             var hash = await HashUtil.GetFileSha1HashAsync(mod.Path);
             return (Mod: mod, Hash: hash);
         }).ToList();
-        var sha1List = await Task.WhenAll(sha1Tasks);
 
+        var sha1List = await Task.WhenAll(sha1Tasks);
         var modToSha1 = sha1List.ToDictionary(x => x.Mod, x => x.Hash);
         var hashToMod = sha1List
             .GroupBy(x => x.Hash)
@@ -128,14 +127,13 @@ public sealed partial class ModService {
         if (cfMods.Count == 0)
             return;
 
-        var murmurTasks = cfMods.Select(async mod =>
-        {
+        var murmurTasks = cfMods.Select(async mod => {
             var hash = await HashUtil.GetFileMurmurHash2Async(mod.Path);
             return (Mod: mod, Hash: hash);
         }).ToList();
+
         var murmurHashesList = await Task.WhenAll(murmurTasks);
         var murmurHashes = murmurHashesList.ToDictionary(x => x.Hash, x => x.Mod);
-
         var files = await _curseforgeProvider.GetResourceFilesByFingerprintsAsync(murmurHashes.Keys.ToArray(), cancellationToken);
         var resources = await _curseforgeProvider.GetResourcesByModIdsAsync(files.Keys.Select(x => (long)x.ModId), cancellationToken);
 
@@ -270,7 +268,7 @@ public sealed partial class ModService {
             try {
                 var icon = await ImageLoader.AsyncImageLoader.ProvideImageAsync(iconUrl);
                 await Dispatcher.UIThread.InvokeAsync(() => mod.Icon = icon);
-            } catch (Exception) {}
+            } catch (Exception) { }
         }, token);
     }
 }
