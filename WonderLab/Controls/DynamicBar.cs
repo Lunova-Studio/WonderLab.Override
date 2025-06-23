@@ -26,6 +26,8 @@ public sealed class DynamicBar : ContentControl {
     private Border _PART_ContentLayoutBorder;
     private CancellationTokenSource _cancellationTokenSource = new();
 
+    private readonly DynamicBarTransition _barTransition = new();
+
     public static readonly StyledProperty<BarState> BarStateProperty =
         AvaloniaProperty.Register<DynamicBar, BarState>(nameof(BarState), BarState.Collapsed);
 
@@ -137,8 +139,6 @@ public sealed class DynamicBar : ContentControl {
         _PART_LayoutBorder.PointerCaptureLost += OnLayoutPointerCaptureLost;
     }
 
-    SimpleTaskQueue ed = new();
-    DynamicBarTransition barTransition = new();
     protected override async void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change) {
         base.OnPropertyChanged(change);
 
@@ -146,14 +146,11 @@ public sealed class DynamicBar : ContentControl {
             Cancel();
             var (oldValue, newValue) = change.GetOldAndNewValue<BarState>();
 
-            barTransition.OldState = oldValue;
-            barTransition.NewState = newValue;
+            _barTransition.OldState = oldValue;
+            _barTransition.NewState = newValue;
 
-            await barTransition.Start(_PART_LayoutBorder, _PART_ContentLayoutBorder, false, _cancellationTokenSource.Token);
+            await _barTransition.Start(_PART_LayoutBorder, _PART_ContentLayoutBorder, false, _cancellationTokenSource.Token);
             return;
-            ed.Enqueue(async () => 
-                await Dispatcher.UIThread.InvokeAsync(async () => 
-                    await barTransition.Start(_PART_LayoutBorder, _PART_ContentLayoutBorder, false, _cancellationTokenSource.Token)));
         }
     }
 
@@ -167,46 +164,4 @@ public enum BarState {
     Expanded = 1,
     Collapsed,
     Hidden
-}
-
-public class SimpleTaskQueue : IDisposable {
-    private readonly Queue<Func<Task>> _tasks = new();
-    private bool _isProcessing = false;
-    private bool _disposed = false;
-    private readonly object _lock = new();
-
-    public void Enqueue(Func<Task> taskGenerator) {
-        lock (_lock) {
-            _tasks.Enqueue(taskGenerator);
-            if (!_isProcessing) {
-                _isProcessing = true;
-                _ = ProcessQueueAsync();
-            }
-        }
-    }
-
-    private async Task ProcessQueueAsync() {
-        while (true) {
-            Func<Task> taskGenerator = null;
-            lock (_lock) {
-                if (_tasks.Count == 0 || _disposed) {
-                    _isProcessing = false;
-                    return;
-                }
-                taskGenerator = _tasks.Dequeue();
-            }
-            try {
-                await taskGenerator();
-            } catch {
-                // 可根据需要处理异常
-            }
-        }
-    }
-
-    public void Dispose() {
-        lock (_lock) {
-            _disposed = true;
-            _tasks.Clear();
-        }
-    }
 }

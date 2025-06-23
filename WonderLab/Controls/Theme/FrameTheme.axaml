@@ -2,14 +2,17 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:wc="using:WonderLab.Controls">
 	<ControlTheme TargetType="wc:Frame" x:Key="{x:Type wc:Frame}">
+		<Setter Property="ClipToBounds" Value="False"/>
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Panel>
 					<ContentPresenter Name="PART_LeftContentPresenter"
-									  Padding="{TemplateBinding Padding}"/>
+									  Padding="{TemplateBinding Padding}"
+									  ClipToBounds="{TemplateBinding ClipToBounds}"/>
 					
 					<ContentPresenter Name="PART_RightContentPresenter"
-									  Padding="{TemplateBinding Padding}"/>
+									  Padding="{TemplateBinding Padding}"
+									  ClipToBounds="{TemplateBinding ClipToBounds}"/>
 				</Panel>
 			</ControlTemplate>
 		</Setter>
