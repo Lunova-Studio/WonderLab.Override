@@ -1,14 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.NetworkInformation;
 using System.Runtime.Serialization;
 using System.Threading;
 using System.Threading.Tasks;
+using WonderLab.Classes.Models.Messaging;
 using WonderLab.Services.Auxiliary;
 
 namespace WonderLab.ViewModels.Pages.GameSetting;
@@ -38,10 +41,15 @@ public sealed partial class ModSettingPageViewModel : ObservableObject {
     }
 
     [RelayCommand]
-    private Task OnLoaded() => Task.Run(async () => {
+    private Task OnLoaded() => Refresh();
+
+    [RelayCommand]
+    private Task Refresh() => Task.Run(async () => {
         try {
             await Task.Delay(150);
+            WeakReferenceMessenger.Default.Send(new PageDataLoadingMessage(true));
 
+            _mod?.Clear();
             _modService.Init();
             await foreach (var item in _modService.LoadAllAsync(_cancellationTokenSource.Token))
                 _mod.Add(item);
@@ -56,11 +64,8 @@ public sealed partial class ModSettingPageViewModel : ObservableObject {
             UpdateModCount = _mod.Where(x => x.CanUpdate).Count();
         } catch (Exception) { }
 
-        UpdateModCount = Mods.Where(x => x.CanUpdate).Count();
+        WeakReferenceMessenger.Default.Send(new PageDataLoadingMessage(false));
     }, _cancellationTokenSource.Token);
-
-    [RelayCommand]
-    private Task Refresh() => OnLoaded();
 
     [RelayCommand]
     private void OnDetachedFromVisualTree() {

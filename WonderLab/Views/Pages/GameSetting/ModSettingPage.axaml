@@ -16,7 +16,7 @@
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
 
-	<Grid RowDefinitions="auto *">
+	<Grid RowDefinitions="auto * auto">
 		<TextBlock Margin="0 8 0 12"
 				   Classes="BodyStrong"
 				   Text="模组管理"
@@ -27,11 +27,11 @@
 					VerticalAlignment="Center"
 					HorizontalAlignment="Right"
 					Grid.Row="0">
+			<!--TODO:更新逻辑-->
 			<Button Height="30"
 					Padding="12 0"
 					Classes="ripple"
-					Background="Transparent"
-					Command="{Binding RefreshCommand}"
+					Background="Transparent" IsEnabled="False"
 					IsVisible="{Binding HasUpdateMods}">
 				<StackPanel Spacing="7" Orientation="Horizontal">
 					<wc:FontIcon Glyph="&#xF103;"
@@ -39,11 +39,9 @@
 								 VerticalAlignment="Center"/>
 
 					<TextBlock Classes="Body"
-							   VerticalAlignment="Center"
-							   Text="">
-						<Run Text="共有"/>
+							   VerticalAlignment="Center">
 						<Run Text="{Binding UpdateModCount}"/>
-						<Run Text="个模组可以更新"/>
+						<Run Text="个可更新"/>
 					</TextBlock>
 				</StackPanel>
 			</Button>
@@ -99,8 +97,9 @@
 								</Border>
 								
 								<TextBlock Classes="Body"
-										   Margin="8 0 0 0"
+										   Margin="8 0 16 0"
 										   HorizontalAlignment="Left"
+										   TextTrimming="CharacterEllipsis"
 										   Text="{Binding DisplayName}"
 										   Grid.Column="1"/>
 

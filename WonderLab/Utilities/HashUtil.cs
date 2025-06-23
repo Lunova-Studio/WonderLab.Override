@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SkiaSharp;
+using System;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -8,13 +9,11 @@ using System.Threading.Tasks;
 namespace WonderLab.Utilities;
 
 public static class HashUtil {
+    readonly static SHA1 _sha1 = SHA1.Create();
     public static async Task<string> GetFileSha1HashAsync(string filePath) {
-        await using var stream = File.OpenRead(filePath);
-        byte[] hash = await Task.Run(() => SHA1.HashData(stream)); //await SHA1.HashDataAsync(stream);
-
-        return BitConverter.ToString(hash)
-            .ToLower()
-            .Replace("-", string.Empty);
+        await using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        byte[] hash = _sha1.ComputeHash(fs);
+        return Convert.ToHexString(hash).ToLowerInvariant();
     }
 
     public static async Task<uint> GetFileMurmurHash2Async(string filePath) {

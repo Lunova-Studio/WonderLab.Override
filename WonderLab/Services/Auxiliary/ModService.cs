@@ -1,12 +1,14 @@
 ﻿using AsyncImageLoader;
 using Avalonia.Media.Imaging;
+using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using MinecraftLaunch.Base.Enums;
+using MinecraftLaunch.Base.Models.Game;
 using MinecraftLaunch.Components.Provider;
 using MinecraftLaunch.Extensions;
 using System;
+using System.Collections.Frozen;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -21,7 +23,7 @@ using WonderLab.Utilities;
 
 namespace WonderLab.Services.Auxiliary;
 
-public sealed class ModService {
+public sealed partial class ModService {
     private readonly GameService _gameService;
     private readonly SettingService _settingService;
     private readonly ModrinthProvider _modrinthProvider;
@@ -78,91 +80,102 @@ public sealed class ModService {
     }
 
     public async Task CheckModsUpdateAsync(IEnumerable<Mod> mods, CancellationToken cancellationToken) {
-        //Modrinth
-        var sha1HashList = new List<(Mod Mod, string Hash)>();
-        foreach (var mod in mods) {
+        var sha1Tasks = mods.Select(async mod =>
+        {
             cancellationToken.ThrowIfCancellationRequested();
             var hash = await HashUtil.GetFileSha1HashAsync(mod.Path);
-            sha1HashList.Add((mod, hash));
-        }
+            return (Mod: mod, Hash: hash);
+        }).ToList();
+        var sha1List = await Task.WhenAll(sha1Tasks);
 
-        var modSha1HashDict = sha1HashList.ToDictionary(x => x.Hash, x => x.Mod);
-        var mModfiles = await _modrinthProvider.GetModFilesBySha1Async([.. modSha1HashDict.Keys],
-            _gameService.ActiveGameCache.Version.VersionId, HashType.SHA1, cancellationToken);
+        var modToSha1 = sha1List.ToDictionary(x => x.Mod, x => x.Hash);
+        var hashToMod = sha1List
+            .GroupBy(x => x.Hash)
+            .ToDictionary(g => g.Key, g => g.Select(x => x.Mod).ToList());
 
-        var mModInfoDict = (await _modrinthProvider.SearchByProjectIdsAsync(
-            mModfiles.Select(x => x.Id),
-            cancellationToken)).ToDictionary(info => info.Id);
+        var minecraft = _gameService.ActiveGameCache;
+        var loaderType = (minecraft as ModifiedMinecraftEntry)?.ModLoaders?.FirstOrDefault().Type ?? ModLoaderType.Any;
 
-        foreach (var modfile in mModfiles) {
-            if (!modSha1HashDict.TryGetValue(modfile.SourceHash, out var mod))
-                continue;
+        var modrinthFiles = await _modrinthProvider.GetModFilesBySha1Async(
+            [.. modToSha1.Values], minecraft.Version.VersionId, loaderType, HashType.SHA1, cancellationToken);
 
-            if (!mModInfoDict.TryGetValue(modfile.Id, out var modInfo))
-                continue;
+        var modrinthInfo = await _modrinthProvider.SearchByProjectIdsAsync(
+            modrinthFiles.Select(x => x.Id), cancellationToken);
 
-            mod.DisplayName = modInfo.Name;
-            mod.Description = modInfo.Summary ?? "dorodorodo?";
-            mod.DownloadUrl = modfile.Files.FirstOrDefault()?.DownloadUrl;
-            mod.CanUpdate = modfile.Files.Any(f => !modfile.SourceHash.Equals(f.Sha1));
+        var modrinthInfoDict = modrinthInfo.ToDictionary(x => x.Id);
+        foreach (var file in modrinthFiles) {
+            if (!hashToMod.TryGetValue(file.SourceHash, out var modsMatching)) continue;
+            if (!modrinthInfoDict.TryGetValue(file.Id, out var info)) continue;
 
-            if (!string.IsNullOrEmpty(modInfo.IconUrl)) {
-                _ = Task.Run(async () => {
-                    mod.Icon = await ImageLoader.AsyncImageLoader.ProvideImageAsync(modInfo.IconUrl);
-                }, cancellationToken);
+            foreach (var mod in modsMatching) {
+                mod.DisplayName = info.Name;
+                mod.Description = info.Summary ?? "dorodorodo?";
+                mod.DownloadUrl = file.Files.FirstOrDefault()?.DownloadUrl;
+                mod.CanUpdate = file.Files.Any(f => f.Sha1 != file.SourceHash);
+
+                if (!string.IsNullOrEmpty(info.IconUrl))
+                    _ = LoadModIconAsync(mod, info.IconUrl, cancellationToken);
             }
         }
 
-        var validHashes = mModfiles.Select(x => x.SourceHash)
-            .ToHashSet();
+        // 3. 筛选未匹配到的 mod，准备 CurseForge 检查
+        var matchedSha1 = modrinthFiles.Select(x => x.SourceHash).ToHashSet();
+        var cfMods = modToSha1
+            .Where(kv => !matchedSha1.Contains(kv.Value))
+            .Select(kv => kv.Key)
+            .ToList();
 
-        var cfMods = modSha1HashDict
-            .Where(kv => !validHashes.Contains(kv.Key))
-            .Select(kv => kv.Value);
-
-        //Curseforge
-        var murmur2HashList = new List<(Mod Mod, uint Hash)>();
-        foreach (var mod in cfMods) {
-            cancellationToken.ThrowIfCancellationRequested();
-            var hash = await HashUtil.GetFileMurmurHash2Async(mod.Path);
-            murmur2HashList.Add((mod, hash));
-        }
-
-        var modHash2Dict = murmur2HashList.ToDictionary(x => x.Hash, x => x.Mod);
-        var cfModfiles = await _curseforgeProvider.GetResourceFilesByFingerprintsAsync([.. modHash2Dict.Keys],
-            cancellationToken);
-
-        if (!cfModfiles.Any())
+        if (cfMods.Count == 0)
             return;
 
-        var cfModInfo = await _curseforgeProvider.GetResourcesByModIdsAsync(cfModfiles.Select(x => (long)x.ModId),
-            cancellationToken);
+        var murmurTasks = cfMods.Select(async mod =>
+        {
+            var hash = await HashUtil.GetFileMurmurHash2Async(mod.Path);
+            return (Mod: mod, Hash: hash);
+        }).ToList();
+        var murmurHashesList = await Task.WhenAll(murmurTasks);
+        var murmurHashes = murmurHashesList.ToDictionary(x => x.Hash, x => x.Mod);
 
-        var cfModInfoDict = cfModInfo.ToDictionary(info => info.Id);
-        foreach (var modfile in cfModfiles) {
-            if (!modHash2Dict.TryGetValue(modfile.FileFingerprint, out var mod))
+        var files = await _curseforgeProvider.GetResourceFilesByFingerprintsAsync(murmurHashes.Keys.ToArray(), cancellationToken);
+        var resources = await _curseforgeProvider.GetResourcesByModIdsAsync(files.Keys.Select(x => (long)x.ModId), cancellationToken);
+
+        var modIdToLatestFiles = resources.SelectMany(r => r.LatestFiles ?? Enumerable.Empty<dynamic>())
+            .GroupBy(f => f.ModId)
+            .ToDictionary(g => g.Key, g => g.AsEnumerable());
+
+        var modIdToResource = resources.ToDictionary(x => x.Id);
+        var fileDict = files.ToDictionary(
+            kv => kv.Key,
+            kv => modIdToLatestFiles.TryGetValue(kv.Key.ModId, out var latestFiles) ? latestFiles : kv.Value
+        ).ToFrozenDictionary();
+
+        foreach (var kv in fileDict) {
+            var localFile = kv.Key;
+            var lastRemoteMod = kv.Value.FirstOrDefault(x => x.MinecraftVersions.Contains(minecraft.Version.VersionId));
+
+            if (!murmurHashes.TryGetValue(localFile.FileFingerprint, out var mod))
                 continue;
 
-            if (!cfModInfoDict.TryGetValue(modfile.ModId, out var modInfo))
+            if (!modIdToResource.TryGetValue(kv.Key.ModId, out var modInfo))
                 continue;
 
             mod.DisplayName = modInfo.Name;
             mod.Description = modInfo.Summary ?? "dorodorodo?";
-            mod.DownloadUrl = modfile.DownloadUrl;
-            var localHash = modHash2Dict.FirstOrDefault(kv => kv.Value == mod).Key;
-            if (localHash != 0)
-                mod.CanUpdate = !modfile.FileFingerprint.Equals(localHash);
+            mod.DownloadUrl = lastRemoteMod?.DownloadUrl;
+            mod.CanUpdate = kv.Key.Published < lastRemoteMod?.Published
+                && !kv.Key.FileFingerprint.Equals(lastRemoteMod?.FileFingerprint);
 
-            if (!string.IsNullOrEmpty(modInfo.IconUrl)) {
-                _ = Task.Run(async () => {
-                    mod.Icon = await ImageLoader.AsyncImageLoader.ProvideImageAsync(modInfo.IconUrl);
-                }, cancellationToken);
-            }
+            if (!string.IsNullOrEmpty(modInfo.IconUrl))
+                _ = LoadModIconAsync(mod, modInfo.IconUrl, cancellationToken);
         }
     }
 
     private static Mod ParseMod(string path) {
-        var mod = new Mod { Path = path, IsEnabled = Path.GetExtension(path).Equals(".jar") };
+        var mod = new Mod {
+            Path = path,
+            FileName = Path.GetFileName(path),
+            IsEnabled = Path.GetExtension(path).Equals(".jar")
+        };
         using var zipArchive = ZipFile.OpenRead(path);
 
         var quiltModJson = zipArchive.GetEntry("quilt.mod.json");
@@ -236,21 +249,29 @@ public sealed class ModService {
     }
 
     private static Mod ParseFabricMod(Mod mod, string json, bool isQuilt) {
-        var jsonNode = json.AsNode();
+        var jsonNode = json.FixJson().AsNode();
 
         if (isQuilt)
-            jsonNode = jsonNode?.Select("quilt_loader")
-                ?.Select("metadata");
+            jsonNode = jsonNode?.Select("quilt_loader");
 
         if (jsonNode is null)
             throw new InvalidDataException($"Invalid {nameof(json)}");
 
         mod.DisplayName = jsonNode.GetString("name");
         mod.Description = jsonNode.GetString("description")
-            .TrimEnd('\n')
-            .TrimEnd('\r') ?? "dorodorodo?";
+            ?.TrimEnd('\n')
+            ?.TrimEnd('\r') ?? "dorodorodo?";
 
         return mod;
+    }
+
+    private static Task LoadModIconAsync(Mod mod, string iconUrl, CancellationToken token) {
+        return Task.Run(async () => {
+            try {
+                var icon = await ImageLoader.AsyncImageLoader.ProvideImageAsync(iconUrl);
+                await Dispatcher.UIThread.InvokeAsync(() => mod.Icon = icon);
+            } catch (Exception) {}
+        }, token);
     }
 }
 
