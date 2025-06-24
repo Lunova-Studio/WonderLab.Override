@@ -41,7 +41,7 @@ public sealed partial class ModSettingPageViewModel : ObservableObject {
     }
 
     [RelayCommand]
-    private Task OnLoaded() => Refresh();
+    private void OnLoaded() => RefreshCommand.ExecuteAsync(default);
 
     [RelayCommand]
     private Task Refresh() => Task.Run(async () => {
@@ -55,8 +55,10 @@ public sealed partial class ModSettingPageViewModel : ObservableObject {
                 _mod.Add(item);
 
             _logger.LogInformation("Loaded {count} local mod", Mods.Count);
-            if (!NetworkInterface.GetIsNetworkAvailable())
+            if (!NetworkInterface.GetIsNetworkAvailable() || _mod.Count is 0) {
+                WeakReferenceMessenger.Default.Send(new PageDataLoadingMessage(false));
                 return;
+            }
 
             _logger.LogInformation("checking mod update");
             await _modService.CheckModsUpdateAsync(_mod, _cancellationTokenSource.Token);

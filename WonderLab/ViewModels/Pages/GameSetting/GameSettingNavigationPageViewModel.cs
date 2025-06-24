@@ -57,7 +57,7 @@ public sealed partial class GameSettingNavigationPageViewModel : DynamicPageView
             0 => "GameSetting/Setting",
             1 => "GameSetting/Resourcepack",
             2 => "GameSetting/Mod",
-            3 => "GameSetting/Resourcepack",
+            3 => "GameSetting/Shaderpack",
             _ => PageKey ?? "GameSetting/Setting",
         };
     }

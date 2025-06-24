@@ -29,7 +29,7 @@ public class SettingCard : ContentControl {
     protected override void OnLoaded(RoutedEventArgs e) {
         base.OnLoaded(e);
 
-        if (_PART_ContentPresenter.Bounds.Width > Bounds.Width / 2) {
+        if (_PART_ContentPresenter is not null && _PART_ContentPresenter.Bounds.Width > Bounds.Width / 2) {
             Grid.SetRow(_PART_ContentPresenter, 1);
             Grid.SetColumn(_PART_ContentPresenter, 1);
             _PART_ContentPresenter.Margin = new(12, 0, 0, 0);

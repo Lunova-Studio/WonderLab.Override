@@ -96,10 +96,10 @@ public sealed partial class App : Application {
         builder.Services.AddSingleton<LaunchService>();
         builder.Services.AddSingleton<SettingService>();
         builder.Services.AddSingleton<AccountService>();
+        builder.Services.AddSingleton<ShaderpackService>();
         builder.Services.AddSingleton<GameProcessService>();
         builder.Services.AddSingleton<ResourcepackService>();
         builder.Services.AddSingleton<AuthenticationService>();
-        //builder.Services.AddSingleton<NotificationService>();
 
         //Configure Window
         builder.Services.AddSingleton<MainWindow>();
@@ -131,9 +131,9 @@ public sealed partial class App : Application {
         //GameSetting
         pageProvider.AddPage<ModSettingPage, ModSettingPageViewModel>("GameSetting/Mod");
         pageProvider.AddPage<GameSettingPage, GameSettingPageViewModel>("GameSetting/Setting");
+        pageProvider.AddPage<ShaderpackSettingPage, ShaderpackSettingPageViewModel>("GameSetting/Shaderpack");
         pageProvider.AddPage<ResourcepackSettingPage, ResourcepackSettingPageViewModel>("GameSetting/Resourcepack");
         pageProvider.AddPage<GameSettingNavigationPage, GameSettingNavigationPageViewModel>("GameSetting/Navigation");
-        //page.AddPage<ChooseAccountPage, ChooseAccountPageViewModel>("GameSetting/ChooseAccount");
 
         //Dashboard
         pageProvider.AddPage<DashboardPage, DashboardPageViewModel>("Dashboard");

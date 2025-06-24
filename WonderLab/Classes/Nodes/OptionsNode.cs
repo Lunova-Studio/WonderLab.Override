@@ -9,11 +9,11 @@ using System.Text.RegularExpressions;
 namespace WonderLab.Classes.Nodes;
 
 public partial class OptionsNode : IEnumerable<KeyValuePair<string, object>> {
-    private readonly Dictionary<string, object> _data = [];
+    private readonly Dictionary<string, object> _entries = [];
 
     public object this[string key] {
-        get => _data[key];
-        set => _data[key] = value;
+        get => _entries[key];
+        set => _entries[key] = value;
     }
 
     [GeneratedRegex("\"([^\"]*)\"")]
@@ -21,7 +21,7 @@ public partial class OptionsNode : IEnumerable<KeyValuePair<string, object>> {
 
     internal OptionsNode() { }
 
-    public bool TryGetValue(string key, out object value) => _data.TryGetValue(key, out value);
+    public bool TryGetValue(string key, out object value) => _entries.TryGetValue(key, out value);
 
     public static OptionsNode Parse(string text) {
         var lines = text.Split(['\r', '\n'], StringSplitOptions.RemoveEmptyEntries);
@@ -32,7 +32,7 @@ public partial class OptionsNode : IEnumerable<KeyValuePair<string, object>> {
         var node = new OptionsNode();
         foreach (var rawLine in lines) {
             var line = rawLine.Trim();
-            if (string.IsNullOrEmpty(line) || line.StartsWith('#'))
+            if (string.IsNullOrWhiteSpace(line) || line.StartsWith('#'))
                 continue;
 
             var idx = line.IndexOf(':');
@@ -41,36 +41,35 @@ public partial class OptionsNode : IEnumerable<KeyValuePair<string, object>> {
             var key = line[..idx].Trim();
             var valueStr = line[(idx + 1)..].Trim();
 
-            var value = ParseValue(valueStr);
-            node._data[key] = value;
+            node._entries[key] = ParseValue(valueStr);
         }
 
         return node;
-
     }
 
     public T GetValue<T>(string key) {
-        if (_data.TryGetValue(key, out var value)) {
-            if (value is T t)
-                return t;
+        if (_entries.TryGetValue(key, out var value)) {
+            if (value is T typed)
+                return typed;
 
             throw new InvalidCastException($"Key '{key}' is not of type {typeof(T).Name}.");
         }
 
-        if (!TryAddNode<T>(key, default))
-            throw new Exception();
+        if (!TryAddNode(key, default(T)!))
+            throw new KeyNotFoundException($"Key '{key}' was not found and could not be defaulted.");
 
-        return default;
+        return default!;
     }
 
-    public bool TryAddNode<T>(string key, T value) {
-        return _data.TryAdd(key, value);
-    }
+    public bool TryAddNode<T>(string key, T value) => _entries.TryAdd(key, value!);
 
     public override string ToString() {
-        var sb = new StringBuilder();
-        foreach (var (k, v) in _data)
-            sb.Append(k).Append(':').Append(SerializeValue(v)).AppendLine();
+        var sb = new StringBuilder(_entries.Count * 32);
+        foreach (var (key, value) in _entries) {
+            sb.Append(key)
+              .Append(':')
+              .AppendLine(SerializeValue(value));
+        }
 
         return sb.ToString();
     }
@@ -78,18 +77,14 @@ public partial class OptionsNode : IEnumerable<KeyValuePair<string, object>> {
     private static object ParseValue(string valueStr) {
         if (valueStr.StartsWith('[') && valueStr.EndsWith(']')) {
             var inner = valueStr[1..^1].Trim();
-            if (string.IsNullOrEmpty(inner))
-                return Enumerable.Empty<string>();
+            if (string.IsNullOrWhiteSpace(inner))
+                return Array.Empty<string>();
 
-            var items = new List<string>();
-            var matches = OptionListRegex().Matches(inner);
-            foreach (Match m in matches)
-                items.Add(m.Groups[1].Value);
-
+            var items = OptionListRegex().Matches(inner).Select(m => m.Groups[1].Value).ToList();
             return items;
         }
 
-        if (valueStr.StartsWith('\"') && valueStr.EndsWith('\"'))
+        if (valueStr.Length >= 2 && valueStr[0] == '"' && valueStr[^1] == '"')
             return valueStr[1..^1];
 
         if (bool.TryParse(valueStr, out var b))
@@ -104,22 +99,14 @@ public partial class OptionsNode : IEnumerable<KeyValuePair<string, object>> {
         return valueStr;
     }
 
-    private static string SerializeValue(object value) {
-        switch (value) {
-            case null: return "";
-            case string s: return $"\"{s}\"";
-            case bool b: return b.ToString().ToLowerInvariant();
-            case IEnumerable arr:
-                var items = new List<string>();
-                foreach (var item in arr)
-                    items.Add($"\"{item}\"");
+    private static string SerializeValue(object value) => value switch {
+        null => "",
+        string s => $"\"{s}\"",
+        bool b => b.ToString().ToLowerInvariant(),
+        IEnumerable enumerable when value is not string => $"[{string.Join(",", enumerable.Cast<object>().Select(item => $"\"{item}\""))}]",
+        _ => Convert.ToString(value, CultureInfo.InvariantCulture) ?? ""
+    };
 
-                return $"[{string.Join(",", items)}]";
-            default:
-                return Convert.ToString(value, CultureInfo.InvariantCulture) ?? "";
-        }
-    }
-
+    public IEnumerator<KeyValuePair<string, object>> GetEnumerator() => _entries.GetEnumerator();
     IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    public IEnumerator<KeyValuePair<string, object>> GetEnumerator() => _data.GetEnumerator();
 }
