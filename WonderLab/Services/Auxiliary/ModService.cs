@@ -134,10 +134,10 @@ public sealed partial class ModService {
 
         var murmurHashesList = await Task.WhenAll(murmurTasks);
         var murmurHashes = murmurHashesList.ToDictionary(x => x.Hash, x => x.Mod);
-        var files = await _curseforgeProvider.GetResourceFilesByFingerprintsAsync(murmurHashes.Keys.ToArray(), cancellationToken);
+        var files = await _curseforgeProvider.GetResourceFilesByFingerprintsAsync([.. murmurHashes.Keys], cancellationToken);
         var resources = await _curseforgeProvider.GetResourcesByModIdsAsync(files.Keys.Select(x => (long)x.ModId), cancellationToken);
 
-        var modIdToLatestFiles = resources.SelectMany(r => r.LatestFiles ?? Enumerable.Empty<dynamic>())
+        var modIdToLatestFiles = resources.SelectMany(r => r.LatestFiles ?? [])
             .GroupBy(f => f.ModId)
             .ToDictionary(g => g.Key, g => g.AsEnumerable());
 

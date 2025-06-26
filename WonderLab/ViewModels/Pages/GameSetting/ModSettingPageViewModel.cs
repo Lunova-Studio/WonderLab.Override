@@ -63,9 +63,9 @@ public sealed partial class ModSettingPageViewModel : ObservableObject {
             _logger.LogInformation("checking mod update");
             await _modService.CheckModsUpdateAsync(_mod, _cancellationTokenSource.Token);
 
-            UpdateModCount = _mod.Where(x => x.CanUpdate).Count();
         } catch (Exception) { }
 
+        UpdateModCount = _mod.Where(x => x.CanUpdate).Count();
         WeakReferenceMessenger.Default.Send(new PageDataLoadingMessage(false));
     }, _cancellationTokenSource.Token);
 
