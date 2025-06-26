@@ -1,6 +1,4 @@
-﻿using Avalonia.Media.Imaging;
-using CommunityToolkit.Mvvm.Collections;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using MinecraftLaunch.Extensions;
@@ -37,7 +35,10 @@ public sealed partial class ScreenshotSettingPageViewModel : DynamicPageViewMode
             isEnableIndependency = _settingService.Setting.IsEnableIndependency;
 
         var workingPath = _gameService.ActiveGameCache.ToWorkingPath(isEnableIndependency);
-        var screenshots = Directory.EnumerateFiles(Path.Combine(workingPath, "screenshots"))
+        var screenshotsPath = Path.Combine(workingPath, "screenshots");
+
+        Directory.CreateDirectory(screenshotsPath);
+        var screenshots = Directory.EnumerateFiles(screenshotsPath)
             .GroupBy(x => File.GetCreationTime(x).ToString("yyyy/M/d"))
             .ToDictionary(x => x.Key, x => x.AsEnumerable());
 

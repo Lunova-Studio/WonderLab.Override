@@ -43,7 +43,7 @@
 		</WrapPanel>
 
 		<TextBlock Grid.Row="2"
-				   Margin="0 12"
+				   Margin="0 16 0 12"
 				   Classes="BodyStrong"
 				   Text="所有游戏"/>
 
