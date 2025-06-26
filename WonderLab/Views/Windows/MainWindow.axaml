@@ -98,7 +98,7 @@
 			<TextBlock.Inlines>
 				<Run Text="当前为 UI/UX 评估测试，不代表最终质量"/>
 				<LineBreak/>
-				<Run Text="WonderLab 内部开发版本 Pre-Alpha-2.606.1951"/>
+				<Run Text="WonderLab 内部开发版本 Pre-Alpha-2.0.0"/>
 			</TextBlock.Inlines>
 		</TextBlock>
 		

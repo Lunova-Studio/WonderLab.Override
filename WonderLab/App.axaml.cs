@@ -131,6 +131,7 @@ public sealed partial class App : Application {
         //GameSetting
         pageProvider.AddPage<ModSettingPage, ModSettingPageViewModel>("GameSetting/Mod");
         pageProvider.AddPage<GameSettingPage, GameSettingPageViewModel>("GameSetting/Setting");
+        pageProvider.AddPage<ScreenshotSettingPage, ScreenshotSettingPageViewModel>("GameSetting/Screenshot");
         pageProvider.AddPage<ShaderpackSettingPage, ShaderpackSettingPageViewModel>("GameSetting/Shaderpack");
         pageProvider.AddPage<ResourcepackSettingPage, ResourcepackSettingPageViewModel>("GameSetting/Resourcepack");
         pageProvider.AddPage<GameSettingNavigationPage, GameSettingNavigationPageViewModel>("GameSetting/Navigation");
@@ -180,7 +181,7 @@ public sealed partial class App : Application {
         Get<GameService>().RefreshGames();
         HttpUtil.Initialize(new FlurlClient {
             Settings = {
-                Timeout = TimeSpan.FromMinutes(1),
+                Timeout = TimeSpan.FromSeconds(15),
             },
             Headers = {
                 { "User-Agent", "WonderLab/2.0" },
@@ -189,7 +190,7 @@ public sealed partial class App : Application {
 
         ActualThemeVariantChanged += OnActualThemeVariantChanged;
         PlatformSettings.ColorValuesChanged += OnColorValuesChanged;
-        Get<ILogger<App>>().LogInformation("当前版本号：{version}", new Uri("resm:WonderLab.Assets.Text.dateTime.txt").ToText());
+        Get<ILogger<App>>().LogInformation("当前版本号：{version}", new Uri("resm:WonderLab.version.txt").ToText());
     }
 
     private void OnColorValuesChanged(object sender, Avalonia.Platform.PlatformColorValues e) {

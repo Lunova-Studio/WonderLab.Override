@@ -38,18 +38,18 @@ public sealed partial class GameSettingNavigationPageViewModel : DynamicPageView
     }
 
     [RelayCommand]
-    private async Task Save() {
+    private Task Save() => Task.Run(async () => {
         try {
             await MinecraftParser.DataProcessors.FirstOrDefault()
                 .SaveAsync();
 
             WeakReferenceMessenger.Default.Send(new NotificationMessage("保存成功", NotificationType.Success));
         } catch (Exception) { }
-    }
+    });
 
     public override async void Close() {
         base.Close();
-        await Save();
+        await SaveCommand.ExecuteAsync(default);
     }
 
     partial void OnActivePageIndexChanged(int value) {
@@ -58,6 +58,7 @@ public sealed partial class GameSettingNavigationPageViewModel : DynamicPageView
             1 => "GameSetting/Resourcepack",
             2 => "GameSetting/Mod",
             3 => "GameSetting/Shaderpack",
+            4 => "GameSetting/Screenshot",
             _ => PageKey ?? "GameSetting/Setting",
         };
     }

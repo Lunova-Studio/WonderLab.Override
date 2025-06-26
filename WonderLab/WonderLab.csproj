@@ -53,6 +53,7 @@
         <AvaloniaResource Remove="Assets\steve.png" />
         <AvaloniaResource Remove="Assets\Text\dateTime.txt" />
         <AvaloniaResource Remove="Assets\Text\Default.isl" />
+        <None Remove="version.txt" />
         <EmbeddedResource Include="Assets\Font\DinPro.ttf" />
         <EmbeddedResource Include="Assets\Font\MinecraftTen.ttf" />
         <EmbeddedResource Include="Assets\Font\SegoeFluentIcons.ttf" />
@@ -67,6 +68,7 @@
         <EmbeddedResource Include="Assets\steve.png" />
         <EmbeddedResource Include="Assets\Text\dateTime.txt" />
         <EmbeddedResource Include="Assets\Text\Default.isl" />
+        <EmbeddedResource Include="version.txt" />
     </ItemGroup>
 
     <ItemGroup>
