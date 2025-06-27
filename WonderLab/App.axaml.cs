@@ -146,7 +146,7 @@ public sealed partial class App : Application {
         //Configure Logging
         Log.Logger = new LoggerConfiguration().WriteTo
             .Console(outputTemplate: LOG_OUTPUT_TEMPLATE).WriteTo
-            .File(Path.Combine(PathUtil.DefaultDirectory, "logs", $"WonderLog.log"), rollingInterval: RollingInterval.Day, outputTemplate: LOG_OUTPUT_TEMPLATE)
+            .File(Path.Combine(PathUtil.GetLogsFolderPath(), "logs", $"WonderLog.log"), rollingInterval: RollingInterval.Day, outputTemplate: LOG_OUTPUT_TEMPLATE)
             .CreateLogger();
 
         builder.Logging.AddSerilog(Log.Logger);

@@ -13,12 +13,11 @@ internal sealed class Program {
             var app = BuildAvaloniaApp();
             app.StartWithClassicDesktopLifetime(args);
         } catch (Exception ex) {
-            var path = Path.Combine(PathUtil.DefaultDirectory, "logs", $"crash.log");
-            var fileInfo = new FileInfo(path);
-            if (!fileInfo.Directory.Exists)
-                fileInfo.Directory.Create();
+            var localDirPath = PathUtil.GetLogsFolderPath();
+            var crashesDirPath = Path.Combine(localDirPath, "crashes");
 
-            File.WriteAllText(fileInfo.FullName, ex.ToString());
+            Directory.CreateDirectory(crashesDirPath);
+            File.WriteAllText(Path.Combine(crashesDirPath, $"log-{DateTime.Now:yyyyMMdd}.log"), ex.ToString());
         }
     }
 
