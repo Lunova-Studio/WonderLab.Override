@@ -184,8 +184,9 @@
 								 Grid.Column="2">
 							<TextBox.InnerRightContent>
 								<Button Classes="icon"
+										Margin="0 0 2 0"
 										Content="&#xED43;"
-										Margin="0 0 2 0"/>
+										Command="{Binding BrowserImageCommand}"/>
 							</TextBox.InnerRightContent>
 						</TextBox>
 						

@@ -77,7 +77,7 @@ public sealed partial class JavaPageViewModel : ObservableObject {
             _javas.Add(java);
         }
 
-        ActiveJava = _javas.Last();
+        ActiveJava = _javas.LastOrDefault();
     });
 
     private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {

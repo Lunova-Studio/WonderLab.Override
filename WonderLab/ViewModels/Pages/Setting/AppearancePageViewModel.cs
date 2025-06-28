@@ -64,7 +64,7 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
     }
 
     [RelayCommand]
-    private Task BrowserImage() => Task.Run(async () => {
+    private Task BrowserImage() => Dispatcher.UIThread.InvokeAsync(async () => {
         if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime lifetime) {
             var result = await lifetime.MainWindow.StorageProvider.OpenFilePickerAsync(new() {
                 AllowMultiple = false,
