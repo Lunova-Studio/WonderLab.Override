@@ -21,6 +21,7 @@ using WonderLab.Extensions.Hosting;
 using WonderLab.Services;
 using WonderLab.Services.Authentication;
 using WonderLab.Services.Auxiliary;
+using WonderLab.Services.Download;
 using WonderLab.Services.Launch;
 using WonderLab.Utilities;
 using WonderLab.ViewModels.Dialogs.Setting;
@@ -92,6 +93,7 @@ public sealed partial class App : Application {
         builder.Services.AddSingleton<TaskService>();
         builder.Services.AddSingleton<GameService>();
         builder.Services.AddSingleton<ThemeService>();
+        builder.Services.AddSingleton<SearchService>();
         builder.Services.AddSingleton<DialogService>();
         builder.Services.AddSingleton<LaunchService>();
         builder.Services.AddSingleton<SettingService>();

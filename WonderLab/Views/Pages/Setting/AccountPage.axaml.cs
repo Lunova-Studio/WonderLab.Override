@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Threading;
 using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Base.Models.Authentication;
 using WonderLab.Classes.Models.Messaging;
@@ -20,10 +21,12 @@ public partial class AccountPage : Page {
         var activeAccount = App.Get<AccountService>().ActiveAccount;
         var activeTileBorderBrush = this.FindResource("TileSelectedBorderBrush") as SolidColorBrush;
 
-        WeakReferenceMessenger.Default.Register<ActiveAccountChangedMessage>(sender, (r, m) => {
-            tile!.BorderBrush = account?.Uuid == App.Get<AccountService>().ActiveAccount?.Uuid
-                ? activeTileBorderBrush
-                : tile.Background;
+        WeakReferenceMessenger.Default.Register<ActiveAccountChangedMessage>(sender, async (r, m) => {
+            await Dispatcher.UIThread.InvokeAsync(() => {
+                tile!.BorderBrush = account?.Uuid == App.Get<AccountService>().ActiveAccount?.Uuid
+                    ? activeTileBorderBrush
+                    : tile.Background;
+            });
         });
 
         tile!.BorderBrush = account?.Uuid == App.Get<AccountService>().ActiveAccount?.Uuid
