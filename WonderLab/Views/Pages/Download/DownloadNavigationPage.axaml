@@ -30,6 +30,7 @@
 		</wce:BreadcrumbBar>
 
 		<TextBox Margin="0 0 16 16"
+				 Classes="underline"
 				 Watermark="在此键入进行搜索"
 				 Background="{DynamicResource TextBoxBackgroundBrush}"
 				 Grid.Row="1">
