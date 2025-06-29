@@ -70,8 +70,9 @@ public sealed partial class ModSettingPageViewModel : ObservableObject {
     }, _cancellationTokenSource.Token);
 
     [RelayCommand]
-    private void OnDetachedFromVisualTree() {
+    private void OnUnNavigated() {
         _cancellationTokenSource.Cancel();
+        WeakReferenceMessenger.Default.Send(new PageDataLoadingMessage(false));
     }
 
     [RelayCommand]

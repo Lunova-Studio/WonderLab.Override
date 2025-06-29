@@ -62,6 +62,10 @@ public sealed class Frame : TemplatedControl {
 
         if (_controlType is ControlType.Control1) {
             _PART_LeftContentPresenter.Content = page;
+
+            if (_PART_RightContentPresenter.Content is Page oldPage)
+                oldPage.InvokeUnNavigated();
+
             if (PageTransition != null) {
                 await PageTransition.Start(_PART_RightContentPresenter, _PART_LeftContentPresenter, true, _cancellationTokenSource.Token);
             } else {
@@ -72,6 +76,10 @@ public sealed class Frame : TemplatedControl {
             _controlType = ControlType.Control2;
         } else {
             _PART_RightContentPresenter.Content = page;
+
+            if (_PART_LeftContentPresenter.Content is Page oldPage)
+                oldPage.InvokeUnNavigated();
+
             if (PageTransition != null) {
                 await PageTransition.Start(_PART_LeftContentPresenter, _PART_RightContentPresenter, false, _cancellationTokenSource.Token);
             } else {

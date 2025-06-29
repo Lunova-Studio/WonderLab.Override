@@ -97,6 +97,7 @@
 	<SolidColorBrush x:Key="TextBoxCaretBrush" Color="{DynamicResource PrimaryColor}"/>
 	<SolidColorBrush x:Key="TextBoxFocusedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
 	<SolidColorBrush x:Key="TextBoxFocusedForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="TextBoxBackgroundBrush" Color="{DynamicResource SurfaceContainerHighestColor}"/>
 
 	<SolidColorBrush x:Key="ComboBoxBorderBrush" Color="{DynamicResource OutlineColor}"/>
 	<SolidColorBrush x:Key="ComboBoxForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>

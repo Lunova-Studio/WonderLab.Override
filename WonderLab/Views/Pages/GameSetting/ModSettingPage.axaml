@@ -11,8 +11,8 @@
 			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
 		</EventTriggerBehavior>
 
-		<EventTriggerBehavior EventName="DetachedFromVisualTree">
-			<InvokeCommandAction Command="{Binding DetachedFromVisualTreeCommand}"/>
+		<EventTriggerBehavior EventName="UnNavigated">
+			<InvokeCommandAction Command="{Binding UnNavigatedCommand}"/>
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
 

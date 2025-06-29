@@ -9,7 +9,7 @@ using WonderLab.Services.Authentication;
 
 namespace WonderLab;
 
-public partial class AccountPage : UserControl {
+public partial class AccountPage : Page {
     public AccountPage() {
         InitializeComponent();
     }

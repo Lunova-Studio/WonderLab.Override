@@ -7,31 +7,6 @@
 			 xmlns:wb="using:WonderLab.Media.Behaviors"
 			 xmlns:wce="using:WonderLab.Controls.Experimental.BreadcrumbBar"
              x:Class="WonderLab.Views.Pages.Download.DownloadNavigationPage">
-	<!--<Border Width="300" 
-			Height="150"
-			CornerRadius="8"
-			VerticalAlignment="Center"
-			HorizontalAlignment="Center"
-			Effect="{DynamicResource FlyoutDropShadowEffect}"
-			Background="{DynamicResource FlyoutBackgroundBrush}">
-		<Interaction.Behaviors>
-			<wb:Parallax3dEffectBehavior/>
-		</Interaction.Behaviors>
-		
-		<Grid RowSpacing="8"
-			  RowDefinitions="auto auto" 
-			  VerticalAlignment="Center" 
-			  HorizontalAlignment="Center">
-			<wc:FontIcon FontSize="48"
-						 Glyph="&#xE822;"
-						 HorizontalAlignment="Center"/>
-			
-			<TextBlock Grid.Row="1"
-					   Classes="BodyStrong"
-					   Text="施工中，暂未开放"/>
-		</Grid>
-	</Border>-->
-
 	<Grid RowDefinitions="auto auto *">
 		<wce:BreadcrumbBar Margin="0 12"
 						   VerticalAlignment="Top"
@@ -54,18 +29,42 @@
 			</Interaction.Behaviors>
 		</wce:BreadcrumbBar>
 
-		<WrapPanel Orientation="Horizontal"
-				   HorizontalAlignment="Left"
-				   Grid.Row="1">
+		<TextBox Margin="0 0 16 16"
+				 Watermark="在此键入进行搜索"
+				 Background="{DynamicResource TextBoxBackgroundBrush}"
+				 Grid.Row="1">
+			<TextBox.InnerLeftContent>
+				<wc:FontIcon FontSize="16"
+							 Glyph="&#xE71E;"
+							 Margin="12 2 0 2"
+							 VerticalAlignment="Center"
+							 HorizontalAlignment="Center"/>
+			</TextBox.InnerLeftContent>
+		</TextBox>
 
-			<TabStrip>
-				<TabStripItem FontSize="14" Content="Minecraft"/>
-				<TabStripItem FontSize="14" Content="Modpacks"/>
-				<TabStripItem FontSize="14" Content="Mods"/>
-				<TabStripItem FontSize="14" Content="ResourcePacks"/>
-				<TabStripItem FontSize="14" Content="DataPacks"/>
-				<TabStripItem FontSize="14" Content="Sharders"/>
-			</TabStrip>
-		</WrapPanel>
+		<Grid Margin="0 0 16 0" ColumnDefinitions=".4* *"
+			  Grid.Row="2">
+			<Grid Margin="0 0 12 0"
+				  RowDefinitions="auto *">
+				<TextBlock Classes="BodyStrong"
+						   Text="历史记录"/>
+				
+				<Border Margin="0 8 0 16" Background="Red" Grid.Row="1"/>
+			</Grid>
+
+			<Grid RowDefinitions="auto * auto *"
+				  Grid.Column="1">
+				<TextBlock Classes="BodyStrong"
+						   Text="分类浏览"/>
+
+				<Border Margin="0 8 0 16" Background="blue" Grid.Row="1"/>
+				
+				<TextBlock Classes="BodyStrong"
+						   Text="热门资源推荐"
+						   Grid.Row="2"/>
+
+				<Border Margin="0 8 0 16" Background="Green" Grid.Row="3"/>
+			</Grid>
+		</Grid>
 	</Grid>
 </UserControl>
