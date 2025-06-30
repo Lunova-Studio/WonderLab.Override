@@ -15,12 +15,14 @@
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
 	
-	<Grid RowDefinitions="auto auto *">
+	<Grid RowDefinitions="auto auto *"
+		  ColumnDefinitions="* auto">
 		<wce:BreadcrumbBar Margin="0 12"
 						   VerticalAlignment="Top"
 						   HorizontalAlignment="Left"
 						   ItemsSource="{Binding HeaderItems}"
-						   Grid.Row="0">
+						   Grid.Row="0"
+						   Grid.ColumnSpan="2">
 			<wce:BreadcrumbBar.ItemTemplate>
 				<DataTemplate>
 					<wce:BreadcrumbBarItem FontSize="28"
@@ -37,11 +39,12 @@
 			</Interaction.Behaviors>
 		</wce:BreadcrumbBar>
 
-		<TextBox Margin="0 0 16 16"
+		<TextBox Margin="0 0 0 16"
 				 Classes="underline"
 				 Watermark="在此键入进行搜索"
 				 Background="{DynamicResource TextBoxBackgroundBrush}"
-				 Grid.Row="1">
+				 Grid.Row="1"
+				 Grid.Column="0">
 			<TextBox.InnerLeftContent>
 				<wc:FontIcon FontSize="16"
 							 Glyph="&#xE71E;"
@@ -51,13 +54,24 @@
 			</TextBox.InnerLeftContent>
 		</TextBox>
 
+		<ComboBox Width="120"
+				  CornerRadius="6"
+				  Margin="8 0 16 16"
+				  Background="{DynamicResource TextBoxBackgroundBrush}"
+				  Grid.Row="1"
+				  Grid.Column="1">
+			<ComboBoxItem Content="Minecraft"/>
+			<ComboBoxItem Content="Modrinth"/>
+			<ComboBoxItem Content="Curseforge"/>
+		</ComboBox>
+
 		<Grid ColumnDefinitions=".4* *"
-			  Grid.Row="2">
+			  Grid.Row="2"
+			  Grid.Column="0"
+			  Grid.ColumnSpan="2">
 
 			<TextBlock Classes="BodyStrong"
 					   Text="历史记录"/>
-
-			<!--<Border Margin="0 8 0 0" Background="Red" Grid.Row="1"/>-->
 
 			<ContentControl Classes="tip"
 							Margin="0 0 12 0"
@@ -81,7 +95,7 @@
 					<Panel Margin="0 8 0 16">
 						<Border ClipToBounds="True"
 								CornerRadius="{DynamicResource NormalCornerRadius}">
-							<Carousel Name="PART_FeaturedResourcesCarousel"
+							<Carousel Name="PART_FeaturedResourcesCarousel" Focusable="True"
 									  ItemsSource="{Binding FeaturedResources}"
 									  SelectedIndex="{Binding FeaturedResourcesIndex}">
 								<Carousel.PageTransition>
