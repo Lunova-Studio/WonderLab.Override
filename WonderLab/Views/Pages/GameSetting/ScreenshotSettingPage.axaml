@@ -93,8 +93,11 @@
 
 											<HyperlinkButton.ContextMenu>
 												<ContextMenu>
-													<MenuItem Header="设置为程序背景"/>
-													<MenuItem Header="删除"/>
+													<MenuItem Icon="&#xE8BA;"
+															  Header="设置为程序背景"/>
+													
+													<MenuItem Icon="&#xE74D;"
+															  Header="删除"/>
 												</ContextMenu>
 											</HyperlinkButton.ContextMenu>
 										</HyperlinkButton>

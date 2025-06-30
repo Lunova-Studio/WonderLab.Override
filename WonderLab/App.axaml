@@ -46,10 +46,13 @@
 				<ResourceInclude Source="/Controls/Theme/TabStripTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ComboBoxTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/FontIconTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/MenuItemTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ScrollBarTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/TextBlockTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/PopupRootTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/DynamicBarTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/BlurBorderTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ContextMenuTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/SettingCardTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ListBoxItemTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ProgressBarTheme.axaml"/>

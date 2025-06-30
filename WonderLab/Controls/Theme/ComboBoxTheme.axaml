@@ -135,15 +135,14 @@
 
 						<Popup Name="PART_Popup"
 							   InheritsTransform="True"
-							   PlacementTarget="Background"
 							   IsLightDismissEnabled="True"
 							   WindowManagerAddShadowHint="False"
 							   MaxHeight="{TemplateBinding MaxDropDownHeight}"
 							   IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}">
-							<Border Name="PopupBorder"
+							<Border Margin="8"
+									Name="PopupBorder"
 									UseLayoutRounding="False"
 									HorizontalAlignment="Stretch"
-									Effect="{DynamicResource ComboBoxDropShadowEffect}"
 									CornerRadius="{DynamicResource NormalCornerRadius}"
 									Background="{DynamicResource ComboBoxBackgroundBrush}"
 									Padding="{DynamicResource ComboBoxDropdownBorderPadding}"
@@ -158,40 +157,6 @@
 													Margin="{DynamicResource ComboBoxDropdownContentMargin}"
 													wa:ItemsPresenterExtensions.AnimatedScroll="True"/>
 								</ScrollViewer>
-
-								<Border.Styles>
-									<Style>
-										<Style.Animations>
-											<Animation FillMode="Both"
-													   Duration="0:0:.2"
-													   Easing="CubicEaseOut">
-												<KeyFrame Cue="0%">
-													<Setter Property="Opacity" Value="0"/>
-												</KeyFrame>
-
-												<KeyFrame Cue="100%">
-													<Setter Property="Opacity" Value="1"/>
-												</KeyFrame>
-											</Animation>
-
-											<Animation FillMode="Both"
-													   Duration="0:0:.35"
-													   Easing="ExponentialEaseOut">
-												<KeyFrame Cue="0%">
-													<Setter Property="Margin" Value="8 0"/>
-												</KeyFrame>
-
-												<KeyFrame Cue="30%">
-													<Setter Property="Margin" Value="8 0"/>
-												</KeyFrame>
-												
-												<KeyFrame Cue="100%">
-													<Setter Property="Margin" Value="8"/>
-												</KeyFrame>
-											</Animation>
-										</Style.Animations>
-									</Style>
-								</Border.Styles>
 							</Border>
 						</Popup>
 					</Grid>
