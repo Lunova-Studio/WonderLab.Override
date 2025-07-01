@@ -57,7 +57,6 @@
 						 Name="PART_TileListBox"
 						 VerticalAlignment="Stretch"
 						 HorizontalAlignment="Stretch"
-						 CornerRadius="{DynamicResource StrongCornerRadius}"
 						 wa:ListBoxExtensions.AnimatedScroll="True">
 					<ListBox.Transitions>
 						<Transitions>
@@ -75,60 +74,60 @@
 
 					<wc:Tile Classes="empty">
 						<TextBlock Classes="BodyStrong"
-								   Text="Game"/>
+								   Text="游戏"/>
 					</wc:Tile>
 
 					<wc:NavigationTile Icon="&#xE945;"
 									   CommandParameter="0"
-									   Title="Game Settings"
+									   Title="游戏设置"
 									   Command="{Binding ChangeActivePageCommand}"
-									   Description="Set up your global launch settings"
+									   Description="全局设置你的游戏启动信息"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
 
 					<wc:NavigationTile Icon="&#xEC32;"
 									   CommandParameter="1"
-									   Title="Java Settings"
-									   Description="Set up your java runtime settings"
+									   Title="Java 运行时设置"
+									   Description="设置你的 Java 运行时信息"
 									   Command="{Binding ChangeActivePageCommand}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
 
 					<wc:NavigationTile Icon="&#xE716;"
 									   CommandParameter="2"
-									   Title="Account Settings"
-									   Description="Manage your accounts"
+									   Title="账户设置"
+									   Description="管理你的 Minecraft 账户"
 									   Command="{Binding ChangeActivePageCommand}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
 
 					<wc:Tile Classes="empty"
 							 Margin="0 12 0 0">
 						<TextBlock Classes="BodyStrong"
-								   Text="Launcher"/>
+								   Text="启动器"/>
 					</wc:Tile>
 
 					<wc:NavigationTile Icon="&#xE701;"
 									   CommandParameter="3"
-									   Title="Network Settings"
-									   Description="Adjust WonderLab's maximum number of connections and set the download source"
+									   Title="网络设置"
+									   Description="调整 WonderLab 的最大连接数并设置下载源"
 									   Command="{Binding ChangeActivePageCommand}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
 
 					<wc:NavigationTile Icon="&#xE790;"
 									   CommandParameter="4"
-									   Title="Appearance Settings"
-									   Description="Set WonderLab background and set the dark/light mode"
+									   Title="个性化设置"
+									   Description="设置 WonderLab 的背景特效以及调整明暗主题"
 									   Command="{Binding ChangeActivePageCommand}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
 
 					<wc:Tile Classes="empty"
 							 Margin="0 12 0 0">
 						<TextBlock Classes="BodyStrong"
-								   Text="About"/>
+								   Text="关于"/>
 					</wc:Tile>
 
 					<wc:NavigationTile Icon="&#xE736;"
 									   CommandParameter="5"
-									   Title="About"
-									   Description="Chicken, you're too beautiful"
+									   Title="关于"
+									   Description="启动器的相关信息"
 									   Command="{Binding ChangeActivePageCommand}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
 				</ListBox>

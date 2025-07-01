@@ -143,7 +143,7 @@ public sealed partial class App : Application {
 
         //Download
         pageProvider.AddPage<DownloadNavigationPage, DownloadNavigationPageViewModel>("Download/Navigation");
-        //page.AddPage<MinecraftListPage, MinecraftListPageViewModel>("Download/MinecraftList");
+        pageProvider.AddPage<SearchPage, SearchPageViewModel>("Download/Search");
 
         //Configure Logging
         Log.Logger = new LoggerConfiguration().WriteTo

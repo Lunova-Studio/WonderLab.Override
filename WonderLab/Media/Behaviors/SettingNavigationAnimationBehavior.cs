@@ -106,6 +106,8 @@ public sealed class SettingNavigationFromBehavior : Behavior<Control> {
 }
 
 public sealed class SettingNavigationToBehavior : Behavior<Control> {
+    private object _pageCache;
+
     public static readonly StyledProperty<AvaloniaPageProvider> PageProviderProperty =
     AvaloniaProperty.Register<SettingNavigationToBehavior, AvaloniaPageProvider>(nameof(PageProvider), default);
 
@@ -135,7 +137,6 @@ public sealed class SettingNavigationToBehavior : Behavior<Control> {
         PropertyChanged += OnPropertyChanged;
     }
 
-    private object _pageCache;
     private async void OnPropertyChanged(object sender, AvaloniaPropertyChangedEventArgs e) {
         if (e.Property == PageKeyProperty) {
             if (!string.IsNullOrEmpty(e.GetNewValue<string>())) {

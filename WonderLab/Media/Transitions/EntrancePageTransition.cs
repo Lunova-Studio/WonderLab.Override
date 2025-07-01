@@ -31,11 +31,12 @@ public sealed class EntrancePageTransition : IPageTransition {
             var toEV = ElementComposition.GetElementVisual(to);
             var group = toEV.Compositor.CreateAnimationGroup();
 
-            var xPoint = toEV.Offset.X;
+            var xPoint = (float)toEV.Offset.X;
+            var yPoint = (float)toEV.Offset.Y;
             var opacityAni = CompositionAnimationUtil.CreateScalarAnimation(toEV, 0, 1, Duration, Easing);
             var offsetAni = CompositionAnimationUtil.CreateVector3Animation(toEV,
-                new((float)xPoint, 150, 0),
-                    new((float)xPoint, 0, 0), Duration, Easing);
+                new(xPoint, yPoint + 150, 0),
+                    new(xPoint, yPoint, 0), Duration, Easing);
 
             offsetAni.Target = CompositionAnimationUtil.PROPERTY_OFFSET;
             opacityAni.Target = CompositionAnimationUtil.PROPERTY_OPACITY;

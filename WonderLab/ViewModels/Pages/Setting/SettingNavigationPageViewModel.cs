@@ -15,7 +15,7 @@ public sealed partial class SettingNavigationPageViewModel : ObservableObject {
     [ObservableProperty] private bool _isPaginationMode;
     [ObservableProperty] private int _activePageIndex = -1;
     [ObservableProperty] private double _contentBarOpactiy = 1;
-    [ObservableProperty] private ObservableCollection<string> _headerItems = ["Settings"];
+    [ObservableProperty] private ObservableCollection<string> _headerItems = ["设置"];
 
     public AvaloniaPageProvider PageProvider { get; }
 
