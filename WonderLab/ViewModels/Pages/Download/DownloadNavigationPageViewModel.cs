@@ -16,6 +16,7 @@ public sealed partial class DownloadNavigationPageViewModel : ObservableObject {
 
     [ObservableProperty] private string _activePageKey;
     [ObservableProperty] private bool _hasSearchCache = true;
+    [ObservableProperty] private bool _isEnterKeyDown = false;
     [ObservableProperty] private bool _isFeaturedResourcesLoading = true;
     [ObservableProperty] private SearchType _activeSearchType = SearchType.Minecraft;
     [ObservableProperty] private ObservableCollection<string> _headerItems = ["下载"];
@@ -37,6 +38,11 @@ public sealed partial class DownloadNavigationPageViewModel : ObservableObject {
     }
 
     [RelayCommand]
+    private void JumpToSearchPage() {
+        ActivePageKey = "Download/Search";
+    }
+
+    [RelayCommand]
     private Task OnLoaded() => Task.Run(async () => {
         await _searchService.InitSearchCacheContainerAsync();
 
@@ -53,10 +59,13 @@ public sealed partial class DownloadNavigationPageViewModel : ObservableObject {
 
     [RelayCommand]
     private Task Search(string text) => Task.Run(async () => {
-        if(string.IsNullOrEmpty(text)) 
+        IsEnterKeyDown = true;
+        if (string.IsNullOrEmpty(text)) {
+            ActivePageKey = string.Empty;
             return;
+        }
 
-        ActivePageKey = "Download/Search";
+        JumpToSearchPageCommand.Execute(default);
         await _searchService.SearchAsync(text, ActiveSearchType, default);
     });
 }

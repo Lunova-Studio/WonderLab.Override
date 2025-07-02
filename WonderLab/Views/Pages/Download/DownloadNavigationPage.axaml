@@ -17,14 +17,12 @@
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
 	
-	<Grid RowDefinitions="auto auto *"
-		  ColumnDefinitions="* auto">
+	<Grid RowDefinitions="auto auto auto *">
 		<wce:BreadcrumbBar Margin="0 12"
 						   VerticalAlignment="Top"
 						   HorizontalAlignment="Left"
 						   ItemsSource="{Binding HeaderItems}"
-						   Grid.Row="0"
-						   Grid.ColumnSpan="2">
+						   Grid.Row="0">
 			<wce:BreadcrumbBar.ItemTemplate>
 				<DataTemplate>
 					<wce:BreadcrumbBarItem FontSize="28"
@@ -41,43 +39,53 @@
 			</Interaction.Behaviors>
 		</wce:BreadcrumbBar>
 
-		<TextBox Margin="0 0 0 16"
-				 Classes="underline"
-				 Name="PART_SearchTextBox"
-				 Watermark="在此键入进行搜索"
-				 Background="{DynamicResource TextBoxBackgroundBrush}"
-				 Grid.Row="1"
-				 Grid.Column="0">
-			<TextBox.InnerLeftContent>
-				<wc:FontIcon FontSize="16"
-							 Glyph="&#xE71E;"
-							 Margin="12 2 0 2"
-							 VerticalAlignment="Center"
-							 HorizontalAlignment="Center"/>
-			</TextBox.InnerLeftContent>
+		<TextBlock Opacity="0"
+				   Classes="Title"
+				   Margin="0 0 16 0"
+				   Grid.Row="1">
+			<Interaction.Behaviors>
+				<wb:SearchAnimationBehavior IsEnterKeyDown="{Binding IsEnterKeyDown, Mode=TwoWay}"
+											FromTarget="{Binding ElementName=PART_SearchBoxLayout}"
+											Keyword="{Binding Text, ElementName=PART_SearchTextBox}"/>
+			</Interaction.Behaviors>
+		</TextBlock>
 
-			<TextBox.KeyBindings>
-				<KeyBinding Gesture="Enter"
-							Command="{Binding SearchCommand}"
-							CommandParameter="{Binding Text, ElementName=PART_SearchTextBox}"/>
-			</TextBox.KeyBindings>
-		</TextBox>
+		<Grid Margin="0 0 16 16"
+			  ColumnDefinitions="* auto"
+			  Name="PART_SearchBoxLayout"
+			  Grid.Row="1">
+			<TextBox Margin="0 0 8 0" AcceptsReturn="False"
+					 Classes="underline"
+					 Name="PART_SearchTextBox"
+					 Watermark="在此键入进行搜索"
+					 Background="{DynamicResource TextBoxBackgroundBrush}"
+					 Grid.Column="0">
+				<TextBox.InnerLeftContent>
+					<wc:FontIcon FontSize="16"
+								 Glyph="&#xE71E;"
+								 Margin="12 2 0 2"
+								 VerticalAlignment="Center"
+								 HorizontalAlignment="Center"/>
+				</TextBox.InnerLeftContent>
 
-		<ComboBox Width="120"
-				  CornerRadius="6"
-				  Margin="8 0 16 16"
-				  SelectedItem="{Binding ActiveSearchType}"
-				  Background="{DynamicResource TextBoxBackgroundBrush}"
-				  ItemsSource="{wem:EnumBinding {x:Type we:SearchType}}"
-				  Grid.Row="1"
-				  Grid.Column="1">
-		</ComboBox>
+				<TextBox.KeyBindings>
+					<KeyBinding Gesture="Enter"
+								Command="{Binding SearchCommand}"
+								CommandParameter="{Binding Text, ElementName=PART_SearchTextBox}"/>
+				</TextBox.KeyBindings>
+			</TextBox>
 
+			<ComboBox Width="120"
+					  CornerRadius="6"
+					  SelectedItem="{Binding ActiveSearchType}"
+					  Background="{DynamicResource TextBoxBackgroundBrush}"
+					  ItemsSource="{wem:EnumBinding {x:Type we:SearchType}}"
+					  Grid.Column="1">
+			</ComboBox>
+		</Grid>
 
 		<ContentControl Opacity="0"
-						Grid.Row="2"
-						Grid.Column="0"
-						Grid.ColumnSpan="2">
+						Grid.Row="3">
 			<Interaction.Behaviors>
 				<wb:DownloadNavigationBehavior PageKey="{Binding ActivePageKey}"
 											   PageProvider="{Binding PageProvider}"
@@ -88,9 +96,7 @@
 		<Grid RowDefinitions="auto *"
 			  ColumnDefinitions=".4* *"
 			  Name="PART_NavigetionRoot"
-			  Grid.Row="2"
-			  Grid.Column="0"
-			  Grid.ColumnSpan="2">
+			  Grid.Row="3">
 			<TextBlock Classes="BodyStrong"
 					   Text="历史记录"/>
 
@@ -135,126 +141,129 @@
 					</ItemsRepeater.ItemTemplate>
 				</ItemsRepeater>
 			</ScrollViewer>
-			
-			<Grid RowDefinitions="auto * auto auto"
-				  Grid.Column="1"
-				  Grid.RowSpan="2">
-				<TextBlock Classes="BodyStrong"
-						   Text="热门资源推荐"
-						   Grid.Row="0"/>
 
-				<wc:ProgressRing Width="40"
-								 Height="40"
-								 Background="Transparent"
-								 HorizontalAlignment="Center"
-								 IsVisible="{Binding IsFeaturedResourcesLoading}"
-								 IsIndeterminate="{Binding IsFeaturedResourcesLoading}"
-								 Grid.Row="1"/>
+			<ScrollViewer Grid.Column="1"
+						  Grid.RowSpan="2">
+				<Grid RowDefinitions="auto * auto auto">
+					<TextBlock Classes="BodyStrong"
+							   Text="热门资源推荐"
+							   Grid.Row="0"/>
 
-				<Border Margin="0 8 16 16"
-						ClipToBounds="True"
-						CornerRadius="{DynamicResource NormalCornerRadius}"
-						Grid.Row="1">
-					<Carousel Name="PART_FeaturedResourcesCarousel" Focusable="True"
-							  ItemsSource="{Binding FeaturedResources}"
-							  SelectedIndex="{Binding FeaturedResourcesIndex}">
-						<Carousel.PageTransition>
-							<PageSlide Duration="0:0:.35"
-									   Orientation="Horizontal"
-									   SlideInEasing="ExponentialEaseOut"
-									   SlideOutEasing="ExponentialEaseOut"/>
-						</Carousel.PageTransition>
+					<wc:ProgressRing Width="40"
+									 Height="40"
+									 Background="Transparent"
+									 HorizontalAlignment="Center"
+									 IsVisible="{Binding IsFeaturedResourcesLoading}"
+									 IsIndeterminate="{Binding IsFeaturedResourcesLoading}"
+									 Grid.Row="1"/>
 
-						<Carousel.ItemTemplate>
-							<DataTemplate>
-								<Button Classes="ripple"
-										VerticalContentAlignment="Stretch"
-										HorizontalContentAlignment="Stretch">
-									<Grid Margin="8 8"
-										  RowDefinitions="* auto auto"
-										  ColumnDefinitions="auto 8 *">
-										<Border CornerRadius="6"
-												Margin="0 0 0 8"
-												Grid.Row="0"
-												Grid.ColumnSpan="3">
-											<Border.Background>
-												<ImageBrush Stretch="UniformToFill"
-															ail:ImageBrushLoader.Source="{Binding FirstImageUrl}"/>
-											</Border.Background>
-										</Border>
+					<Border Margin="0 8 16 16"
+							ClipToBounds="True"
+							CornerRadius="{DynamicResource NormalCornerRadius}"
+							Grid.Row="1">
+						<Carousel Name="PART_FeaturedResourcesCarousel" Focusable="True"
+								  ItemsSource="{Binding FeaturedResources}"
+								  SelectedIndex="{Binding FeaturedResourcesIndex}">
+							<Carousel.PageTransition>
+								<PageSlide Duration="0:0:.35"
+										   Orientation="Horizontal"
+										   SlideInEasing="ExponentialEaseOut"
+										   SlideOutEasing="ExponentialEaseOut"/>
+							</Carousel.PageTransition>
 
-										<Border Width="35"
-												Height="35"
-												CornerRadius="6"
-												Background="AliceBlue"
-												Grid.Row="1"
-												Grid.RowSpan="2">
-											<Border.Background>
-												<ImageBrush Stretch="UniformToFill"
-															ail:ImageBrushLoader.Source="{Binding Resource.IconUrl}"/>
-											</Border.Background>
-										</Border>
+							<Carousel.ItemTemplate>
+								<DataTemplate>
+									<Button Classes="ripple"
+											VerticalContentAlignment="Stretch"
+											HorizontalContentAlignment="Stretch">
+										<Grid Margin="8 8"
+											  RowDefinitions="* auto auto"
+											  ColumnDefinitions="auto 8 *">
+											<Border MinHeight="150"
+													CornerRadius="6"
+													Margin="0 0 0 8"
+													Grid.Row="0"
+													Grid.ColumnSpan="3">
+												<Border.Background>
+													<ImageBrush Stretch="UniformToFill"
+																ail:ImageBrushLoader.Source="{Binding FirstImageUrl}"/>
+												</Border.Background>
+											</Border>
 
-										<TextBlock Classes="BodyStrong"
-												   TextTrimming="CharacterEllipsis"
-												   Text="{Binding Resource.Name}"
-												   Grid.Row="1"
-												   Grid.Column="2"/>
+											<Border Width="35"
+													Height="35"
+													CornerRadius="6"
+													Background="AliceBlue"
+													Grid.Row="1"
+													Grid.RowSpan="2">
+												<Border.Background>
+													<ImageBrush Stretch="UniformToFill"
+																ail:ImageBrushLoader.Source="{Binding Resource.IconUrl}"/>
+												</Border.Background>
+											</Border>
 
-										<TextBlock Classes="Body"
-												   TextTrimming="CharacterEllipsis"
-												   Text="{Binding Resource.Summary}"
-												   Grid.Row="2"
-												   Grid.Column="2"/>
-									</Grid>
-								</Button>
-							</DataTemplate>
-						</Carousel.ItemTemplate>
-					</Carousel>
-				</Border>
+											<TextBlock Classes="BodyStrong"
+													   TextTrimming="CharacterEllipsis"
+													   Text="{Binding Resource.Name}"
+													   Grid.Row="1"
+													   Grid.Column="2"/>
 
-				<Button Height="40"
-						Classes="icon"
-						Margin="4 0 0 0"
-						Content="&#xE76B;"
-						VerticalAlignment="Center"
-						HorizontalAlignment="Left"
-						IsVisible="{Binding IsPreviousButtonVisible}"
-						Background="{DynamicResource PrimaryButtonBackgroundBrush}"
-						Foreground="{DynamicResource PrimaryButtonForegroundBrush}"
-						Grid.Row="1">
-					<Interaction.Behaviors>
-						<wb:CarouselButtonBehavior ButtonType="Previous"
-												   Target="{Binding ElementName=PART_FeaturedResourcesCarousel}"/>
-					</Interaction.Behaviors>
-				</Button>
+											<TextBlock Classes="Body"
+													   TextTrimming="CharacterEllipsis"
+													   Text="{Binding Resource.Summary}"
+													   Grid.Row="2"
+													   Grid.Column="2"/>
+										</Grid>
+									</Button>
+								</DataTemplate>
+							</Carousel.ItemTemplate>
+						</Carousel>
+					</Border>
 
-				<Button Height="40"
-						Classes="icon"
-						Margin="0 0 20 0"
-						Content="&#xE76C;"
-						VerticalAlignment="Center"
-						HorizontalAlignment="Right"
-						IsVisible="{Binding IsNextButtonVisible}"
-						Background="{DynamicResource PrimaryButtonBackgroundBrush}"
-						Foreground="{DynamicResource PrimaryButtonForegroundBrush}"
-						Grid.Row="1">
-					<Interaction.Behaviors>
-						<wb:CarouselButtonBehavior ButtonType="Next"
-												   Target="{Binding ElementName=PART_FeaturedResourcesCarousel}"/>
-					</Interaction.Behaviors>
-				</Button>
+					<Button Height="40"
+							Classes="icon"
+							Margin="4 0 0 0"
+							Content="&#xE76B;"
+							VerticalAlignment="Center"
+							HorizontalAlignment="Left"
+							IsVisible="{Binding IsPreviousButtonVisible}"
+							Background="{DynamicResource PrimaryButtonBackgroundBrush}"
+							Foreground="{DynamicResource PrimaryButtonForegroundBrush}"
+							Grid.Row="1">
+						<Interaction.Behaviors>
+							<wb:CarouselButtonBehavior ButtonType="Previous"
+													   Target="{Binding ElementName=PART_FeaturedResourcesCarousel}"/>
+						</Interaction.Behaviors>
+					</Button>
 
-				<TextBlock Classes="BodyStrong"
-						   Text="分类浏览"
-						   Grid.Row="2"/>
+					<Button Height="40"
+							Classes="icon"
+							Margin="0 0 20 0"
+							Content="&#xE76C;"
+							VerticalAlignment="Center"
+							HorizontalAlignment="Right"
+							IsVisible="{Binding IsNextButtonVisible}"
+							Background="{DynamicResource PrimaryButtonBackgroundBrush}"
+							Foreground="{DynamicResource PrimaryButtonForegroundBrush}"
+							Grid.Row="1">
+						<Interaction.Behaviors>
+							<wb:CarouselButtonBehavior ButtonType="Next"
+													   Target="{Binding ElementName=PART_FeaturedResourcesCarousel}"/>
+						</Interaction.Behaviors>
+					</Button>
 
-				<wc:NavigationTile Icon="&#xE71C;"
-								   Margin="0 8 16 0"
-								   Title="分类浏览"
-								   IsEnableAnimation="False"
-								   Grid.Row="3"/>
-			</Grid>
+					<TextBlock Classes="BodyStrong"
+							   Text="分类浏览"
+							   Grid.Row="2"/>
+
+					<wc:NavigationTile Icon="&#xE71C;"
+									   Margin="0 8 16 0"
+									   Title="分类浏览"
+									   IsEnableAnimation="False"
+									   Command="{Binding JumpToSearchPageCommand}"
+									   Grid.Row="3"/>
+				</Grid>
+			</ScrollViewer>
 		</Grid>
 	</Grid>
 </UserControl>
