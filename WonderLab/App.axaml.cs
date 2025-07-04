@@ -143,6 +143,7 @@ public sealed partial class App : Application {
 
         //Download
         pageProvider.AddPage<DownloadNavigationPage, DownloadNavigationPageViewModel>("Download/Navigation");
+        pageProvider.AddPage<DownloadDashboardPage, DownloadDashboardPageViewModel>("Download/Dashboard");
         pageProvider.AddPage<SearchPage, SearchPageViewModel>("Download/Search");
 
         //Configure Logging

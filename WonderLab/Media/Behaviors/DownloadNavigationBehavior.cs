@@ -6,7 +6,6 @@ using Avalonia.Media;
 using Avalonia.Threading;
 using Avalonia.Xaml.Interactivity;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Controls;
@@ -131,6 +130,12 @@ public sealed class SearchAnimationBehavior : Behavior {
     public static readonly StyledProperty<Control> FromTargetProperty =
         AvaloniaProperty.Register<SearchAnimationBehavior, Control>(nameof(FromTarget));
 
+    public static readonly StyledProperty<Control> HideTargetProperty =
+        AvaloniaProperty.Register<SearchAnimationBehavior, Control>(nameof(HideTarget));
+
+    public static readonly StyledProperty<bool> IsHideProperty =
+        AvaloniaProperty.Register<SearchAnimationBehavior, bool>(nameof(IsHide));
+
     public static readonly StyledProperty<bool> IsEnterKeyDownProperty =
         AvaloniaProperty.Register<SearchAnimationBehavior, bool>(nameof(IsEnterKeyDown));
 
@@ -142,6 +147,16 @@ public sealed class SearchAnimationBehavior : Behavior {
     public Control FromTarget {
         get => GetValue(FromTargetProperty);
         set => SetValue(FromTargetProperty, value);
+    }
+
+    public Control HideTarget {
+        get => GetValue(HideTargetProperty);
+        set => SetValue(HideTargetProperty, value);
+    }
+
+    public bool IsHide {
+        get => GetValue(IsHideProperty);
+        set => SetValue(IsHideProperty, value);
     }
 
     public bool IsEnterKeyDown {
@@ -175,65 +190,62 @@ public sealed class SearchAnimationBehavior : Behavior {
     private async void RunAnimation() {
         Cancel();
 
-        if (string.IsNullOrEmpty(Keyword)) {
-            _toTarget.IsVisible = false;
-            await CreateFromTargetHideAnimations(FromTarget);
-            return;
-        }
+        bool flag = string.IsNullOrEmpty(Keyword);
+        string keyword = flag ? string.Empty : $"\"{Keyword}\"";
+        double toY = flag ? 50d : 0d;
+        double toOpacity = flag ? 0d : 1d;
 
-        _toTarget.Text = $"\"{Keyword}\"";
-        var tasks1 = CreateToTargetAnimations(_toTarget);
-        var tasks2 = CreateFromTargetShowAnimation(FromTarget);
-        tasks1.Add(tasks2);
+        Thickness fromTargetMargin = flag
+            ? new(FromTarget.Margin.Left, 0, FromTarget.Margin.Right, FromTarget.Margin.Bottom)
+            : new(FromTarget.Margin.Left, 52, FromTarget.Margin.Right, FromTarget.Margin.Bottom);
 
         await Dispatcher.UIThread.InvokeAsync(async () => {
-            await Task.WhenAll(tasks1);
+            _toTarget.Text = keyword;
+            if (flag)
+                SetCurrentValue(IsHideProperty, false);
+
+            var fromTask1 = FromTarget.Animate(Layoutable.MarginProperty)
+                .WithEasing(new ExponentialEaseOut())
+                .WithDuration(TimeSpan.FromSeconds(0.35))
+                .From(FromTarget.Margin)
+                .To(fromTargetMargin)
+                .RunAsync(_cancellationTokenSource.Token);
+
+            var toTask1 = _toTarget.Animate(TranslateTransform.YProperty)
+                .WithDuration(TimeSpan.FromSeconds(0.35))
+                .From(50d)
+                .To(toY)
+                .RunAsync(_cancellationTokenSource.Token);
+
+            var toTask2 = _toTarget.Animate(Visual.OpacityProperty)
+                .WithDuration(TimeSpan.FromSeconds(1))
+                .From(0)
+                .To(toOpacity)
+                .RunAsync(_cancellationTokenSource.Token);
+
+            await Task.WhenAll([fromTask1, toTask1, toTask2]);
         });
     }
 
-    private Task CreateFromTargetHideAnimations(Control control) {
-        var task1 = control.Animate(Layoutable.MarginProperty)
+    private async void RunHideTargetAnimation() {
+        double hideWidth = IsHide ? 0d : 120d;
+
+        await HideTarget.Animate(Layoutable.WidthProperty)
             .WithEasing(new ExponentialEaseOut())
             .WithDuration(TimeSpan.FromSeconds(0.35))
-            .From(control.Margin)
-            .To(new(control.Margin.Left, 0, control.Margin.Right, control.Margin.Bottom))
+            .From(HideTarget.Width)
+            .To(hideWidth)
             .RunAsync(_cancellationTokenSource.Token);
-
-        return task1;
-    }
-
-    private List<Task> CreateToTargetAnimations(Control control) {
-        control.IsVisible = true;
-        var task1 = control.Animate(TranslateTransform.YProperty)
-            .WithDuration(TimeSpan.FromSeconds(0.35))
-            .From(30d)
-            .To(0d)
-            .RunAsync(_cancellationTokenSource.Token);
-
-        var task2 = control.Animate(Visual.OpacityProperty)
-            .WithDuration(TimeSpan.FromSeconds(1))
-            .From(0)
-            .To(1)
-            .RunAsync(_cancellationTokenSource.Token);
-
-        return [task1, task2];
-    }
-
-    private Task CreateFromTargetShowAnimation(Control control) {
-        var task1 = control.Animate(Layoutable.MarginProperty)
-            .WithEasing(new ExponentialEaseOut())
-            .WithDuration(TimeSpan.FromSeconds(0.35))
-            .From(control.Margin)
-            .To(new(control.Margin.Left, 52, control.Margin.Right, control.Margin.Bottom))
-            .RunAsync(_cancellationTokenSource.Token);
-
-        return task1;
     }
 
     private void OnPropertyChanged(object sender, AvaloniaPropertyChangedEventArgs e) {
         if (e.Property == IsEnterKeyDownProperty && e.GetNewValue<bool>()) {
-            IsEnterKeyDown = false;
+            SetCurrentValue(IsEnterKeyDownProperty, false);
             RunAnimation();
+        }
+
+        if (e.Property == IsHideProperty) {
+            RunHideTargetAnimation();
         }
     }
 }
