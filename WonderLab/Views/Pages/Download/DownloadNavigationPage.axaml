@@ -5,12 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:wc="using:WonderLab.Controls"
 			 xmlns:wt="using:WonderLab.Media.Transitions"
-			 xmlns:wb="using:WonderLab.Media.Behaviors"
-			 xmlns:wa="using:WonderLab.Media.Attachments"
-			 xmlns:wem="using:WonderLab.Extensions.Markup"
-			 xmlns:we="using:WonderLab.Classes.Enums"
 			 xmlns:wce="using:WonderLab.Controls.Experimental.BreadcrumbBar"
-			 xmlns:ail="using:AsyncImageLoader"
              x:Class="WonderLab.Views.Pages.Download.DownloadNavigationPage">
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
