@@ -212,6 +212,69 @@
 			</Setter>
 		</Style>
 
+		<Style Selector="^.content">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Button Classes="ripple"
+						Width="{TemplateBinding Width}"
+						Height="{TemplateBinding Height}"
+						Command="{TemplateBinding Command}"
+						MinWidth="{TemplateBinding MinWidth}"
+						MinHeight="{TemplateBinding MinHeight}"
+						Background="{TemplateBinding Background}"
+						CornerRadius="{TemplateBinding CornerRadius}"
+						CommandParameter="{TemplateBinding CommandParameter}"
+						VerticalAlignment="{TemplateBinding VerticalAlignment}"
+						HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+						VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+						HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
+						<Grid Margin="{TemplateBinding Padding}"
+							  ColumnDefinitions="Auto Auto 1* Auto">
+							<ContentPresenter VerticalAlignment="Center"
+											  Content="{TemplateBinding Icon}"
+											  Foreground="{DynamicResource TileForegroundBrush}"/>
+
+							<Grid Grid.Column="1"
+								  Margin="12 0 0 0"
+								  RowDefinitions="Auto Auto"
+								  VerticalAlignment="Center">
+								<TextBlock Classes="Body"
+										   Text="{TemplateBinding Title}"
+										   Foreground="{DynamicResource TileForegroundBrush}"/>
+
+								<TextBlock Grid.Row="1"
+										   Classes="Caption"
+										   HorizontalAlignment="Left"
+										   TextTrimming="CharacterEllipsis"
+										   Text="{TemplateBinding Description}"
+										   Foreground="{DynamicResource TileForegroundBrush}">
+									<TextBlock.IsVisible>
+										<MultiBinding Converter="{StaticResource SettingCardIsVisibleConverter}">
+											<TemplateBinding Property="IsDescriptionVisible"/>
+											<TemplateBinding Property="Description"/>
+										</MultiBinding>
+									</TextBlock.IsVisible>
+								</TextBlock>
+							</Grid>
+
+							<StackPanel Spacing="8"
+										Grid.Column="3"
+										Orientation="Horizontal">
+								<ContentPresenter RecognizesAccessKey="True"
+												  Content="{TemplateBinding Footer}"
+												  ContentTemplate="{TemplateBinding ContentTemplate}"/>
+
+								<wc:FontIcon FontSize="16"
+											 Glyph="&#xE76C;"
+											 VerticalAlignment="Center"
+											 Foreground="{DynamicResource TileForegroundBrush}"/>
+							</StackPanel>
+						</Grid>
+					</Button>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
 		<Style Selector="^:pointerover /template/ ContentPresenter#PART_FooterContentPresenter">
 			<Setter Property="Opacity" Value="1"/>
 			<Setter Property="Margin" Value="8 0 0 0"/>

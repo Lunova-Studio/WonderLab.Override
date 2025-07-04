@@ -80,6 +80,7 @@
 			<wc:TaskSpeedConverter x:Key="TaskSpeedConverter"/>
 			<wc:ServerIconConverter x:Key="ServerIconConverter"/>
 			<wc:BoolReverseConverter x:Key="BoolReverseConverter"/>
+			<wc:MinecraftIconConverter x:Key="MinecraftIconConverter"/>
 			<wc:BackEaseValueConverter x:Key="BackEaseValueConverter"/>
 			<wc:OpactiyReverseConverter x:Key="OpactiyReverseConverter"/>
 			<wc:SolidColorBrushConverter x:Key="SolidColorBrushConverter"/>

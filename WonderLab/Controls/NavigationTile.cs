@@ -6,8 +6,8 @@ using WonderLab.Utilities;
 namespace WonderLab.Controls;
 
 public sealed class NavigationTile : Tile {
-    public static readonly StyledProperty<string> IconProperty =
-        AvaloniaProperty.Register<NavigationTile, string>(nameof(Icon));
+    public static readonly StyledProperty<object> IconProperty =
+        AvaloniaProperty.Register<NavigationTile, object>(nameof(Icon));
 
     public static readonly StyledProperty<string> TitleProperty =
         AvaloniaProperty.Register<NavigationTile, string>(nameof(Title));
@@ -21,7 +21,7 @@ public sealed class NavigationTile : Tile {
     public static readonly StyledProperty<object> FooterProperty =
         AvaloniaProperty.Register<NavigationTile, object>(nameof(Footer));
 
-    public string Icon {
+    public object Icon {
         get => GetValue(IconProperty);
         set => SetValue(IconProperty, value);
     }

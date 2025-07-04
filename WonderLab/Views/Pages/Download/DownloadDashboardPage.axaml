@@ -67,7 +67,8 @@
 			</ComboBox>
 		</Grid>
 
-		<ContentControl Opacity="0"
+		<ContentControl ZIndex="0"
+						Opacity="0"
 						Grid.Row="2">
 			<Interaction.Behaviors>
 				<wb:DownloadNavigationBehavior PageKey="{Binding ActivePageKey}"
@@ -76,7 +77,8 @@
 			</Interaction.Behaviors>
 		</ContentControl>
 
-		<Grid RowDefinitions="auto *"
+		<Grid ZIndex="1"
+			  RowDefinitions="auto *"
 			  ColumnDefinitions=".4* *"
 			  Name="PART_NavigetionRoot"
 			  Grid.Row="2">

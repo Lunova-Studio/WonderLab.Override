@@ -62,6 +62,7 @@ public sealed partial class DownloadDashboardPageViewModel : ObservableObject {
     [RelayCommand]
     private Task Search(string text) => Task.Run(async () => {
         IsEnterKeyDown = true;
+        HasSearchCache = SearchCaches.Count > 0;
         if (string.IsNullOrEmpty(text)) {
             ActivePageKey = string.Empty;
             return;

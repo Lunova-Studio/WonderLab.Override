@@ -20,9 +20,6 @@ public sealed class DownloadNavigationBehavior : Behavior {
     private object _pageCache;
     private CancellationTokenSource _cancellationTokenSource = new();
 
-    private static readonly EntrancePageTransition _pageTransition =
-        new(TimeSpan.FromSeconds(0.35));
-
     public static readonly StyledProperty<Control> FromTargetProperty =
     AvaloniaProperty.Register<DownloadNavigationBehavior, Control>(nameof(FromTarget));
 
@@ -74,6 +71,9 @@ public sealed class DownloadNavigationBehavior : Behavior {
 
         var target1 = isForward ? _toTarget : FromTarget;
         var target2 = isForward ? FromTarget : _toTarget;
+
+        target1.ZIndex = 0;
+        target2.ZIndex = 1;
 
         var task11 = target1.Animate(Visual.OpacityProperty)
             .WithEasing(new ExponentialEaseOut())

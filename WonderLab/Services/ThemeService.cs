@@ -10,7 +10,6 @@ using System;
 using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using WonderLab.Classes.Enums;
 using WonderLab.Controls;
 using WonderLab.Extensions;
@@ -24,7 +23,9 @@ public sealed class ThemeService {
     private WonderWindow _hostWindow;
 
     public static readonly Lazy<Bitmap> LoadingIcon = new("resm:WonderLab.Assets.Images.doro_loading.jpg".ToBitmap());
+    public static readonly Lazy<Bitmap> OldMinecraftIcon = new("resm:WonderLab.Assets.Images.Icons.old_minecraft.png".ToBitmap());
     public static readonly Lazy<Bitmap> ReleaseMinecraftIcon = new("resm:WonderLab.Assets.Images.Icons.release_minecraft.png".ToBitmap());
+    public static readonly Lazy<Bitmap> SnapshotMinecraftIcon = new("resm:WonderLab.Assets.Images.Icons.snapshot_minecraft.png".ToBitmap());
 
     public ObservableCollection<BackgroundType> BackgroundTypes { get; } = [
         BackgroundType.SolidColor,
@@ -67,7 +68,7 @@ public sealed class ThemeService {
             else if (_settingService.Setting.ActiveColor is 0)
                 _settingService.Setting.ActiveColor = Colors.Red.ToUInt32();
 
-            if(!_settingService.Setting.IsEnableSystemColor)
+            if (!_settingService.Setting.IsEnableSystemColor)
                 UpdateColorScheme(_settingService.Setting.ActiveColorVariant);
 
             UpdateThemeVariant(_settingService.Setting.ActiveTheme);

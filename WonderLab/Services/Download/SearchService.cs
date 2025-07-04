@@ -1,4 +1,5 @@
 ﻿using MinecraftLaunch.Base.Models.Network;
+using MinecraftLaunch.Components.Installer;
 using MinecraftLaunch.Components.Provider;
 using MinecraftLaunch.Extensions;
 using System.Collections.Generic;
@@ -39,6 +40,10 @@ public sealed class SearchService {
             await SaveAsync();
         else
             Caches = [.. json.Deserialize(SearchCacheContext.Default.IEnumerableSearchCache)];
+    }
+
+    public Task<IEnumerable<VersionManifestEntry>> GetMinecraftsAsync(CancellationToken cancellationToken) {
+        return VanillaInstaller.EnumerableMinecraftAsync(cancellationToken);
     }
 
     public Task<IEnumerable<ModrinthResource>> GetFeaturedResourcesAsync(CancellationToken cancellationToken) {

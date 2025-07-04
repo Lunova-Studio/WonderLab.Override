@@ -2,6 +2,9 @@
 
 public enum SearchType {
     Minecraft,
-    Modrinth,
-    Curseforge
+    Mod,
+    Mpdpack,
+    Datapack,
+    Resourcepack,
+    Shaderpack,
 }
