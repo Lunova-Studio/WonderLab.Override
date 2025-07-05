@@ -37,13 +37,12 @@ internal class StyledPropertyGenerator : AvaloniaPropertyGenerator, IIncremental
 
     private static IEnumerable<MemberDeclarationSyntax> StyledPropsAndClrAccessorsDeclarations(IEnumerable<AvaloniaPropertyInfo> props) {
         foreach (var p in props) {
-            // 如果你已有 ITypeSymbol（建议在属性分析阶段同时存入 AvaloniaPropertyInfo）
              var typeSymbol = p.TypeSymbol;
 
             yield return SyntaxFactories.StyledProperty.Declaration(
                 controlTypeName: p.HierarchyInfo.Hierarchy[0].QualifiedName,
                 propertyTypeName: p.TypeName,
-                propertyTypeSymbol: null, // 如果暂时拿不到 symbol，这里传 null，也可在解析时 fallback 成 default(...)
+                propertyTypeSymbol: typeSymbol,
                 propertyName: p.PropertyName,
                 clrAccessorName: p.AccessorName,
                 defaultValue: p.DefaultValue);
@@ -55,21 +54,4 @@ internal class StyledPropertyGenerator : AvaloniaPropertyGenerator, IIncremental
                 p.AccessorName);
         }
     }
-
-    //private static IEnumerable<MemberDeclarationSyntax> StyledPropsAndClrAccessorsDeclarations(IEnumerable<AvaloniaPropertyInfo> props) {
-    //    foreach (var p in props) {
-    //        yield return SyntaxFactories.StyledProperty.Declaration(
-    //            p.HierarchyInfo.Hierarchy[0].QualifiedName,
-    //            p.TypeName,
-    //            p.PropertyName,
-    //            p.AccessorName,
-    //            p.DefaultValue);
-
-    //        yield return SyntaxFactories.AvaloniaObject.GetSetValuePropertyDeclaration(
-    //            typeof(StyledPropertyGenerator),
-    //            p.TypeName,
-    //            p.PropertyName,
-    //            p.AccessorName);
-    //    }
-    //}
 }

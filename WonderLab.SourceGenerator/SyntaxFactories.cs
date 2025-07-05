@@ -79,8 +79,7 @@ internal static class SyntaxFactories {
             string propertyTypeName,
             string clrAccessorName,
             object defaultValue = null,
-            ITypeSymbol propertyTypeSymbol = null)
-        {
+            ITypeSymbol propertyTypeSymbol = null) {
             TypeSyntax controlType = IdentifierName(controlTypeName);
             TypeSyntax propertyType = IdentifierName(propertyTypeName);
             var typeArgs = SeparatedList(new[] { controlType, propertyType });
@@ -98,11 +97,7 @@ internal static class SyntaxFactories {
                     float f => LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(f)),
                     double d => LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(d)),
                     bool b => LiteralExpression(b ? SyntaxKind.TrueLiteralExpression : SyntaxKind.FalseLiteralExpression),
-
-                    // ✅ 特殊处理枚举类型
                     _ when propertyTypeSymbol?.TypeKind == TypeKind.Enum => GenerateEnumDefaultExpression(propertyTypeSymbol, defaultValue),
-
-                    // ✅ fallback：default(Some.Type)
                     _ => DefaultExpression(ParseTypeName(propertyTypeName))
                 };
 

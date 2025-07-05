@@ -27,12 +27,9 @@ internal record AvaloniaPropertyInfo(
     }
 
     internal static AvaloniaPropertyInfo FromPropertySymbol(IPropertySymbol propertySymbol) {
-        // 获取类型名（带可空性注解）
-        string typeNameWithNullabilityAnnotations = propertySymbol.Type.GetFullyQualifiedNameWithNullabilityAnnotations();
-        // 属性名本身
         string clrAccessorName = propertySymbol.Name;
-        // AvaloniaProperty 字段名
         string propertyName = $"{clrAccessorName}Property";
+        string typeNameWithNullabilityAnnotations = propertySymbol.Type.GetFullyQualifiedNameWithNullabilityAnnotations();
 
         return new(
             HierarchyInfo.From(propertySymbol.ContainingType),
