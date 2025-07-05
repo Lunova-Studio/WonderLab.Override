@@ -124,11 +124,17 @@ internal sealed class HierarchyInfo
     }
 
     public override int GetHashCode() {
-        HashCode hash = new HashCode();
-        foreach (var typeInfo in Hierarchy) {
-            hash.Add(typeInfo.GetHashCode());
+        unchecked {
+            int hash = 17;
+            foreach (var typeInfo in Hierarchy)
+                hash = hash * 31 + (typeInfo?.GetHashCode() ?? 0);
+
+            hash = hash * 31 + (FilenameHint?.GetHashCode() ?? 0);
+            hash = hash * 31 + (MetadataName?.GetHashCode() ?? 0);
+            hash = hash * 31 + (Namespace?.GetHashCode() ?? 0);
+
+            return hash;
         }
-        return HashCode.Combine(FilenameHint.GetHashCode(), MetadataName.GetHashCode(), Namespace.GetHashCode(), hash.ToHashCode());
     }
 
     public bool Equals(HierarchyInfo other) {
