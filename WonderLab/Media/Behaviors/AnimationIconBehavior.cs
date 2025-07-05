@@ -9,28 +9,15 @@ using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
 using WonderLab.Extensions;
 using WonderLab.Media.Easings;
+using WonderLab.SourceGenerator.Attributes;
 
 namespace WonderLab.Media.Behaviors;
 
-public sealed class AnimationIconBehavior : Behavior<Button> {
+[StyledProperty(typeof(string), "ToIcon")]
+[StyledProperty(typeof(double), "FontSize")]
+public sealed partial class AnimationIconBehavior : Behavior<Button> {
     private string _sourceIcon;
     private CancellationTokenSource _cancellationTokenSource = new();
-
-    public static readonly StyledProperty<double> FontSizeProperty =
-        AvaloniaProperty.Register<AnimationIconBehavior, double>(nameof(FontSize));
-
-    public static readonly StyledProperty<string> ToIconProperty =
-    AvaloniaProperty.Register<AnimationIconBehavior, string>(nameof(ToIcon));
-
-    public double FontSize {
-        get => GetValue(FontSizeProperty);
-        set => SetValue(FontSizeProperty, value);
-    }
-
-    public string ToIcon {
-        get => GetValue(ToIconProperty);
-        set => SetValue(ToIconProperty, value);
-    }
 
     protected override void OnLoaded() {
         base.OnLoaded();
@@ -93,6 +80,6 @@ public sealed class AnimationIconBehavior : Behavior<Button> {
                 .To(1)
                 .RunAsync(_cancellationTokenSource.Token);
 
-        } catch (Exception) {}
+        } catch (Exception) { }
     }
 }

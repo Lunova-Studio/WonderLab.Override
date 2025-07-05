@@ -2,26 +2,17 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
+using WonderLab.SourceGenerator.Attributes;
 
 namespace WonderLab.Controls;
 
+[StyledProperty(typeof(bool), "IsIndeterminate")]
+[StyledProperty(typeof(bool), "PreserveAspect", true)]
+[StyledProperty(typeof(double), "ValueAngle", 0)]
+[StyledProperty(typeof(double), "StartAngle", 0)]
+[StyledProperty(typeof(double), "EndAngle", 360)]
 [PseudoClasses(":preserveaspect", ":indeterminate")]
-public sealed class ProgressRing : RangeBase {
-    public static readonly StyledProperty<bool> IsIndeterminateProperty =
-        ProgressBar.IsIndeterminateProperty.AddOwner<ProgressRing>();
-
-    public static readonly StyledProperty<bool> PreserveAspectProperty =
-        AvaloniaProperty.Register<ProgressRing, bool>(nameof(PreserveAspect), true);
-
-    public static readonly StyledProperty<double> ValueAngleProperty =
-        AvaloniaProperty.Register<ProgressRing, double>(nameof(ValueAngle), 0);
-
-    public static readonly StyledProperty<double> StartAngleProperty =
-        AvaloniaProperty.Register<ProgressRing, double>(nameof(StartAngle), 0);
-
-    public static readonly StyledProperty<double> EndAngleProperty =
-        AvaloniaProperty.Register<ProgressRing, double>(nameof(EndAngle), 360);
-
+public sealed partial class ProgressRing : RangeBase {
     static ProgressRing() {
         MinimumProperty.Changed.AddClassHandler<ProgressRing>(OnMinimumPropertyChanged);
         MaximumProperty.Changed.AddClassHandler<ProgressRing>(OnMaximumPropertyChanged);
@@ -32,31 +23,6 @@ public sealed class ProgressRing : RangeBase {
 
     public ProgressRing() {
         UpdatePseudoClasses(IsIndeterminate, PreserveAspect);
-    }
-
-    public bool IsIndeterminate {
-        get => GetValue(IsIndeterminateProperty);
-        set => SetValue(IsIndeterminateProperty, value);
-    }
-
-    public bool PreserveAspect {
-        get => GetValue(PreserveAspectProperty);
-        set => SetValue(PreserveAspectProperty, value);
-    }
-
-    public double ValueAngle {
-        get => GetValue(ValueAngleProperty);
-        private set => SetValue(ValueAngleProperty, value);
-    }
-
-    public double StartAngle {
-        get => GetValue(StartAngleProperty);
-        set => SetValue(StartAngleProperty, value);
-    }
-
-    public double EndAngle {
-        get => GetValue(EndAngleProperty);
-        set => SetValue(EndAngleProperty, value);
     }
 
     private void UpdatePseudoClasses(bool? isIndeterminate, bool? preserveAspect) {

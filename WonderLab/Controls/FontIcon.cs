@@ -1,14 +1,7 @@
-﻿using Avalonia;
-using Avalonia.Controls.Primitives;
+﻿using Avalonia.Controls.Primitives;
+using WonderLab.SourceGenerator.Attributes;
 
 namespace WonderLab.Controls;
 
-public sealed class FontIcon : TemplatedControl {
-    public static readonly StyledProperty<string> GlyphProperty =
-        AvaloniaProperty.Register<FontIcon, string>(nameof(Glyph), "\uE76E");
-
-    public string Glyph {
-        get => GetValue(GlyphProperty);
-        set => SetValue(GlyphProperty, value);
-    }
-}
+[StyledProperty(typeof(string), "Glyph", "")]
+public sealed partial class FontIcon : TemplatedControl;

@@ -11,38 +11,17 @@ using System.Threading.Tasks;
 using WonderLab.Controls;
 using WonderLab.Extensions;
 using WonderLab.Extensions.Hosting.UI;
-using WonderLab.Media.Transitions;
+using WonderLab.SourceGenerator.Attributes;
 
 namespace WonderLab.Media.Behaviors;
 
-public sealed class DownloadNavigationBehavior : Behavior {
+[StyledProperty(typeof(string), "PageKey")]
+[StyledProperty(typeof(Control), "FromTarget")]
+[StyledProperty(typeof(AvaloniaPageProvider), "PageProvider")]
+public sealed partial class DownloadNavigationBehavior : Behavior {
     private Control _toTarget;
     private object _pageCache;
     private CancellationTokenSource _cancellationTokenSource = new();
-
-    public static readonly StyledProperty<Control> FromTargetProperty =
-    AvaloniaProperty.Register<DownloadNavigationBehavior, Control>(nameof(FromTarget));
-
-    public static readonly StyledProperty<string> PageKeyProperty =
-        AvaloniaProperty.Register<SettingNavigationToBehavior, string>(nameof(PageKey));
-
-    public static readonly StyledProperty<AvaloniaPageProvider> PageProviderProperty =
-        AvaloniaProperty.Register<SettingNavigationToBehavior, AvaloniaPageProvider>(nameof(PageProvider));
-
-    public Control FromTarget {
-        get => GetValue(FromTargetProperty);
-        set => SetValue(FromTargetProperty, value);
-    }
-
-    public AvaloniaPageProvider PageProvider {
-        get => GetValue(PageProviderProperty);
-        set => SetValue(PageProviderProperty, value);
-    }
-
-    public string PageKey {
-        get => GetValue(PageKeyProperty);
-        set => SetValue(PageKeyProperty, value);
-    }
 
     protected override void OnAttached() {
         base.OnAttached();
@@ -120,49 +99,14 @@ public sealed class DownloadNavigationBehavior : Behavior {
     }
 }
 
-public sealed class SearchAnimationBehavior : Behavior {
+[StyledProperty(typeof(string), "Keyword")]
+[StyledProperty(typeof(bool), "IsHide")]
+[StyledProperty(typeof(bool), "IsEnterKeyDown")]
+[StyledProperty(typeof(Control), "FromTarget")]
+[StyledProperty(typeof(Control), "HideTarget")]
+public sealed partial class SearchAnimationBehavior : Behavior {
     private TextBlock _toTarget;
     private CancellationTokenSource _cancellationTokenSource = new();
-
-    public static readonly StyledProperty<string> KeywordProperty =
-        AvaloniaProperty.Register<SearchAnimationBehavior, string>(nameof(Keyword));
-
-    public static readonly StyledProperty<Control> FromTargetProperty =
-        AvaloniaProperty.Register<SearchAnimationBehavior, Control>(nameof(FromTarget));
-
-    public static readonly StyledProperty<Control> HideTargetProperty =
-        AvaloniaProperty.Register<SearchAnimationBehavior, Control>(nameof(HideTarget));
-
-    public static readonly StyledProperty<bool> IsHideProperty =
-        AvaloniaProperty.Register<SearchAnimationBehavior, bool>(nameof(IsHide));
-
-    public static readonly StyledProperty<bool> IsEnterKeyDownProperty =
-        AvaloniaProperty.Register<SearchAnimationBehavior, bool>(nameof(IsEnterKeyDown));
-
-    public string Keyword {
-        get => GetValue(KeywordProperty);
-        set => SetValue(KeywordProperty, value);
-    }
-
-    public Control FromTarget {
-        get => GetValue(FromTargetProperty);
-        set => SetValue(FromTargetProperty, value);
-    }
-
-    public Control HideTarget {
-        get => GetValue(HideTargetProperty);
-        set => SetValue(HideTargetProperty, value);
-    }
-
-    public bool IsHide {
-        get => GetValue(IsHideProperty);
-        set => SetValue(IsHideProperty, value);
-    }
-
-    public bool IsEnterKeyDown {
-        get => GetValue(IsEnterKeyDownProperty);
-        set => SetValue(IsEnterKeyDownProperty, value);
-    }
 
     protected override void OnAttached() {
         base.OnAttached();

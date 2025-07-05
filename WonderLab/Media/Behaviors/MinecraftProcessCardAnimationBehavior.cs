@@ -10,19 +10,13 @@ using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
 using WonderLab.Extensions;
 using WonderLab.Media.Easings;
+using WonderLab.SourceGenerator.Attributes;
 using WonderLab.Utilities;
 
 namespace WonderLab.Media.Behaviors;
 
-public sealed class MinecraftProcessCardAnimationBehavior : Behavior<Button> {
-    public static readonly StyledProperty<bool> IsExitedProperty =
-        AvaloniaProperty.Register<MinecraftProcessCardAnimationBehavior, bool>(nameof(IsExited), false);
-
-    public bool IsExited {
-        get => GetValue(IsExitedProperty);
-        set => SetValue(IsExitedProperty, value);
-    }
-
+[StyledProperty(typeof(bool), "IsExited")]
+public sealed partial class MinecraftProcessCardAnimationBehavior : Behavior<Button> {
     protected override void OnAttachedToVisualTree() {
         base.OnAttachedToVisualTree();
     }

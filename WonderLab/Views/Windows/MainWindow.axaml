@@ -64,8 +64,8 @@
 				  PageKey="{Binding PageKey}"
 				  PageProvider="{Binding PageProvider}"/>
 		
-		<!--<wc:DynamicBar Margin="0 12"
-					   CurrentBarState="{Binding BarState, Mode=TwoWay}">
+		<wc:DynamicBar Margin="0 12"
+					   BarState="{Binding BarState, Mode=TwoWay}">
 			<Grid RowDefinitions="* auto">
 				<wc:Frame Margin="16 16 0 16"
 						  PageKey="{Binding DynamicPageKey}"
@@ -80,7 +80,7 @@
 							 IsIndeterminate="{Binding IsDynamicPageDataLoading}"
 							 Grid.Row="1"/>
 			</Grid>
-		</wc:DynamicBar>-->
+		</wc:DynamicBar>
 
 		<WindowNotificationManager Margin="12 6 12 0"
 								   Position="TopCenter">

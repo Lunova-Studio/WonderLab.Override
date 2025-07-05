@@ -1,24 +1,22 @@
 ﻿using Avalonia;
-using Avalonia.Animation;
 using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Media;
-using Avalonia.Threading;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Extensions;
 using WonderLab.Media.Transitions;
+using WonderLab.SourceGenerator.Attributes;
 
 namespace WonderLab.Controls;
 
-[PseudoClasses(":press", ":panelopen", ":panelclose", ":panelhide", ":panelshow", ":panelhideopen", ":panelhideclose")]
-public sealed class DynamicBar : ContentControl {
-    private bool _isPress;
+[PseudoClasses(":press")]
+[StyledProperty(typeof(BarState), "BarState", BarState.Collapsed)]
+public partial class DynamicBar : ContentControl {
     private double _startX;
     private double _offsetX;
     private bool _canOpenPanel;
@@ -28,22 +26,8 @@ public sealed class DynamicBar : ContentControl {
 
     private readonly DynamicBarTransition _barTransition = new();
 
-    public static readonly StyledProperty<BarState> BarStateProperty =
-        AvaloniaProperty.Register<DynamicBar, BarState>(nameof(BarState), BarState.Collapsed);
-
-    public BarState BarState {
-        get => GetValue(BarStateProperty);
-        set => SetValue(BarStateProperty, value);
-    }
-
-    private void SetPseudoclasses(bool isPress, bool isPanelOpen, bool isPanelClose, bool isPanelHide, bool isPanelShow, bool isPanelHideOpen, bool isPanelHideClose) {
+    private void SetPseudoclasses(bool isPress) {
         PseudoClasses.Set(":press", isPress);
-        PseudoClasses.Set(":panelopen", isPanelOpen);
-        PseudoClasses.Set(":panelclose", isPanelClose);
-        PseudoClasses.Set(":panelhide", isPanelHide);
-        PseudoClasses.Set(":panelshow", isPanelShow);
-        PseudoClasses.Set(":panelhideopen", isPanelHideOpen);
-        PseudoClasses.Set(":panelhideclose", isPanelHideClose);
     }
 
     private void OnLayoutPointerMoved(object sender, PointerEventArgs e) {
@@ -68,7 +52,7 @@ public sealed class DynamicBar : ContentControl {
             return;
         }
 
-        SetPseudoclasses(_isPress = false, false, false, false, false, false, false);
+        SetPseudoclasses(false);
         if (e.InitialPressMouseButton is MouseButton.Left) {
             _PART_LayoutBorder.Margin = new Thickness(0, 0, 0, 0);
 
@@ -86,11 +70,10 @@ public sealed class DynamicBar : ContentControl {
     }
 
     private void OnLayoutPointerPressed(object sender, PointerPressedEventArgs e) {
-        if (BarState is not BarState.Collapsed) {
+        if (BarState is not BarState.Collapsed)
             return;
-        }
 
-        SetPseudoclasses(_isPress = true, false, false, false, false, false, false);
+        SetPseudoclasses(true);
         if (e.GetCurrentPoint(_PART_LayoutBorder).Properties.IsLeftButtonPressed) {
             _startX = e.GetPosition(this).X;
         }
@@ -161,7 +144,7 @@ public sealed class DynamicBar : ContentControl {
 }
 
 public enum BarState {
-    Expanded = 1,
     Collapsed,
+    Expanded,
     Hidden
 }

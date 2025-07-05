@@ -6,19 +6,13 @@ using Avalonia.Rendering.Composition;
 using Avalonia.Xaml.Interactivity;
 using System;
 using WonderLab.Media.Easings;
+using WonderLab.SourceGenerator.Attributes;
 using WonderLab.Utilities;
 
 namespace WonderLab.Media.Behaviors;
 
-public sealed class PointerOverVisibleBehavior : Behavior {
-    public static readonly StyledProperty<Visual> TargetProperty =
-        AvaloniaProperty.Register<PointerOverVisibleBehavior, Visual>(nameof(Target));
-
-    public Visual Target {
-        get => GetValue(TargetProperty);
-        set => SetValue(TargetProperty, value);
-    }
-
+[StyledProperty(typeof(Visual), "Target")]
+public sealed partial class PointerOverVisibleBehavior : Behavior {
     protected override void OnLoaded() {
         base.OnLoaded();
 
