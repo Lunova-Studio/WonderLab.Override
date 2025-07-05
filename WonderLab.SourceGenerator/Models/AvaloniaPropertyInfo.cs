@@ -43,8 +43,8 @@ internal record AvaloniaPropertyInfo(
 
     private static string GetAccessorsName(IFieldSymbol fieldSymbol) {
         var span = fieldSymbol.Name.AsSpan();
-        if (fieldSymbol.Name.StartsWith('_'))
-            span = span[1..];
+        if (fieldSymbol.Name.StartsWith("_"))
+            span = span.Slice(1);
 
         var chars = span.ToArray();
         chars[0] = char.ToUpperInvariant(chars[0]);

@@ -2,8 +2,8 @@
 
 	<PropertyGroup>
 		<LangVersion>preview</LangVersion>
-		<TargetFramework>net8.0</TargetFramework>
 		<IsRoslynComponent>true</IsRoslynComponent>
+		<TargetFramework>netstandard2.0</TargetFramework>
 		<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 		<EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
 		<CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
@@ -14,9 +14,4 @@
 		<PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
 		<PackageReference Include="Microsoft.Bcl.HashCode" Version="1.1.1" />
 	</ItemGroup>
-	
-	<ItemGroup>
-		<ProjectReference Include="..\WonderLab.SourceGenerator.Attributes\WonderLab.SourceGenerator.Attributes.csproj" />
-	</ItemGroup>
-
 </Project>
