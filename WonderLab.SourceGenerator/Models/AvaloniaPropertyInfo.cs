@@ -10,6 +10,7 @@ internal record AvaloniaPropertyInfo(
     string PropertyName,
     string AccessorName,
     string FieldName,
+    ITypeSymbol TypeSymbol,
     object DefaultValue = default) {
     internal static AvaloniaPropertyInfo FromFieldSymbol(IFieldSymbol fieldSymbol) {
         string typeNameWithNullabilityAnnotations = fieldSymbol.Type.GetFullyQualifiedNameWithNullabilityAnnotations();
@@ -21,7 +22,8 @@ internal record AvaloniaPropertyInfo(
             typeNameWithNullabilityAnnotations,
             propertyName,
             clrAccessorName,
-            fieldSymbol.Name);
+            fieldSymbol.Name,
+            fieldSymbol.Type);
     }
 
     internal static AvaloniaPropertyInfo FromPropertySymbol(IPropertySymbol propertySymbol) {
@@ -37,8 +39,8 @@ internal record AvaloniaPropertyInfo(
             typeNameWithNullabilityAnnotations,
             propertyName,
             clrAccessorName,
-            null
-        );
+            null,
+            propertySymbol.Type);
     }
 
     private static string GetAccessorsName(IFieldSymbol fieldSymbol) {
@@ -66,7 +68,7 @@ internal record AvaloniaPropertyInfo(
             styledPropertyName,
             clrAccessorName,
             null,
-            defaultValue
-        );
+            typeSymbol,
+            defaultValue);
     }
 }

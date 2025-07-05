@@ -1,7 +1,9 @@
-﻿using Microsoft.CodeAnalysis.CSharp;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using WonderLab.SourceGenerator.Utils;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
@@ -76,10 +78,12 @@ internal static class SyntaxFactories {
             string controlTypeName,
             string propertyTypeName,
             string clrAccessorName,
-            object defaultValue = null) {
+            object defaultValue = null,
+            ITypeSymbol propertyTypeSymbol = null)
+        {
             TypeSyntax controlType = IdentifierName(controlTypeName);
             TypeSyntax propertyType = IdentifierName(propertyTypeName);
-            var typeArgs = SeparatedList([controlType, propertyType]);
+            var typeArgs = SeparatedList(new[] { controlType, propertyType });
             var method = GenericName(
                 Identifier("global::Avalonia.AvaloniaProperty.Register"),
                 TypeArgumentList(typeArgs));
@@ -91,9 +95,17 @@ internal static class SyntaxFactories {
                 ExpressionSyntax defaultValueExpr = defaultValue switch {
                     string s => LiteralExpression(SyntaxKind.StringLiteralExpression, Literal(s)),
                     int i => LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(i)),
+                    float f => LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(f)),
+                    double d => LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal(d)),
                     bool b => LiteralExpression(b ? SyntaxKind.TrueLiteralExpression : SyntaxKind.FalseLiteralExpression),
-                    _ => LiteralExpression(SyntaxKind.DefaultLiteralExpression, Token(SyntaxKind.DefaultKeyword))
+
+                    // ✅ 特殊处理枚举类型
+                    _ when propertyTypeSymbol?.TypeKind == TypeKind.Enum => GenerateEnumDefaultExpression(propertyTypeSymbol, defaultValue),
+
+                    // ✅ fallback：default(Some.Type)
+                    _ => DefaultExpression(ParseTypeName(propertyTypeName))
                 };
+
                 methodArgs.Add(Argument(defaultValueExpr));
             }
 
@@ -106,13 +118,20 @@ internal static class SyntaxFactories {
             string propertyTypeName,
             string propertyName,
             string clrAccessorName,
-            object defaultValue = null) {
+            object defaultValue = null,
+            ITypeSymbol propertyTypeSymbol = default) {
             TypeSyntax propType = IdentifierName(Identifier(propertyTypeName));
+
             var styledPropType = GenericName(
                 Identifier("global::Avalonia.StyledProperty"),
-                TypeArgumentList(SeparatedList([propType])));
+                TypeArgumentList(SeparatedList(new[] { propType })));
 
-            var invocation = RegisterMethodDeclaration(controlTypeName, propertyTypeName, clrAccessorName, defaultValue);
+            var invocation = RegisterMethodDeclaration(
+                controlTypeName,
+                propertyTypeName,
+                clrAccessorName,
+                defaultValue,
+                propertyTypeSymbol);
 
             var varDeclarator = VariableDeclarator(Identifier(propertyName))
                 .WithInitializer(EqualsValueClause(invocation));
@@ -125,6 +144,21 @@ internal static class SyntaxFactories {
                     Token(SyntaxKind.PublicKeyword),
                     Token(SyntaxKind.StaticKeyword),
                     Token(SyntaxKind.ReadOnlyKeyword));
+        }
+
+        internal static ExpressionSyntax GenerateEnumDefaultExpression(ITypeSymbol typeSymbol, object value) {
+            if (typeSymbol is not INamedTypeSymbol namedEnum || value is null)
+                return LiteralExpression(SyntaxKind.NumericLiteralExpression, Literal((int)value!));
+
+            var field = namedEnum.GetMembers()
+                .OfType<IFieldSymbol>()
+                .FirstOrDefault(f => f.HasConstantValue && Equals(f.ConstantValue, value));
+
+            var enumLiteral = field is not null
+                ? $"{typeSymbol.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat)}.{field.Name}"
+                : ((int)value!).ToString();
+
+            return ParseExpression(enumLiteral);
         }
     }
 }
