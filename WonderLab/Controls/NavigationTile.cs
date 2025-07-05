@@ -1,14 +1,10 @@
-﻿using Avalonia;
-using Avalonia.Interactivity;
-using Avalonia.Rendering.Composition;
-using WonderLab.SourceGenerator.Attributes;
-using WonderLab.Utilities;
+﻿using WonderLab.SourceGenerator.Attributes;
 
 namespace WonderLab.Controls;
 
 [StyledProperty(typeof(object), "Icon")]
 [StyledProperty(typeof(object), "Footer")]
 [StyledProperty(typeof(string), "Title")]
-[StyledProperty(typeof(string), "Description")]
+[StyledProperty(typeof(object), "Description")]
 [StyledProperty(typeof(bool), "IsDescriptionVisible", true)]
 public sealed partial class NavigationTile : Tile;

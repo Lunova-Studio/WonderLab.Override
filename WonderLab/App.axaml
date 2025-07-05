@@ -36,6 +36,7 @@
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="/Controls/Theme/TagTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/TileTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ColorTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/FrameTheme.axaml"/>

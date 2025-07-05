@@ -1,7 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MinecraftLaunch.Base.Enums;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Threading.Tasks;
+using WonderLab.Classes.Enums;
 using WonderLab.Services.Download;
 
 namespace WonderLab.ViewModels.Pages.Download;
@@ -9,16 +12,35 @@ namespace WonderLab.ViewModels.Pages.Download;
 public sealed partial class SearchPageViewModel : ObservableObject {
     private readonly SearchService _searchService;
 
-    [ObservableProperty] private ObservableCollection<object> _resources;
+    [ObservableProperty] private ReadOnlyObservableCollection<object> _resources;
+    [ObservableProperty] private MinecraftVersionType _minecraftVersionType = MinecraftVersionType.Release;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(IsCommunityResourcesFilterVisible))]
+    private SearchType _searchType = SearchType.Minecraft;
+
+    public bool IsCommunityResourcesFilterVisible => SearchType is not SearchType.Minecraft;
 
     public SearchPageViewModel(SearchService searchService) {
         _searchService = searchService;
+
+        MinecraftVersionType = _searchService.MinecraftVersionType;
     }
 
     [RelayCommand]
     private Task OnLoaded() => Task.Run(async () => {
-#if DEBUG
-        Resources = [.. await _searchService.GetMinecraftsAsync(default)];
-#endif
+        await _searchService.InitMinecraftsAsync(default);
+        Resources = new(_searchService.Resources);
+
+        PropertyChanged += OnPropertyChanged;
     });
+
+    private void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
+        switch (e.PropertyName) {
+            case nameof(SearchType):
+                _searchService.MinecraftVersionType = MinecraftVersionType;
+                _searchService.SearchMinecrafts();
+                break;
+        }
+    }
 }

@@ -109,19 +109,20 @@
 									   Text="{TemplateBinding Title}"
 									   Foreground="{DynamicResource TileForegroundBrush}"/>
 
-							<TextBlock Grid.Row="1"
-									   Classes="Caption"
-									   HorizontalAlignment="Left"
-									   TextTrimming="CharacterEllipsis"
-									   Text="{TemplateBinding Description}"
-									   Foreground="{DynamicResource TileForegroundBrush}">
-								<TextBlock.IsVisible>
+							<ContentPresenter FontSize="12"
+											  FontWeight="Regular"
+											  HorizontalAlignment="Left"
+											  TextTrimming="CharacterEllipsis"
+											  Content="{TemplateBinding Description}"
+											  Foreground="{DynamicResource TileForegroundBrush}"
+											  Grid.Row="1">
+								<ContentPresenter.IsVisible>
 									<MultiBinding Converter="{StaticResource SettingCardIsVisibleConverter}">
 										<TemplateBinding Property="IsDescriptionVisible"/>
 										<TemplateBinding Property="Description"/>
 									</MultiBinding>
-								</TextBlock.IsVisible>
-							</TextBlock>
+								</ContentPresenter.IsVisible>
+							</ContentPresenter>
 						</Grid>
 
 						<StackPanel Spacing="8"
@@ -234,27 +235,29 @@
 											  Content="{TemplateBinding Icon}"
 											  Foreground="{DynamicResource TileForegroundBrush}"/>
 
-							<Grid Grid.Column="1"
-								  Margin="12 0 0 0"
-								  RowDefinitions="Auto Auto"
-								  VerticalAlignment="Center">
-								<TextBlock Classes="Body"
+							<Grid Margin="12 0 0 0"
+								  RowDefinitions="auto auto"
+								  VerticalAlignment="Center"
+								  Grid.Column="1">
+								<TextBlock Classes="BodyStrong"
+										   VerticalAlignment="Center"
 										   Text="{TemplateBinding Title}"
 										   Foreground="{DynamicResource TileForegroundBrush}"/>
 
-								<TextBlock Grid.Row="1"
-										   Classes="Caption"
-										   HorizontalAlignment="Left"
-										   TextTrimming="CharacterEllipsis"
-										   Text="{TemplateBinding Description}"
-										   Foreground="{DynamicResource TileForegroundBrush}">
-									<TextBlock.IsVisible>
+								<ContentPresenter FontSize="12"
+												  FontWeight="Regular"
+												  HorizontalAlignment="Left"
+												  TextTrimming="CharacterEllipsis"
+												  Content="{TemplateBinding Description}"
+												  Foreground="{DynamicResource TileForegroundBrush}"
+												  Grid.Row="1">
+									<ContentPresenter.IsVisible>
 										<MultiBinding Converter="{StaticResource SettingCardIsVisibleConverter}">
 											<TemplateBinding Property="IsDescriptionVisible"/>
 											<TemplateBinding Property="Description"/>
 										</MultiBinding>
-									</TextBlock.IsVisible>
-								</TextBlock>
+									</ContentPresenter.IsVisible>
+								</ContentPresenter>
 							</Grid>
 
 							<StackPanel Spacing="8"

@@ -15,17 +15,30 @@
 				<DataTemplate x:Key="Minecraft">
 					<wc:NavigationTile Classes="content"
 									   IsEnableAnimation="False"
-									   Title="{Binding Id}"
-									   Description="">
+									   Title="{Binding Id}">
 						<wc:NavigationTile.Icon>
-							<Border Width="35"
-									Height="35"
+							<Border Width="40"
+									Height="40"
 									CornerRadius="{StaticResource WeakCornerRadius}">
 								<Border.Background>
 									<ImageBrush Source="{Binding, Converter={StaticResource MinecraftIconConverter}}"/>
 								</Border.Background>
 							</Border>
 						</wc:NavigationTile.Icon>
+
+						<wc:NavigationTile.Description>
+							<Grid Margin="0 2 0 0"
+								  ColumnDefinitions="auto *">
+								<wc:Tag Text="{Binding Type}"/>
+								
+								<TextBlock Margin="8 0 0 0"
+										   Classes="Caption"
+										   VerticalAlignment="Center"
+										   TextTrimming="CharacterEllipsis"
+										   Text="{Binding ReleaseTime}"
+										   Grid.Column="1"/>
+							</Grid>
+						</wc:NavigationTile.Description>
 					</wc:NavigationTile>
 				</DataTemplate>
 			</RecyclingElementFactory.Templates>
@@ -36,6 +49,10 @@
 		<EventTriggerBehavior EventName="Loaded">
 			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
 		</EventTriggerBehavior>
+
+		<EventTriggerBehavior EventName="UnNavigated">
+			<InvokeCommandAction Command="{Binding UnNavigatedCommand}"/>
+		</EventTriggerBehavior>
 	</Interaction.Behaviors>
 	
 	<Grid RowSpacing="12"
@@ -45,22 +62,27 @@
 				   Orientation="Horizontal">
 			<!--Type-->
 			<ComboBox CornerRadius="6"
+					  SelectedItem="{Binding SearchType}"
 					  Background="{DynamicResource TextBoxBackgroundBrush}"
 					  ItemsSource="{wem:EnumBinding {x:Type wce:SearchType}}"/>
 
 			<!--Minecraft type-->
 			<ComboBox CornerRadius="6"
 					  Background="{DynamicResource TextBoxBackgroundBrush}"
-					  ItemsSource="{wem:EnumBinding {x:Type mbe:MinecraftVersionType}}"/>
+					  SelectedItem="{Binding MinecraftVersionType, Mode=TwoWay}"
+					  ItemsSource="{wem:EnumBinding {x:Type mbe:MinecraftVersionType}}"
+					  IsVisible="{Binding IsCommunityResourcesFilterVisible, Converter={StaticResource BoolReverseConverter}}"/>
 
 			<!--Community resources-->
 			<ComboBox CornerRadius="6"
-					  Background="{DynamicResource TextBoxBackgroundBrush}">
+					  Background="{DynamicResource TextBoxBackgroundBrush}"
+					  IsVisible="{Binding IsCommunityResourcesFilterVisible}">
 				<ComboBoxItem Content="All"/>
 			</ComboBox>
 
 			<ComboBox CornerRadius="6"
-					  Background="{DynamicResource TextBoxBackgroundBrush}">
+					  Background="{DynamicResource TextBoxBackgroundBrush}"
+					  IsVisible="{Binding IsCommunityResourcesFilterVisible}">
 				<ComboBoxItem Content="Modrinth"/>
 				<ComboBoxItem Content="Curseforge"/>
 			</ComboBox>

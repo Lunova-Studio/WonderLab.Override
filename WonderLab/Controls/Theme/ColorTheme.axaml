@@ -129,4 +129,7 @@
 	<SolidColorBrush x:Key="TabStripItemSelectedForegroundBrush" Color="{DynamicResource OnPrimaryColor}"/>
 
 	<SolidColorBrush x:Key="ScrollBarThumbBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
+
+	<SolidColorBrush x:Key="TagBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="TagForegroundBrush" Color="{DynamicResource OnPrimaryColor}"/>
 </ResourceDictionary>

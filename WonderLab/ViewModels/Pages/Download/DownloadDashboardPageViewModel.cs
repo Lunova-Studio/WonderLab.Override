@@ -1,10 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Base.Models.Network;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
+using WonderLab.Classes.Models.Messaging;
 using WonderLab.Extensions.Hosting.UI;
 using WonderLab.Services.Download;
 
@@ -70,6 +72,7 @@ public sealed partial class DownloadDashboardPageViewModel : ObservableObject {
 
         JumpToSearchPageCommand.Execute(default);
         await _searchService.SearchAsync(text, ActiveSearchType, default);
+        WeakReferenceMessenger.Default.Send(new SearchResourceMessage(text, ActiveSearchType));
     });
 
     [RelayCommand]

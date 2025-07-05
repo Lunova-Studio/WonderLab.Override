@@ -1,0 +1,4 @@
+﻿[*.cs]
+
+# CS8974: 将方法组转换为非委托类型
+dotnet_diagnostic.CS8974.severity = none
