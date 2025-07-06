@@ -13,7 +13,7 @@ public partial class SearchPage : Page {
 
     private void OnSelectTemplateKey(object sender, SelectTemplateEventArgs e) {
         e.TemplateKey = e.DataContext switch {
-            string => "Minecraft",
+            VersionManifestEntry => "Minecraft",
             ModrinthResource => "ModrinthResource",
             CurseforgeResource => "CurseforgeResource",
             _ => throw new NotSupportedException()

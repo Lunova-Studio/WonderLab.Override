@@ -53,7 +53,8 @@
 				</DataTemplate>
 
 				<DataTemplate x:Key="ModrinthResource">
-					<wc:NavigationTile Classes="content"
+					<wc:NavigationTile Padding="4 2"
+									   Classes="content"
 									   IsEnableAnimation="False"
 									   Title="{Binding Name}">
 						<wc:NavigationTile.Icon>
@@ -85,7 +86,7 @@
 										   Grid.Row="0"
 										   Grid.Column="1"/>
 
-								<Grid Margin="0 2 0 0"
+								<Grid Margin="0 4 0 0"
 									  Grid.Row="1"
 									  Grid.Column="0"
 									  Grid.ColumnSpan="2">
@@ -137,7 +138,8 @@
 				</DataTemplate>
 
 				<DataTemplate x:Key="CurseforgeResource">
-					<wc:NavigationTile Classes="content"
+					<wc:NavigationTile Padding="4 2"
+									   Classes="content"
 									   IsEnableAnimation="False"
 									   Title="{Binding Name}">
 						<wc:NavigationTile.Icon>
@@ -170,7 +172,7 @@
 										   Grid.Row="0"
 										   Grid.Column="1"/>
 
-								<Grid Margin="0 2 0 0"
+								<Grid Margin="0 4 0 0"
 									  Grid.Row="1"
 									  Grid.Column="0"
 									  Grid.ColumnSpan="2">
