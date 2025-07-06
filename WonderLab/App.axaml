@@ -86,6 +86,7 @@
 			<wc:OpactiyReverseConverter x:Key="OpactiyReverseConverter"/>
 			<wc:SolidColorBrushConverter x:Key="SolidColorBrushConverter"/>
 			<wc:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+			<wc:MinecraftVersionsConverter x:Key="MinecraftVersionsConverter"/>
 			<wc:SettingCardIsVisibleConverter x:Key="SettingCardIsVisibleConverter"/>
 			<wc:FitSquarelyWithinAspectRatioConverter x:Key="FitSquarelyWithinAspectRatioConverter"/>
 		</ResourceDictionary>

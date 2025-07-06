@@ -88,7 +88,7 @@
         <PackageReference Include="Tomlyn" Version="0.19.0" />
         <PackageReference Include="Xaml.Behaviors.Avalonia" Version="11.3.0.10" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-preview.5.25277.114" />
-        <PackageReference Include="MinecraftLaunch" Version="4.0.2-preview09" />
+        <PackageReference Include="MinecraftLaunch" Version="4.0.2-preview11" />
         <PackageReference Include="MinecraftLaunch.Skin" Version="1.0.1" />
         <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.1" />
         <PackageReference Include="Serilog.Sinks.Console" Version="6.0.1-dev-00953" />

@@ -17,13 +17,12 @@
 	</ControlTheme>
 
 	<ControlTheme TargetType="wc:Tag" x:Key="{x:Type wc:Tag}">
-		<Setter Property="MinWidth" Value="35"/>
 		<Setter Property="Background" Value="{DynamicResource TagBackgroundBrush}"/>
 		<Setter Property="Foreground" Value="{DynamicResource TagForegroundBrush}"/>
 		<Setter Property="CornerRadius" Value="{StaticResource WeakCornerRadius}"/>
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Border Padding="4 1"
+				<Border Padding="3 1"
 						MinWidth="{TemplateBinding MinWidth}"
 						Background="{TemplateBinding Background}"
 						CornerRadius="{TemplateBinding CornerRadius}">

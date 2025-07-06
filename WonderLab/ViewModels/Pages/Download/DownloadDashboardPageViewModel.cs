@@ -1,12 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Base.Models.Network;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
-using WonderLab.Classes.Models.Messaging;
 using WonderLab.Extensions.Hosting.UI;
 using WonderLab.Services.Download;
 
@@ -16,6 +14,7 @@ public sealed partial class DownloadDashboardPageViewModel : ObservableObject {
     private readonly SearchService _searchService;
     private readonly AvaloniaPageProvider _pageProvider;
 
+    [ObservableProperty] private string _keyword;
     [ObservableProperty] private string _activePageKey;
     [ObservableProperty] private bool _isHide = false;
     [ObservableProperty] private bool _hasSearchCache = true;
@@ -47,7 +46,7 @@ public sealed partial class DownloadDashboardPageViewModel : ObservableObject {
         SearchCaches = new(_searchService.Caches);
         var featuredResources = await _searchService.GetFeaturedResourcesAsync(default);
         FeaturedResources = [.. featuredResources.Select(x => new FeaturedResourcesItem(x,
-            x.ScreenshotUrls?.FirstOrDefault() ?? x.IconUrl))];
+            x.Screenshots?.FirstOrDefault() ?? x.IconUrl))];
 
         FeaturedResourcesIndex = 0;
         IsFeaturedResourcesLoading = false;
@@ -62,17 +61,24 @@ public sealed partial class DownloadDashboardPageViewModel : ObservableObject {
     }
 
     [RelayCommand]
-    private Task Search(string text) => Task.Run(async () => {
+    private Task Search() => Task.Run(async () => {
         IsEnterKeyDown = true;
         HasSearchCache = SearchCaches.Count > 0;
-        if (string.IsNullOrEmpty(text)) {
+        if (string.IsNullOrEmpty(Keyword)) {
             ActivePageKey = string.Empty;
             return;
         }
 
         JumpToSearchPageCommand.Execute(default);
-        await _searchService.SearchAsync(text, ActiveSearchType, default);
-        WeakReferenceMessenger.Default.Send(new SearchResourceMessage(text, ActiveSearchType));
+        await _searchService.SearchAsync(Keyword, ActiveSearchType, default);
+    });
+
+    [RelayCommand]
+    private Task SearchHistory(SearchCache searchCache) => Task.Run(async () => {
+        Keyword = searchCache.Keyword;
+        IsEnterKeyDown = true;
+        JumpToSearchPageCommand.Execute(default);
+        await _searchService.SearchAsync(Keyword, searchCache.SearchType, default);
     });
 
     [RelayCommand]

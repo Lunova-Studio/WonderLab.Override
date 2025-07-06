@@ -8,9 +8,19 @@
 			 xmlns:wa="using:WonderLab.Media.Attachments"
 			 xmlns:mbe="using:MinecraftLaunch.Base.Enums"
 			 xmlns:wem="using:WonderLab.Extensions.Markup"
+			 xmlns:ail="using:AsyncImageLoader"
              x:Class="WonderLab.SearchPage">
 	<UserControl.Resources>
-		<RecyclingElementFactory x:Key="ResourceTemplateSelector">
+		<DataTemplate x:Key="CategoryTagTemplate">
+			<wc:Tag Text="{Binding}"/>
+		</DataTemplate>
+
+		<ItemsPanelTemplate x:Key="ItemsControlPanel">
+			<StackPanel Spacing="4" Orientation="Horizontal"/>
+		</ItemsPanelTemplate>
+		
+		<RecyclingElementFactory SelectTemplateKey="OnSelectTemplateKey"
+								 x:Key="ResourceTemplateSelector">
 			<RecyclingElementFactory.Templates>
 				<DataTemplate x:Key="Minecraft">
 					<wc:NavigationTile Classes="content"
@@ -41,6 +51,175 @@
 						</wc:NavigationTile.Description>
 					</wc:NavigationTile>
 				</DataTemplate>
+
+				<DataTemplate x:Key="ModrinthResource">
+					<wc:NavigationTile Classes="content"
+									   IsEnableAnimation="False"
+									   Title="{Binding Name}">
+						<wc:NavigationTile.Icon>
+							<Border Width="40"
+									Height="40"
+									CornerRadius="{StaticResource WeakCornerRadius}">
+								<Border.Background>
+									<ImageBrush ail:ImageBrushLoader.Source="{Binding IconUrl}"/>
+								</Border.Background>
+							</Border>
+						</wc:NavigationTile.Icon>
+
+						<wc:NavigationTile.Description>
+							<Grid Margin="0 2 0 0"
+								  RowDefinitions="* *"
+								  ColumnDefinitions="auto *"
+								  Grid.IsSharedSizeScope="True">
+								<ItemsControl ItemsSource="{Binding Categories}"
+											  ItemsPanel="{StaticResource ItemsControlPanel}"
+											  ItemTemplate="{StaticResource CategoryTagTemplate}"
+											  Grid.Row="0"
+											  Grid.Column="0"/>
+
+								<TextBlock Margin="8 0 0 0"
+										   Classes="Caption"
+										   VerticalAlignment="Center"
+										   TextTrimming="CharacterEllipsis"
+										   Text="{Binding Summary}"
+										   Grid.Row="0"
+										   Grid.Column="1"/>
+
+								<Grid Margin="0 2 0 0"
+									  Grid.Row="1"
+									  Grid.Column="0"
+									  Grid.ColumnSpan="2">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition SharedSizeGroup="Version" Width="auto"/>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition SharedSizeGroup="Download" Width="auto"/>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition SharedSizeGroup="Source" Width="auto"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+
+									<wc:FontIcon Glyph="&#xF158;"
+												 VerticalAlignment="Center"
+												 Grid.Column="0"/>
+
+									<TextBlock Classes="Caption"
+											   Margin="8 0 0 0"
+											   VerticalAlignment="Center"
+											   HorizontalAlignment="Left"
+											   Text="{Binding MinecraftVersions, Converter={StaticResource MinecraftVersionsConverter}}"
+											   Grid.Column="1"/>
+
+									<wc:FontIcon Glyph="&#xE896;"
+												 VerticalAlignment="Center"
+												 Grid.Column="2"/>
+
+									<TextBlock Classes="Caption"
+											   Margin="8 0 0 0"
+											   VerticalAlignment="Center"
+											   HorizontalAlignment="Left"
+											   Text="{Binding DownloadCount}"
+											   Grid.Column="3"/>
+
+									<wc:FontIcon Glyph="&#xE774;"
+												 VerticalAlignment="Center"
+												 Grid.Column="4"/>
+
+									<TextBlock Text="Modrinth"
+											   Margin="8 0 0 0"
+											   Classes="Caption"
+											   VerticalAlignment="Center"
+											   HorizontalAlignment="Left"
+											   Grid.Column="5"/>
+								</Grid>
+							</Grid>
+						</wc:NavigationTile.Description>
+					</wc:NavigationTile>
+				</DataTemplate>
+
+				<DataTemplate x:Key="CurseforgeResource">
+					<wc:NavigationTile Classes="content"
+									   IsEnableAnimation="False"
+									   Title="{Binding Name}">
+						<wc:NavigationTile.Icon>
+							<Border Width="50"
+									Height="50"
+									CornerRadius="{StaticResource WeakCornerRadius}">
+								<Border.Background>
+									<ImageBrush Stretch="Fill"
+												ail:ImageBrushLoader.Source="{Binding IconUrl}"/>
+								</Border.Background>
+							</Border>
+						</wc:NavigationTile.Icon>
+
+						<wc:NavigationTile.Description>
+							<Grid Margin="0 2 0 0"
+								  RowDefinitions="* *"
+								  ColumnDefinitions="auto *"
+								  Grid.IsSharedSizeScope="True">
+								<ItemsControl ItemsSource="{Binding Categories}"
+											  ItemsPanel="{StaticResource ItemsControlPanel}"
+											  ItemTemplate="{StaticResource CategoryTagTemplate}"
+											  Grid.Row="0"
+											  Grid.Column="0"/>
+
+								<TextBlock Margin="8 0 0 0"
+										   Classes="Caption"
+										   VerticalAlignment="Center"
+										   TextTrimming="CharacterEllipsis"
+										   Text="{Binding Summary}"
+										   Grid.Row="0"
+										   Grid.Column="1"/>
+
+								<Grid Margin="0 2 0 0"
+									  Grid.Row="1"
+									  Grid.Column="0"
+									  Grid.ColumnSpan="2">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition SharedSizeGroup="Version" Width="auto"/>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition SharedSizeGroup="Download" Width="auto"/>
+										<ColumnDefinition Width="*"/>
+										<ColumnDefinition SharedSizeGroup="Source" Width="auto"/>
+										<ColumnDefinition Width="*"/>
+									</Grid.ColumnDefinitions>
+
+									<wc:FontIcon Glyph="&#xF158;"
+												 VerticalAlignment="Center"
+												 Grid.Column="0"/>
+
+									<TextBlock Classes="Caption"
+											   Margin="8 0 0 0"
+											   VerticalAlignment="Center"
+											   HorizontalAlignment="Left"
+											   Text="{Binding MinecraftVersions, Converter={StaticResource MinecraftVersionsConverter}}"
+											   Grid.Column="1"/>
+
+									<wc:FontIcon Glyph="&#xE896;"
+												 VerticalAlignment="Center"
+												 Grid.Column="2"/>
+
+									<TextBlock Classes="Caption"
+											   Margin="8 0 0 0"
+											   VerticalAlignment="Center"
+											   HorizontalAlignment="Left"
+											   Text="{Binding DownloadCount}"
+											   Grid.Column="3"/>
+
+									<wc:FontIcon Glyph="&#xE774;"
+												 VerticalAlignment="Center"
+												 Grid.Column="4"/>
+
+									<TextBlock Text="Curseforge"
+											   Margin="8 0 0 0"
+											   Classes="Caption"
+											   VerticalAlignment="Center"
+											   HorizontalAlignment="Left"
+											   Grid.Column="5"/>
+								</Grid>
+							</Grid>
+						</wc:NavigationTile.Description>
+					</wc:NavigationTile>
+				</DataTemplate>
 			</RecyclingElementFactory.Templates>
 		</RecyclingElementFactory>
 	</UserControl.Resources>
@@ -48,10 +227,6 @@
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
 			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
-		</EventTriggerBehavior>
-
-		<EventTriggerBehavior EventName="UnNavigated">
-			<InvokeCommandAction Command="{Binding UnNavigatedCommand}"/>
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
 	
@@ -62,7 +237,7 @@
 				   Orientation="Horizontal">
 			<!--Type-->
 			<ComboBox CornerRadius="6"
-					  SelectedItem="{Binding SearchType}"
+					  SelectedItem="{Binding SearchType, Mode=TwoWay}"
 					  Background="{DynamicResource TextBoxBackgroundBrush}"
 					  ItemsSource="{wem:EnumBinding {x:Type wce:SearchType}}"/>
 

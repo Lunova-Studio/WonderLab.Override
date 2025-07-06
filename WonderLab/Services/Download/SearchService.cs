@@ -1,4 +1,5 @@
 ﻿using MinecraftLaunch.Base.Enums;
+using MinecraftLaunch.Base.Interfaces;
 using MinecraftLaunch.Base.Models.Network;
 using MinecraftLaunch.Components.Installer;
 using MinecraftLaunch.Components.Provider;
@@ -20,15 +21,20 @@ public sealed class SearchService {
     private List<VersionManifestEntry> _minecrafts = [];
 
     private readonly ModrinthProvider _modrinthProvider;
+    private readonly CurseforgeProvider _curseforgeProvider;
     private readonly FileInfo _searchCacheFileInfo = new(Path.Combine(PathUtil.GetDataFolderPath(), "search_caches.json"));
 
+    public string Category { get; set; } = string.Empty;
+    public string MinecraftVersion { get; set; } = string.Empty;
+    public SearchType SearchType { get; set; } = SearchType.Minecraft;
     public MinecraftVersionType MinecraftVersionType { get; set; } = MinecraftVersionType.Release;
 
     public ObservableCollection<object> Resources { get; private set; } = [];
     public ObservableCollection<SearchCache> Caches { get; private set; } = [];
 
-    public SearchService(ModrinthProvider modrinthProvider) {
+    public SearchService(ModrinthProvider modrinthProvider, CurseforgeProvider curseforgeProvider) {
         _modrinthProvider = modrinthProvider;
+        _curseforgeProvider = curseforgeProvider;
     }
 
     public async Task SaveAsync() {
@@ -56,7 +62,8 @@ public sealed class SearchService {
         var minecrafts = await VanillaInstaller.EnumerableMinecraftAsync(cancellationToken);
         _minecrafts = [.. minecrafts];
 
-        SearchMinecrafts();
+        if (SearchType is SearchType.Minecraft)
+            FilterMinecrafts();
     }
 
     public Task<IEnumerable<ModrinthResource>> GetFeaturedResourcesAsync(CancellationToken cancellationToken) {
@@ -68,14 +75,17 @@ public sealed class SearchService {
             Caches.Insert(0, new(keyword, searchType));
 
         _filter = keyword;
+        SearchType = searchType;
 
         await SaveAsync();
 
         if (searchType is SearchType.Minecraft)
-            SearchMinecrafts();
+            FilterMinecrafts();
+        else
+            await SearchResourcesAsync(cancellationToken);
     }
 
-    public void SearchMinecrafts() {
+    public void FilterMinecrafts() {
         Resources?.Clear();
 
         var minecrafts = _minecrafts.Where(x => x.Type == GetVersionType(MinecraftVersionType)
@@ -83,6 +93,47 @@ public sealed class SearchService {
 
         foreach (var item in minecrafts)
             Resources.Add(item);
+    }
+
+    public async Task SearchResourcesAsync(CancellationToken cancellationToken) {
+        Resources?.Clear();
+
+        var modrinthResources = await _modrinthProvider
+            .SearchAsync(_filter, MinecraftVersion, Category,
+                GetProjectType(SearchType), ModrinthSearchIndex.Relevance, cancellationToken);
+
+        var curseforgeResources = await _curseforgeProvider
+            .SearchResourcesAsync(_filter, GetClassId(SearchType), 0, MinecraftVersion);
+
+        var resources = modrinthResources
+            .Select(x => x as IResource)
+            .Union(curseforgeResources)
+            .OrderBy(x => x.DateModified);
+
+        foreach (var resource in resources)
+            Resources.Add(resource);
+    }
+
+    private static int GetClassId(SearchType searchType) {
+        return searchType switch {
+            SearchType.Mod => 6,
+            SearchType.Mpdpack => 4471,
+            SearchType.Datapack => 6945,
+            SearchType.Shaderpack => 6552,
+            SearchType.Resourcepack => 12,
+            _ => 6
+        };
+    }
+
+    private static string GetProjectType(SearchType searchType) {
+        return searchType switch {
+            SearchType.Mod => "mod",
+            SearchType.Mpdpack => "modpack",
+            SearchType.Datapack => "datapack",
+            SearchType.Shaderpack => "shader",
+            SearchType.Resourcepack => "resourcepack",
+            _ => "mod"
+        };
     }
 
     private static string GetVersionType(MinecraftVersionType minecraftType) {

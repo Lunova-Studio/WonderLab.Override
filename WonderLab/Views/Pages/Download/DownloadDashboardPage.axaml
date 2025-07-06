@@ -23,11 +23,11 @@
 				   Margin="0 0 16 0"
 				   Grid.Row="0">
 			<Interaction.Behaviors>
-				<wb:SearchAnimationBehavior IsHide="{Binding IsHide, Mode=TwoWay}"
+				<wb:SearchAnimationBehavior Keyword="{Binding Keyword}"
+											IsHide="{Binding IsHide, Mode=TwoWay}"
 											IsEnterKeyDown="{Binding IsEnterKeyDown, Mode=TwoWay}"
 											HideTarget="{Binding ElementName=PART_FilterComboBox}"
-											FromTarget="{Binding ElementName=PART_SearchBoxLayout}"
-											Keyword="{Binding Text, ElementName=PART_SearchTextBox}"/>
+											FromTarget="{Binding ElementName=PART_SearchBoxLayout}"/>
 			</Interaction.Behaviors>
 		</TextBlock>
 
@@ -37,6 +37,7 @@
 			  Grid.Row="0">
 			<TextBox Margin="0 0 8 0"
 					 Classes="underline"
+					 Text="{Binding Keyword}"
 					 Name="PART_SearchTextBox"
 					 Watermark="在此键入进行搜索"
 					 Background="{DynamicResource TextBoxBackgroundBrush}"
@@ -102,7 +103,9 @@
 					<ItemsRepeater.ItemTemplate>
 						<DataTemplate>
 							<Button Classes="ripple"
-									HorizontalContentAlignment="Stretch">
+									HorizontalContentAlignment="Stretch"
+									CommandParameter="{Binding}"
+									Command="{Binding $parent[ItemsRepeater].DataContext.SearchHistoryCommand}">
 								<Grid ColumnDefinitions="auto auto * auto">
 									<wc:FontIcon FontSize="16"
 												 Margin="4 0 0 0"

@@ -29,7 +29,7 @@
 		<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
 			<Style.Animations>
 				<Animation FillMode="Forward"
-						   Duration="0:0:.15"
+						   Duration="0:0:.2"
 						   Easing="CubicEaseOut">
 					<KeyFrame Cue="0%">
 						<Setter Property="Opacity" Value="0"/>

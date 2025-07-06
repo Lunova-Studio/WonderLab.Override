@@ -24,6 +24,7 @@ public sealed partial class SearchPageViewModel : ObservableObject {
     public SearchPageViewModel(SearchService searchService) {
         _searchService = searchService;
 
+        SearchType = _searchService.SearchType;
         MinecraftVersionType = _searchService.MinecraftVersionType;
     }
 
@@ -37,9 +38,12 @@ public sealed partial class SearchPageViewModel : ObservableObject {
 
     private void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
         switch (e.PropertyName) {
-            case nameof(SearchType):
+            case nameof(MinecraftVersionType):
                 _searchService.MinecraftVersionType = MinecraftVersionType;
-                _searchService.SearchMinecrafts();
+                _searchService.FilterMinecrafts();
+                break;
+            case nameof(SearchType):
+                _searchService.SearchType = SearchType;
                 break;
         }
     }
