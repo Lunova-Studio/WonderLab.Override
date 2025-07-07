@@ -32,7 +32,9 @@ public sealed partial class SearchPageViewModel : ObservableObject {
 
     [RelayCommand]
     private Task OnLoaded() => Task.Run(async () => {
-        await _searchService.InitMinecraftsAsync(default);
+        if (SearchType is SearchType.Minecraft)
+            await _searchService.InitMinecraftsAsync(default);
+
         Resources = new(_searchService.Resources);
 
         PropertyChanged += OnPropertyChanged;

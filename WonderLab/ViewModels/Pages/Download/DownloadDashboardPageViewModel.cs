@@ -54,6 +54,8 @@ public sealed partial class DownloadDashboardPageViewModel : ObservableObject {
 
         HasSearchCache = SearchCaches.Count > 0;
         PropertyChanged += OnPropertyChanged;
+
+        _searchService.Reset();
     });
 
     [RelayCommand]

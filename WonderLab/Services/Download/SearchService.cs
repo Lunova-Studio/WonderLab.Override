@@ -40,6 +40,7 @@ public sealed class SearchService {
     }
 
     public void Reset() {
+        Filter = string.Empty;
         Category = string.Empty;
         MinecraftVersion = string.Empty;
         SearchType = SearchType.Minecraft;
