@@ -75,7 +75,7 @@ jobs:
           git submodule update --init --recursive --remote
       - name: Dependency
         run: |
-          dotnet tool install -g KuiperZone.PupNet
+          dotnet tool install -g KuiperZone.PupNet --version 1.8.0
           sudo apt-get update
           sudo apt-get install fuse
       - name: Build-AppImage

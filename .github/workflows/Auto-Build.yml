@@ -113,16 +113,16 @@ jobs:
             git submodule update --init --recursive --remote
         - name: Dependency
           run: |
-            dotnet tool install -g KuiperZone.PupNet
+            dotnet tool install -g KuiperZone.PupNet --version 1.8.0
             sudo apt-get update
             sudo apt-get install fuse
         - name: Build-AppImage
           run: |
             cd ./WonderLab
             sudo su
-            pupnet --runtime linux-x64 --kind appimage -o WonderLab.linux.x64.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
-            pupnet --runtime linux-arm --kind appimage -o WonderLab.linux.arm.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
-            pupnet --runtime linux-arm64 --kind appimage -o WonderLab.linux.arm64.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
+            pupnet --runtime linux-x64 --kind appimage -o WonderLab.linux.x64.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }} -p:Version=${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
+            pupnet --runtime linux-arm --kind appimage -o WonderLab.linux.arm.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }} -p:Version=${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
+            pupnet --runtime linux-arm64 --kind appimage -o WonderLab.linux.arm64.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }} -p:Version=${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
         - name: Build-WinExe
           run: |
             cd ./WonderLab
