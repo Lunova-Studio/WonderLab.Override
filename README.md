@@ -82,7 +82,7 @@ WonderLab 是一个跨平台 Minecraft 启动器，支持自动更新、Modrinth
 
 [Bilibili](https://space.bilibili.com/1049351987)
 
-### [Starcloudsea](https://github.com/Starcloudsea)
+### [Rwagsu](https://github.com/Rwagsu)
 
 啥活都想整的没脑子 C# 编程爱好者和视频创作者
 
