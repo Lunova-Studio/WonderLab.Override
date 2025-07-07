@@ -58,8 +58,8 @@
 									   IsEnableAnimation="False"
 									   Title="{Binding Name}">
 						<wc:NavigationTile.Icon>
-							<Border Width="40"
-									Height="40"
+							<Border Width="50"
+									Height="50"
 									CornerRadius="{StaticResource WeakCornerRadius}">
 								<Border.Background>
 									<ImageBrush ail:ImageBrushLoader.Source="{Binding IconUrl}"/>
@@ -232,36 +232,105 @@
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
 	
-	<Grid RowSpacing="12"
+	<Grid RowSpacing="16"
 		  RowDefinitions="auto, *">
-		<WrapPanel LineSpacing="8"
-				   ItemSpacing="8"
+		<WrapPanel LineSpacing="16"
+				   ItemSpacing="16"
 				   Orientation="Horizontal">
 			<!--Type-->
-			<ComboBox CornerRadius="6"
-					  SelectedItem="{Binding SearchType, Mode=TwoWay}"
-					  Background="{DynamicResource TextBoxBackgroundBrush}"
-					  ItemsSource="{wem:EnumBinding {x:Type wce:SearchType}}"/>
+			<Grid ColumnSpacing="8"
+				  ColumnDefinitions="auto auto *">
+				<wc:FontIcon FontSize="18"
+							 Glyph="&#xE97C;"
+							 VerticalAlignment="Center"
+							 Foreground="{DynamicResource OnBackgroundBrush}"
+							 Grid.Column="0"/>
+				
+				<TextBlock Classes="Body"
+						   Text="资源类型"
+						   VerticalAlignment="Center"
+						   Foreground="{DynamicResource OnBackgroundBrush}"
+						   Grid.Column="1"/>
+				
+				<ComboBox MinWidth="100"
+						  CornerRadius="6"
+						  SelectedItem="{Binding SearchType, Mode=TwoWay}"
+						  Background="{DynamicResource TextBoxBackgroundBrush}"
+						  ItemsSource="{wem:EnumBinding {x:Type wce:SearchType}}"
+						  Grid.Column="2"/>
+			</Grid>
 
 			<!--Minecraft type-->
-			<ComboBox CornerRadius="6"
-					  Background="{DynamicResource TextBoxBackgroundBrush}"
-					  SelectedItem="{Binding MinecraftVersionType, Mode=TwoWay}"
-					  ItemsSource="{wem:EnumBinding {x:Type mbe:MinecraftVersionType}}"
-					  IsVisible="{Binding IsCommunityResourcesFilterVisible, Converter={StaticResource BoolReverseConverter}}"/>
+			<Grid ColumnSpacing="8"
+				  ColumnDefinitions="auto auto *"
+				  IsVisible="{Binding IsCommunityResourcesFilterVisible, Converter={StaticResource BoolReverseConverter}}">
+				<wc:FontIcon FontSize="18"
+							 Glyph="&#xE71C;"
+							 VerticalAlignment="Center"
+							 Foreground="{DynamicResource OnBackgroundBrush}"
+							 Grid.Column="0"/>
+
+				<TextBlock Classes="Body"
+						   Text="发布类型"
+						   VerticalAlignment="Center"
+						   Foreground="{DynamicResource OnBackgroundBrush}"
+						   Grid.Column="1"/>
+
+				<ComboBox MinWidth="100"
+						  CornerRadius="6"
+						  Background="{DynamicResource TextBoxBackgroundBrush}"
+						  SelectedItem="{Binding MinecraftVersionType, Mode=TwoWay}"
+						  ItemsSource="{wem:EnumBinding {x:Type mbe:MinecraftVersionType}}"
+						  Grid.Column="2"/>
+			</Grid>
 
 			<!--Community resources-->
-			<ComboBox CornerRadius="6"
-					  Background="{DynamicResource TextBoxBackgroundBrush}"
-					  IsVisible="{Binding IsCommunityResourcesFilterVisible}">
-				<ComboBoxItem Content="All"/>
-			</ComboBox>
+			<Grid ColumnSpacing="8"
+				  ColumnDefinitions="auto auto *"
+				  IsVisible="{Binding IsCommunityResourcesFilterVisible}">
+				<wc:FontIcon FontSize="18"
+							 Glyph="&#xE8A9;"
+							 VerticalAlignment="Center"
+							 Foreground="{DynamicResource OnBackgroundBrush}"
+							 Grid.Column="0"/>
 
-			<ComboBox CornerRadius="6"
-					  SelectedItem="{Binding SearchSource, Mode=TwoWay}"
-					  Background="{DynamicResource TextBoxBackgroundBrush}"
-					  IsVisible="{Binding IsCommunityResourcesFilterVisible}"
-					  ItemsSource="{wem:EnumBinding {x:Type wce:SearchSourceType}}"/>
+				<TextBlock Classes="Body"
+						   Text="资源分类"
+						   VerticalAlignment="Center"
+						   Foreground="{DynamicResource OnBackgroundBrush}"
+						   Grid.Column="1"/>
+
+
+				<ComboBox MinWidth="100"
+						  CornerRadius="6"
+						  Background="{DynamicResource TextBoxBackgroundBrush}"
+						  Grid.Column="2">
+					<ComboBoxItem Content="All"/>
+				</ComboBox>
+			</Grid>
+
+			<Grid ColumnSpacing="8"
+				  ColumnDefinitions="auto auto *"
+				  IsVisible="{Binding IsCommunityResourcesFilterVisible}">
+				<wc:FontIcon FontSize="18"
+							 Glyph="&#xE8F1;"
+							 VerticalAlignment="Center"
+							 Foreground="{DynamicResource OnBackgroundBrush}"
+							 Grid.Column="0"/>
+
+				<TextBlock Classes="Body"
+						   Text="搜索源"
+						   VerticalAlignment="Center"
+						   Foreground="{DynamicResource OnBackgroundBrush}"
+						   Grid.Column="1"/>
+
+				<ComboBox MinWidth="100"
+						  CornerRadius="6"
+						  SelectedItem="{Binding SearchSource, Mode=TwoWay}"
+						  Background="{DynamicResource TextBoxBackgroundBrush}"
+						  ItemsSource="{wem:EnumBinding {x:Type wce:SearchSourceType}}"
+						  Grid.Column="2"/>
+			</Grid>
 		</WrapPanel>
 
 		<ScrollViewer Grid.Row="1">
