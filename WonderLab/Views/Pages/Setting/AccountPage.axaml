@@ -35,16 +35,9 @@
 					   Classes="BodyStrong"
 					   Text="所有账户"/>
 
-			<StackPanel Spacing="8"
-						HorizontalAlignment="Center"
-						IsVisible="{Binding HasAccounts, Converter={StaticResource BoolReverseConverter}}">
-				<wc:FontIcon FontSize="26"
-							 Glyph="&#xF133;"
-							 HorizontalAlignment="Center"/>
-
-				<TextBlock Classes="BodyStrong"
-						   Text="没有账户哦喵~"/>
-			</StackPanel>
+			<ContentControl Classes="tip"
+							Content="没有账户哦喵~"
+							IsVisible="{Binding HasAccounts, Converter={StaticResource BoolReverseConverter}}"/>
 			
 			<ItemsRepeater ItemsSource="{Binding Accounts}">
 				<ItemsRepeater.Layout>

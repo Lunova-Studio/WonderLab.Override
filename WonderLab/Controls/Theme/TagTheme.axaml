@@ -1,0 +1,38 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wc="using:WonderLab.Controls">
+	<Design.PreviewWith>
+		<Border>
+			<wc:Tag Text=""/>
+		</Border>
+	</Design.PreviewWith>
+	
+	<ControlTheme TargetType="wc:Tags" x:Key="{x:Type wc:Tags}">
+		<Setter Property="ItemsPanel">
+			<ItemsPanelTemplate>
+				<StackPanel Spacing="4"
+							Orientation="Horizontal"/>
+			</ItemsPanelTemplate>
+		</Setter>
+	</ControlTheme>
+
+	<ControlTheme TargetType="wc:Tag" x:Key="{x:Type wc:Tag}">
+		<Setter Property="Background" Value="{DynamicResource TagBackgroundBrush}"/>
+		<Setter Property="Foreground" Value="{DynamicResource TagForegroundBrush}"/>
+		<Setter Property="CornerRadius" Value="{StaticResource WeakCornerRadius}"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Border Padding="3 1"
+						MinWidth="{TemplateBinding MinWidth}"
+						Background="{TemplateBinding Background}"
+						CornerRadius="{TemplateBinding CornerRadius}">
+					<TextBlock Classes="Caption"
+							   VerticalAlignment="Center"
+							   HorizontalAlignment="Center"
+							   Text="{TemplateBinding Text}"
+							   Foreground="{TemplateBinding Foreground}"/>
+				</Border>
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
+</ResourceDictionary>

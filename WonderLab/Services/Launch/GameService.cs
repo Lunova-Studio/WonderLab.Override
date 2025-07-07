@@ -6,7 +6,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using WonderLab.Classes.Models;
-using WonderLab.Classes.Processors;
 
 namespace WonderLab.Services.Launch;
 
@@ -18,8 +17,6 @@ public sealed class GameService {
     public MinecraftParser MinecraftParser { get; set; }
     public MinecraftEntry ActiveGame { get; private set; }
     public ObservableCollection<MinecraftEntry> Minecrafts { get; private set; }
-    
-    public event EventHandler ActiveGameChanged;
 
     public GameService(ILogger<GameService> logger, SettingService settingService) {
         _logger = logger;
@@ -36,7 +33,7 @@ public sealed class GameService {
 
         if (MinecraftParser is null && string.IsNullOrEmpty(_settingService.Setting?.ActiveMinecraftFolder))
             return;
-            //throw new InvalidOperationException("The minecraft parser is not initialized.");
+        //throw new InvalidOperationException("The minecraft parser is not initialized.");
 
         MinecraftParser ??= _settingService.Setting.ActiveMinecraftFolder;
         foreach (var minecraft in MinecraftParser.GetMinecrafts())
@@ -57,7 +54,7 @@ public sealed class GameService {
 
         if (!_settingService.Setting.MinecraftFolders.Contains(dir))
             return;
-            //throw new ArgumentException("The specified minecraft folder does not exist.");
+        //throw new ArgumentException("The specified minecraft folder does not exist.");
 
         MinecraftParser = _settingService.Setting.ActiveMinecraftFolder = dir;
     }

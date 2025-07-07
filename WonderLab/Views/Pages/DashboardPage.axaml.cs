@@ -1,9 +1,10 @@
 using Avalonia.Controls;
 using WonderLab.Classes.Models;
+using WonderLab.Controls;
 
 namespace WonderLab;
 
-public partial class DashboardPage : UserControl {
+public partial class DashboardPage : Page {
     public DashboardPage() {
         InitializeComponent();
     }

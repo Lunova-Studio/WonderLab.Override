@@ -11,11 +11,14 @@ public record SettingModel {
     [JsonPropertyName("isFullScreen")] public bool IsFullScreen { get; set; }
     [JsonPropertyName("isEnableMirror")] public bool IsEnableMirror { get; set; }
     [JsonPropertyName("isAutoSelectJava")] public bool IsAutoSelectJava { get; set; }
+    [JsonPropertyName("isEnableBitmapColor")] public bool IsEnableBitmapColor { get; set; }
+    [JsonPropertyName("isEnableSystemColor")] public bool IsEnableSystemColor { get; set; } = true;
     [JsonPropertyName("isEnableIndependency")] public bool IsEnableIndependency { get; set; } = true;
 
     [JsonPropertyName("width")] public int Width { get; set; } = 854;
     [JsonPropertyName("height")] public int Height { get; set; } = 480;
     [JsonPropertyName("maxThread")] public int MaxThread { get; set; } = 128;
+    [JsonPropertyName("activeColor")] public uint ActiveColor { get; set; }
     [JsonPropertyName("maxMemorySize")] public int MaxMemorySize { get; set; }
     [JsonPropertyName("minMemorySize")] public int MinMemorySize { get; set; } = 512;
 

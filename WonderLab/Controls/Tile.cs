@@ -12,47 +12,20 @@ using System;
 using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using WonderLab.SourceGenerator.Attributes;
 using WonderLab.Utilities;
 
 namespace WonderLab.Controls;
 
-public class Tile : ListBoxItem {
+[StyledProperty(typeof(ICommand), "Command")]
+[StyledProperty(typeof(object), "CommandParameter")]
+[StyledProperty(typeof(bool), "IsAnimationTurn", false)]
+[StyledProperty(typeof(bool), "IsEnableAnimation", true)]
+public partial class Tile : ListBoxItem {
     private int _index;
     private int _totalCount;
     private TimeSpan _delay;
     private IChildIndexProvider _childIndexProvider;
-
-    public static readonly StyledProperty<bool> IsAnimationTurnProperty =
-        AvaloniaProperty.Register<Tile, bool>(nameof(IsAnimationTurn), false);
-
-    public static readonly StyledProperty<bool> IsEnableAnimationProperty =
-        AvaloniaProperty.Register<Tile, bool>(nameof(IsEnableAnimation), true);
-
-    public static readonly StyledProperty<ICommand> CommandProperty =
-        AvaloniaProperty.Register<Tile, ICommand>(nameof(Command));
-
-    public static readonly StyledProperty<object> CommandParameterProperty =
-        AvaloniaProperty.Register<Tile, object>(nameof(CommandParameter));
-
-    public ICommand Command {
-        get => GetValue(CommandProperty);
-        set => SetValue(CommandProperty, value);
-    }
-
-    public object CommandParameter {
-        get => GetValue(CommandParameterProperty);
-        set => SetValue(CommandParameterProperty, value);
-    }
-
-    public bool IsAnimationTurn {
-        get => GetValue(IsAnimationTurnProperty);
-        set => SetValue(IsAnimationTurnProperty, value);
-    }
-
-    public bool IsEnableAnimation {
-        get => GetValue(IsEnableAnimationProperty);
-        set => SetValue(IsEnableAnimationProperty, value);
-    }
 
     public static void RunParentPanelAnimation(Visual visual, bool isAniTurn = false) {
         var compositionVisual = ElementComposition.GetElementVisual(visual);
@@ -116,10 +89,13 @@ public class Tile : ListBoxItem {
     protected override async void OnLoaded(RoutedEventArgs e) {
         base.OnLoaded(e);
 
-        _index = _childIndexProvider.GetChildIndex(this);
-        _delay = TimeSpan.FromMilliseconds(_index * 15);
+        if (_childIndexProvider is not null) {
+            _index = _childIndexProvider.GetChildIndex(this);
+            _delay = TimeSpan.FromMilliseconds(_index * 15);
 
-        await Task.Delay(200);
+            await Task.Delay(200);
+        }
+
         _ = Dispatcher.UIThread.InvokeAsync(RunAnimation);
     }
 

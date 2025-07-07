@@ -19,41 +19,21 @@ using WonderLab.Classes.Enums;
 using WonderLab.Controls.Experimental.Effect;
 using WonderLab.Extensions;
 using WonderLab.Media.Easings;
+using WonderLab.SourceGenerator.Attributes;
 using WonderLab.Utilities;
 
 namespace WonderLab.Controls;
 
+[StyledProperty(typeof(string), "ImagePath")]
+[StyledProperty(typeof(BackgroundType), "BackgroundType", BackgroundType.SolidColor)]
+[StyledProperty(typeof(double), "ShieldBackgroundOpacity")]
 [TemplatePart("PART_CloseButton", typeof(Button), IsRequired = true)]
 [TemplatePart("PART_MinimizeButton", typeof(Button), IsRequired = true)]
-public class WonderWindow : Window {
+public partial class WonderWindow : Window {
     private Border _PART_BackgroundBorder;
     private SkiaShaderRenderer _PART_SkiaShaderRenderer;
     private ExperimentalAcrylicBorder _PART_AcrylicBlurMask;
     private CancellationTokenSource _cancellationTokenSource = new();
-
-    public static readonly StyledProperty<BackgroundType> BackgroundTypeProperty =
-        AvaloniaProperty.Register<WonderWindow, BackgroundType>(nameof(BackgroundType), BackgroundType.SolidColor);
-
-    public static readonly StyledProperty<double> ShieldBackgroundOpacityProperty =
-        AvaloniaProperty.Register<WonderWindow, double>(nameof(ShieldBackgroundOpacity));
-
-    public static readonly StyledProperty<string> ImagePathProperty =
-        AvaloniaProperty.Register<WonderWindow, string>(nameof(ImagePath));
-
-    public string ImagePath {
-        get => GetValue(ImagePathProperty);
-        set => SetValue(ImagePathProperty, value);
-    }
-
-    public BackgroundType BackgroundType {
-        get => GetValue(BackgroundTypeProperty);
-        set => SetValue(BackgroundTypeProperty, value);
-    }
-
-    public double ShieldBackgroundOpacity {
-        get => GetValue(ShieldBackgroundOpacityProperty);
-        set => SetValue(ShieldBackgroundOpacityProperty, value);
-    }
 
     protected override Type StyleKeyOverride => typeof(WonderWindow);
 

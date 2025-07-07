@@ -1,24 +1,22 @@
 ﻿using Avalonia;
-using Avalonia.Animation;
 using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Media;
-using Avalonia.Threading;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Extensions;
 using WonderLab.Media.Transitions;
+using WonderLab.SourceGenerator.Attributes;
 
 namespace WonderLab.Controls;
 
-[PseudoClasses(":press", ":panelopen", ":panelclose", ":panelhide", ":panelshow", ":panelhideopen", ":panelhideclose")]
-public sealed class DynamicBar : ContentControl {
-    private bool _isPress;
+[PseudoClasses(":press")]
+[StyledProperty(typeof(BarState), "BarState", BarState.Collapsed)]
+public partial class DynamicBar : ContentControl {
     private double _startX;
     private double _offsetX;
     private bool _canOpenPanel;
@@ -26,22 +24,10 @@ public sealed class DynamicBar : ContentControl {
     private Border _PART_ContentLayoutBorder;
     private CancellationTokenSource _cancellationTokenSource = new();
 
-    public static readonly StyledProperty<BarState> BarStateProperty =
-        AvaloniaProperty.Register<DynamicBar, BarState>(nameof(BarState), BarState.Collapsed);
+    private readonly DynamicBarTransition _barTransition = new();
 
-    public BarState BarState {
-        get => GetValue(BarStateProperty);
-        set => SetValue(BarStateProperty, value);
-    }
-
-    private void SetPseudoclasses(bool isPress, bool isPanelOpen, bool isPanelClose, bool isPanelHide, bool isPanelShow, bool isPanelHideOpen, bool isPanelHideClose) {
+    private void SetPseudoclasses(bool isPress) {
         PseudoClasses.Set(":press", isPress);
-        PseudoClasses.Set(":panelopen", isPanelOpen);
-        PseudoClasses.Set(":panelclose", isPanelClose);
-        PseudoClasses.Set(":panelhide", isPanelHide);
-        PseudoClasses.Set(":panelshow", isPanelShow);
-        PseudoClasses.Set(":panelhideopen", isPanelHideOpen);
-        PseudoClasses.Set(":panelhideclose", isPanelHideClose);
     }
 
     private void OnLayoutPointerMoved(object sender, PointerEventArgs e) {
@@ -66,7 +52,7 @@ public sealed class DynamicBar : ContentControl {
             return;
         }
 
-        SetPseudoclasses(_isPress = false, false, false, false, false, false, false);
+        SetPseudoclasses(false);
         if (e.InitialPressMouseButton is MouseButton.Left) {
             _PART_LayoutBorder.Margin = new Thickness(0, 0, 0, 0);
 
@@ -84,11 +70,10 @@ public sealed class DynamicBar : ContentControl {
     }
 
     private void OnLayoutPointerPressed(object sender, PointerPressedEventArgs e) {
-        if (BarState is not BarState.Collapsed) {
+        if (BarState is not BarState.Collapsed)
             return;
-        }
 
-        SetPseudoclasses(_isPress = true, false, false, false, false, false, false);
+        SetPseudoclasses(true);
         if (e.GetCurrentPoint(_PART_LayoutBorder).Properties.IsLeftButtonPressed) {
             _startX = e.GetPosition(this).X;
         }
@@ -137,8 +122,6 @@ public sealed class DynamicBar : ContentControl {
         _PART_LayoutBorder.PointerCaptureLost += OnLayoutPointerCaptureLost;
     }
 
-    SimpleTaskQueue ed = new();
-    DynamicBarTransition barTransition = new();
     protected override async void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change) {
         base.OnPropertyChanged(change);
 
@@ -146,14 +129,11 @@ public sealed class DynamicBar : ContentControl {
             Cancel();
             var (oldValue, newValue) = change.GetOldAndNewValue<BarState>();
 
-            barTransition.OldState = oldValue;
-            barTransition.NewState = newValue;
+            _barTransition.OldState = oldValue;
+            _barTransition.NewState = newValue;
 
-            await barTransition.Start(_PART_LayoutBorder, _PART_ContentLayoutBorder, false, _cancellationTokenSource.Token);
+            await _barTransition.Start(_PART_LayoutBorder, _PART_ContentLayoutBorder, false, _cancellationTokenSource.Token);
             return;
-            ed.Enqueue(async () => 
-                await Dispatcher.UIThread.InvokeAsync(async () => 
-                    await barTransition.Start(_PART_LayoutBorder, _PART_ContentLayoutBorder, false, _cancellationTokenSource.Token)));
         }
     }
 
@@ -164,49 +144,7 @@ public sealed class DynamicBar : ContentControl {
 }
 
 public enum BarState {
-    Expanded = 1,
     Collapsed,
+    Expanded,
     Hidden
-}
-
-public class SimpleTaskQueue : IDisposable {
-    private readonly Queue<Func<Task>> _tasks = new();
-    private bool _isProcessing = false;
-    private bool _disposed = false;
-    private readonly object _lock = new();
-
-    public void Enqueue(Func<Task> taskGenerator) {
-        lock (_lock) {
-            _tasks.Enqueue(taskGenerator);
-            if (!_isProcessing) {
-                _isProcessing = true;
-                _ = ProcessQueueAsync();
-            }
-        }
-    }
-
-    private async Task ProcessQueueAsync() {
-        while (true) {
-            Func<Task> taskGenerator = null;
-            lock (_lock) {
-                if (_tasks.Count == 0 || _disposed) {
-                    _isProcessing = false;
-                    return;
-                }
-                taskGenerator = _tasks.Dequeue();
-            }
-            try {
-                await taskGenerator();
-            } catch {
-                // 可根据需要处理异常
-            }
-        }
-    }
-
-    public void Dispose() {
-        lock (_lock) {
-            _disposed = true;
-            _tasks.Clear();
-        }
-    }
 }

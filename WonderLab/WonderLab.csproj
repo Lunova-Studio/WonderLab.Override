@@ -43,28 +43,36 @@
         <AvaloniaResource Remove="Assets\Font\MinecraftTen.ttf" />
         <AvaloniaResource Remove="Assets\Font\SegoeFluentIcons.ttf" />
         <AvaloniaResource Remove="Assets\gawrgura-13490790.png" />
+        <AvaloniaResource Remove="Assets\Images\doro_loading.jpg" />
         <AvaloniaResource Remove="Assets\Images\Icons\Icon.1024.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\Icon.icns" />
         <AvaloniaResource Remove="Assets\Images\Icons\Icon.png" />
+        <AvaloniaResource Remove="Assets\Images\Icons\old_minecraft.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\release_minecraft.png" />
+        <AvaloniaResource Remove="Assets\Images\Icons\snapshot_minecraft.png" />
         <AvaloniaResource Remove="Assets\Shaders\bubble.sksl" />
         <AvaloniaResource Remove="Assets\Shaders\voronoi.sksl" />
         <AvaloniaResource Remove="Assets\steve.png" />
         <AvaloniaResource Remove="Assets\Text\dateTime.txt" />
         <AvaloniaResource Remove="Assets\Text\Default.isl" />
+        <None Remove="version.txt" />
         <EmbeddedResource Include="Assets\Font\DinPro.ttf" />
         <EmbeddedResource Include="Assets\Font\MinecraftTen.ttf" />
         <EmbeddedResource Include="Assets\Font\SegoeFluentIcons.ttf" />
         <EmbeddedResource Include="Assets\gawrgura-13490790.png" />
+        <EmbeddedResource Include="Assets\Images\doro_loading.jpg" />
         <EmbeddedResource Include="Assets\Images\Icons\Icon.1024.png" />
         <EmbeddedResource Include="Assets\Images\Icons\Icon.icns" />
         <EmbeddedResource Include="Assets\Images\Icons\Icon.png" />
+        <EmbeddedResource Include="Assets\Images\Icons\old_minecraft.png" />
         <EmbeddedResource Include="Assets\Images\Icons\release_minecraft.png" />
+        <EmbeddedResource Include="Assets\Images\Icons\snapshot_minecraft.png" />
         <EmbeddedResource Include="Assets\Shaders\bubble.sksl" />
         <EmbeddedResource Include="Assets\Shaders\voronoi.sksl" />
         <EmbeddedResource Include="Assets\steve.png" />
         <EmbeddedResource Include="Assets\Text\dateTime.txt" />
         <EmbeddedResource Include="Assets\Text\Default.isl" />
+        <EmbeddedResource Include="version.txt" />
     </ItemGroup>
 
     <ItemGroup>
@@ -77,25 +85,27 @@
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
         <PackageReference Include="DialogHost.Avalonia" Version="0.9.3" />
         <PackageReference Include="DotNet.Bundle" Version="0.9.13" />
+        <PackageReference Include="Tomlyn" Version="0.19.0" />
         <PackageReference Include="Xaml.Behaviors.Avalonia" Version="11.3.0.10" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-preview.5.25277.114" />
-        <PackageReference Include="MinecraftLaunch" Version="4.0.2-preview01" />
+        <PackageReference Include="MinecraftLaunch" Version="4.0.2-preview11" />
         <PackageReference Include="MinecraftLaunch.Skin" Version="1.0.1" />
         <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.1" />
         <PackageReference Include="Serilog.Sinks.Console" Version="6.0.1-dev-00953" />
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-		<PackageReference Include="SkiaSharp" Version="3.119.0" />
+		<PackageReference Include="SkiaSharp" Version="2.88.9" />
+		<PackageReference Include="Xaml.Behaviors.Interactions.Draggable" Version="11.3.0.10" />
 
-		<!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
 		<PackageReference Include="Avalonia.Diagnostics" Version="11.3.1">
 			<IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
 			<PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
 		</PackageReference>
-		<PackageReference Include="Xaml.Behaviors.Interactions.Draggable" Version="11.3.0.10" />
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\refs\Monet\Monet.Avalonia\Monet.Avalonia.csproj" />
         <ProjectReference Include="..\WonderLab.Override.I18n\WonderLab.Override.I18n\WonderLab.Override.I18n.csproj" />
+        <ProjectReference Include="..\WonderLab.SourceGenerator.Attributes\WonderLab.SourceGenerator.Attributes.csproj" />
+		<ProjectReference Include="..\WonderLab.SourceGenerator\WonderLab.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     </ItemGroup>
 </Project>

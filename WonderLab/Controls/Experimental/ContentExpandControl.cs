@@ -2,26 +2,13 @@
 using Avalonia.Controls;
 using Avalonia.Layout;
 using System;
+using WonderLab.SourceGenerator.Attributes;
 
 namespace WonderLab.Controls.Experimental;
 
-public sealed class ContentExpandControl : ContentControl {
-    public static readonly StyledProperty<double> MultiplierProperty =
-        AvaloniaProperty.Register<ContentExpandControl, double>(nameof(Multiplier));
-
-    public static readonly StyledProperty<Orientation> OrientationProperty =
-        AvaloniaProperty.Register<ContentExpandControl, Orientation>(nameof(Orientation), Orientation.Horizontal);
-
-    public double Multiplier {
-        get => GetValue(MultiplierProperty);
-        set => SetValue(MultiplierProperty, value);
-    }
-
-    public Orientation Orientation {
-        get => GetValue(OrientationProperty);
-        set => SetValue(OrientationProperty, value);
-    }
-
+[StyledProperty(typeof(double), "Multiplier")]
+[StyledProperty(typeof(Orientation), "Orientation", Orientation.Horizontal)]
+public sealed partial class ContentExpandControl : ContentControl {
     static ContentExpandControl() {
         AffectsArrange<ContentExpandControl>(MultiplierProperty, OrientationProperty);
         AffectsMeasure<ContentExpandControl>(MultiplierProperty, OrientationProperty);

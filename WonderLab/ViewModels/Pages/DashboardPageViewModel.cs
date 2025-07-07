@@ -16,6 +16,7 @@ public sealed partial class DashboardPageViewModel : DynamicPageViewModelBase {
     private readonly AccountService _accountService;
     private readonly ILogger<DashboardPageViewModel> _logger;
 
+    [ObservableProperty] private bool _hasSaves;
     [ObservableProperty] private Account _activeAccount;
     [ObservableProperty] private ReadOnlyObservableCollection<Account> _accounts;
     [ObservableProperty] private ReadOnlyObservableCollection<SaveModel> _lastSaves;
@@ -35,6 +36,7 @@ public sealed partial class DashboardPageViewModel : DynamicPageViewModelBase {
         Accounts = new(_accountService.Accounts);
         ActiveAccount = _accountService.ActiveAccount;
 
+        HasSaves = LastSaves.Count > 0;
         _logger.LogInformation("Loaded {count} save", LastSaves.Count);
     });
 

@@ -1,0 +1,59 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Design.PreviewWith>
+		<Border Background="{DynamicResource SystemAccentColor}"
+				Margin="16"
+				Padding="48"
+				Width="400"
+				Height="200">
+			<Border.ContextMenu>
+				<ContextMenu>
+					<MenuItem Header="Standard _Menu Item" />
+					<MenuItem Header="Disabled" IsEnabled="False" />
+					<Separator />
+					<MenuItem Header="Menu with _Submenu">
+						<MenuItem Header="Submenu _1" />
+						<MenuItem Header="Submenu _2" />
+					</MenuItem>
+					<MenuItem Header="Menu Item with _Icon" />
+					<MenuItem Header="Menu Item with _Checkbox">
+						<MenuItem.Icon>
+							<CheckBox BorderThickness="0"
+									  IsHitTestVisible="False"/>
+						</MenuItem.Icon>
+					</MenuItem>
+				</ContextMenu>
+			</Border.ContextMenu>
+			<TextBlock Text="Defined in XAML" />
+		</Border>
+	</Design.PreviewWith>
+
+	<ControlTheme x:Key="{x:Type ContextMenu}" TargetType="ContextMenu">
+		<Setter Property="Padding" Value="4"/>
+		<Setter Property="Focusable" Value="True"/>
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="WindowManagerAddShadowHint" Value="False"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource FlyoutBorderBrush}"/>
+		<Setter Property="Background" Value="{DynamicResource FlyoutBackgroundBrush}"/>
+		<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Border Name="PART_LayoutBorder"
+						Padding="{TemplateBinding Padding}"
+						MaxWidth="{TemplateBinding MaxWidth}"
+						MinHeight="{TemplateBinding MinHeight}"
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						CornerRadius="{TemplateBinding CornerRadius}"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
+					<ItemsPresenter Name="PART_ItemsPresenter"
+									ItemsPanel="{TemplateBinding ItemsPanel}"
+									Margin="{DynamicResource MenuFlyoutScrollerMargin}"
+									KeyboardNavigation.TabNavigation="Continue"/>
+				</Border>
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
+</ResourceDictionary>

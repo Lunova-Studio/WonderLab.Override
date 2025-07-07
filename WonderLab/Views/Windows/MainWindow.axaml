@@ -8,7 +8,7 @@
 				 xmlns:wb="using:WonderLab.Media.Behaviors"
 				 xmlns:wt="using:WonderLab.Media.Transitions"
 				 ShieldBackgroundOpacity="{Binding ShieldBackgroundOpacity}"
-				 Title="WonderLab">
+				 Title="WonderLab">	
 	<wc:WonderWindow.Resources>
 		<DataTemplate x:Key="MinecraftProcessCardItemTemplate">
 			<Button Width="30"
@@ -66,13 +66,20 @@
 		
 		<wc:DynamicBar Margin="0 12"
 					   BarState="{Binding BarState, Mode=TwoWay}">
-			<wc:Frame Margin="16 16 0 16"
-					  PageKey="{Binding DynamicPageKey}"
-					  PageProvider="{Binding PageProvider}">
-				<wc:Frame.PageTransition>
-					<wt:EntrancePageTransition/>
-				</wc:Frame.PageTransition>
-			</wc:Frame>
+			<Grid RowDefinitions="* auto">
+				<wc:Frame Margin="16 16 0 16"
+						  PageKey="{Binding DynamicPageKey}"
+						  PageProvider="{Binding PageProvider}">
+					<wc:Frame.PageTransition>
+						<wt:EntrancePageTransition/>
+					</wc:Frame.PageTransition>
+				</wc:Frame>
+
+				<ProgressBar Background="Transparent"
+							 IsVisible="{Binding IsDynamicPageDataLoading}"
+							 IsIndeterminate="{Binding IsDynamicPageDataLoading}"
+							 Grid.Row="1"/>
+			</Grid>
 		</wc:DynamicBar>
 
 		<WindowNotificationManager Margin="12 6 12 0"
@@ -91,7 +98,7 @@
 			<TextBlock.Inlines>
 				<Run Text="当前为 UI/UX 评估测试，不代表最终质量"/>
 				<LineBreak/>
-				<Run Text="WonderLab 内部开发版本 Pre-Alpha-2.606.1951"/>
+				<Run Text="WonderLab 内部开发版本 Pre-Alpha-2.0.0"/>
 			</TextBlock.Inlines>
 		</TextBlock>
 		

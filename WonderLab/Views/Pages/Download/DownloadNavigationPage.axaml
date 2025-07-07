@@ -4,35 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:wc="using:WonderLab.Controls"
-			 xmlns:wb="using:WonderLab.Media.Behaviors"
+			 xmlns:wt="using:WonderLab.Media.Transitions"
 			 xmlns:wce="using:WonderLab.Controls.Experimental.BreadcrumbBar"
              x:Class="WonderLab.Views.Pages.Download.DownloadNavigationPage">
-	<!--<Border Width="300" 
-			Height="150"
-			CornerRadius="8"
-			VerticalAlignment="Center"
-			HorizontalAlignment="Center"
-			Effect="{DynamicResource FlyoutDropShadowEffect}"
-			Background="{DynamicResource FlyoutBackgroundBrush}">
-		<Interaction.Behaviors>
-			<wb:Parallax3dEffectBehavior/>
-		</Interaction.Behaviors>
-		
-		<Grid RowSpacing="8"
-			  RowDefinitions="auto auto" 
-			  VerticalAlignment="Center" 
-			  HorizontalAlignment="Center">
-			<wc:FontIcon FontSize="48"
-						 Glyph="&#xE822;"
-						 HorizontalAlignment="Center"/>
-			
-			<TextBlock Grid.Row="1"
-					   Classes="BodyStrong"
-					   Text="施工中，暂未开放"/>
-		</Grid>
-	</Border>-->
-
-	<Grid RowDefinitions="auto auto *">
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Loaded">
+			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
+	
+	<Grid RowDefinitions="auto *">
 		<wce:BreadcrumbBar Margin="0 12"
 						   VerticalAlignment="Top"
 						   HorizontalAlignment="Left"
@@ -54,18 +35,12 @@
 			</Interaction.Behaviors>
 		</wce:BreadcrumbBar>
 
-		<WrapPanel Orientation="Horizontal"
-				   HorizontalAlignment="Left"
-				   Grid.Row="1">
-
-			<TabStrip>
-				<TabStripItem FontSize="14" Content="Minecraft"/>
-				<TabStripItem FontSize="14" Content="Modpacks"/>
-				<TabStripItem FontSize="14" Content="Mods"/>
-				<TabStripItem FontSize="14" Content="ResourcePacks"/>
-				<TabStripItem FontSize="14" Content="DataPacks"/>
-				<TabStripItem FontSize="14" Content="Sharders"/>
-			</TabStrip>
-		</WrapPanel>
+		<wc:Frame PageKey="{Binding ActivePageKey}"
+				  PageProvider="{Binding PageProvider}"
+				  Grid.Row="1">
+			<wc:Frame.PageTransition>
+				<wt:EntrancePageTransition/>
+			</wc:Frame.PageTransition>
+		</wc:Frame>
 	</Grid>
 </UserControl>

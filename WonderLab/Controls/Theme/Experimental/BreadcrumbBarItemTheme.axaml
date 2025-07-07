@@ -68,8 +68,9 @@
 
 							<TextBlock Name="PART_EllipsisTextBlock"
 									   Padding="3"
+									   Text="&#xE712;"
 									   VerticalAlignment="Stretch"
-									   FontFamily="{DynamicResource SymbolThemeFontFamily}"
+									   FontFamily="{DynamicResource FontIconFontFamily}"
 									   FontSize="{TemplateBinding FontSize}"
 									   IsVisible="False"/>
 						</Panel>
@@ -113,9 +114,11 @@
 			<Style Selector="^ /template/ Grid#PART_LayoutRoot">
 				<Setter Property="Margin" Value="5,3" />
 			</Style>
+			
 			<Style Selector="^ /template/ wc|FontIcon#PART_ChevronTextBlock">
 				<Setter Property="IsVisible" Value="False" />
 			</Style>
+			
 			<Style Selector="^ /template/ Button#PART_ItemButton">
 				<Setter Property="HorizontalAlignment" Value="Stretch" />
 				<Setter Property="Padding" Value="11,7,11,9" />

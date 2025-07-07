@@ -70,6 +70,7 @@
 									  Width="{TemplateBinding Width}"
 									  Height="{TemplateBinding Height}"
 									  FontSize="{TemplateBinding FontSize}"
+									  Background="{TemplateBinding Background}"
 									  CornerRadius="{TemplateBinding CornerRadius}"
 									  RippleFill="{DynamicResource RippleEffectFillBrush}">
 						<wc:RippleControl.Transitions>
@@ -109,7 +110,9 @@
 			
 			<Setter Property="Template">
 				<ControlTemplate>
-					<wc:RippleControl Background="{TemplateBinding Background}"
+					<wc:RippleControl Width="{TemplateBinding Width}"
+									  Height="{TemplateBinding Height}"
+									  Background="{TemplateBinding Background}"
 									  BorderBrush="{TemplateBinding BorderBrush}"
 									  CornerRadius="{TemplateBinding CornerRadius}"
 									  BorderThickness="{TemplateBinding BorderThickness}"
@@ -274,6 +277,42 @@
 
 		<Style Selector="^.progress:pointerover /template/ Border#PART_PointerOverBorder">
 			<Setter Property="Background" Value="{DynamicResource PrimaryButtonPointerOverBackgroundBrush}"/>
+		</Style>
+
+		<Style Selector="^.flip">
+			<Setter Property="Width" Value="40"/>
+			<Setter Property="Height" Value="40"/>
+			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="ClipToBounds" Value="True"/>
+			<Setter Property="CornerRadius" Value="{DynamicResource FullCornerRadius}"/>
+			<Setter Property="Background" Value="{DynamicResource PrimaryButtonBackgroundBrush}"/>
+			<Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForegroundBrush}"/>
+			<Setter Property="Template">
+				<ControlTemplate>
+					<wc:RippleControl ClipToBounds="False"
+									  Name="PART_RippleControl"
+									  Width="{TemplateBinding Width}"
+									  Height="{TemplateBinding Height}"
+									  FontSize="{TemplateBinding FontSize}"
+									  Background="{TemplateBinding Background}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  RippleFill="{DynamicResource RippleEffectFillBrush}">
+						<wc:RippleControl.Transitions>
+							<Transitions>
+								<BrushTransition Duration="0:0:0.35"
+												 Property="Background"
+												 Easing="CubicEaseOut"/>
+							</Transitions>
+						</wc:RippleControl.Transitions>
+
+						<wc:FontIcon VerticalAlignment="Center"
+									 HorizontalAlignment="Center"
+									 Glyph="{TemplateBinding Content}"
+									 FontSize="{TemplateBinding FontSize}"
+									 Foreground="{TemplateBinding Foreground}"/>
+					</wc:RippleControl>
+				</ControlTemplate>
+			</Setter>
 		</Style>
 	</ControlTheme>
 </ResourceDictionary>

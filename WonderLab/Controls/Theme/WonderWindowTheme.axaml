@@ -49,20 +49,24 @@
 											   dialogHost:DialogHostStyle.CornerRadius="{DynamicResource StrongCornerRadius}">
 							<Panel Name="PART_RootPanel">
 								<!--Experimental-->
-								<wcee:SkiaShaderRenderer Name="PART_SkiaShaderRenderer"/>
+								<wcee:SkiaShaderRenderer Focusable="True"
+														 Name="PART_SkiaShaderRenderer"/>
 
-								<ExperimentalAcrylicBorder IsVisible="False"
+								<ExperimentalAcrylicBorder Focusable="True"
+														   IsVisible="False"
 														   Name="PART_AcrylicBlurMask"
 														   Material="{DynamicResource ApplicationAcrylicMaterial}">
 								</ExperimentalAcrylicBorder>
 
 								<Border Margin="0"
+										Focusable="True"
+										Name="PART_Background"
 										VerticalAlignment="Stretch"
 										HorizontalAlignment="Stretch"
-										Name="PART_Background"
 										Background="{TemplateBinding Background}"/>
 
-								<Border VerticalAlignment="Stretch"
+								<Border Focusable="True"
+										VerticalAlignment="Stretch"
 										HorizontalAlignment="Stretch"
 										Background="{DynamicResource BackgroundMaskBrush}"
 										Opacity="{TemplateBinding ShieldBackgroundOpacity}">

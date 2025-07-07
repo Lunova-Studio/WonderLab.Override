@@ -9,21 +9,15 @@ using MinecraftLaunch.Base.Models.Authentication;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using WonderLab.SourceGenerator.Attributes;
 using WonderLab.Utilities;
 
 namespace WonderLab.Media.Behaviors;
 
-public sealed class AccountAvatarLoadBehavior : Behavior<Border> {
+[StyledProperty(typeof(Account), "Account")]
+public sealed partial class AccountAvatarLoadBehavior : Behavior<Border> {
     private ILogger<AccountAvatarLoadBehavior> _logger;
     private CancellationTokenSource _cancellationTokenSource;
-
-    public static readonly StyledProperty<Account> AccountProperty =
-        AvaloniaProperty.Register<AccountAvatarLoadBehavior, Account>(nameof(Account));
-
-    public Account Account {
-        get => GetValue(AccountProperty);
-        set => SetValue(AccountProperty, value);
-    }
 
     protected override void OnAttached() {
         base.OnAttached();

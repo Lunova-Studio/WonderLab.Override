@@ -86,6 +86,26 @@ public static class CompositionAnimationUtil {
         compositionVisual.ImplicitAnimations = implicitAnimationCollection;
     }
 
+    public static void CreateOffsetImplicitAnimation(CompositionVisual compositionVisual, double milliseconds = 450) {
+        if (compositionVisual == null)
+            return;
+
+        var compositor = compositionVisual.Compositor;
+        var animationGroup = compositor.CreateAnimationGroup();
+
+        var offsetAnimation = compositor.CreateVector3KeyFrameAnimation();
+        offsetAnimation.Target = "Offset";
+        offsetAnimation.InsertExpressionKeyFrame(1.0f, "this.FinalValue", new ExponentialEaseOut());
+        offsetAnimation.Duration = TimeSpan.FromMilliseconds(milliseconds);
+
+        animationGroup.Add(offsetAnimation);
+
+        var implicitAnimationCollection = compositor.CreateImplicitAnimationCollection();
+        implicitAnimationCollection["Offset"] = animationGroup;
+
+        compositionVisual.ImplicitAnimations = implicitAnimationCollection;
+    }
+
     public static void CreateOpacityImplicitAnimation(CompositionVisual compositionVisual, double milliseconds = 700) {
         if (compositionVisual == null)
             return;

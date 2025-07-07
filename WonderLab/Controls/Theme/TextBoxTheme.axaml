@@ -37,6 +37,7 @@
 		<Setter Property="FocusAdorner" Value="{x:Null}"/>
 		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="UseLayoutRounding" Value="False"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
 		<Setter Property="BorderBrush" Value="{DynamicResource TextBoxBorderBrush}"/>
 		<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}"/>
 		<Setter Property="Foreground" Value="{DynamicResource TextBoxForegroundBrush}"/>
@@ -207,6 +208,133 @@
 					</ToggleButton>
 				</Template>
 			</Setter>
+		</Style>
+
+		<Style Selector="^.underline">
+			<Setter Property="CornerRadius" Value="6"/>
+			<Setter Property="BorderThickness" Value="1 1 1 2"/>
+			<Setter Property="Template">
+				<ControlTemplate>
+					<DataValidationErrors>
+						<Panel>
+							<Border Name="PART_BorderElement"
+									MinWidth="{TemplateBinding MinWidth}"
+									MinHeight="{TemplateBinding MinHeight}"
+									Background="{TemplateBinding Background}"
+									CornerRadius="{TemplateBinding CornerRadius}"
+									BorderBrush="{DynamicResource TextBoxBorderBrush}"
+									BorderThickness="{TemplateBinding BorderThickness}">
+								<Border.Transitions>
+									<Transitions>
+										<ThicknessTransition Duration="0:0:.35"
+															 Easing="CubicEaseOut"
+															 Property="BorderThickness"/>
+
+										<BrushTransition Duration="0:0:.15"
+														 Easing="CubicEaseOut"
+														 Property="BorderBrush"/>
+									</Transitions>
+								</Border.Transitions>
+							</Border>
+
+							<Border Margin="{TemplateBinding BorderThickness}">
+								<Grid ColumnDefinitions="Auto,*,Auto" >
+									<ContentPresenter Content="{TemplateBinding InnerLeftContent}"
+													  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+													  Grid.Column="0"
+													  Grid.ColumnSpan="1"/>
+
+									<DockPanel Name="PART_InnerDockPanel"
+											   Margin="{TemplateBinding Padding}"
+											   Grid.Column="1"
+											   Grid.ColumnSpan="1">
+										<TextBlock IsVisible="False"
+												   DockPanel.Dock="Top"
+												   Name="PART_FloatingWatermark"
+												   Text="{TemplateBinding Watermark}"
+												   Foreground="{DynamicResource TextBoxForegroundBrush}"/>
+
+										<ScrollViewer Name="PART_ScrollViewer"
+													  AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+													  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+													  BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+													  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+													  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}">
+											<Panel>
+												<TextBlock Opacity="0.5"
+														   Name="PART_Watermark"
+														   Text="{TemplateBinding Watermark}"
+														   TextAlignment="{TemplateBinding TextAlignment}"
+														   TextWrapping="{TemplateBinding TextWrapping}"
+														   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+														   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
+													<TextBlock.IsVisible>
+														<MultiBinding Converter="{x:Static BoolConverters.And}">
+															<Binding ElementName="PART_TextPresenter" Path="PreeditText" Converter="{x:Static StringConverters.IsNullOrEmpty}"/>
+															<Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Text" Converter="{x:Static StringConverters.IsNullOrEmpty}"/>
+														</MultiBinding>
+													</TextBlock.IsVisible>
+												</TextBlock>
+
+												<TextPresenter Name="PART_TextPresenter"
+															   Text="{TemplateBinding Text, Mode=TwoWay}"
+															   CaretIndex="{TemplateBinding CaretIndex}"
+															   CaretBrush="{TemplateBinding CaretBrush}"
+															   LineHeight="{TemplateBinding LineHeight}"
+															   SelectionEnd="{TemplateBinding SelectionEnd}"
+															   TextWrapping="{TemplateBinding TextWrapping}"
+															   PasswordChar="{TemplateBinding PasswordChar}"
+															   LetterSpacing="{TemplateBinding LetterSpacing}"
+															   TextAlignment="{TemplateBinding TextAlignment}"
+															   RevealPassword="{TemplateBinding RevealPassword}"
+															   SelectionBrush="{TemplateBinding SelectionBrush}"
+															   SelectionStart="{TemplateBinding SelectionStart}"
+															   CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
+															   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+															   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+															   SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"/>
+											</Panel>
+
+											<ScrollViewer.Styles>
+												<Style Selector="ScrollContentPresenter#PART_ContentPresenter">
+													<Setter Property="Cursor" Value="IBeam" />
+												</Style>
+											</ScrollViewer.Styles>
+										</ScrollViewer>
+									</DockPanel>
+
+									<ContentPresenter Grid.Column="2"
+													  Grid.ColumnSpan="1"
+													  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+													  Content="{TemplateBinding InnerRightContent}"/>
+								</Grid>
+							</Border>
+
+							<Border Name="PART_Indicator"
+									BorderThickness="0 0 0 2"
+									RenderTransform="scaleX(0.0)"
+									BorderBrush="{TemplateBinding BorderBrush}"
+									CornerRadius="{TemplateBinding CornerRadius}">
+								<Border.Transitions>
+									<Transitions>
+										<BrushTransition Duration="0:0:.3"
+														 Easing="SineEaseOut"
+														 Property="BorderBrush"/>
+										
+										<TransformOperationsTransition Duration="0:0:.3"
+																	   Easing="CubicEaseOut" 
+																	   Property="RenderTransform"/>
+									</Transitions>
+								</Border.Transitions>
+							</Border>
+						</Panel>
+					</DataValidationErrors>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="^.underline:focus /template/ Border#PART_Indicator">
+			<Setter Property="RenderTransform" Value="scaleX(1.0)"/>
 		</Style>
 	</ControlTheme>
 </ResourceDictionary>

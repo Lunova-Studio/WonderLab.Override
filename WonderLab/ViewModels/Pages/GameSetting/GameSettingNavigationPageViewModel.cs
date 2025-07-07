@@ -16,7 +16,6 @@ namespace WonderLab.ViewModels.Pages.GameSetting;
 
 public sealed partial class GameSettingNavigationPageViewModel : DynamicPageViewModelBase {
     private readonly GameService _gameService;
-    private readonly ResourcepackService _resourcepackService;
     private readonly MinecraftEntry _minecraftEntry;
 
     [ObservableProperty] private string _pageKey;
@@ -25,9 +24,8 @@ public sealed partial class GameSettingNavigationPageViewModel : DynamicPageView
     public string MinecraftId => _minecraftEntry.Id;
     public AvaloniaPageProvider PageProvider { get; }
 
-    public GameSettingNavigationPageViewModel(GameService gameService, ResourcepackService resourcepackService, AvaloniaPageProvider avaloniaPageProvider) {
+    public GameSettingNavigationPageViewModel(GameService gameService, AvaloniaPageProvider avaloniaPageProvider) {
         _gameService = gameService;
-        _resourcepackService = resourcepackService;
         _minecraftEntry = _gameService.ActiveGameCache;
 
         PageProvider = avaloniaPageProvider;
@@ -40,28 +38,27 @@ public sealed partial class GameSettingNavigationPageViewModel : DynamicPageView
     }
 
     [RelayCommand]
-    private async Task Save() {
+    private Task Save() => Task.Run(async () => {
         try {
-            await MinecraftParser.DataProcessors
-                .FirstOrDefault()
+            await MinecraftParser.DataProcessors.FirstOrDefault()
                 .SaveAsync();
 
-            await _resourcepackService.SaveToOptionsAsync(default);
             WeakReferenceMessenger.Default.Send(new NotificationMessage("保存成功", NotificationType.Success));
         } catch (Exception) { }
-    }
+    });
 
     public override async void Close() {
         base.Close();
-        await Save();
+        await SaveCommand.ExecuteAsync(default);
     }
 
     partial void OnActivePageIndexChanged(int value) {
         PageKey = value switch {
             0 => "GameSetting/Setting",
             1 => "GameSetting/Resourcepack",
-            2 => "GameSetting/Resourcepack",
-            3 => "GameSetting/Resourcepack",
+            2 => "GameSetting/Mod",
+            3 => "GameSetting/Shaderpack",
+            4 => "GameSetting/Screenshot",
             _ => PageKey ?? "GameSetting/Setting",
         };
     }

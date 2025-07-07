@@ -5,7 +5,7 @@ using WonderLab.Controls;
 
 namespace WonderLab.Views.Pages;
 
-public partial class GamePage : UserControl {
+public partial class GamePage : Page {
     public GamePage() {
         InitializeComponent();
     }

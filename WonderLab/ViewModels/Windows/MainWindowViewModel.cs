@@ -31,6 +31,7 @@ public sealed partial class MainWindowViewModel : ObservableObject {
 
     [ObservableProperty] private string _pageKey;
     [ObservableProperty] private string _dynamicPageKey;
+    [ObservableProperty] private bool _isDynamicPageDataLoading;
     [ObservableProperty] private BarState _barState = BarState.Collapsed;
 
     [ObservableProperty]
@@ -62,11 +63,16 @@ public sealed partial class MainWindowViewModel : ObservableObject {
             DynamicPageKey = string.Empty;
             DynamicPageKey = arg.PageKey;
             BarState = BarState.Expanded;
+            IsDynamicPageDataLoading = false;
             _isManualTrigger = false;
         });
 
         WeakReferenceMessenger.Default.Register<DynamicPageCloseNotificationMessage>(this, (_, arg) => {
             BarState = PageKey is "Home" ? BarState.Collapsed : BarState.Hidden;
+        });
+
+        WeakReferenceMessenger.Default.Register<PageDataLoadingMessage>(this, (_, arg) => {
+            IsDynamicPageDataLoading = arg.IsLoading;
         });
     }
 

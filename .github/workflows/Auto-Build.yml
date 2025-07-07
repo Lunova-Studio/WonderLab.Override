@@ -193,51 +193,51 @@ jobs:
             ./WonderLab/Deploy/OUT/*
 
   mac:
-      runs-on: macos-latest
-      needs: [get_time, version-management]
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v4
-          with:
-            ref: dev
-            fetch-depth: 0
-        - name: Time
-          id: date
-          run: |
-            echo "${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}" > ./WonderLab/Assets/Text/dateTime.txt
-            echo "Version is ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}"
-          shell: bash
-        - name: Sub-Module
-          run: |
-            git pull
-            git submodule update --init --recursive --remote
-        - name: Build-MacOsApp
-          run: |
-            cd ./WonderLab
-            dotnet restore -r osx-x64
-            dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release -p:SelfContained=true
-            dotnet restore -r osx-arm64
-            dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-arm64 -property:Configuration=Release -p:SelfContained=true
-            cp ./Assets/Images/Icons/Icon.icns "./bin/Release/net8.0/osx-x64/publish/WonderLab.app/Contents/Resources/Icon-Border.icns"
-            cp ./Assets/Images/Icons/Icon.icns "./bin/Release/net8.0/osx-arm64/publish/WonderLab.app/Contents/Resources/Icon-Border.icns"
-            ls -l ./bin/Release/net8.0/osx-x64/publish/
-        - name: Build-MacOsDmg-x64
-          uses: L-Super/create-dmg-actions@v1.0.3
-          with:
-            dmg_name: "WonderLab.osx.mac.x64"
-            src_dir: "./WonderLab/bin/Release/net8.0/osx-x64/publish/WonderLab.app"
-        - name: Build-MacOsDmg-arm64
-          uses: L-Super/create-dmg-actions@v1.0.3
-          with:
-            dmg_name: "WonderLab.osx.mac.arm64"
-            src_dir: "./WonderLab/bin/Release/net8.0/osx-arm64/publish/WonderLab.app"
-        - name: UploadArtifacts
-          uses: actions/upload-artifact@v4
-          with:
-            name: osx-artifacts
-            path: |
-              ./WonderLab.osx.mac.x64.dmg
-              ./WonderLab.osx.mac.arm64.dmg
+    runs-on: macos-latest
+    needs: [get_time, version-management]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
+      - name: Time
+        id: date
+        run: |
+          echo "${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}" > ./WonderLab/Assets/Text/dateTime.txt
+          echo "Version is ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}"
+        shell: bash
+      - name: Sub-Module
+        run: |
+          git pull
+          git submodule update --init --recursive --remote
+      - name: Build-MacOsApp
+        run: |
+          cd ./WonderLab
+          dotnet restore -r osx-x64
+          dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-x64 -property:Configuration=Release -p:SelfContained=true
+          dotnet restore -r osx-arm64
+          dotnet msbuild -t:BundleApp -p:RuntimeIdentifier=osx-arm64 -property:Configuration=Release -p:SelfContained=true
+          cp ./Assets/Images/Icons/Icon.icns "./bin/Release/net8.0/osx-x64/publish/WonderLab.app/Contents/Resources/Icon-Border.icns"
+          cp ./Assets/Images/Icons/Icon.icns "./bin/Release/net8.0/osx-arm64/publish/WonderLab.app/Contents/Resources/Icon-Border.icns"
+          ls -l ./bin/Release/net8.0/osx-x64/publish/
+      - name: Build-MacOsDmg-x64
+        uses: L-Super/create-dmg-actions@v1.0.3
+        with:
+          dmg_name: "WonderLab.osx.mac.x64"
+          src_dir: "./WonderLab/bin/Release/net8.0/osx-x64/publish/WonderLab.app"
+      - name: Build-MacOsDmg-arm64
+        uses: L-Super/create-dmg-actions@v1.0.3
+        with:
+          dmg_name: "WonderLab.osx.mac.arm64"
+          src_dir: "./WonderLab/bin/Release/net8.0/osx-arm64/publish/WonderLab.app"
+      - name: UploadArtifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: osx-artifacts
+          path: |
+            ./WonderLab.osx.mac.x64.dmg
+            ./WonderLab.osx.mac.arm64.dmg
 
   publish:
     needs: [linux, win, mac, version-management]

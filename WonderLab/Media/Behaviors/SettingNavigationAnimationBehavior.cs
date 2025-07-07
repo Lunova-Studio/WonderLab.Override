@@ -8,34 +8,14 @@ using Avalonia.Xaml.Interactivity;
 using System;
 using System.Numerics;
 using WonderLab.Extensions.Hosting.UI;
+using WonderLab.SourceGenerator.Attributes;
 
 namespace WonderLab.Media.Behaviors;
 
-public sealed class SettingNavigationFromBehavior : Behavior<Control> {
-    public static readonly StyledProperty<AvaloniaPageProvider> PageProviderProperty =
-    AvaloniaProperty.Register<SettingNavigationFromBehavior, AvaloniaPageProvider>(nameof(PageProvider), default);
-
-    public static readonly StyledProperty<string> PageKeyProperty =
-        AvaloniaProperty.Register<SettingNavigationFromBehavior, string>(nameof(PageKey));
-
-    public static readonly StyledProperty<bool> IsForwardProperty =
-        AvaloniaProperty.Register<SettingNavigationFromBehavior, bool>(nameof(IsForward));
-
-    public string PageKey {
-        get => GetValue(PageKeyProperty);
-        set => SetValue(PageKeyProperty, value);
-    }
-
-    public bool IsForward {
-        get => GetValue(IsForwardProperty);
-        set => SetValue(IsForwardProperty, value);
-    }
-
-    public AvaloniaPageProvider PageProvider {
-        get => GetValue(PageProviderProperty);
-        set => SetValue(PageProviderProperty, value);
-    }
-
+[StyledProperty(typeof(string), "PageKey")]
+[StyledProperty(typeof(bool), "IsForward")]
+[StyledProperty(typeof(AvaloniaPageProvider), "PageProvider")]
+public sealed partial class SettingNavigationFromBehavior : Behavior<Control> {
     protected override void OnLoaded() {
         base.OnLoaded();
         PropertyChanged += OnPropertyChanged;
@@ -105,37 +85,17 @@ public sealed class SettingNavigationFromBehavior : Behavior<Control> {
     }
 }
 
-public sealed class SettingNavigationToBehavior : Behavior<Control> {
-    public static readonly StyledProperty<AvaloniaPageProvider> PageProviderProperty =
-    AvaloniaProperty.Register<SettingNavigationToBehavior, AvaloniaPageProvider>(nameof(PageProvider), default);
-
-    public static readonly StyledProperty<string> PageKeyProperty =
-        AvaloniaProperty.Register<SettingNavigationToBehavior, string>(nameof(PageKey));
-
-    public static readonly StyledProperty<bool> IsForwardProperty =
-        AvaloniaProperty.Register<SettingNavigationToBehavior, bool>(nameof(IsForward));
-
-    public string PageKey {
-        get => GetValue(PageKeyProperty);
-        set => SetValue(PageKeyProperty, value);
-    }
-
-    public bool IsForward {
-        get => GetValue(IsForwardProperty);
-        set => SetValue(IsForwardProperty, value);
-    }
-
-    public AvaloniaPageProvider PageProvider {
-        get => GetValue(PageProviderProperty);
-        set => SetValue(PageProviderProperty, value);
-    }
+[StyledProperty(typeof(bool), "IsForward")]
+[StyledProperty(typeof(string), "PageKey")]
+[StyledProperty(typeof(AvaloniaPageProvider), "PageProvider")]
+public sealed partial class SettingNavigationToBehavior : Behavior<Control> {
+    private object _pageCache;
 
     protected override void OnLoaded() {
         base.OnLoaded();
         PropertyChanged += OnPropertyChanged;
     }
 
-    private object _pageCache;
     private async void OnPropertyChanged(object sender, AvaloniaPropertyChangedEventArgs e) {
         if (e.Property == PageKeyProperty) {
             if (!string.IsNullOrEmpty(e.GetNewValue<string>())) {

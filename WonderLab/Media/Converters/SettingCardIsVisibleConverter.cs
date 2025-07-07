@@ -7,8 +7,8 @@ namespace WonderLab.Media.Converters;
 
 public sealed class SettingCardIsVisibleConverter : IMultiValueConverter {
     public object Convert(IList<object> values, Type targetType, object parameter, CultureInfo culture) {
-        if (values[0] is bool boolValue && values[1] is string stringValue)
-            return boolValue && !string.IsNullOrWhiteSpace(stringValue);
+        if (values[0] is bool boolValue && values[1] is object objectValue)
+            return boolValue && objectValue is not null;
 
         return false;
     }

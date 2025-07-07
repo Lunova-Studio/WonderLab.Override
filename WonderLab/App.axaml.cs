@@ -1,14 +1,13 @@
 ﻿using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using DialogHostAvalonia;
 using Flurl.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using MinecraftLaunch.Components.Parser;
+using MinecraftLaunch.Components.Provider;
 using MinecraftLaunch.Utilities;
 using Monet.Avalonia;
 using Serilog;
@@ -22,6 +21,7 @@ using WonderLab.Extensions.Hosting;
 using WonderLab.Services;
 using WonderLab.Services.Authentication;
 using WonderLab.Services.Auxiliary;
+using WonderLab.Services.Download;
 using WonderLab.Services.Launch;
 using WonderLab.Utilities;
 using WonderLab.ViewModels.Dialogs.Setting;
@@ -58,6 +58,7 @@ public sealed partial class App : Application {
 
         _ = ConfigureIoC(out var host).RunAsync();
         ServiceProvider = host.Services;
+        CurseforgeProvider.CurseforgeApiKey = "$2a$10$Awb53b9gSOIJJkdV3Zrgp.CyFP.dI13QKbWn/4UZI4G4ff18WneB6";
     }
 
     public override void OnFrameworkInitializationCompleted() {
@@ -83,19 +84,24 @@ public sealed partial class App : Application {
     private static IHost ConfigureIoC(out IHost host) {
         var builder = new AvaloniaHostBuilder();
 
+        builder.Services.AddSingleton<ModrinthProvider>();
+        builder.Services.AddSingleton<CurseforgeProvider>();
+
         //Configure Service
+        builder.Services.AddSingleton<ModService>();
         builder.Services.AddSingleton<SaveService>();
         builder.Services.AddSingleton<TaskService>();
         builder.Services.AddSingleton<GameService>();
         builder.Services.AddSingleton<ThemeService>();
+        builder.Services.AddSingleton<SearchService>();
         builder.Services.AddSingleton<DialogService>();
         builder.Services.AddSingleton<LaunchService>();
         builder.Services.AddSingleton<SettingService>();
         builder.Services.AddSingleton<AccountService>();
+        builder.Services.AddSingleton<ShaderpackService>();
         builder.Services.AddSingleton<GameProcessService>();
         builder.Services.AddSingleton<ResourcepackService>();
         builder.Services.AddSingleton<AuthenticationService>();
-        //builder.Services.AddSingleton<NotificationService>();
 
         //Configure Window
         builder.Services.AddSingleton<MainWindow>();
@@ -127,21 +133,23 @@ public sealed partial class App : Application {
         //GameSetting
         pageProvider.AddPage<ModSettingPage, ModSettingPageViewModel>("GameSetting/Mod");
         pageProvider.AddPage<GameSettingPage, GameSettingPageViewModel>("GameSetting/Setting");
+        pageProvider.AddPage<ScreenshotSettingPage, ScreenshotSettingPageViewModel>("GameSetting/Screenshot");
+        pageProvider.AddPage<ShaderpackSettingPage, ShaderpackSettingPageViewModel>("GameSetting/Shaderpack");
         pageProvider.AddPage<ResourcepackSettingPage, ResourcepackSettingPageViewModel>("GameSetting/Resourcepack");
         pageProvider.AddPage<GameSettingNavigationPage, GameSettingNavigationPageViewModel>("GameSetting/Navigation");
-        //page.AddPage<ChooseAccountPage, ChooseAccountPageViewModel>("GameSetting/ChooseAccount");
 
         //Dashboard
         pageProvider.AddPage<DashboardPage, DashboardPageViewModel>("Dashboard");
 
         //Download
         pageProvider.AddPage<DownloadNavigationPage, DownloadNavigationPageViewModel>("Download/Navigation");
-        //page.AddPage<MinecraftListPage, MinecraftListPageViewModel>("Download/MinecraftList");
+        pageProvider.AddPage<DownloadDashboardPage, DownloadDashboardPageViewModel>("Download/Dashboard");
+        pageProvider.AddPage<SearchPage, SearchPageViewModel>("Download/Search");
 
         //Configure Logging
         Log.Logger = new LoggerConfiguration().WriteTo
             .Console(outputTemplate: LOG_OUTPUT_TEMPLATE).WriteTo
-            .File(Path.Combine(PathUtil.DefaultDirectory, "logs", $"WonderLog.log"), rollingInterval: RollingInterval.Day, outputTemplate: LOG_OUTPUT_TEMPLATE)
+            .File(Path.Combine(PathUtil.GetLogsFolderPath(), "logs", $"WonderLog.log"), rollingInterval: RollingInterval.Day, outputTemplate: LOG_OUTPUT_TEMPLATE)
             .CreateLogger();
 
         builder.Logging.AddSerilog(Log.Logger);
@@ -176,7 +184,7 @@ public sealed partial class App : Application {
         Get<GameService>().RefreshGames();
         HttpUtil.Initialize(new FlurlClient {
             Settings = {
-                Timeout = TimeSpan.FromMinutes(1),
+                Timeout = TimeSpan.FromSeconds(15),
             },
             Headers = {
                 { "User-Agent", "WonderLab/2.0" },
@@ -184,7 +192,15 @@ public sealed partial class App : Application {
         });
 
         ActualThemeVariantChanged += OnActualThemeVariantChanged;
-        Get<ILogger<App>>().LogInformation("当前版本号：{version}", new Uri("resm:WonderLab.Assets.Text.dateTime.txt").ToText());
+        PlatformSettings.ColorValuesChanged += OnColorValuesChanged;
+        Get<ILogger<App>>().LogInformation("当前版本号：{version}", new Uri("resm:WonderLab.version.txt").ToText());
+    }
+
+    private void OnColorValuesChanged(object sender, Avalonia.Platform.PlatformColorValues e) {
+        var settings = Get<SettingService>().Setting;
+        if (settings.IsEnableSystemColor)
+            Get<ThemeService>().UpdateColorScheme(settings.ActiveColorVariant,
+                settings.ActiveColor = e.AccentColor1.ToUInt32());
     }
 
     private void OnActualThemeVariantChanged(object sender, EventArgs e) {

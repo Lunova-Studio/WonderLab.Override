@@ -16,7 +16,7 @@ using WonderLab.Services.Launch;
 
 namespace WonderLab.Services.Auxiliary;
 
-public sealed class ResourcepackService {
+public sealed partial class ResourcepackService {
     private readonly GameService _gameService;
     private readonly SettingService _settingService;
 
@@ -132,10 +132,13 @@ public sealed class ResourcepackService {
             IsEnabled = enabledPacksIds?.Contains(id) ?? false,
             IsExtracted = !isZip,
             Format = pack.GetInt32("pack_format"),
-            Description = Regex.Replace(pack.GetString("description") ?? string.Empty, "§.", string.Empty),
+            Description = DescriptionRegex().Replace(pack.GetString("description") ?? string.Empty, string.Empty),
             Icon = iconStream.Length > 0 ? new Bitmap(iconStream) : null,
         };
     }
+
+    [GeneratedRegex("§.")]
+    private static partial Regex DescriptionRegex();
 }
 
 public record Resourcepack {

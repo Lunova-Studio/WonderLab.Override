@@ -108,13 +108,13 @@ public abstract class EffectDrawBase : CompositionCustomVisualHandler {
     protected SKShader EffectWithUniforms(float alpha = 1f) =>
         EffectWithUniforms(Effect, alpha);
 
-    protected SKShader EffectWithUniforms(SkiaEffect? effect, float alpha = 1f) =>
+    protected SKShader EffectWithUniforms(SkiaEffect effect, float alpha = 1f) =>
         effect?.ToShaderWithUniforms(AnimationSeconds, ActiveVariant, GetRenderBounds(), AnimationSpeedScale, alpha);
 
     protected SKShader EffectWithCustomUniforms(Func<SKRuntimeEffect, SKRuntimeEffectUniforms> uniformFactory, float alpha = 1f) =>
         EffectWithCustomUniforms(Effect, uniformFactory, alpha);
 
-    protected SKShader EffectWithCustomUniforms(SkiaEffect? effect, Func<SKRuntimeEffect, SKRuntimeEffectUniforms> uniformFactory, float alpha = 1f) =>
+    protected SKShader EffectWithCustomUniforms(SkiaEffect effect, Func<SKRuntimeEffect, SKRuntimeEffectUniforms> uniformFactory, float alpha = 1f) =>
         effect?.ToShaderWithCustomUniforms(uniformFactory, AnimationSeconds, GetRenderBounds(), AnimationSpeedScale, alpha);
 
     protected virtual void EffectChanged(SkiaEffect oldValue, SkiaEffect newValue) {

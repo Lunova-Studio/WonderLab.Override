@@ -83,9 +83,9 @@
 						<Border IsVisible="False"
 								Name="HighlightBackground"
 								CornerRadius="{TemplateBinding CornerRadius}"
+								BorderBrush="{DynamicResource ComboBoxBorderBrush}"
 								BorderThickness="{TemplateBinding BorderThickness}"
-								Background="{DynamicResource ComboBoxBackgroundUnfocused}"
-								BorderBrush="{DynamicResource ComboBoxBackgroundBorderBrushUnfocused}"
+								Background="{DynamicResource ComboBoxBackgroundBrush}"
 								Grid.Column="0"
 								Grid.ColumnSpan="2"/>
 						
@@ -135,18 +135,17 @@
 
 						<Popup Name="PART_Popup"
 							   InheritsTransform="True"
-							   PlacementTarget="Background"
 							   IsLightDismissEnabled="True"
 							   WindowManagerAddShadowHint="False"
 							   MaxHeight="{TemplateBinding MaxDropDownHeight}"
 							   IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}">
 							<Border Margin="8"
 									Name="PopupBorder"
+									UseLayoutRounding="False"
 									HorizontalAlignment="Stretch"
-									Effect="{DynamicResource ComboBoxDropShadowEffect}"
 									CornerRadius="{DynamicResource NormalCornerRadius}"
+									Background="{DynamicResource ComboBoxBackgroundBrush}"
 									Padding="{DynamicResource ComboBoxDropdownBorderPadding}"
-									Background="{DynamicResource ComboBoxDropDownBackground}"
 									BorderBrush="{DynamicResource ComboBoxDropDownBorderBrush}"
 									BorderThickness="{DynamicResource ComboBoxDropdownBorderThickness}"
 									MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}">

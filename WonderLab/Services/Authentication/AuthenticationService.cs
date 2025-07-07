@@ -34,8 +34,8 @@ public sealed class AuthenticationService {
     }
 
     public async Task<YggdrasilAccount> RefreshYggdrasilAccountAsync(YggdrasilAccount account, CancellationToken cancellationToken = default) {
-        if (_yggdrasilAuthenticator is null)
-            throw new ArgumentNullException(nameof(_yggdrasilAuthenticator));
+        _yggdrasilAuthenticator ??= 
+            new(account.YggdrasilServerUrl, string.Empty, string.Empty); //刷新不需要邮箱及密码
 
         return await _yggdrasilAuthenticator.RefreshAsync(account, cancellationToken);
     }

@@ -7,6 +7,8 @@ using Microsoft.Extensions.Logging;
 using MinecraftLaunch.Base.Utilities;
 using Monet.Shared.Enums;
 using System;
+using System.Collections.Frozen;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using WonderLab.Classes.Enums;
 using WonderLab.Controls;
@@ -20,9 +22,28 @@ public sealed class ThemeService {
 
     private WonderWindow _hostWindow;
 
+    public static readonly Lazy<Bitmap> LoadingIcon = new("resm:WonderLab.Assets.Images.doro_loading.jpg".ToBitmap());
+    public static readonly Lazy<Bitmap> OldMinecraftIcon = new("resm:WonderLab.Assets.Images.Icons.old_minecraft.png".ToBitmap());
     public static readonly Lazy<Bitmap> ReleaseMinecraftIcon = new("resm:WonderLab.Assets.Images.Icons.release_minecraft.png".ToBitmap());
+    public static readonly Lazy<Bitmap> SnapshotMinecraftIcon = new("resm:WonderLab.Assets.Images.Icons.snapshot_minecraft.png".ToBitmap());
 
-    public ObservableCollection<BackgroundType> BackgroundTypes { get; private set; }
+    public ObservableCollection<BackgroundType> BackgroundTypes { get; } = [
+        BackgroundType.SolidColor,
+        BackgroundType.Bitmap,
+        BackgroundType.Voronoi,
+        BackgroundType.Bubble
+    ];
+
+    public FrozenDictionary<uint, string> MonetColors => new Dictionary<uint, string>() {
+        [Colors.Red.ToUInt32()] = "Red",
+        [Colors.Orange.ToUInt32()] = "Orange",
+        [Colors.Yellow.ToUInt32()] = "Yellow",
+        [Colors.Green.ToUInt32()] = "Green",
+        [Colors.Cyan.ToUInt32()] = "Cyan",
+        [Colors.Blue.ToUInt32()] = "Blue",
+        [Colors.Purple.ToUInt32()] = "Purple",
+        [Colors.Pink.ToUInt32()] = "Pink",
+    }.ToFrozenDictionary();
 
     public event EventHandler BackgroundTypeChanged;
 
@@ -34,13 +55,6 @@ public sealed class ThemeService {
     public void Initialize(WonderWindow window) {
         _hostWindow = window;
 
-        BackgroundTypes = [
-            BackgroundType.SolidColor,
-            BackgroundType.Bitmap,
-            BackgroundType.Voronoi,
-            BackgroundType.Bubble
-        ];
-
         if (EnvironmentUtil.IsMac) {
             BackgroundTypes.Add(BackgroundType.Acrylic);
         } else if (EnvironmentUtil.IsWindow) {
@@ -49,15 +63,27 @@ public sealed class ThemeService {
         }
 
         Dispatcher.UIThread.Post(() => {
+            if (_settingService.Setting.IsEnableSystemColor)
+                UseSystemColor();
+            else if (_settingService.Setting.ActiveColor is 0)
+                _settingService.Setting.ActiveColor = Colors.Red.ToUInt32();
+
+            if (!_settingService.Setting.IsEnableSystemColor)
+                UpdateColorScheme(_settingService.Setting.ActiveColorVariant);
+
             UpdateThemeVariant(_settingService.Setting.ActiveTheme);
-            UpdateColorScheme(_settingService.Setting.ActiveColorVariant);
             UpdateBackgroundType(_settingService.Setting.ActiveBackground, _settingService.Setting.ImagePath);
         });
     }
 
-    public void UpdateColorScheme(Variant variant) {
+    public void UseSystemColor() {
+        UpdateColorScheme(_settingService.Setting.ActiveColorVariant,
+            Application.Current.PlatformSettings.GetColorValues().AccentColor1.ToUInt32());
+    }
+
+    public void UpdateColorScheme(Variant variant, uint? color = null) {
         _logger.LogInformation("切换动态颜色变种，类别：{variant}", variant.ToString());
-        App.Monet.BuildScheme(variant, Color.Parse("#579CC5"), 0);
+        App.Monet.BuildScheme(variant, Color.FromUInt32(color ?? _settingService.Setting.ActiveColor), 0);
     }
 
     public void UpdateThemeVariant(ThemeType type) {
@@ -77,7 +103,7 @@ public sealed class ThemeService {
         Application.Current.RequestedThemeVariant = variant;
 
         App.Monet.IsDarkMode = variant == ThemeVariant.Dark;
-        App.Monet.BuildScheme(colorVariant, Colors.Red, 0);
+        App.Monet.BuildScheme(colorVariant, Color.FromUInt32(_settingService.Setting.ActiveColor), 0);
     }
 
     public void UpdateBackgroundType(BackgroundType type, string imagePath = default) {

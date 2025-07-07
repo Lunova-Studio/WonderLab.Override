@@ -69,9 +69,10 @@
 		</Style>
 
 		<Style Selector="^.Basic">
-			<Setter Property="Padding" Value="12" />
-			<Setter Property="CornerRadius" Value="{DynamicResource WeakCornerRadius}" />
+			<Setter Property="Padding" Value="16 12" />
 			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="CornerRadius" Value="{DynamicResource WeakCornerRadius}" />
+			<Setter Property="Foreground" Value="{DynamicResource HyperlinkButtonForegroundBrush}"/>
 
 			<Setter Property="Template">
 				<ControlTemplate>
@@ -82,8 +83,8 @@
 									  FontSize="{TemplateBinding FontSize}"
 									  CornerRadius="{TemplateBinding CornerRadius}"
 									  RippleFill="{DynamicResource RippleEffectFillBrush}">
-						<ContentPresenter Name="PART_ContentPresenter"
-										  RecognizesAccessKey="True"
+						<ContentPresenter RecognizesAccessKey="True"
+										  Name="PART_ContentPresenter"
 										  Content="{TemplateBinding Content}"
 										  Padding="{TemplateBinding Padding}"
 										  Background="{TemplateBinding Background}"
@@ -95,6 +96,10 @@
 					</wc:RippleControl>
 				</ControlTemplate>
 			</Setter>
+		</Style>
+
+		<Style Selector="^.Basic">
+			<Setter Property="Foreground" Value="{DynamicResource HyperlinkButtonForegroundBrush}" />
 		</Style>
 	</ControlTheme>
 </ResourceDictionary>

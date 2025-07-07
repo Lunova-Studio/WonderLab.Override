@@ -20,7 +20,7 @@ namespace WonderLab.Services.Auxiliary;
 public sealed class SaveService {
     private readonly GameService _gameService;
     private readonly SettingService _settingService;
-    private readonly FileInfo _serversFileInfo = new(Path.Combine(PathUtil.DefaultDirectory, "servers.json"));
+    private readonly FileInfo _serversFileInfo = new(Path.Combine(PathUtil.GetDataFolderPath(), "servers.json"));
 
     public ObservableCollection<SaveModel> Saves { get; } = [];
     public List<MultiPlayerTimeModel> MultiPlayerSaveTimes { get; private set; } = [];

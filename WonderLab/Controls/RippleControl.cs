@@ -9,40 +9,20 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using System;
 using System.Threading.Tasks;
+using WonderLab.SourceGenerator.Attributes;
 
 namespace WonderLab.Controls;
 
 /// <summary>
 /// 涟漪特效控件
 /// </summary>
-public sealed class RippleControl : ContentControl {
+[StyledProperty(typeof(IBrush), "RippleFill")]
+[StyledProperty(typeof(double), "RippleOpacity", 0.6)]
+[StyledProperty(typeof(bool), "RaiseRippleCenter", false)]
+public sealed partial class RippleControl : ContentControl {
     private Ripple _last;
     private byte _pointers;
     private Canvas PART_RippleCanvasRoot;
-
-    public static readonly StyledProperty<IBrush> RippleFillProperty =
-        AvaloniaProperty.Register<RippleControl, IBrush>(nameof(RippleFill), SolidColorBrush.Parse("#20FFFFFF"));
-
-    public static readonly StyledProperty<double> RippleOpacityProperty =
-        AvaloniaProperty.Register<RippleControl, double>(nameof(RippleOpacity), 0.6);
-
-    public static readonly StyledProperty<bool> RaiseRippleCenterProperty =
-        AvaloniaProperty.Register<RippleControl, bool>(nameof(RaiseRippleCenter), false);
-
-    public IBrush RippleFill {
-        get => GetValue(RippleFillProperty);
-        set => SetValue(RippleFillProperty, value);
-    }
-
-    public double RippleOpacity {
-        get => GetValue(RippleOpacityProperty);
-        set => SetValue(RippleOpacityProperty, value);
-    }
-
-    public bool RaiseRippleCenter {
-        get => GetValue(RaiseRippleCenterProperty);
-        set => SetValue(RaiseRippleCenterProperty, value);
-    }
 
     public RippleControl() {
         AddHandler(PointerReleasedEvent, PointerReleasedHandler);

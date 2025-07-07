@@ -3,6 +3,124 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:wa="using:WonderLab.Media.Attachments"
              x:Class="WonderLab.ModSettingPage">
-  Welcome to Avalonia!
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Loaded">
+			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		</EventTriggerBehavior>
+
+		<EventTriggerBehavior EventName="UnNavigated">
+			<InvokeCommandAction Command="{Binding UnNavigatedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
+
+	<Grid RowDefinitions="auto * auto">
+		<TextBlock Margin="0 8 0 12"
+				   Classes="BodyStrong"
+				   Text="模组管理"
+				   Grid.Row="0"/>
+
+		<StackPanel Margin="0 0 16 0"
+					Orientation="Horizontal"
+					VerticalAlignment="Center"
+					HorizontalAlignment="Right"
+					Grid.Row="0">
+			<!--TODO:更新逻辑-->
+			<Button Height="30"
+					Padding="12 0"
+					Classes="ripple"
+					Background="Transparent" IsEnabled="False"
+					IsVisible="{Binding HasUpdateMods}">
+				<StackPanel Spacing="7" Orientation="Horizontal">
+					<wc:FontIcon Glyph="&#xF103;"
+								 FontSize="18"
+								 VerticalAlignment="Center"/>
+
+					<TextBlock Classes="Body"
+							   VerticalAlignment="Center">
+						<Run Text="{Binding UpdateModCount}"/>
+						<Run Text="个可更新"/>
+					</TextBlock>
+				</StackPanel>
+			</Button>
+
+			<Button Width="75"
+					Height="30"
+					Padding="0"
+					Classes="ripple"
+					Background="Transparent"
+					Command="{Binding RefreshCommand}">
+				<StackPanel Spacing="8" Orientation="Horizontal">
+					<wc:FontIcon Glyph="&#xE72C;"
+								 VerticalAlignment="Center"/>
+
+					<TextBlock Classes="Body"
+							   VerticalAlignment="Center"
+							   Text="刷新"/>
+				</StackPanel>
+			</Button>
+		</StackPanel>
+
+		<ContentControl Classes="tip"
+				Content="没有安装任何模组"
+				IsVisible="{Binding HasMods, Converter={StaticResource BoolReverseConverter}}"
+				Grid.Row="1"/>
+
+		<ScrollViewer Grid.Row="1">
+			<ItemsRepeater Margin="0 0 16 0"
+						   ItemsSource="{Binding Mods}"
+						   wa:ItemsRepeaterExtensions.AnimatedScroll="True">
+				<ItemsRepeater.Layout>
+					<StackLayout Spacing="8"/>
+				</ItemsRepeater.Layout>
+
+				<ItemsRepeater.ItemTemplate>
+					<DataTemplate>
+						<wc:Tile Height="68"
+								 Padding="8 6"
+								 MinWidth="80"
+								 MinHeight="35"
+								 IsEnableAnimation="False"
+								 VerticalContentAlignment="Center">
+							<Grid RowDefinitions="auto auto"
+								  ColumnDefinitions="auto * auto">
+								<Border Width="35"
+										Height="35"
+										Grid.RowSpan="2"
+										CornerRadius="{StaticResource WeakCornerRadius}">
+									<Border.Background>
+										<ImageBrush Stretch="UniformToFill"
+													Source="{Binding Icon}"/>
+									</Border.Background>
+								</Border>
+								
+								<TextBlock Classes="Body"
+										   Margin="8 0 16 0"
+										   HorizontalAlignment="Left"
+										   TextTrimming="CharacterEllipsis"
+										   Text="{Binding DisplayName}"
+										   Grid.Column="1"/>
+
+								<TextBlock Margin="8 0 16 0"
+										   Classes="Caption"
+										   HorizontalAlignment="Left"
+										   TextTrimming="CharacterEllipsis"
+										   Text="{Binding Description}"
+										   Grid.Row="1"
+										   Grid.Column="1"/>
+
+								<ToggleSwitch Grid.Column="2"
+											  Grid.RowSpan="2"
+											  CommandParameter="{Binding}"
+											  IsChecked="{Binding IsEnabled}"
+											  Command="{Binding $parent[ItemsRepeater].DataContext.SaveCommand}"/>
+							</Grid>
+						</wc:Tile>
+					</DataTemplate>
+				</ItemsRepeater.ItemTemplate>
+			</ItemsRepeater>
+		</ScrollViewer>
+	</Grid>
 </UserControl>

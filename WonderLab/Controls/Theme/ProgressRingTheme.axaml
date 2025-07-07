@@ -43,10 +43,10 @@
 			<Setter Property="SweepAngle" Value="{ReflectionBinding ValueAngle, RelativeSource={RelativeSource Mode=TemplatedParent}}"/>
 		</Style>
 
-		<Style Selector="^:preserveaspect">
+		<!--<Style Selector="^:preserveaspect">
 			<Setter Property="MinWidth" Value="32" />
 			<Setter Property="MinHeight" Value="32" />
-		</Style>
+		</Style>-->
 
 		<Style Selector="^:preserveaspect /template/ Panel#FluentRingRoot">
 			<Setter Property="Width" Value="{TemplateBinding Bounds, Converter={StaticResource FitSquarelyWithinAspectRatioConverter}}"/>

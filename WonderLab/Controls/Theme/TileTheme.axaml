@@ -109,19 +109,20 @@
 									   Text="{TemplateBinding Title}"
 									   Foreground="{DynamicResource TileForegroundBrush}"/>
 
-							<TextBlock Grid.Row="1"
-									   Classes="Caption"
-									   HorizontalAlignment="Left"
-									   TextTrimming="CharacterEllipsis"
-									   Text="{TemplateBinding Description}"
-									   Foreground="{DynamicResource TileForegroundBrush}">
-								<TextBlock.IsVisible>
+							<ContentPresenter FontSize="12"
+											  FontWeight="Regular"
+											  HorizontalAlignment="Left"
+											  TextTrimming="CharacterEllipsis"
+											  Content="{TemplateBinding Description}"
+											  Foreground="{DynamicResource TileForegroundBrush}"
+											  Grid.Row="1">
+								<ContentPresenter.IsVisible>
 									<MultiBinding Converter="{StaticResource SettingCardIsVisibleConverter}">
 										<TemplateBinding Property="IsDescriptionVisible"/>
 										<TemplateBinding Property="Description"/>
 									</MultiBinding>
-								</TextBlock.IsVisible>
-							</TextBlock>
+								</ContentPresenter.IsVisible>
+							</ContentPresenter>
 						</Grid>
 
 						<StackPanel Spacing="8"
@@ -206,6 +207,72 @@
 									</Transitions>
 								</ContentPresenter.Transitions>
 							</ContentPresenter>
+						</Grid>
+					</Button>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="^.content">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Button Classes="ripple"
+						Width="{TemplateBinding Width}"
+						Height="{TemplateBinding Height}"
+						Command="{TemplateBinding Command}"
+						MinWidth="{TemplateBinding MinWidth}"
+						MinHeight="{TemplateBinding MinHeight}"
+						Background="{TemplateBinding Background}"
+						CornerRadius="{TemplateBinding CornerRadius}"
+						CommandParameter="{TemplateBinding CommandParameter}"
+						VerticalAlignment="{TemplateBinding VerticalAlignment}"
+						HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+						VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+						HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
+						<Grid Margin="{TemplateBinding Padding}"
+							  ColumnDefinitions="auto * 16 auto">
+							<ContentPresenter VerticalAlignment="Center"
+											  Content="{TemplateBinding Icon}"
+											  Foreground="{DynamicResource TileForegroundBrush}"/>
+
+							<Grid Margin="12 0 0 0"
+								  RowDefinitions="* *"
+								  VerticalAlignment="Center"
+								  Grid.Column="1">
+								<TextBlock Classes="BodyStrong"
+										   VerticalAlignment="Center"
+										   HorizontalAlignment="Left"
+										   Text="{TemplateBinding Title}"
+										   Foreground="{DynamicResource TileForegroundBrush}"/>
+
+								<ContentPresenter FontSize="12"
+												  FontWeight="Regular"
+												  HorizontalAlignment="Stretch"
+												  TextTrimming="CharacterEllipsis"
+												  Content="{TemplateBinding Description}"
+												  Foreground="{DynamicResource TileForegroundBrush}"
+												  Grid.Row="1">
+									<ContentPresenter.IsVisible>
+										<MultiBinding Converter="{StaticResource SettingCardIsVisibleConverter}">
+											<TemplateBinding Property="IsDescriptionVisible"/>
+											<TemplateBinding Property="Description"/>
+										</MultiBinding>
+									</ContentPresenter.IsVisible>
+								</ContentPresenter>
+							</Grid>
+
+							<StackPanel Spacing="8"
+										Grid.Column="3"
+										Orientation="Horizontal">
+								<ContentPresenter RecognizesAccessKey="True"
+												  Content="{TemplateBinding Footer}"
+												  ContentTemplate="{TemplateBinding ContentTemplate}"/>
+
+								<wc:FontIcon FontSize="16"
+											 Glyph="&#xE76C;"
+											 VerticalAlignment="Center"
+											 Foreground="{DynamicResource TileForegroundBrush}"/>
+							</StackPanel>
 						</Grid>
 					</Button>
 				</ControlTemplate>

@@ -5,7 +5,7 @@ using WonderLab.Controls;
 
 namespace WonderLab.Views.Pages.Setting;
 
-public sealed partial class SettingNavigationPage : UserControl {
+public sealed partial class SettingNavigationPage : Page {
     public SettingNavigationPage() {
         InitializeComponent();
     }
