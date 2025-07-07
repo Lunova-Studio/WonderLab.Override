@@ -256,6 +256,7 @@
 					<wc:NavigationTile Icon="&#xE71C;"
 									   Margin="0 8 16 0"
 									   Title="分类浏览"
+									   CommandParameter="0"
 									   IsEnableAnimation="False"
 									   Command="{Binding JumpToSearchPageCommand}"
 									   Grid.Row="3"/>

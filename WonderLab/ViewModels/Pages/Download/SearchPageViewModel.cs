@@ -13,6 +13,7 @@ public sealed partial class SearchPageViewModel : ObservableObject {
     private readonly SearchService _searchService;
 
     [ObservableProperty] private ReadOnlyObservableCollection<object> _resources;
+    [ObservableProperty] private SearchSourceType _searchSource = SearchSourceType.Modrinth;
     [ObservableProperty] private MinecraftVersionType _minecraftVersionType = MinecraftVersionType.Release;
 
     [ObservableProperty]
@@ -25,6 +26,7 @@ public sealed partial class SearchPageViewModel : ObservableObject {
         _searchService = searchService;
 
         SearchType = _searchService.SearchType;
+        SearchSource = _searchService.SearchSource;
         MinecraftVersionType = _searchService.MinecraftVersionType;
     }
 
@@ -36,7 +38,7 @@ public sealed partial class SearchPageViewModel : ObservableObject {
         PropertyChanged += OnPropertyChanged;
     });
 
-    private void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
+    private async void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
         switch (e.PropertyName) {
             case nameof(MinecraftVersionType):
                 _searchService.MinecraftVersionType = MinecraftVersionType;
@@ -44,6 +46,11 @@ public sealed partial class SearchPageViewModel : ObservableObject {
                 break;
             case nameof(SearchType):
                 _searchService.SearchType = SearchType;
+                await _searchService.SearchResourcesAsync(default);
+                break;
+            case nameof(SearchSource):
+                _searchService.SearchSource = SearchSource;
+                await _searchService.SearchResourcesAsync(default);
                 break;
         }
     }

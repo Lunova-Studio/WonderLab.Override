@@ -85,6 +85,7 @@
 			<wc:BackEaseValueConverter x:Key="BackEaseValueConverter"/>
 			<wc:OpactiyReverseConverter x:Key="OpactiyReverseConverter"/>
 			<wc:SolidColorBrushConverter x:Key="SolidColorBrushConverter"/>
+			<wc:MultilineStringConverter x:Key="MultilineStringConverter"/>
 			<wc:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
 			<wc:MinecraftVersionsConverter x:Key="MinecraftVersionsConverter"/>
 			<wc:SettingCardIsVisibleConverter x:Key="SettingCardIsVisibleConverter"/>

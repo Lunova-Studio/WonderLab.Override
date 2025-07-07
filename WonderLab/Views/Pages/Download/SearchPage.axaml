@@ -82,7 +82,7 @@
 										   Classes="Caption"
 										   VerticalAlignment="Center"
 										   TextTrimming="CharacterEllipsis"
-										   Text="{Binding Summary}"
+										   Text="{Binding Summary, Converter={StaticResource MultilineStringConverter}}"
 										   Grid.Row="0"
 										   Grid.Column="1"/>
 
@@ -168,7 +168,7 @@
 										   Classes="Caption"
 										   VerticalAlignment="Center"
 										   TextTrimming="CharacterEllipsis"
-										   Text="{Binding Summary}"
+										   Text="{Binding Summary, Converter={StaticResource MultilineStringConverter}}"
 										   Grid.Row="0"
 										   Grid.Column="1"/>
 
@@ -258,11 +258,10 @@
 			</ComboBox>
 
 			<ComboBox CornerRadius="6"
+					  SelectedItem="{Binding SearchSource, Mode=TwoWay}"
 					  Background="{DynamicResource TextBoxBackgroundBrush}"
-					  IsVisible="{Binding IsCommunityResourcesFilterVisible}">
-				<ComboBoxItem Content="Modrinth"/>
-				<ComboBoxItem Content="Curseforge"/>
-			</ComboBox>
+					  IsVisible="{Binding IsCommunityResourcesFilterVisible}"
+					  ItemsSource="{wem:EnumBinding {x:Type wce:SearchSourceType}}"/>
 		</WrapPanel>
 
 		<ScrollViewer Grid.Row="1">

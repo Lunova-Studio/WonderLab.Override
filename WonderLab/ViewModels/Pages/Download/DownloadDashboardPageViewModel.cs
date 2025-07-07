@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using MinecraftLaunch.Base.Models.Network;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
@@ -52,10 +53,14 @@ public sealed partial class DownloadDashboardPageViewModel : ObservableObject {
         IsFeaturedResourcesLoading = false;
 
         HasSearchCache = SearchCaches.Count > 0;
+        PropertyChanged += OnPropertyChanged;
     });
 
     [RelayCommand]
-    private void JumpToSearchPage() {
+    private void JumpToSearchPage(string flag) {
+        if (flag is not null)
+            _searchService.Reset();
+
         IsHide = true;
         ActivePageKey = "Download/Search";
     }
@@ -88,6 +93,11 @@ public sealed partial class DownloadDashboardPageViewModel : ObservableObject {
             await _searchService.SaveAsync();
         }
     });
+
+    private void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
+        if (e.PropertyName is nameof(Keyword))
+            _searchService.Filter = Keyword;
+    }
 }
 
 public record FeaturedResourcesItem(ModrinthResource Resource, string FirstImageUrl);

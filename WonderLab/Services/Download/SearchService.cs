@@ -4,6 +4,7 @@ using MinecraftLaunch.Base.Models.Network;
 using MinecraftLaunch.Components.Installer;
 using MinecraftLaunch.Components.Provider;
 using MinecraftLaunch.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -17,16 +18,17 @@ using WonderLab.Utilities;
 namespace WonderLab.Services.Download;
 
 public sealed class SearchService {
-    private string _filter = string.Empty;
     private List<VersionManifestEntry> _minecrafts = [];
 
     private readonly ModrinthProvider _modrinthProvider;
     private readonly CurseforgeProvider _curseforgeProvider;
     private readonly FileInfo _searchCacheFileInfo = new(Path.Combine(PathUtil.GetDataFolderPath(), "search_caches.json"));
 
+    public string Filter { get; set; } = string.Empty;
     public string Category { get; set; } = string.Empty;
     public string MinecraftVersion { get; set; } = string.Empty;
     public SearchType SearchType { get; set; } = SearchType.Minecraft;
+    public SearchSourceType SearchSource { get; set; } = SearchSourceType.Modrinth;
     public MinecraftVersionType MinecraftVersionType { get; set; } = MinecraftVersionType.Release;
 
     public ObservableCollection<object> Resources { get; private set; } = [];
@@ -35,6 +37,14 @@ public sealed class SearchService {
     public SearchService(ModrinthProvider modrinthProvider, CurseforgeProvider curseforgeProvider) {
         _modrinthProvider = modrinthProvider;
         _curseforgeProvider = curseforgeProvider;
+    }
+
+    public void Reset() {
+        Category = string.Empty;
+        MinecraftVersion = string.Empty;
+        SearchType = SearchType.Minecraft;
+        SearchSource = SearchSourceType.Modrinth;
+        MinecraftVersionType = MinecraftVersionType.Release;
     }
 
     public async Task SaveAsync() {
@@ -56,8 +66,10 @@ public sealed class SearchService {
     }
 
     public async Task InitMinecraftsAsync(CancellationToken cancellationToken) {
-        if (_minecrafts is { Count: > 0 })
+        if (_minecrafts is { Count: > 0 }) {
+            FilterMinecrafts();
             return;
+        }
 
         var minecrafts = await VanillaInstaller.EnumerableMinecraftAsync(cancellationToken);
         _minecrafts = [.. minecrafts];
@@ -74,7 +86,7 @@ public sealed class SearchService {
         if (!string.IsNullOrEmpty(keyword) && !Caches.Any(x => x.Keyword == keyword && x.SearchType == searchType))
             Caches.Insert(0, new(keyword, searchType));
 
-        _filter = keyword;
+        Filter = keyword;
         SearchType = searchType;
 
         await SaveAsync();
@@ -89,7 +101,7 @@ public sealed class SearchService {
         Resources?.Clear();
 
         var minecrafts = _minecrafts.Where(x => x.Type == GetVersionType(MinecraftVersionType)
-            && (string.IsNullOrEmpty(_filter) || x.Id.Contains(_filter)));
+            && (string.IsNullOrEmpty(Filter) || x.Id.Contains(Filter)));
 
         foreach (var item in minecrafts)
             Resources.Add(item);
@@ -98,20 +110,16 @@ public sealed class SearchService {
     public async Task SearchResourcesAsync(CancellationToken cancellationToken) {
         Resources?.Clear();
 
-        var modrinthResources = await _modrinthProvider
-            .SearchAsync(_filter, MinecraftVersion, Category,
+        IEnumerable<IResource> resources = SearchSource is SearchSourceType.Curseforge
+            ? await _curseforgeProvider.SearchResourcesAsync(Filter,
+                GetClassId(SearchType), 0, MinecraftVersion)
+            : await _modrinthProvider.SearchAsync(Filter, MinecraftVersion, Category,
                 GetProjectType(SearchType), ModrinthSearchIndex.Relevance, cancellationToken);
 
-        var curseforgeResources = await _curseforgeProvider
-            .SearchResourcesAsync(_filter, GetClassId(SearchType), 0, MinecraftVersion);
-
-        var resources = modrinthResources
-            .Select(x => x as IResource)
-            .Union(curseforgeResources)
-            .OrderBy(x => x.DateModified);
-
-        foreach (var resource in resources)
+        foreach (var resource in resources) {
+            resource.Summary.Replace(Environment.NewLine, " ");
             Resources.Add(resource);
+        }
     }
 
     private static int GetClassId(SearchType searchType) {
