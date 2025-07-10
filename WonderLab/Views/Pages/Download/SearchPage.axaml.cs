@@ -1,5 +1,4 @@
 using Avalonia.Controls;
-using MinecraftLaunch.Base.Interfaces;
 using MinecraftLaunch.Base.Models.Network;
 using System;
 using WonderLab.Controls;

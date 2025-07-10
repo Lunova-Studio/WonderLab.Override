@@ -237,6 +237,11 @@
 		<WrapPanel LineSpacing="16"
 				   ItemSpacing="16"
 				   Orientation="Horizontal">
+			<Button Width="100"
+					Classes="primary"
+					Content="搜素"
+					Command="{Binding SearchCommand}"/>
+			
 			<!--Type-->
 			<Grid ColumnSpacing="8"
 				  ColumnDefinitions="auto auto *">
@@ -303,10 +308,10 @@
 
 				<ComboBox MinWidth="100"
 						  CornerRadius="6"
+						  ItemsSource="{Binding Categories}"
+						  SelectedItem="{Binding Category, Mode=TwoWay}"
 						  Background="{DynamicResource TextBoxBackgroundBrush}"
-						  Grid.Column="2">
-					<ComboBoxItem Content="All"/>
-				</ComboBox>
+						  Grid.Column="2"/>
 			</Grid>
 
 			<Grid ColumnSpacing="8"
