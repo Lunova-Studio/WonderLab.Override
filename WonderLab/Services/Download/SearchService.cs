@@ -157,12 +157,9 @@ public sealed class SearchService {
         return CurseForgeCategories[category];
     }
 
-    private string GetModrinthCategory(string category) {
-        if (category is "all")
-            return string.Empty;
-
-        return category;
-
+    private static string GetModrinthCategory(string category) {
+        // 此情况不会返回任何数据
+        return category is "all" ? string.Empty : category;
     }
 
     private static int GetClassId(SearchType searchType) {

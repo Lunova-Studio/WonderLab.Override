@@ -145,9 +145,6 @@ public sealed partial class SearchAnimationBehavior : Behavior {
 
         await Dispatcher.UIThread.InvokeAsync(async () => {
             _toTarget.Text = keyword;
-            if (flag)
-                SetCurrentValue(IsHideProperty, false);
-
             var fromTask1 = FromTarget.Animate(Layoutable.MarginProperty)
                 .WithEasing(new ExponentialEaseOut())
                 .WithDuration(TimeSpan.FromSeconds(0.35))

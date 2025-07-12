@@ -43,6 +43,23 @@ public sealed partial class DownloadDashboardPageViewModel : ObservableObject {
         WeakReferenceMessenger.Default.Register<RequestSearchMessage>(this, async (_, _) => {
             await SearchCommand.ExecuteAsync(default);
         });
+
+        WeakReferenceMessenger.Default.Register<RequestDownloadPageGobackMessage>(this, async (_, _) => {
+            Keyword = string.Empty;
+            ActivePageKey = string.Empty;
+            IsEnterKeyDown = true;
+            IsHide = false;
+        });
+    }
+
+    [RelayCommand]
+    private void JumpToSearchPage(string flag) {
+        if (flag is not null)
+            _searchService.Reset();
+
+        IsHide = true;
+        ActivePageKey = "Download/Search";
+        WeakReferenceMessenger.Default.Send(new RequestPageMessage("搜索"));
     }
 
     [RelayCommand]
@@ -65,25 +82,15 @@ public sealed partial class DownloadDashboardPageViewModel : ObservableObject {
     });
 
     [RelayCommand]
-    private void JumpToSearchPage(string flag) {
-        if (flag is not null)
-            _searchService.Reset();
-
-        IsHide = true;
-        ActivePageKey = "Download/Search";
-    }
-
-    [RelayCommand]
     private Task Search() => Task.Run(async () => {
         IsEnterKeyDown = true;
         HasSearchCache = SearchCaches.Count > 0;
-        if (string.IsNullOrEmpty(Keyword)) {
-            ActivePageKey = string.Empty;
-            return;
-        }
+        if (string.IsNullOrEmpty(Keyword))
+            IsHide = true;
+        else
+            JumpToSearchPageCommand.Execute(default);
 
-        JumpToSearchPageCommand.Execute(default);
-        await _searchService.SearchAsync(Keyword, ActiveSearchType, default);
+        await _searchService.SearchAsync(Keyword, _searchService.SearchType, default);
     });
 
     [RelayCommand]
@@ -105,6 +112,9 @@ public sealed partial class DownloadDashboardPageViewModel : ObservableObject {
     private void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
         if (e.PropertyName is nameof(Keyword))
             _searchService.Filter = Keyword;
+
+        if (e.PropertyName is nameof(ActiveSearchType))
+            _searchService.SearchType = ActiveSearchType;
     }
 }
 

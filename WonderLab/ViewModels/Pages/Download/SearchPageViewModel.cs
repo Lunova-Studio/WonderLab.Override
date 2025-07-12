@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Base.Enums;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
@@ -14,11 +15,12 @@ namespace WonderLab.ViewModels.Pages.Download;
 public sealed partial class SearchPageViewModel : ObservableObject {
     private readonly SearchService _searchService;
 
-    [ObservableProperty] private ReadOnlyObservableCollection<object> _resources;
-    [ObservableProperty] private ReadOnlyObservableCollection<string> _categories;
+    [ObservableProperty] private bool _isLoading = true;
     [ObservableProperty] private string _category = string.Empty;
     [ObservableProperty] private SearchSourceType _searchSource = SearchSourceType.Modrinth;
     [ObservableProperty] private MinecraftVersionType _minecraftVersionType = MinecraftVersionType.Release;
+    [ObservableProperty] private ReadOnlyObservableCollection<object> _resources;
+    [ObservableProperty] private ReadOnlyObservableCollection<string> _categories;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsCommunityResourcesFilterVisible))]
@@ -33,8 +35,6 @@ public sealed partial class SearchPageViewModel : ObservableObject {
     [RelayCommand]
     private Task OnLoaded() => Task.Run(async () => {
         _searchService.UpdateCategories();
-        if (SearchType is SearchType.Minecraft)
-            await _searchService.InitMinecraftsAsync(default);
 
         Resources = new(_searchService.Resources);
         Categories = new(_searchService.Categories);
@@ -44,7 +44,12 @@ public sealed partial class SearchPageViewModel : ObservableObject {
         SearchSource = _searchService.SearchSource;
         MinecraftVersionType = _searchService.MinecraftVersionType;
 
+        if (SearchType is SearchType.Minecraft)
+            await _searchService.InitMinecraftsAsync(default);
+
+        IsLoading = Resources.Count == 0;
         PropertyChanged += OnPropertyChanged;
+        _searchService.Resources.CollectionChanged += OnCollectionChanged;
     });
 
     [RelayCommand]
@@ -52,7 +57,7 @@ public sealed partial class SearchPageViewModel : ObservableObject {
         WeakReferenceMessenger.Default.Send(new RequestSearchMessage());
     }
 
-    private async void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
+    private void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
         switch (e.PropertyName) {
             case nameof(MinecraftVersionType):
                 _searchService.MinecraftVersionType = MinecraftVersionType;
@@ -60,18 +65,20 @@ public sealed partial class SearchPageViewModel : ObservableObject {
                 break;
             case nameof(SearchType):
                 _searchService.SearchType = SearchType;
-                await _searchService.SearchResourcesAsync(default);
+                WeakReferenceMessenger.Default.Send(new RequestSearchMessage());
                 break;
             case nameof(SearchSource):
                 _searchService.SearchSource = SearchSource;
                 _searchService.UpdateCategories();
                 Category = _searchService.Category;
-                await _searchService.SearchResourcesAsync(default);
                 break;
             case nameof(Category):
                 _searchService.Category = Category;
-                await _searchService.SearchResourcesAsync(default);
                 break;
         }
+    }
+
+    private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
+        IsLoading = Resources.Count == 0;
     }
 }

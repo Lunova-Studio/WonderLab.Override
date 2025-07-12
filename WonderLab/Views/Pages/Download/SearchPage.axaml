@@ -338,6 +338,15 @@
 			</Grid>
 		</WrapPanel>
 
+		<wc:ProgressRing Width="50"
+						 Height="50"
+						 Background="Transparent"
+						 VerticalAlignment="Center"
+						 HorizontalAlignment="Center"
+						 IsVisible="{Binding IsLoading}"
+						 IsIndeterminate="{Binding IsLoading}"
+						 Grid.Row="1"/>
+		
 		<ScrollViewer Grid.Row="1">
 			<ItemsRepeater Margin="0 0 16 0"
 						   ItemsSource="{Binding Resources}"
