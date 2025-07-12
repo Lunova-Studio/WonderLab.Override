@@ -12,12 +12,14 @@ using MinecraftLaunch.Utilities;
 using Monet.Avalonia;
 using Serilog;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using WonderLab.Classes.Processors;
 using WonderLab.Controls;
 using WonderLab.Extensions;
 using WonderLab.Extensions.Hosting;
+using WonderLab.Override.I18n;
 using WonderLab.Services;
 using WonderLab.Services.Authentication;
 using WonderLab.Services.Auxiliary;
@@ -190,6 +192,8 @@ public sealed partial class App : Application {
                 { "User-Agent", "WonderLab/2.0" },
             },
         });
+
+        I18nExtension.Culture = new CultureInfo("zh-Hans");
 
         ActualThemeVariantChanged += OnActualThemeVariantChanged;
         PlatformSettings.ColorValuesChanged += OnColorValuesChanged;

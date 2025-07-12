@@ -34,7 +34,7 @@
 
 				<Button.Flyout>
 					<MenuFlyout Placement="TopEdgeAlignedLeft">
-						<MenuItem Header="关闭" Command="{Binding CloseCommand}"/>
+						<MenuItem Header="{I18n Close}" Command="{Binding CloseCommand}"/>
 					</MenuFlyout>
 				</Button.Flyout>
 				
@@ -149,15 +149,17 @@
 								<TextBlock Classes="Caption"
 										   HorizontalAlignment="Right"
 										   Foreground="{DynamicResource BottomBarItemForegroundBrush}"
-										   Text="任务中心"/>
+										   Text="{I18n TaskCenter}"/>
 
 								<TextBlock Grid.Row="1"
 										   Classes="Caption"
 										   HorizontalAlignment="Right"
 										   Foreground="{DynamicResource BottomBarItemForegroundBrush}">
-									<Run Text="当前正在执行"/>
-									<Run Text="{Binding Tasks.Count}"/>
-									<Run Text="个任务"/>
+									<TextBlock.Text>
+										<I18n Key="TaskCount_Format">
+											<Binding Path="Tasks.Count"/>
+										</I18n>
+									</TextBlock.Text>
 								</TextBlock>
 							</Grid>
 						</Grid>
@@ -167,7 +169,7 @@
 
 			<ListBoxItem Tag="&#xE80F;"
 						 Foreground="{DynamicResource PrimaryBrush}"
-						 Content="主页">
+						 Content="{I18n Home}">
 				<Interaction.Behaviors>
 					<wb:ListBoxAnimationBehavior/>
 				</Interaction.Behaviors>
@@ -175,7 +177,7 @@
 
 			<ListBoxItem Tag="&#xE896;"
 						 Foreground="{DynamicResource PrimaryBrush}"
-						 Content="下载">
+						 Content="{I18n Download}">
 				<Interaction.Behaviors>
 					<wb:ListBoxAnimationBehavior/>
 				</Interaction.Behaviors>
@@ -183,7 +185,7 @@
 
 			<ListBoxItem Tag="&#xF22C;"
 						 Foreground="{DynamicResource PrimaryBrush}"
-						 Content="联机">
+						 Content="{I18n Multiplayer}">
 				<Interaction.Behaviors>
 					<wb:ListBoxAnimationBehavior/>
 				</Interaction.Behaviors>
@@ -191,7 +193,7 @@
 
 			<ListBoxItem Tag="&#xE713;"
 						 Foreground="{DynamicResource PrimaryBrush}"
-						 Content="设置">
+						 Content="{I18n Settings}">
 				<Interaction.Behaviors>
 					<wb:ListBoxAnimationBehavior/>
 				</Interaction.Behaviors>

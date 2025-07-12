@@ -32,14 +32,13 @@
 			</Grid>
 		</Button>
 		
-		<!--TODO: I18n-->
 		<Button Width="135"
 				Height="40"
 				Grid.Row="2"
 				Classes="progress"
 				HorizontalAlignment="Left"
+				Content="{I18n Launch}"
 				Command="{Binding LaunchCommand}"
-				Content="启动"
 				wa:ButtonExtensions.Value="{Binding CurrentLaunchTask.Progress, FallbackValue=100}">
 		</Button>
 	</Grid>

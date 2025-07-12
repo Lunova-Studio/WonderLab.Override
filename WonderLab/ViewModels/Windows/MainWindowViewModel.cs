@@ -2,13 +2,16 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Globalization;
 using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
 using WonderLab.Classes.Models;
 using WonderLab.Classes.Models.Messaging;
 using WonderLab.Controls;
 using WonderLab.Extensions.Hosting.UI;
+using WonderLab.Override.I18n;
 using WonderLab.Services;
 using WonderLab.Services.Launch;
 
@@ -80,6 +83,7 @@ public sealed partial class MainWindowViewModel : ObservableObject {
     private async Task OnLoaded() {
         await Task.Delay(160);
         ActivePageIndex = 0;
+
         PropertyChanged += OnPropertyChanged;
     }
 

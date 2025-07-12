@@ -19,7 +19,7 @@
 				   VerticalAlignment="Top"
 				   HorizontalAlignment="Left"
 				   Foreground="{DynamicResource ApplicationTitleBarForegroundBrush}"
-				   Text="游戏管理"/>
+				   Text="{I18n GameManager}"/>
 
 		<WrapPanel Grid.Row="1"
 				   Margin="0 16 0 0"
@@ -32,7 +32,7 @@
 								 VerticalAlignment="Center"/>
 					
 					<TextBlock Classes="Body"
-							   Text="安装"/>
+							   Text="{I18n Install}"/>
 				</StackPanel>
 			</Button>
 
@@ -45,10 +45,10 @@
 		<TextBlock Grid.Row="2"
 				   Margin="0 16 0 12"
 				   Classes="BodyStrong"
-				   Text="所有游戏"/>
+				   Text="{I18n AllGames}"/>
 
 		<ContentControl Classes="tip"
-						Content="未安装任何 Minecraft 实例"
+						Content="{I18n NoInstalledGame_Tip}"
 						IsVisible="{Binding HasMinecrafts, Converter={StaticResource BoolReverseConverter}}"
 						Grid.Row="3"/>
 
@@ -101,7 +101,7 @@
 											Classes="primary"
 											Name="PART_LaunchButton"
 											VerticalAlignment="Center"
-											Content="Launch"/>
+											Content="{I18n Launch}"/>
 								</StackPanel>
 							</wc:NavigationTile.Footer>
 						</wc:NavigationTile>

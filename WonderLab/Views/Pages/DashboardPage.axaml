@@ -10,8 +10,8 @@
 			 xmlns:wc="using:WonderLab.Controls"
              x:Class="WonderLab.DashboardPage">
 	<UserControl.Resources>
-		<RecyclingElementFactory x:Key="QuickLaunchTemplateSelector"
-								 SelectTemplateKey="OnSelectTemplateKey">
+		<RecyclingElementFactory SelectTemplateKey="OnSelectTemplateKey"
+								 x:Key="QuickLaunchTemplateSelector">
 			<RecyclingElementFactory.Templates>
 				<DataTemplate x:Key="SinglePlayer"
 							  x:DataType="wm:SinglePlayerSaveModel">
@@ -61,7 +61,7 @@
 									Classes="primary"
 									Name="PART_LaunchButton"
 									VerticalAlignment="Center"
-									Content="Launch"/>
+									Content="{I18n Launch}"/>
 						</Grid>
 					</wc:Tile>
 				</DataTemplate>
@@ -111,7 +111,7 @@
 									Classes="primary"
 									Name="PART_LaunchButton"
 									VerticalAlignment="Center"
-									Content="Launch"/>
+									Content="{I18n Launch}"/>
 						</Grid>
 					</wc:Tile>
 				</DataTemplate>
@@ -129,7 +129,7 @@
 		<TextBlock Classes="Subtitle"
 				   VerticalAlignment="Top"
 				   HorizontalAlignment="Left"
-				   Text="控制中心"/>
+				   Text="{I18n ControlCenter}"/>
 
 		<Button Width="25"
 				Height="25"
@@ -293,7 +293,7 @@
 								 Glyph="&#xF0B2;"/>
 					
 					<TextBlock Classes="Body"
-							   Text="版本隔离"/>
+							   Text="{I18n EnableIndependencyGame}"/>
 				</StackPanel>
 			</ToggleButton>
 
@@ -308,7 +308,7 @@
 								 Glyph="&#xF0E2;"/>
 
 					<TextBlock Classes="Body"
-							   Text="启用版本独立设置"/>
+							   Text="{I18n EnableIndependencySetting}"/>
 				</StackPanel>
 			</ToggleButton>
 		</Grid>
@@ -316,7 +316,7 @@
 		<TextBlock Grid.Row="3"
 				   Margin="0 20 0 8"
 				   Classes="BodyStrong"
-				   Text="快速启动"/>
+				   Text="{I18n QuickLaunch}"/>
 
 		<ContentControl Classes="tip"
 						Content="没有任何 Minecraft 单人存档或多人服务器"

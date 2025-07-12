@@ -17,43 +17,36 @@
 	<ControlTheme TargetType="TextBlock" x:Key="{x:Type TextBlock}">
 		<Style Selector="^.Caption">
 			<Setter Property="FontSize" Value="12"/>
-			<!--<Setter Property="LineHeight" Value="16"/>-->
 			<Setter Property="FontWeight" Value="Regular"/>
 		</Style>
 
 		<Style Selector="^.Body">
 			<Setter Property="FontSize" Value="14"/>
-			<!--<Setter Property="LineHeight" Value="20"/>-->
 			<Setter Property="FontWeight" Value="Regular"/>
 		</Style>
 
 		<Style Selector="^.BodyStrong">
 			<Setter Property="FontSize" Value="14"/>
-			<!--<Setter Property="LineHeight" Value="20"/>-->
 			<Setter Property="FontWeight" Value="SemiBold"/>
 		</Style>
 
 		<Style Selector="^.Subtitle">
 			<Setter Property="FontSize" Value="20"/>
-			<!--<Setter Property="LineHeight" Value="28"/>-->
 			<Setter Property="FontWeight" Value="SemiBold"/>
 		</Style>
 
 		<Style Selector="^.Title">
 			<Setter Property="FontSize" Value="28"/>
-			<!--<Setter Property="LineHeight" Value="36"/>-->
 			<Setter Property="FontWeight" Value="SemiBold"/>
 		</Style>
 
 		<Style Selector="^.TitleLarge">
 			<Setter Property="FontSize" Value="40"/>
-			<!--<Setter Property="LineHeight" Value="52"/>-->
 			<Setter Property="FontWeight" Value="SemiBold"/>
 		</Style>
 
 		<Style Selector="^.Display">
 			<Setter Property="FontSize" Value="68"/>
-			<!--<Setter Property="LineHeight" Value="92"/>-->
 			<Setter Property="FontWeight" Value="SemiBold"/>
 		</Style>
 	</ControlTheme>
