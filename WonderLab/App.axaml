@@ -76,11 +76,12 @@
 			<CornerRadius x:Key="FullCornerRadius">100</CornerRadius>
 			<CornerRadius x:Key="NormalCornerRadius">8</CornerRadius>
 			<CornerRadius x:Key="StrongCornerRadius">12</CornerRadius>
-
+			
 			<wc:TimeTextConverter x:Key="TimeTextConverter"/>
 			<wc:TaskSpeedConverter x:Key="TaskSpeedConverter"/>
 			<wc:ServerIconConverter x:Key="ServerIconConverter"/>
 			<wc:BoolReverseConverter x:Key="BoolReverseConverter"/>
+			<wc:MinecraftTagsConverter x:Key="MinecraftTagsConverter"/>
 			<wc:MinecraftIconConverter x:Key="MinecraftIconConverter"/>
 			<wc:BackEaseValueConverter x:Key="BackEaseValueConverter"/>
 			<wc:OpactiyReverseConverter x:Key="OpactiyReverseConverter"/>

@@ -18,7 +18,6 @@ public sealed class SkiaShaderRenderer : Control {
         var visualHandler = new ShaderDraw();
         _customVisual = comp.CreateCustomVisual(visualHandler);
         ElementComposition.SetElementChildVisual(this, _customVisual);
-        //_customVisual.SendHandlerMessage(EffectDrawBase.StartAnimations);
         if (_sukiEffect != null) 
             _customVisual.SendHandlerMessage(_sukiEffect);
 

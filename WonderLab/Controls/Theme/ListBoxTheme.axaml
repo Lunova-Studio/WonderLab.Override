@@ -81,18 +81,17 @@
 												  CornerRadius="{DynamicResource FullCornerRadius}"
 												  RippleFill="{DynamicResource RippleEffectFillBrush}"/>
 								
-								<Border Width="28"
-										Height="28"
-										Opacity="0"
+								<Border Opacity="0"
 										Name="PART_LayoutBorder"
+										RenderTransform="scale(0.2, 1)"
 										Transitions="{TemplateBinding Transitions}"
 										CornerRadius="{DynamicResource FullCornerRadius}"
 										Background="{DynamicResource BottomBarItemSelectedBackgroundBrush}">
 									<Border.Transitions>
 										<Transitions>
-											<DoubleTransition Property="Width"
-															  Duration="0:0:.25"
-															  Easing="CubicEaseOut"/>
+											<TransformOperationsTransition Duration="0:0:.25"
+																		   Easing="CubicEaseOut"
+																		   Property="RenderTransform"/>
 											
 											<DoubleTransition Duration="0:0:.2"
 															  Property="Opacity"
@@ -136,7 +135,7 @@
 
 						<Style Selector="^ /template/ Border#PART_LayoutBorder">
 							<Setter Property="Opacity" Value="1"/>
-							<Setter Property="Width" Value="{Binding $parent[Panel].Bounds.Width}"/>
+							<Setter Property="RenderTransform" Value="scale(1, 1)"/>
 						</Style>
 					</Style>
 

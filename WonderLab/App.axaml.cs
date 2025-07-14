@@ -193,8 +193,6 @@ public sealed partial class App : Application {
             },
         });
 
-        I18nExtension.Culture = new CultureInfo("zh-Hans");
-
         ActualThemeVariantChanged += OnActualThemeVariantChanged;
         PlatformSettings.ColorValuesChanged += OnColorValuesChanged;
         Get<ILogger<App>>().LogInformation("当前版本号：{version}", new Uri("resm:WonderLab.version.txt").ToText());

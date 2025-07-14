@@ -59,7 +59,7 @@ public sealed partial class DownloadDashboardPageViewModel : ObservableObject {
 
         IsHide = true;
         ActivePageKey = "Download/Search";
-        WeakReferenceMessenger.Default.Send(new RequestPageMessage("搜索"));
+        WeakReferenceMessenger.Default.Send(new RequestPageMessage("Search"));
     }
 
     [RelayCommand]

@@ -4,6 +4,7 @@ using MinecraftLaunch.Extensions;
 using System;
 using System.IO;
 using WonderLab.Classes.Models;
+using WonderLab.Override.I18n;
 using WonderLab.Utilities;
 
 namespace WonderLab.Services;
@@ -26,6 +27,7 @@ public sealed class SettingService {
 
             DownloadMirrorManager.MaxThread = Setting.MaxThread;
             DownloadMirrorManager.IsEnableMirror = Setting.IsEnableMirror;
+            I18nExtension.LanguageCode = Setting.LanguageCode ??= "zh-Hans";
         } catch (Exception ex) {
             _logger.LogError(ex, "遭遇错误：{ex}", ex.ToString());
         }

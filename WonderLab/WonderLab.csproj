@@ -47,6 +47,7 @@
         <AvaloniaResource Remove="Assets\Images\Icons\Icon.1024.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\Icon.icns" />
         <AvaloniaResource Remove="Assets\Images\Icons\Icon.png" />
+        <AvaloniaResource Remove="Assets\Images\Icons\loader_minecraft.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\old_minecraft.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\release_minecraft.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\snapshot_minecraft.png" />
@@ -64,6 +65,7 @@
         <EmbeddedResource Include="Assets\Images\Icons\Icon.1024.png" />
         <EmbeddedResource Include="Assets\Images\Icons\Icon.icns" />
         <EmbeddedResource Include="Assets\Images\Icons\Icon.png" />
+        <EmbeddedResource Include="Assets\Images\Icons\loader_minecraft.png" />
         <EmbeddedResource Include="Assets\Images\Icons\old_minecraft.png" />
         <EmbeddedResource Include="Assets\Images\Icons\release_minecraft.png" />
         <EmbeddedResource Include="Assets\Images\Icons\snapshot_minecraft.png" />
@@ -85,6 +87,7 @@
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
         <PackageReference Include="DialogHost.Avalonia" Version="0.9.3" />
         <PackageReference Include="DotNet.Bundle" Version="0.9.13" />
+        <PackageReference Include="ObservableCollections" Version="3.3.4" />
         <PackageReference Include="Tomlyn" Version="0.19.0" />
         <PackageReference Include="Xaml.Behaviors.Avalonia" Version="11.3.0.10" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-preview.5.25277.114" />

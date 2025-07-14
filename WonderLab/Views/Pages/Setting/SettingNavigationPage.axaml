@@ -25,7 +25,7 @@
 				<DataTemplate>
 					<wce:BreadcrumbBarItem FontSize="28"
 										   FontWeight="SemiBold"
-										   Content="{Binding}"/>
+										   Content="{I18n {Binding}}"/>
 				</DataTemplate>
 			</wce:BreadcrumbBar.ItemTemplate>
 
@@ -74,60 +74,60 @@
 
 					<wc:Tile Classes="empty">
 						<TextBlock Classes="BodyStrong"
-								   Text="游戏"/>
+								   Text="{I18n Game}"/>
 					</wc:Tile>
 
 					<wc:NavigationTile Icon="&#xE945;"
 									   CommandParameter="0"
-									   Title="游戏设置"
+									   Title="{I18n GameSettings}"
 									   Command="{Binding ChangeActivePageCommand}"
-									   Description="全局设置你的游戏启动信息"
+									   Description="{I18n GameSettings_Description}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
 
 					<wc:NavigationTile Icon="&#xEC32;"
 									   CommandParameter="1"
-									   Title="Java 运行时设置"
-									   Description="设置你的 Java 运行时信息"
+									   Title="{I18n JavaSettings}"
 									   Command="{Binding ChangeActivePageCommand}"
+									   Description="{I18n JavaSettings_Description}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
 
 					<wc:NavigationTile Icon="&#xE716;"
 									   CommandParameter="2"
-									   Title="账户设置"
-									   Description="管理你的 Minecraft 账户"
+									   Title="{I18n AccountSettings}"
 									   Command="{Binding ChangeActivePageCommand}"
+									   Description="{I18n AccountSettings_Description}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
 
 					<wc:Tile Classes="empty"
 							 Margin="0 12 0 0">
 						<TextBlock Classes="BodyStrong"
-								   Text="启动器"/>
+								   Text="{I18n Launcher}"/>
 					</wc:Tile>
 
 					<wc:NavigationTile Icon="&#xE701;"
 									   CommandParameter="3"
-									   Title="网络设置"
-									   Description="调整 WonderLab 的最大连接数并设置下载源"
+									   Title="{I18n NetworkSettings}"
 									   Command="{Binding ChangeActivePageCommand}"
+									   Description="{I18n NetworkSettings_Description}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
 
 					<wc:NavigationTile Icon="&#xE790;"
 									   CommandParameter="4"
-									   Title="个性化设置"
-									   Description="设置 WonderLab 的背景特效以及调整明暗主题"
+									   Title="{I18n AppearanceSettings}"
 									   Command="{Binding ChangeActivePageCommand}"
+									   Description="{I18n AppearanceSettings_Description}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
 
 					<wc:Tile Classes="empty"
 							 Margin="0 12 0 0">
 						<TextBlock Classes="BodyStrong"
-								   Text="关于"/>
+								   Text="{I18n About}"/>
 					</wc:Tile>
 
 					<wc:NavigationTile Icon="&#xE736;"
 									   CommandParameter="5"
-									   Title="关于"
-									   Description="启动器的相关信息"
+									   Title="{I18n About}"
+									   Description="{I18n About_Description}"
 									   Command="{Binding ChangeActivePageCommand}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
 				</ListBox>

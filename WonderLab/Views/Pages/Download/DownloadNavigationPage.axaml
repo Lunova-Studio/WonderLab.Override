@@ -23,7 +23,7 @@
 				<DataTemplate>
 					<wce:BreadcrumbBarItem FontSize="28"
 										   FontWeight="SemiBold"
-										   Content="{Binding}"/>
+										   Content="{I18n {Binding}}"/>
 				</DataTemplate>
 			</wce:BreadcrumbBar.ItemTemplate>
 

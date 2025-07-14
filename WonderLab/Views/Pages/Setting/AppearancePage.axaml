@@ -204,7 +204,29 @@
 
 			<wc:SettingCard Icon="&#xF2B7;"
 							Header="选择语言">
-				<ComboBox/>
+				<ComboBox MinWidth="150"
+						  ItemsSource="{Binding Languages}"
+						  SelectedItem="{Binding ActiveLanguage}">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<DockPanel>
+								<TextBlock Classes="Body"
+										   VerticalAlignment="Center"
+										   TextTrimming="CharacterEllipsis"
+										   Text="{Binding DisplayName}"
+										   DockPanel.Dock="Left"/>
+
+								<TextBlock Classes="Body"
+										   Margin="16 0 0 0"
+										   VerticalAlignment="Center"
+										   HorizontalAlignment="Right"
+										   Text="{Binding LanguageCode}"
+										   Foreground="{DynamicResource ApplicationSubtitleForegroundBrush}"
+										   DockPanel.Dock="Right"/>
+							</DockPanel>
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+				</ComboBox>
 			</wc:SettingCard>
 		</ItemsControl>
 	</ScrollViewer>

@@ -15,7 +15,7 @@ public sealed partial class DownloadNavigationPageViewModel : ObservableObject {
     private readonly AvaloniaPageProvider _pageProvider;
 
     [ObservableProperty] private string _activePageKey;
-    [ObservableProperty] private ObservableCollection<string> _headerItems = ["下载"];
+    [ObservableProperty] private ObservableCollection<string> _headerItems = ["Download"];
 
     public AvaloniaPageProvider PageProvider => _pageProvider;
 

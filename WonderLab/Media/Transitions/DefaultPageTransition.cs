@@ -5,6 +5,7 @@ using Avalonia.Controls;
 using Avalonia.Rendering.Composition;
 using Avalonia.Threading;
 using System;
+using System.Diagnostics;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -61,5 +62,10 @@ public sealed class DefaultPageTransition : IPageTransition {
 
         (from as Control).IsHitTestVisible = false;
         (to as Control).IsHitTestVisible = true;
+
+        try {
+            await Task.Delay(Duration, cancellationToken);
+            Debug.WriteLine("animation done!");
+        } catch { }
     }
 }

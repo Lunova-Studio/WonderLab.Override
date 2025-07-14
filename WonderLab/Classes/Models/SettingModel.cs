@@ -22,6 +22,7 @@ public record SettingModel {
     [JsonPropertyName("maxMemorySize")] public int MaxMemorySize { get; set; }
     [JsonPropertyName("minMemorySize")] public int MinMemorySize { get; set; } = 512;
 
+    [JsonPropertyName("languageCode")] public string LanguageCode { get; set; } = null;
     [JsonPropertyName("imagePath")] public string ImagePath { get; set; } = string.Empty;
     [JsonPropertyName("activeGameId")] public string ActiveGameId { get; set; } = string.Empty;
     [JsonPropertyName("serverAddress")] public string ServerAddress { get; set; } = string.Empty;

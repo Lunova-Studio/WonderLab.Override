@@ -13,10 +13,13 @@ using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
+using WonderLab.Classes.Models.I18n;
+using WonderLab.Override.I18n;
 using WonderLab.Services;
 
 namespace WonderLab.ViewModels.Pages.Setting;
@@ -30,6 +33,7 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
     [ObservableProperty] private ThemeType _activeTheme;
     [ObservableProperty] private bool _isEnableSystemColor;
     [ObservableProperty] private bool _isEnableBitmapColor;
+    [ObservableProperty] private LanguageInfo _activeLanguage;
     [ObservableProperty] private Variant _activeColorVariant;
     [ObservableProperty] private KeyValuePair<uint, string> _activeColor;
     [ObservableProperty] private IReadOnlyDictionary<uint, string> _colors;
@@ -40,6 +44,13 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
     private BackgroundType _activeBackground;
 
     public bool IsBitmapBackground => ActiveBackground is BackgroundType.Bitmap;
+    public static List<LanguageInfo> Languages => [
+        new("zh-Hans", "简体中文"),
+        new("zh-Hant", "繁體中文"),
+        new("zh-lzh", "文言文"),
+        new("en-US", "English"),
+        new("ja-JP", "日本語"),
+    ];
 
     public AppearancePageViewModel(SettingService settingService, ThemeService themeService, ILogger<AppearancePageViewModel> logger) {
         _logger = logger;
@@ -55,6 +66,7 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
         ActiveColorVariant = _settingService.Setting.ActiveColorVariant;
         IsEnableSystemColor = _settingService.Setting.IsEnableSystemColor;
         IsEnableBitmapColor = _settingService.Setting.IsEnableBitmapColor;
+        ActiveLanguage = Languages.FirstOrDefault(x => x.LanguageCode == _settingService.Setting.LanguageCode);
         ActiveColor = _themeService.MonetColors.FirstOrDefault(x => x.Key == _settingService.Setting.ActiveColor);
     }
 
@@ -128,7 +140,6 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
                     break;
 
                 case nameof(IsEnableSystemColor):
-                    // 切换系统色时，自动关闭图片主色提取
                     IsEnableBitmapColor = _settingService.Setting.IsEnableBitmapColor = !IsEnableSystemColor && IsEnableBitmapColor;
                     _settingService.Setting.IsEnableSystemColor = IsEnableSystemColor;
                     if (IsEnableSystemColor)
@@ -145,6 +156,10 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
                     _settingService.Setting.IsEnableBitmapColor = IsEnableBitmapColor;
                     if (IsEnableBitmapColor)
                         AutoSelectBitmapPrimaryColorAsync();
+                    break;
+
+                case nameof(ActiveLanguage):
+                    _settingService.Setting.LanguageCode = I18nExtension.LanguageCode = ActiveLanguage.LanguageCode;
                     break;
             }
         }, DispatcherPriority.Background);
