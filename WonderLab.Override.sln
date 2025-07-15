@@ -19,12 +19,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WonderLab.SourceGenerator",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WonderLab.SourceGenerator.Attributes", "WonderLab.SourceGenerator.Attributes\WonderLab.SourceGenerator.Attributes.csproj", "{D35E261B-9BD3-4A60-A3E8-696DD7C6E97C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "I18n", "I18n", "{DF282AED-9558-4BB8-B047-BCECEB28E91A}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{23EF53E6-5102-4D6A-B0E1-0640E766F20D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteSkinViewer.2D", "refs\LiteSkinViewer\LiteSkinViewer.2D\LiteSkinViewer.2D.csproj", "{DD12FB77-C95A-B00D-08B7-241783C28CCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteSkinViewer.Shared", "refs\LiteSkinViewer\LiteSkinViewer.Shared\LiteSkinViewer.Shared.csproj", "{26CECA9D-4E31-22FA-42D7-8684FA17BEC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteSkinViewer.3D", "refs\LiteSkinViewer\LiteSkinViewer.3D\LiteSkinViewer.3D.csproj", "{14D8A29C-7C11-B811-1A54-FA133A625C83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,16 +60,30 @@ Global
 		{D35E261B-9BD3-4A60-A3E8-696DD7C6E97C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D35E261B-9BD3-4A60-A3E8-696DD7C6E97C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D35E261B-9BD3-4A60-A3E8-696DD7C6E97C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD12FB77-C95A-B00D-08B7-241783C28CCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD12FB77-C95A-B00D-08B7-241783C28CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD12FB77-C95A-B00D-08B7-241783C28CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD12FB77-C95A-B00D-08B7-241783C28CCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26CECA9D-4E31-22FA-42D7-8684FA17BEC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26CECA9D-4E31-22FA-42D7-8684FA17BEC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26CECA9D-4E31-22FA-42D7-8684FA17BEC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26CECA9D-4E31-22FA-42D7-8684FA17BEC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14D8A29C-7C11-B811-1A54-FA133A625C83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14D8A29C-7C11-B811-1A54-FA133A625C83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14D8A29C-7C11-B811-1A54-FA133A625C83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14D8A29C-7C11-B811-1A54-FA133A625C83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{6B952F55-28BE-0A3E-28F4-DA9851539196} = {DF282AED-9558-4BB8-B047-BCECEB28E91A}
 		{1AB63E08-E670-F8FC-3341-512B2A1F7B18} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{8F0C39FD-82C0-7389-C87F-B81B2584889C} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{B8EBFBC0-BE84-4CDB-AFFE-AE6D2A8FCC94} = {50499423-9383-434C-AA89-162AE3ADEC25}
 		{D35E261B-9BD3-4A60-A3E8-696DD7C6E97C} = {50499423-9383-434C-AA89-162AE3ADEC25}
+		{DD12FB77-C95A-B00D-08B7-241783C28CCF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{26CECA9D-4E31-22FA-42D7-8684FA17BEC6} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{14D8A29C-7C11-B811-1A54-FA133A625C83} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0C808D3E-F7AB-41DF-B008-C4C9026BCDCE}

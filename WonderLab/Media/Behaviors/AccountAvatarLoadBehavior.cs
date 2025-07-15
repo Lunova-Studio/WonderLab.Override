@@ -4,8 +4,11 @@ using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
 using Avalonia.Xaml.Interactivity;
+using LiteSkinViewer2D;
+using LiteSkinViewer2D.Extensions;
 using Microsoft.Extensions.Logging;
 using MinecraftLaunch.Base.Models.Authentication;
+using SkiaSharp;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -54,12 +57,12 @@ public sealed partial class AccountAvatarLoadBehavior : Behavior<Border> {
             await LoadAvatarAsync();
 
         async Task LoadAvatarAsync() {
-            var skinData = await SkinUtil
-                .GetSkinDataAsync(Account, _cancellationTokenSource.Token);
+            var skinData = await SkinUtil.GetSkinDataAsync(Account, 
+                _cancellationTokenSource.Token);
 
             Dispatcher.UIThread.Post(() => {
-                var avatar = SkinUtil.CroppedSkinAvatar(skinData);
-                var brush = new ImageBrush(avatar).ToImmutable();
+                var avatar = HeadCapturer.Default.Capture(SKBitmap.Decode(skinData));
+                var brush = new ImageBrush(avatar.ToBitmap()).ToImmutable();
 
                 //Why does null trigger here??
                 if (Account is null)
