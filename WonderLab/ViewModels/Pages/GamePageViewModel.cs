@@ -13,7 +13,7 @@ using WonderLab.Services.Launch;
 
 namespace WonderLab.ViewModels.Pages;
 
-public sealed partial class GamePageViewModel : ObservableObject {
+public sealed partial class GamePageViewModel : PageViewModelBase {
     private readonly GameService _gameService;
     private readonly ILogger<GamePageViewModel> _logger;
     private readonly ObservableDictionary<string, IEnumerable<MinecraftEntry>> _minecraftsDict = [];
@@ -31,15 +31,6 @@ public sealed partial class GamePageViewModel : ObservableObject {
 
         Minecrafts = _minecraftsDict.ToNotifyCollectionChanged();
     }
-
-    [RelayCommand]
-    private Task OnLoaded() => Task.Run(async () => {
-        await Task.Delay(100);
-        _gameService?.RefreshGames();
-        _minecraftsDict.Add("All", _gameService.Minecrafts);
-
-        HasMinecrafts = _minecraftsDict.Count > 0;
-    });
 
     [RelayCommand]
     private void ActiveMinecraft(MinecraftEntry minecraft) {
@@ -82,5 +73,12 @@ public sealed partial class GamePageViewModel : ObservableObject {
         foreach (var group in lookup) {
             _minecraftsDict[group.Key] = group;
         }
+    }
+
+    protected override void OnNavigated() {
+        _gameService?.RefreshGames();
+        _minecraftsDict.Add("All", _gameService.Minecrafts);
+
+        HasMinecrafts = _minecraftsDict.Count > 0;
     }
 }

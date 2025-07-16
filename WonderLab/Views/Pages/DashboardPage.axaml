@@ -120,8 +120,8 @@
 	</UserControl.Resources>
 
 	<Interaction.Behaviors>
-		<EventTriggerBehavior EventName="Loaded">
-			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		<EventTriggerBehavior EventName="Navigated">
+			<InvokeCommandAction Command="{Binding NavigatedCommand}"/>
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
 	

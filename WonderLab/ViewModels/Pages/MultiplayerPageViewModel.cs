@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace WonderLab.ViewModels.Pages;
 
-public sealed partial class MultiplayerPageViewModel : ObservableObject {
+public sealed partial class MultiplayerPageViewModel : PageViewModelBase {
 }

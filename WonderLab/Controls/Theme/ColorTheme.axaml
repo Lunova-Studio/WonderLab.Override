@@ -132,4 +132,10 @@
 
 	<SolidColorBrush x:Key="TagBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
 	<SolidColorBrush x:Key="TagForegroundBrush" Color="{DynamicResource OnPrimaryColor}"/>
+
+	<SolidColorBrush x:Key="PrimaryMenuItemPointerOverBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="PrimaryMenuItemPointerOverForegroundBrush" Color="{DynamicResource OnPrimaryColor}"/>
+
+	<SolidColorBrush x:Key="ErrorMenuItemPointerOverBackgroundBrush" Color="{DynamicResource ErrorColor}"/>
+	<SolidColorBrush x:Key="ErrorMenuItemPointerOverForegroundBrush" Color="{DynamicResource OnErrorColor}"/>
 </ResourceDictionary>

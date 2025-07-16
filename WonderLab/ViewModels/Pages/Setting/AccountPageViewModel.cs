@@ -9,22 +9,16 @@ using WonderLab.Services.Authentication;
 
 namespace WonderLab.ViewModels.Pages.Setting;
 
-public sealed partial class AccountPageViewModel : ObservableObject {
+public sealed partial class AccountPageViewModel : PageViewModelBase {
     private readonly DialogService _dialogService;
     private readonly AccountService _accountService;
 
     [ObservableProperty] private bool _hasAccounts;
-
-    public ReadOnlyObservableCollection<Account> Accounts { get; set; }
+    [ObservableProperty] private ReadOnlyObservableCollection<Account> _accounts;
 
     public AccountPageViewModel(AccountService accountService, DialogService dialogService) {
         _dialogService = dialogService;
         _accountService = accountService;
-
-        Accounts = new(_accountService.Accounts);
-
-        HasAccounts = Accounts.Count is > 0;
-        _accountService.Accounts.CollectionChanged += OnCollectionChanged;
     }
 
     [RelayCommand]
@@ -39,5 +33,17 @@ public sealed partial class AccountPageViewModel : ObservableObject {
 
     private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
         HasAccounts = Accounts.Count is > 0;
+    }
+
+    protected override void OnNavigated() {
+        Accounts = new(_accountService.Accounts);
+        HasAccounts = Accounts.Count is > 0;
+
+        _accountService.Accounts.CollectionChanged += OnCollectionChanged;
+    }
+
+    protected override void OnUnNavigated() {
+        base.OnUnNavigated();
+        _accountService.Accounts.CollectionChanged -= OnCollectionChanged;
     }
 }

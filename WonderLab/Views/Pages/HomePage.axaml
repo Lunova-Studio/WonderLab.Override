@@ -5,7 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:wa="using:WonderLab.Media.Attachments"
 			 xmlns:wb="using:WonderLab.Media.Behaviors"
-             x:Class="WonderLab.Views.Pages.HomePage">
+             x:Class="WonderLab.Views.Pages.HomePage">	
 	<Grid VerticalAlignment="Bottom"
 		  HorizontalAlignment="Left"
 		  RowDefinitions="Auto, 10, Auto">

@@ -27,9 +27,9 @@ public sealed partial class DashboardPageViewModel : DynamicPageViewModelBase {
         _accountService = accountService;
     }
 
-    [RelayCommand]
-    private Task OnLoaded() => Task.Run(async () => {
-        await Task.Delay(400);
+    partial void OnActiveAccountChanged(Account value) => _accountService.ActivateAccount(value);
+
+    protected override void OnNavigated() => Task.Run(async () => {
         await _saveService.RefreshSavesAsync();
 
         LastSaves = new(_saveService.Saves);
@@ -39,6 +39,4 @@ public sealed partial class DashboardPageViewModel : DynamicPageViewModelBase {
         HasSaves = LastSaves.Count > 0;
         _logger.LogInformation("Loaded {count} save", LastSaves.Count);
     });
-
-    partial void OnActiveAccountChanged(Account value) => _accountService.ActivateAccount(value);
 }

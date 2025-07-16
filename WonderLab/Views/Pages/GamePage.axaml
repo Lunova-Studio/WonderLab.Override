@@ -15,6 +15,31 @@
 		<ItemsPanelTemplate x:Key="ItemsControlPanel">
 			<StackPanel Spacing="4" Orientation="Horizontal"/>
 		</ItemsPanelTemplate>
+
+		<ContextMenu x:Key="MinecraftItemContextMenu">
+			<MenuItem Icon="&#xE768;"
+					  Classes="primary"
+					  Header="{I18n Launch}"/>
+			
+			<MenuItem Header="-"/>
+			
+			<MenuItem Icon="&#xE713;"
+					  Header="{I18n Settings}"
+					  CommandParameter="{Binding}"
+					  Command="{Binding Path=DataContext.OpenGameSettingPageCommand, ElementName=PART_ItemsRepeater}"/>
+			
+			<MenuItem Icon="&#xE8DA;"
+					  Header="{I18n OpenFolder}"/>
+			
+			<MenuItem Icon="&#xE8C8;"
+					  Header="{I18n CopyPath}"/>
+			
+			<MenuItem Header="-"/>
+			
+			<MenuItem Icon="&#xE74D;"
+					  Classes="error"
+					  Header="{I18n Delete}"/>
+		</ContextMenu>
 		
 		<DataTemplate x:Key="MinecraftItemTemplate">
 			<wc:Tile Padding="8"
@@ -26,6 +51,7 @@
 					 VerticalContentAlignment="Stretch"
 					 HorizontalContentAlignment="Stretch"
 					 CommandParameter="{Binding}"
+					 ContextMenu="{StaticResource MinecraftItemContextMenu}"
 					 Command="{Binding Path=DataContext.ActiveMinecraftCommand, ElementName=PART_ItemsRepeater}">
 				<wc:Tile.Transitions>
 					<Transitions>
@@ -50,29 +76,39 @@
 							   Grid.Column="1"
 							   Margin="8 0 16 0"
 							   Classes="BodyStrong"
-							   Text="{Binding Id}"
 							   VerticalAlignment="Top"
-							   TextTrimming="CharacterEllipsis"/>
+							   TextTrimming="CharacterEllipsis"
+							   Text="{Binding Id}"/>
 
-					<ItemsControl Margin="8 2 0 0"
+					<ItemsControl Margin="8 2 16 0"
 								  VerticalAlignment="Center"
 								  ItemTemplate="{StaticResource TagTemplate}"
 								  ItemsPanel="{StaticResource ItemsControlPanel}"
 								  ItemsSource="{Binding, Converter={StaticResource MinecraftTagsConverter}}"
 								  Grid.Row="1"
 								  Grid.Column="1"/>
+
+					<Button Width="28"
+							Height="28"
+							FontSize="15"
+							Classes="icon"
+							Content="&#xE713;"
+							CommandParameter="{Binding}"
+							Command="{Binding Path=DataContext.OpenGameSettingPageCommand, ElementName=PART_ItemsRepeater}"
+							Grid.Column="2"
+							Grid.RowSpan="2"/>
 				</Grid>
 			</wc:Tile>
 		</DataTemplate>
 	</UserControl.Resources>
-	
+
 	<Interaction.Behaviors>
-		<EventTriggerBehavior EventName="Loaded">
-			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		<EventTriggerBehavior EventName="Navigated">
+			<InvokeCommandAction Command="{Binding NavigatedCommand}"/>
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
 
-	<Grid RowDefinitions="auto auto auto 1*">
+	<Grid RowDefinitions="auto auto auto *">
 		<TextBlock Classes="Title"
 				   Margin="0 12 0 0"
 				   VerticalAlignment="Top"

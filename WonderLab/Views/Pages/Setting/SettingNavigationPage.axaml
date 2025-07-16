@@ -38,21 +38,17 @@
 		</wce:BreadcrumbBar>
 		
 		<Grid Grid.Row="1">
-			<ContentControl Opacity="0"
-							ZIndex="{Binding ContentBarOpactiy, Converter={StaticResource OpactiyReverseConverter}}">
-				<Interaction.Behaviors>
-					<wb:SettingNavigationToBehavior IsForward="{Binding IsForward, Converter={StaticResource BoolReverseConverter}}"
-													PageKey="{Binding ActivePageKey}"
-													PageProvider="{Binding PageProvider}"/>
-				</Interaction.Behaviors>
-			</ContentControl>
+			<Interaction.Behaviors>
+				<wb:SettingNavigationBehavior PageKey="{Binding ActivePageKey}"
+											  PageProvider="{Binding PageProvider}"
+											  ToControl="{Binding ElementName=PART_ContentControl}"
+											  FromControl="{Binding ElementName=PART_NavigationScrollViewer}"/>
+			</Interaction.Behaviors>
+			
+			<ContentControl Opacity="0" Name="PART_ContentControl"
+							ZIndex="{Binding ContentBarOpactiy, Converter={StaticResource OpactiyReverseConverter}}"/>
 
-			<ScrollViewer ZIndex="{Binding ContentBarOpactiy}">
-				<Interaction.Behaviors>
-					<wb:SettingNavigationFromBehavior IsForward="{Binding IsForward}"
-													  PageKey="{Binding ActivePageKey}"/>
-				</Interaction.Behaviors>
-				
+			<ScrollViewer Name="PART_NavigationScrollViewer" ZIndex="{Binding ContentBarOpactiy}">				
 				<ListBox Margin="0 0 8 0"
 						 Name="PART_TileListBox"
 						 VerticalAlignment="Stretch"

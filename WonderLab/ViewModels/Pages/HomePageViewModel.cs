@@ -11,7 +11,7 @@ using WonderLab.ViewModels.Tasks;
 
 namespace WonderLab.ViewModels.Pages;
 
-public sealed partial class HomePageViewModel : ObservableObject {
+public sealed partial class HomePageViewModel : PageViewModelBase {
     private readonly GameService _gameService;
     private readonly LaunchService _launchService;
     private readonly SettingService _settingService;

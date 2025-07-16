@@ -12,7 +12,7 @@ using WonderLab.Services.Download;
 
 namespace WonderLab.ViewModels.Pages.Download;
 
-public sealed partial class SearchPageViewModel : ObservableObject {
+public sealed partial class SearchPageViewModel : PageViewModelBase {
     private readonly SearchService _searchService;
 
     [ObservableProperty] private bool _isLoading = true;

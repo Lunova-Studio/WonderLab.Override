@@ -11,7 +11,7 @@ using WonderLab.Extensions.Hosting.UI;
 
 namespace WonderLab.ViewModels.Pages.Download;
 
-public sealed partial class DownloadNavigationPageViewModel : ObservableObject {
+public sealed partial class DownloadNavigationPageViewModel : PageViewModelBase {
     private readonly AvaloniaPageProvider _pageProvider;
 
     [ObservableProperty] private string _activePageKey;

@@ -9,7 +9,6 @@ using WonderLab.Extensions.Hosting.UI;
 namespace WonderLab.ViewModels.Pages.Setting;
 
 public sealed partial class SettingNavigationPageViewModel : ObservableObject {
-    [ObservableProperty] private bool _isForward;
     [ObservableProperty] private object _activePage;
     [ObservableProperty] private string _activePageKey;
     [ObservableProperty] private bool _isPaginationMode;
@@ -24,17 +23,12 @@ public sealed partial class SettingNavigationPageViewModel : ObservableObject {
     }
 
     [RelayCommand]
-    private void OnLoaded() {
-    }
-
-    [RelayCommand]
     private void OnItemClicked(BreadcrumbBarItemClickedEventArgs arg) {
         if (HeaderItems.Count != 2 || arg.Index != 0 || IsPaginationMode)
             return;
 
         ContentBarOpactiy = 1;
         ActivePageKey = string.Empty;
-        IsForward = !IsForward;
 
         HeaderItems.Remove(HeaderItems.Last());
     }
@@ -57,7 +51,6 @@ public sealed partial class SettingNavigationPageViewModel : ObservableObject {
             _ => "Setting/Launch"
         };
 
-        IsForward = !IsForward;
         HeaderItems.Add(ActivePageKey.Split("/")[1]);
         ContentBarOpactiy = IsPaginationMode ? 1 : 0;
     }

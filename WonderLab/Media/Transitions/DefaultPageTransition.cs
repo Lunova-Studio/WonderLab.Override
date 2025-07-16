@@ -65,7 +65,6 @@ public sealed class DefaultPageTransition : IPageTransition {
 
         try {
             await Task.Delay(Duration, cancellationToken);
-            Debug.WriteLine("animation done!");
         } catch { }
     }
 }

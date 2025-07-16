@@ -13,7 +13,7 @@ using WonderLab.Services.Download;
 
 namespace WonderLab.ViewModels.Pages.Download;
 
-public sealed partial class DownloadDashboardPageViewModel : ObservableObject {
+public sealed partial class DownloadDashboardPageViewModel : PageViewModelBase {
     private readonly SearchService _searchService;
     private readonly AvaloniaPageProvider _pageProvider;
 

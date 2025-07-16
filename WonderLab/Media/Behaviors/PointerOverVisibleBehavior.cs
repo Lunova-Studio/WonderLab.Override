@@ -19,9 +19,7 @@ public sealed partial class PointerOverVisibleBehavior : Behavior {
         if (Target is null)
             throw new RenderTargetNotReadyException();
 
-        var compositionVisual = ElementComposition.GetElementVisual(Target);
-        compositionVisual.Opacity = 0;
-        compositionVisual.Visible = false;
+        Target.IsVisible = false;
 
         if (AssociatedObject is Control control) {
             control.PointerExited += OnPointerExited;
@@ -39,31 +37,10 @@ public sealed partial class PointerOverVisibleBehavior : Behavior {
     }
 
     private void OnPointerExited(object sender, PointerEventArgs e) {
-        var compositionVisual = ElementComposition.GetElementVisual(Target);
-        compositionVisual.Visible = false;
+        Target.IsVisible = false;
     }
 
     private void OnPointerEntered(object sender, PointerEventArgs e) {
-        var compositionVisual = ElementComposition.GetElementVisual(Target);
-        var xPoint = compositionVisual.Offset.X;
-        var yPoint = compositionVisual.Offset.Y;
-
-        compositionVisual.Visible = true;
-        var opacityAni = CompositionAnimationUtil.CreateScalarAnimation(compositionVisual, 0, 1,
-            TimeSpan.FromSeconds(0.2), new CubicEaseOut());
-
-        var offsetAni = CompositionAnimationUtil.CreateVector3Animation(compositionVisual,
-            new((float)xPoint, 35, 0),
-            new((float)xPoint, (float)yPoint, 0), TimeSpan.FromSeconds(0.25), new WonderBackEaseOut() { Amplitude = Classes.Enums.Amplitude.Strong});
-
-
-        offsetAni.Target = CompositionAnimationUtil.PROPERTY_OFFSET;
-        opacityAni.Target = CompositionAnimationUtil.PROPERTY_OPACITY;
-
-        var aniGroup = compositionVisual.Compositor.CreateAnimationGroup();
-        aniGroup.Add(offsetAni);
-        aniGroup.Add(opacityAni);
-
-        compositionVisual.StartAnimationGroup(aniGroup);
+        Target.IsVisible = true;
     }
 }

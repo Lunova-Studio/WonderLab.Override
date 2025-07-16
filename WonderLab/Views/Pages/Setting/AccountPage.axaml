@@ -7,6 +7,12 @@
 			 xmlns:wb="using:WonderLab.Media.Behaviors"
 			 xmlns:wc="using:WonderLab.Controls"
              x:Class="WonderLab.AccountPage">
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Navigated">
+			<InvokeCommandAction Command="{Binding NavigatedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
+	
 	<ScrollViewer>
 		<ItemsControl Margin="0 0 16 24"
 					  wa:ItemsControlExtensions.AnimatedScroll="True">
