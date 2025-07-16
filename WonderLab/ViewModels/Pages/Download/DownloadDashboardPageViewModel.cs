@@ -83,12 +83,12 @@ public sealed partial class DownloadDashboardPageViewModel : PageViewModelBase {
 
     [RelayCommand]
     private Task Search() => Task.Run(async () => {
+        if (string.IsNullOrEmpty(Keyword))
+            return;
+
         IsEnterKeyDown = true;
         HasSearchCache = SearchCaches.Count > 0;
-        if (string.IsNullOrEmpty(Keyword))
-            IsHide = true;
-        else
-            JumpToSearchPageCommand.Execute(default);
+        JumpToSearchPageCommand.Execute(default);
 
         await _searchService.SearchAsync(Keyword, _searchService.SearchType, default);
     });

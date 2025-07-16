@@ -35,8 +35,7 @@
 			  ColumnDefinitions="* auto"
 			  Name="PART_SearchBoxLayout"
 			  Grid.Row="0">
-			<TextBox Margin="0 0 8 0"
-					 Classes="underline"
+			<TextBox Classes="underline"
 					 Text="{Binding Keyword}"
 					 Name="PART_SearchTextBox"
 					 Watermark="在此键入进行搜索"
@@ -58,6 +57,7 @@
 			</TextBox>
 
 			<ComboBox Width="120"
+					  Margin="8 0 0 0"
 					  CornerRadius="6"
 					  Name="PART_FilterComboBox"
 					  HorizontalAlignment="Right"
@@ -158,7 +158,7 @@
 							ClipToBounds="True"
 							CornerRadius="{DynamicResource NormalCornerRadius}"
 							Grid.Row="1">
-						<Carousel Name="PART_FeaturedResourcesCarousel" Focusable="True"
+						<Carousel Name="PART_FeaturedResourcesCarousel"
 								  ItemsSource="{Binding FeaturedResources}"
 								  SelectedIndex="{Binding FeaturedResourcesIndex}">
 							<Carousel.PageTransition>
@@ -176,8 +176,7 @@
 										<Grid Margin="8 8"
 											  RowDefinitions="* auto auto"
 											  ColumnDefinitions="auto 8 *">
-											<Border MinHeight="150"
-													CornerRadius="6"
+											<Border CornerRadius="6"
 													Margin="0 0 0 8"
 													Grid.Row="0"
 													Grid.ColumnSpan="3">

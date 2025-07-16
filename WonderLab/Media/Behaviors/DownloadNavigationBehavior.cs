@@ -170,13 +170,24 @@ public sealed partial class SearchAnimationBehavior : Behavior {
 
     private async void RunHideTargetAnimation() {
         double hideWidth = IsHide ? 0d : 120d;
+        Thickness marginTargetMargin = IsHide
+            ? new(0, HideTarget.Margin.Top, HideTarget.Margin.Right, HideTarget.Margin.Bottom)
+            : new(8, HideTarget.Margin.Top, HideTarget.Margin.Right, HideTarget.Margin.Bottom);
 
-        await HideTarget.Animate(Layoutable.WidthProperty)
+        var widthTask = HideTarget.Animate(Layoutable.WidthProperty)
             .WithEasing(new ExponentialEaseOut())
             .WithDuration(TimeSpan.FromSeconds(0.35))
             .From(HideTarget.Width)
             .To(hideWidth)
             .RunAsync(_cancellationTokenSource.Token);
+
+        var marginTask = HideTarget.Animate(Layoutable.MarginProperty)
+            .WithDuration(TimeSpan.FromSeconds(1))
+            .From(HideTarget.Margin)
+            .To(marginTargetMargin)
+            .RunAsync(_cancellationTokenSource.Token);
+
+        await Task.WhenAll([widthTask, marginTask]);
     }
 
     private void OnPropertyChanged(object sender, AvaloniaPropertyChangedEventArgs e) {
