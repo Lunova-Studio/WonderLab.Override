@@ -69,7 +69,7 @@
 											 Property="Foreground"
 											 Easing="ExponentialEaseOut"/>
 
-							<BrushTransition Duration="0:0:0.15"
+							<BrushTransition Duration="0:0:0.08"
 											 Property="Background"/>
 						</Transitions>
 					</Setter>
@@ -78,6 +78,8 @@
 						<ControlTemplate>
 							<Panel>
 								<wc:RippleControl Name="PART_RippleControl"
+												  Background="{TemplateBinding Background}"
+												  Transitions="{TemplateBinding Transitions}"
 												  CornerRadius="{DynamicResource FullCornerRadius}"
 												  RippleFill="{DynamicResource RippleEffectFillBrush}"/>
 								
@@ -140,7 +142,7 @@
 					</Style>
 
 					<Style Selector="^:pointerover">
-						<Setter Property="Background" Value="{DynamicResource BottomBarItemPointeroverBackgroundBrush}"/>
+						<Setter Property="Background" Value="{DynamicResource BottomBarItemPointerOverBackgroundBrush}"/>
 					</Style>
 				</ControlTheme>
 			</Setter>

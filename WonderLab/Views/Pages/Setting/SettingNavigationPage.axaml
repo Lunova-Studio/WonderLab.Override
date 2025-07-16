@@ -45,11 +45,15 @@
 											  FromControl="{Binding ElementName=PART_NavigationScrollViewer}"/>
 			</Interaction.Behaviors>
 			
-			<ContentControl Opacity="0" Name="PART_ContentControl"
+			<ContentControl Opacity="0"
+							MaxWidth="1000"
+							Name="PART_ContentControl"
 							ZIndex="{Binding ContentBarOpactiy, Converter={StaticResource OpactiyReverseConverter}}"/>
 
-			<ScrollViewer Name="PART_NavigationScrollViewer" ZIndex="{Binding ContentBarOpactiy}">				
-				<ListBox Margin="0 0 8 0"
+			<ScrollViewer Name="PART_NavigationScrollViewer"
+						  ZIndex="{Binding ContentBarOpactiy}">				
+				<ListBox MaxWidth="1000"
+						 Margin="0 0 8 0"
 						 Name="PART_TileListBox"
 						 VerticalAlignment="Stretch"
 						 HorizontalAlignment="Stretch"

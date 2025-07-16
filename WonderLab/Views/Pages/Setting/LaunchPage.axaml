@@ -26,7 +26,7 @@
 
 			<wc:SettingCard Icon="&#xE8F4;"
 							Header="导入目录">
-				<Button Classes="secondary"
+				<Button Classes="settings"
 						Content="添加"
 						Command="{Binding BrowserFolderCommand}"/>
 			</wc:SettingCard>
@@ -34,10 +34,8 @@
 			<wc:SettingCard Icon="&#xE8F6;"
 							Header="移除当前目录">
 				<Button Content="移除"
-						Classes="secondary"
-						Command="{Binding RemoveFolderCommand}"
-						Background="{DynamicResource TertiaryContainerColor}"
-						Foreground="{DynamicResource OnTertiaryContainerColor}"/>
+						Classes="settingsDelete"
+						Command="{Binding RemoveFolderCommand}"/>
 			</wc:SettingCard>
 
 			<TextBlock Margin="0 12 0 0"
