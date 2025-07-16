@@ -63,6 +63,7 @@
 				<ResourceInclude Source="/Controls/Theme/ToggleButtonTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ToggleSwitchTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ProgressRingTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/NumericUpDownTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/RippleControlTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/DropDownButtonTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/HyperlinkButtonTheme.axaml"/>

@@ -1,0 +1,142 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wc="using:WonderLab.Controls">
+	<Design.PreviewWith>
+		<Border Padding="20">
+			<StackPanel Spacing="20">
+				<NumericUpDown Minimum="0"
+							   Maximum="10"
+							   Increment="0.5"
+							   Watermark="Enter text" />
+			</StackPanel>
+		</Border>
+	</Design.PreviewWith>
+
+	<ControlTheme x:Key="{x:Type ButtonSpinner}" TargetType="ButtonSpinner">
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+		<Setter Property="CornerRadius" Value="{DynamicResource WeakCornerRadius}"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<DataValidationErrors>
+					<Border MinHeight="{TemplateBinding MinHeight}"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							CornerRadius="{TemplateBinding CornerRadius}"
+							BorderThickness="{TemplateBinding BorderThickness}">
+						<StackPanel TabIndex="2"
+									Name="PART_SpinnerPanel"
+									Orientation="Horizontal"
+									IsVisible="{TemplateBinding ShowButtonSpinner}">
+							<RepeatButton Name="PART_IncreaseButton"
+										  VerticalAlignment="Stretch"
+										  VerticalContentAlignment="Center"
+										  IsTabStop="{TemplateBinding IsTabStop}"
+										  Background="{TemplateBinding Background}"
+										  Foreground="{TemplateBinding Foreground}"
+										  BorderBrush="{TemplateBinding BorderBrush}"
+										  Theme="{StaticResource MaterialButtonSpinnerRepeatButton}">
+								<wc:FontIcon FontSize="14"
+											 Glyph="&#xE70E;"/>
+							</RepeatButton>
+
+							<RepeatButton Name="PART_DecreaseButton"
+										  VerticalAlignment="Stretch"
+										  VerticalContentAlignment="Center"
+										  IsTabStop="{TemplateBinding IsTabStop}"
+										  Background="{TemplateBinding Background}"
+										  Foreground="{TemplateBinding Foreground}"
+										  BorderBrush="{TemplateBinding BorderBrush}"
+										  Theme="{StaticResource MaterialButtonSpinnerRepeatButton}">
+								<wc:FontIcon FontSize="14"
+											 Glyph="&#xE70D;"/>
+							</RepeatButton>
+						</StackPanel>
+					</Border>
+				</DataValidationErrors>
+			</ControlTemplate>
+		</Setter>
+
+		<Style Selector="^:error">
+			<Setter Property="BorderBrush" Value="{DynamicResource SystemErrorTextColor}" />
+		</Style>
+	</ControlTheme>
+
+	<ControlTheme x:Key="MaterialButtonSpinnerRepeatButton" TargetType="RepeatButton">
+		<Setter Property="MinWidth" Value="22"/>
+		<Setter Property="MinHeight" Value="22"/>
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="CornerRadius" Value="{StaticResource FullCornerRadius}"/>
+
+		<Setter Property="Template">
+			<ControlTemplate>
+				<wc:RippleControl ClipToBounds="False"
+								  Name="PART_RippleControl"
+								  Width="{TemplateBinding Width}"
+								  Height="{TemplateBinding Height}"
+								  FontSize="{TemplateBinding FontSize}"
+								  Background="{TemplateBinding Background}"
+								  CornerRadius="{TemplateBinding CornerRadius}"
+								  RippleFill="{DynamicResource RippleEffectFillBrush}">
+					<wc:RippleControl.Transitions>
+						<Transitions>
+							<BrushTransition Duration="0:0:.08"
+											 Property="Background"/>
+						</Transitions>
+					</wc:RippleControl.Transitions>
+
+					<ContentPresenter x:Name="PART_ContentPresenter"
+									  Padding="{TemplateBinding Padding}"
+									  Content="{TemplateBinding Content}"
+									  Background="{TemplateBinding Background}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  ContentTemplate="{TemplateBinding ContentTemplate}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+				</wc:RippleControl>
+			</ControlTemplate>
+		</Setter>
+
+		<Style Selector="^:pointerover">
+			<Setter Property="Background" Value="{DynamicResource ButtonPointerOverBackgroundBrush}"/>
+		</Style>
+	</ControlTheme>
+	
+	<ControlTheme x:Key="{x:Type NumericUpDown}" TargetType="NumericUpDown">
+		<Setter Property="MinWidth" Value="120"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="CornerRadius" Value="{DynamicResource WeakCornerRadius}"/>
+		
+		<Setter Property="Template">
+			<ControlTemplate>
+				<DataValidationErrors>
+					<TextBox Name="PART_TextBox"
+							 AcceptsReturn="False"
+							 TextWrapping="NoWrap"
+							 Text="{TemplateBinding Text}"
+							 MinWidth="{TemplateBinding MinWidth}"
+							 Watermark="{TemplateBinding Watermark}"
+							 Foreground="{TemplateBinding Foreground}"
+							 IsReadOnly="{TemplateBinding IsReadOnly}"
+							 TextAlignment="{TemplateBinding TextAlignment}"
+							 VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+							 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
+						<TextBox.InnerRightContent>
+							<ButtonSpinner IsTabStop="False"
+										   Name="PART_Spinner"
+										   Margin="2 0 4 0"
+										   HorizontalContentAlignment="Stretch"
+										   VerticalContentAlignment="Stretch"
+										   AllowSpin="{TemplateBinding AllowSpin}"
+										   ShowButtonSpinner="{TemplateBinding ShowButtonSpinner}"
+										   ButtonSpinnerLocation="{TemplateBinding ButtonSpinnerLocation}"/>
+						</TextBox.InnerRightContent>
+					</TextBox>
+				</DataValidationErrors>
+			</ControlTemplate>
+		</Setter>
+	</ControlTheme>
+</ResourceDictionary>
