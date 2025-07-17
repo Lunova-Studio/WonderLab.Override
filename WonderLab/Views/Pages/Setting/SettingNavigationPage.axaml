@@ -43,11 +43,13 @@
 			<Interaction.Behaviors>
 				<wb:SettingNavigationBehavior PageKey="{Binding ActivePageKey}"
 											  PageProvider="{Binding PageProvider}"
-											  FromControl="{Binding ElementName=PART_TileListBox}"
-											  ToControl="{Binding ElementName=PART_ContentControl}"/>
+											  ToControl="{Binding ElementName=PART_ContentControl}"
+											  FromControl="{Binding ElementName=PART_NavigationScrollViewer}"/>
 			</Interaction.Behaviors>
 
-			<ScrollViewer ZIndex="{Binding ContentBarOpactiy, Converter={StaticResource OpactiyReverseConverter}}">
+			<ScrollViewer Name="PART_ContentScrollViewer"
+						  ZIndex="{Binding ContentBarOpactiy, Converter={StaticResource OpactiyReverseConverter}}"
+						  Opacity="{Binding ContentBarOpactiy, Converter={StaticResource OpactiyReverseConverter}}">
 				<ContentControl Opacity="0"
 								MaxWidth="1000"
 								Name="PART_ContentControl"

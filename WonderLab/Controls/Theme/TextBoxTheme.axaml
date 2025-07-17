@@ -141,6 +141,20 @@
 												  Content="{TemplateBinding InnerRightContent}"/>
 							</Grid>
 						</Border>
+
+						<Border Opacity="0"
+								BorderThickness="2"
+								Name="PART_Indicator"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								CornerRadius="{TemplateBinding CornerRadius}">
+							<Border.Transitions>
+								<Transitions>
+									<DoubleTransition Duration="0:0:.25"
+													  Property="Opacity"
+													  Easing="CubicEaseOut"/>
+								</Transitions>
+							</Border.Transitions>
+						</Border>
 					</Panel>
 				</DataValidationErrors>
 			</ControlTemplate>
@@ -148,10 +162,12 @@
 
 		<!-- Focused State -->
 		<Style Selector="^:focus">
-			<Setter Property="BorderThickness" Value="2"/>
 			<Setter Property="CaretBrush" Value="{DynamicResource TextBoxCaretBrush}"/>
 			<Setter Property="BorderBrush" Value="{DynamicResource TextBoxFocusedBorderBrush}"/>
-			<!--<Setter Property="Foreground" Value="{DynamicResource TextBoxFocusedForegroundBrush}"/>-->
+
+			<Style Selector="^ /template/ Border#PART_Indicator">
+				<Setter Property="Opacity" Value="1"/>
+			</Style>
 		</Style>
 		
 		<!-- Disabled State -->

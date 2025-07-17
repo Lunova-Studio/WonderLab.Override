@@ -25,8 +25,8 @@ using WonderLab.Utilities;
 namespace WonderLab.Controls;
 
 [StyledProperty(typeof(string), "ImagePath")]
-[StyledProperty(typeof(BackgroundType), "BackgroundType", BackgroundType.SolidColor)]
 [StyledProperty(typeof(double), "ShieldBackgroundOpacity")]
+[StyledProperty(typeof(BackgroundType), "BackgroundType", BackgroundType.SolidColor)]
 [TemplatePart("PART_CloseButton", typeof(Button), IsRequired = true)]
 [TemplatePart("PART_MinimizeButton", typeof(Button), IsRequired = true)]
 public partial class WonderWindow : Window {
@@ -40,7 +40,7 @@ public partial class WonderWindow : Window {
     protected override async void OnLoaded(RoutedEventArgs e) {
         base.OnLoaded(e);
 
-        await Task.Delay(10);
+        await Task.Delay(100);
         if (BackgroundType is BackgroundType.Bitmap) {
             _PART_BackgroundBorder.Margin = new(-50);
             _PART_BackgroundBorder.Effect = new BlurEffect() {
@@ -136,21 +136,12 @@ public partial class WonderWindow : Window {
     }
 
     private async void RunInitAnimation() {
-        var task = _PART_BackgroundBorder.Animate(MarginProperty)
+        await _PART_BackgroundBorder.Animate(MarginProperty)
             .WithEasing(new ExponentialEaseOut())
             .WithDuration(TimeSpan.FromSeconds(1))
             .From(_PART_BackgroundBorder.Margin)
             .To(new(0))
             .RunAsync(_cancellationTokenSource.Token);
-
-        var task1 = _PART_BackgroundBorder.Animate(EffectProperty)
-            .WithEasing(new ExponentialEaseOut())
-            .WithDuration(TimeSpan.FromSeconds(0.8))
-            .From(_PART_BackgroundBorder.Effect)
-            .To(new BlurEffect() { Radius = 0f })
-            .RunAsync(_cancellationTokenSource.Token);
-
-        await Task.WhenAll(task, task1);
     }
 
     private async void RunBlurAnimation() {
@@ -159,21 +150,12 @@ public partial class WonderWindow : Window {
             _cancellationTokenSource = new();
         }
 
-        var task = _PART_BackgroundBorder.Animate(MarginProperty)
+        await _PART_BackgroundBorder.Animate(MarginProperty)
             .WithEasing(new ExponentialEaseOut())
             .WithDuration(TimeSpan.FromSeconds(1))
             .From(_PART_BackgroundBorder.Margin)
             .To(new(-50))
             .RunAsync(_cancellationTokenSource.Token);
-
-        var task1 = _PART_BackgroundBorder.Animate(EffectProperty)
-            .WithEasing(new ExponentialEaseOut())
-            .WithDuration(TimeSpan.FromSeconds(0.8))
-            .From(_PART_BackgroundBorder.Effect)
-            .To(new BlurEffect() { Radius = 50f })
-            .RunAsync(_cancellationTokenSource.Token);
-
-        await Task.WhenAll(task, task1);
     }
 
     private async void RunClearBlurAnimation() {
@@ -182,20 +164,11 @@ public partial class WonderWindow : Window {
             _cancellationTokenSource = new();
         }
 
-        var task = _PART_BackgroundBorder.Animate(MarginProperty)
+        await _PART_BackgroundBorder.Animate(MarginProperty)
             .WithEasing(new ExponentialEaseOut())
             .WithDuration(TimeSpan.FromSeconds(1))
             .From(_PART_BackgroundBorder.Margin)
             .To(new(0))
             .RunAsync(_cancellationTokenSource.Token);
-
-        var task1 = _PART_BackgroundBorder.Animate(EffectProperty)
-            .WithEasing(new ExponentialEaseOut())
-            .WithDuration(TimeSpan.FromSeconds(0.8))
-            .From(_PART_BackgroundBorder.Effect)
-            .To(new BlurEffect() { Radius = 0f })
-            .RunAsync(_cancellationTokenSource.Token);
-
-        await Task.WhenAll(task, task1);
     }
 }
