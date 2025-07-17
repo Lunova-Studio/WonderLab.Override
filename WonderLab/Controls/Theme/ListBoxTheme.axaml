@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wa="using:WonderLab.Media.Attachments"
 					xmlns:wc="using:WonderLab.Controls"
 					xmlns:wb="using:WonderLab.Media.Behaviors">
 	<Design.PreviewWith>
@@ -14,6 +15,7 @@
 
 	<ControlTheme TargetType="ListBox" x:Key="{x:Type ListBox}">
 		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="wa:AnimatedScrollExtensions.AnimatedScroll" Value="True"/>
 		
 		<Setter Property="Template">
 			<ControlTemplate>
@@ -150,6 +152,223 @@
 			<Style Selector="^.bottombar /template/ ScrollViewer#PART_ScrollViewer">
 				<Setter Property="Margin" Value="16 0 0 0"/>
 			</Style>
+		</Style>
+
+		<Style Selector="^.segmented">
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="CornerRadius" Value="{StaticResource NormalCornerRadius}"/>
+			<Setter Property="BorderBrush" Value="{DynamicResource SegmentedBorderBrush}"/>
+
+			<Setter Property="ItemsPanel">
+				<ItemsPanelTemplate>
+					<StackPanel Margin="4" Spacing="4" Orientation="Horizontal"/>
+				</ItemsPanelTemplate>
+			</Setter>
+			
+			<Setter Property="ItemContainerTheme">
+				<ControlTheme TargetType="ListBoxItem">
+					<Setter Property="Height" Value="28"/>
+					<Setter Property="MinWidth" Value="80"/>
+					<Setter Property="VerticalAlignment" Value="Center"/>
+					<Setter Property="Background" Value="Transparent"/>
+					<Setter Property="CornerRadius" Value="{StaticResource WeakCornerRadius}"/>
+					<Setter Property="Transitions">
+						<Transitions>
+							<BrushTransition Duration="0:0:0.25"
+											 Property="Foreground"
+											 Easing="ExponentialEaseOut"/>
+
+							<BrushTransition Duration="0:0:0.08"
+											 Property="Background"/>
+						</Transitions>
+					</Setter>
+
+					<Setter Property="Template">
+						<ControlTemplate>
+							<Panel>
+								<Border Name="PART_Layout"
+										Background="{TemplateBinding Background}"
+										CornerRadius="{TemplateBinding CornerRadius}">
+									<StackPanel Spacing="8"
+												Orientation="Horizontal"
+												VerticalAlignment="Center"
+												HorizontalAlignment="Center">
+										<wc:FontIcon FontSize="14"
+													 VerticalAlignment="Center"
+													 Glyph="{TemplateBinding Tag}"/>
+
+										<ContentPresenter Name="PART_ContentPresenter"
+														  Content="{TemplateBinding Content}"
+														  Padding="{TemplateBinding Padding}"
+														  BorderBrush="{TemplateBinding BorderBrush}"
+														  ContentTemplate="{TemplateBinding ContentTemplate}"
+														  BorderThickness="{TemplateBinding BorderThickness}"
+														  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+														  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+									</StackPanel>
+								</Border>
+								
+								<Border Width="5"
+										Opacity="0"
+										Height="3.5"
+										UseLayoutRounding="False"
+										Name="PART_SelectedBorder"
+										VerticalAlignment="Bottom"
+										HorizontalAlignment="Center"
+										CornerRadius="{StaticResource FullCornerRadius}"
+										Background="{DynamicResource ListBoxItemIndicatorBackgroundBrush}">
+									<Border.Transitions>
+										<Transitions>
+											<DoubleTransition Property="Width"
+															  Duration="0:0:.25"
+															  Easing="ExponentialEaseOut"/>
+
+											<DoubleTransition Property="Opacity"
+															  Duration="0:0:.15"/>
+										</Transitions>
+									</Border.Transitions>
+								</Border>
+							</Panel>
+						</ControlTemplate>
+					</Setter>
+
+					<Style Selector="^:pointerover /template/ Border#PART_Layout">
+						<Setter Property="Background" Value="{DynamicResource ListBoxItemPointeroverBackgroundBrush}" />
+					</Style>
+
+					<Style Selector="^:pressed /template/ Border#PART_Layout">
+						<Setter Property="Background" Value="{DynamicResource ListBoxItemPointerPressedBackgroundBrush}" />
+					</Style>
+
+					<Style Selector="^:selected">
+						<Style Selector="^ /template/ Border#PART_Layout">
+							<Setter Property="Background" Value="{DynamicResource ListBoxItemSelectedBackgroundBrush}" />
+						</Style>
+
+						<Style Selector="^ /template/ Border#PART_SelectedBorder">
+							<Setter Property="Width" Value="20" />
+							<Setter Property="Opacity" Value="1" />
+						</Style>
+
+						<Style Selector="^:pointerover /template/ Border#PART_Layout">
+							<Setter Property="Background" Value="{DynamicResource ListBoxItemSelectedPointeroverBackgroundBrush}" />
+						</Style>
+
+						<Style Selector="^:pressed /template/ Border#PART_Layout">
+							<Setter Property="Background" Value="{DynamicResource ListBoxItemSelectedPointerPressedBackgroundBrush}" />
+						</Style>
+
+						<Style Selector="^:pressed /template/ Border#PART_SelectedBorder">
+							<Setter Property="Width" Value="14" />
+						</Style>
+					</Style>
+				</ControlTheme>
+			</Setter>
+
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							CornerRadius="{TemplateBinding CornerRadius}"
+							ClipToBounds="{TemplateBinding ClipToBounds}"
+							BorderThickness="{TemplateBinding BorderThickness}">
+						<ScrollViewer Name="PART_ScrollViewer"
+									  AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+									  VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}"
+									  IsScrollInertiaEnabled="{TemplateBinding (ScrollViewer.IsScrollInertiaEnabled)}"
+									  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+									  HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}"
+									  IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
+									  BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+									  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+									  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}">
+							<ItemsPresenter Name="PART_ItemsPresenter"
+											Margin="{TemplateBinding Padding}"
+											ItemsPanel="{TemplateBinding ItemsPanel}"/>
+						</ScrollViewer>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="^.colors">
+			<Setter Property="ItemsPanel">
+				<ItemsPanelTemplate>
+					<WrapPanel ItemSpacing="8"
+							   LineSpacing="8"
+							   Orientation="Horizontal"/>
+				</ItemsPanelTemplate>
+			</Setter>
+
+			<Setter Property="ItemContainerTheme">
+				<ControlTheme TargetType="ListBoxItem">
+					<Setter Property="MinWidth" Value="20"/>
+					<Setter Property="MinHeight" Value="20"/>
+					<Setter Property="BorderThickness" Value="2"/>
+					<Setter Property="Background" Value="Transparent"/>
+					<Setter Property="CornerRadius" Value="{StaticResource FullCornerRadius}"/>
+					<Setter Property="BorderBrush" Value="Transparent"/>
+					<Setter Property="Transitions">
+						<Transitions>
+							<BrushTransition Duration="0:0:0.25"
+											 Property="Foreground"
+											 Easing="ExponentialEaseOut"/>
+
+							<BrushTransition Duration="0:0:0.08"
+											 Property="Background"/>
+						</Transitions>
+					</Setter>
+
+					<Setter Property="Template">
+						<ControlTemplate>
+							<ContentPresenter Padding="0"
+											  Name="PART_ContentPresenter"
+											  Width="{TemplateBinding Width}"
+											  Height="{TemplateBinding Height}"
+											  Content="{TemplateBinding Content}"
+											  Background="{TemplateBinding Background}"
+											  BorderBrush="{TemplateBinding BorderBrush}"
+											  CornerRadius="{TemplateBinding CornerRadius}"
+											  BorderThickness="{TemplateBinding BorderThickness}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"/>
+						</ControlTemplate>
+					</Setter>
+
+					<Style Selector="^:selected">
+						<Setter Property="BorderBrush" Value="{DynamicResource SegmentedBorderBrush}"/>
+					</Style>
+				</ControlTheme>
+			</Setter>
+
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							CornerRadius="{TemplateBinding CornerRadius}"
+							ClipToBounds="{TemplateBinding ClipToBounds}"
+							BorderThickness="{TemplateBinding BorderThickness}">
+						<ScrollViewer Name="PART_ScrollViewer"
+									  AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+									  VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}"
+									  IsScrollInertiaEnabled="{TemplateBinding (ScrollViewer.IsScrollInertiaEnabled)}"
+									  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+									  HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}"
+									  IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
+									  BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+									  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+									  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}">
+							<ItemsPresenter Name="PART_ItemsPresenter"
+											Margin="{TemplateBinding Padding}"
+											ItemsPanel="{TemplateBinding ItemsPanel}"/>
+						</ScrollViewer>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+
+		</Style>
+
+		<Style Selector="^:disabled">
+			<Setter Property="Opacity" Value="0.6"/>
 		</Style>
 	</ControlTheme>
 </ResourceDictionary>

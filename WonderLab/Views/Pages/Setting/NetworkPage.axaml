@@ -7,25 +7,23 @@
 			 xmlns:wc="using:WonderLab.Controls"
 			 xmlns:wa="using:WonderLab.Media.Attachments"
              x:Class="WonderLab.Views.Pages.Setting.NetworkPage">
-	<ScrollViewer>
-		<ItemsControl Margin="0 0 16 0"
-					  wa:ItemsControlExtensions.AnimatedScroll="True">
-			<ItemsControl.ItemsPanel>
-				<ItemsPanelTemplate>
-					<StackPanel Spacing="8"/>
-				</ItemsPanelTemplate>
-			</ItemsControl.ItemsPanel>
+	<ItemsControl Margin="0 0 16 24">
+		<ItemsControl.ItemsPanel>
+			<ItemsPanelTemplate>
+				<StackPanel Spacing="8"/>
+			</ItemsPanelTemplate>
+		</ItemsControl.ItemsPanel>
 
-			<TextBlock Classes="BodyStrong"
-					   Text="基础网络设置"/>
-
+		<wc:SettingCards Header="基础网络设置">
 			<wc:SettingCard Icon="&#xEBD3;"
 							Header="使用镜像下载源">
-				<StackPanel Spacing="12" 
+				<StackPanel Spacing="12"
 							Orientation="Horizontal">
 					<ToggleSwitch IsChecked="{Binding IsEnableMirror}"/>
 				</StackPanel>
 			</wc:SettingCard>
+
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
 			<wc:SettingCard Icon="&#xEC4A;"
 							Header="最大下载线程数">
@@ -42,6 +40,6 @@
 							Value="{Binding MaxThread}"/>
 				</StackPanel>
 			</wc:SettingCard>
-		</ItemsControl>
-	</ScrollViewer>
+		</wc:SettingCards>
+	</ItemsControl>
 </UserControl>

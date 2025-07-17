@@ -13,11 +13,11 @@ using SixLabors.ImageSharp.PixelFormats;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
+using WonderLab.Classes.Models;
 using WonderLab.Classes.Models.I18n;
 using WonderLab.Override.I18n;
 using WonderLab.Services;
@@ -30,13 +30,13 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
     private readonly ILogger<AppearancePageViewModel> _logger;
 
     [ObservableProperty] private string _imagePath;
-    [ObservableProperty] private ThemeType _activeTheme;
+    [ObservableProperty] private int _activeThemeIndex;
     [ObservableProperty] private bool _isEnableSystemColor;
     [ObservableProperty] private bool _isEnableBitmapColor;
-    [ObservableProperty] private LanguageInfo _activeLanguage;
+    [ObservableProperty] private ColorInfo _activeColor;
     [ObservableProperty] private Variant _activeColorVariant;
-    [ObservableProperty] private KeyValuePair<uint, string> _activeColor;
-    [ObservableProperty] private IReadOnlyDictionary<uint, string> _colors;
+    [ObservableProperty] private LanguageInfo _activeLanguage;
+    [ObservableProperty] private IReadOnlyList<ColorInfo> _colors;
     [ObservableProperty] private ReadOnlyObservableCollection<BackgroundType> _backgrounds;
 
     [ObservableProperty]
@@ -59,15 +59,22 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
 
         Backgrounds = new(_themeService.BackgroundTypes);
 
-        Colors = _themeService.MonetColors;
+        Colors = _themeService.ColorInfos;
         ImagePath = _settingService.Setting.ImagePath;
-        ActiveTheme = _settingService.Setting.ActiveTheme;
         ActiveBackground = _settingService.Setting.ActiveBackground;
         ActiveColorVariant = _settingService.Setting.ActiveColorVariant;
         IsEnableSystemColor = _settingService.Setting.IsEnableSystemColor;
         IsEnableBitmapColor = _settingService.Setting.IsEnableBitmapColor;
         ActiveLanguage = Languages.FirstOrDefault(x => x.LanguageCode == _settingService.Setting.LanguageCode);
-        ActiveColor = _themeService.MonetColors.FirstOrDefault(x => x.Key == _settingService.Setting.ActiveColor);
+        ActiveThemeIndex = _settingService.Setting.ActiveTheme switch {
+            ThemeType.Auto => 0,
+            ThemeType.Dark => 2,
+            ThemeType.Light => 1,
+            _ => 0,
+        };
+
+        ActiveColor = _themeService.ColorInfos.FirstOrDefault(x => x.ColorData == _settingService.Setting.ActiveColor) ??
+            _themeService.ColorInfos.FirstOrDefault(x => x.Key == "Red")!;
     }
 
     [RelayCommand]
@@ -105,13 +112,19 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
     private async void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
         await Dispatcher.UIThread.InvokeAsync(() => {
             switch (e.PropertyName) {
-                case nameof(ActiveTheme):
-                    _settingService.Setting.ActiveTheme = ActiveTheme;
-                    Application.Current.RequestedThemeVariant = ActiveTheme switch {
-                        ThemeType.Auto => ThemeVariant.Default,
-                        ThemeType.Dark => ThemeVariant.Dark,
-                        ThemeType.Light => ThemeVariant.Light,
-                        _ => ThemeVariant.Light,
+                case nameof(ActiveThemeIndex):
+                    _settingService.Setting.ActiveTheme = ActiveThemeIndex switch {
+                        0 => ThemeType.Auto,
+                        1 => ThemeType.Light,
+                        2 => ThemeType.Dark,
+                        _ => ThemeType.Auto,
+                    };
+
+                    Application.Current.RequestedThemeVariant = ActiveThemeIndex switch {
+                        0 => ThemeVariant.Default,
+                        2 => ThemeVariant.Dark,
+                        1 => ThemeVariant.Light,
+                        _ => ThemeVariant.Light
                     };
                     break;
 
@@ -136,7 +149,7 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
                     if (IsEnableSystemColor)
                         _themeService.UseSystemColor();
                     else
-                        _themeService.UpdateColorScheme(ActiveColorVariant, ActiveColor.Key);
+                        _themeService.UpdateColorScheme(ActiveColorVariant, ActiveColor.ColorData);
                     break;
 
                 case nameof(IsEnableSystemColor):
@@ -149,7 +162,7 @@ public sealed partial class AppearancePageViewModel : ObservableObject {
                     break;
 
                 case nameof(ActiveColor):
-                    _themeService.UpdateColorScheme(ActiveColorVariant, _settingService.Setting.ActiveColor = ActiveColor.Key);
+                    _themeService.UpdateColorScheme(ActiveColorVariant, _settingService.Setting.ActiveColor = ActiveColor.ColorData);
                     break;
 
                 case nameof(IsEnableBitmapColor):

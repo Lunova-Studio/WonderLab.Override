@@ -15,12 +15,14 @@
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
 	
-	<Grid RowDefinitions="Auto, *">
-		<wce:BreadcrumbBar Grid.Row="0"
-						   Margin="0 12"
+	<Grid RowDefinitions="auto, *">
+		<wce:BreadcrumbBar Margin="0 12"
+						   MaxWidth="1000"
 						   VerticalAlignment="Top"
-						   HorizontalAlignment="Left"
-						   ItemsSource="{Binding HeaderItems}">
+						   HorizontalAlignment="Stretch"
+						   ItemsSource="{Binding HeaderItems}"
+						   Grid.Row="0"
+						   wa:AnimatedScrollExtensions.AnimatedScroll="True">
 			<wce:BreadcrumbBar.ItemTemplate>
 				<DataTemplate>
 					<wce:BreadcrumbBarItem FontSize="28"
@@ -41,14 +43,16 @@
 			<Interaction.Behaviors>
 				<wb:SettingNavigationBehavior PageKey="{Binding ActivePageKey}"
 											  PageProvider="{Binding PageProvider}"
-											  ToControl="{Binding ElementName=PART_ContentControl}"
-											  FromControl="{Binding ElementName=PART_NavigationScrollViewer}"/>
+											  FromControl="{Binding ElementName=PART_TileListBox}"
+											  ToControl="{Binding ElementName=PART_ContentControl}"/>
 			</Interaction.Behaviors>
-			
-			<ContentControl Opacity="0"
-							MaxWidth="1000"
-							Name="PART_ContentControl"
-							ZIndex="{Binding ContentBarOpactiy, Converter={StaticResource OpactiyReverseConverter}}"/>
+
+			<ScrollViewer ZIndex="{Binding ContentBarOpactiy, Converter={StaticResource OpactiyReverseConverter}}">
+				<ContentControl Opacity="0"
+								MaxWidth="1000"
+								Name="PART_ContentControl"
+								wa:AnimatedScrollExtensions.AnimatedScroll="True"/>
+			</ScrollViewer>
 
 			<ScrollViewer Name="PART_NavigationScrollViewer"
 						  ZIndex="{Binding ContentBarOpactiy}">				
@@ -56,8 +60,7 @@
 						 Margin="0 0 8 0"
 						 Name="PART_TileListBox"
 						 VerticalAlignment="Stretch"
-						 HorizontalAlignment="Stretch"
-						 wa:ListBoxExtensions.AnimatedScroll="True">
+						 HorizontalAlignment="Stretch">
 					<ListBox.Transitions>
 						<Transitions>
 							<DoubleTransition Property="Opacity"

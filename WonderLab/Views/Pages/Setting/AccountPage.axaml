@@ -12,19 +12,15 @@
 			<InvokeCommandAction Command="{Binding NavigatedCommand}"/>
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
-	
-	<ScrollViewer>
-		<ItemsControl Margin="0 0 16 24"
-					  wa:ItemsControlExtensions.AnimatedScroll="True">
-			<ItemsControl.ItemsPanel>
-				<ItemsPanelTemplate>
-					<StackPanel Spacing="8"/>
-				</ItemsPanelTemplate>
-			</ItemsControl.ItemsPanel>
 
-			<TextBlock Classes="BodyStrong"
-					   Text="账户管理"/>
+	<ItemsControl Margin="0 0 16 24">
+		<ItemsControl.ItemsPanel>
+			<ItemsPanelTemplate>
+				<StackPanel Spacing="8"/>
+			</ItemsPanelTemplate>
+		</ItemsControl.ItemsPanel>
 
+		<wc:SettingCards Header="账户管理">
 			<wc:SettingCard Icon="&#xE8FA;"
 							Header="添加账户">
 				<Button Classes="secondary"
@@ -36,93 +32,93 @@
 							Header="是否在启动前自动刷新账户">
 				<ToggleSwitch/>
 			</wc:SettingCard>
+		</wc:SettingCards>
 
-			<TextBlock Margin="0 12 0 0"
-					   Classes="BodyStrong"
-					   Text="所有账户"/>
+		<TextBlock Margin="0 12 0 0"
+				   Classes="BodyStrong"
+				   Text="所有账户"/>
 
-			<ContentControl Classes="tip"
-							Content="没有账户哦喵~"
-							IsVisible="{Binding HasAccounts, Converter={StaticResource BoolReverseConverter}}"/>
-			
-			<ItemsRepeater ItemsSource="{Binding Accounts}">
-				<ItemsRepeater.Layout>
-					<UniformGridLayout MinItemWidth="260"
-									   ItemsStretch="Fill"
-									   MinRowSpacing="4"
-									   MinColumnSpacing="4"
-									   ItemsJustification="Start"/>
-				</ItemsRepeater.Layout>
+		<ContentControl Classes="tip"
+						Content="没有账户哦喵~"
+						IsVisible="{Binding HasAccounts, Converter={StaticResource BoolReverseConverter}}"/>
 
-				<ItemsRepeater.ItemTemplate>
-					<DataTemplate>
-						<wc:Tile Padding="8"
-								 Height="68"
-								 MinHeight="35"
-								 MinWidth="80"
-								 BorderThickness="2"
-								 IsEnableAnimation="False"
-								 VerticalContentAlignment="Stretch"
-								 HorizontalContentAlignment="Stretch"
-								 Loaded="OnAccountCardLoaded">
-							<wc:Tile.Transitions>
-								<Transitions>
-									<BrushTransition Duration="0:0:.35"
-													 Easing="CubicEaseOut"
-													 Property="BorderBrush"/>
-								</Transitions>
-							</wc:Tile.Transitions>
-							
-							<Interaction.Behaviors>
-								<wb:PointerOverVisibleBehavior Target="{Binding ElementName=PART_Button}"/>
-							</Interaction.Behaviors>
-							
-							<Grid RowDefinitions="auto auto"
-								  ColumnDefinitions="auto auto * auto">
-								<Border Width="38"
-										Height="38"
-										Grid.RowSpan="2">
-									<Interaction.Behaviors>
-										<wb:AccountAvatarLoadBehavior Account="{Binding}"/>
-									</Interaction.Behaviors>
+		<ItemsRepeater ItemsSource="{Binding Accounts}">
+			<ItemsRepeater.Layout>
+				<UniformGridLayout MinItemWidth="260"
+								   ItemsStretch="Fill"
+								   MinRowSpacing="4"
+								   MinColumnSpacing="4"
+								   ItemsJustification="Start"/>
+			</ItemsRepeater.Layout>
 
-									<Border.Effect>
-										<DropShadowEffect BlurRadius="4" OffsetX="0" OffsetY="1" Color="#40000000"/>
-									</Border.Effect>
-								</Border>
+			<ItemsRepeater.ItemTemplate>
+				<DataTemplate>
+					<wc:Tile Padding="8"
+							 Height="68"
+							 MinHeight="35"
+							 MinWidth="80"
+							 BorderThickness="2"
+							 IsEnableAnimation="False"
+							 VerticalContentAlignment="Stretch"
+							 HorizontalContentAlignment="Stretch"
+							 Loaded="OnAccountCardLoaded">
+						<wc:Tile.Transitions>
+							<Transitions>
+								<BrushTransition Duration="0:0:.35"
+												 Easing="CubicEaseOut"
+												 Property="BorderBrush"/>
+							</Transitions>
+						</wc:Tile.Transitions>
 
-								<TextBlock Grid.Row="0"
-										   Grid.Column="1"
-										   Margin="8 0 0 0"
-										   Classes="BodyStrong"
-										   Text="{Binding Name}"
-										   VerticalAlignment="Center"
-										   TextTrimming="CharacterEllipsis"/>
+						<Interaction.Behaviors>
+							<wb:PointerOverVisibleBehavior Target="{Binding ElementName=PART_Button}"/>
+						</Interaction.Behaviors>
 
-								<TextBlock Grid.Row="1"
-										   Grid.Column="1"
-										   Margin="8 -2 0 0"
-										   Classes="Caption"
-										   Text="{Binding Type}"
-										   VerticalAlignment="Center"
-										   Foreground="{DynamicResource ApplicationSubtitleForegroundBrush}"/>
+						<Grid RowDefinitions="auto auto"
+							  ColumnDefinitions="auto auto * auto">
+							<Border Width="38"
+									Height="38"
+									Grid.RowSpan="2">
+								<Interaction.Behaviors>
+									<wb:AccountAvatarLoadBehavior Account="{Binding}"/>
+								</Interaction.Behaviors>
 
-								<Button Padding="0"
-										MinWidth="50"
-										MinHeight="28"
-										Grid.Column="3"
-										Grid.RowSpan="2"
-										Classes="primary"
-										Name="PART_Button"
-										VerticalAlignment="Center"
-										Content="选择"
-										CommandParameter="{Binding}"
-										Command="{Binding $parent[ItemsRepeater].DataContext.ActiveAccountCommand}"/>
-							</Grid>
-						</wc:Tile>
-					</DataTemplate>
-				</ItemsRepeater.ItemTemplate>
-			</ItemsRepeater>
-		</ItemsControl>
-	</ScrollViewer>
+								<Border.Effect>
+									<DropShadowEffect BlurRadius="4" OffsetX="0" OffsetY="1" Color="#40000000"/>
+								</Border.Effect>
+							</Border>
+
+							<TextBlock Grid.Row="0"
+									   Grid.Column="1"
+									   Margin="8 0 0 0"
+									   Classes="BodyStrong"
+									   Text="{Binding Name}"
+									   VerticalAlignment="Center"
+									   TextTrimming="CharacterEllipsis"/>
+
+							<TextBlock Grid.Row="1"
+									   Grid.Column="1"
+									   Margin="8 -2 0 0"
+									   Classes="Caption"
+									   Text="{Binding Type}"
+									   VerticalAlignment="Center"
+									   Foreground="{DynamicResource ApplicationSubtitleForegroundBrush}"/>
+
+							<Button Padding="0"
+									MinWidth="50"
+									MinHeight="28"
+									Grid.Column="3"
+									Grid.RowSpan="2"
+									Classes="primary"
+									Name="PART_Button"
+									VerticalAlignment="Center"
+									Content="选择"
+									CommandParameter="{Binding}"
+									Command="{Binding $parent[ItemsRepeater].DataContext.ActiveAccountCommand}"/>
+						</Grid>
+					</wc:Tile>
+				</DataTemplate>
+			</ItemsRepeater.ItemTemplate>
+		</ItemsRepeater>
+	</ItemsControl>
 </UserControl>

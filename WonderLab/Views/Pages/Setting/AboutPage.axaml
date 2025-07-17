@@ -6,36 +6,33 @@
 			 xmlns:wa="using:WonderLab.Media.Attachments"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="WonderLab.AboutPage">
-	<ScrollViewer>
-		<ItemsControl Margin="0 0 16 24"
-					  wa:ItemsControlExtensions.AnimatedScroll="True">
-			<ItemsControl.ItemsPanel>
-				<ItemsPanelTemplate>
-					<StackPanel Spacing="8"/>
-				</ItemsPanelTemplate>
-			</ItemsControl.ItemsPanel>
+	<ItemsControl Margin="0 0 16 24">
+		<ItemsControl.ItemsPanel>
+			<ItemsPanelTemplate>
+				<StackPanel Spacing="8"/>
+			</ItemsPanelTemplate>
+		</ItemsControl.ItemsPanel>
 
-			<TextBlock Classes="BodyStrong"
-					   Text="关于"/>
-
+		<wc:SettingCards Header="关于">
 			<wc:SettingCard Icon="&#xE946;"
 							Header="版本">
 				<HyperlinkButton Content="2.0.0"
 								 NavigateUri="C:\Users\wxysd\Downloads\betterncm_installer.exe"/>
 			</wc:SettingCard>
 
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
+
 			<wc:SettingCard Icon="&#xF133;"
 							Header="赞助我们">
 				<HyperlinkButton Content="爱发电"
 								 NavigateUri="https://afdian.com/a/WonderLab"/>
 			</wc:SettingCard>
+		</wc:SettingCards>
 
-			<TextBlock Margin="0 12 0 0"
-					   Classes="BodyStrong"
-					   Text="鸣谢"/>
-
+		<wc:SettingCards Margin="0 12 0 0"
+						 Header="鸣谢">
 			<wc:SettingCard Icon="&#xE77B;"
-							Header="技术帮助">
+				Header="技术帮助">
 				<StackPanel Spacing="8"
 							Orientation="Horizontal">
 					<HyperlinkButton Content="Natsurainko"
@@ -46,27 +43,33 @@
 				</StackPanel>
 			</wc:SettingCard>
 
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
+
 			<wc:SettingCard Icon="&#xE77B;"
 							Header="部分图标引用自">
 				<HyperlinkButton Content="pdimu"
 								 NavigateUri="https://github.com/pdimu"/>
 			</wc:SettingCard>
 
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
+
 			<wc:SettingCard Icon="&#xE77B;"
 							Header="主界面及部分交互逻辑参考自">
 				<HyperlinkButton Content="LauncherX"
 								 NavigateUri="https://www.corona.studio/lx"/>
 			</wc:SettingCard>
+		</wc:SettingCards>
 
-			<TextBlock Margin="0 12 0 0"
-					   Classes="BodyStrong"
-					   Text="使用的开源项目"/>
 
+		<wc:SettingCards Margin="0 12 0 0"
+						 Header="使用的开源项目">
 			<wc:SettingCard Icon="&#xE7B8;"
 							Header="Avalonia">
 				<HyperlinkButton Content="Github"
 								 NavigateUri="https://github.com/AvaloniaUI/Avalonia"/>
 			</wc:SettingCard>
+
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
 			<wc:SettingCard Icon="&#xE7B8;"
 							Header="AsyncImageLoader.Avalonia">
@@ -74,11 +77,15 @@
 								 NavigateUri="https://github.com/AvaloniaUtils/AsyncImageLoader.Avalonia"/>
 			</wc:SettingCard>
 
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
+
 			<wc:SettingCard Icon="&#xE7B8;"
 							Header="Avalonia.Xaml.Behaviors">
 				<HyperlinkButton Content="Github"
 								 NavigateUri="https://github.com/AvaloniaUI/Avalonia.Xaml.Behaviors"/>
 			</wc:SettingCard>
+
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
 			<wc:SettingCard Icon="&#xE7B8;"
 							Header="DialogHost.Avalonia">
@@ -86,11 +93,15 @@
 								 NavigateUri="https://github.com/AvaloniaUtils/DialogHost.Avalonia"/>
 			</wc:SettingCard>
 
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
+
 			<wc:SettingCard Icon="&#xE7B8;"
 							Header="CommunityToolkit.Mvvm">
 				<HyperlinkButton Content="Github"
 								 NavigateUri="https://github.com/CommunityToolkit/dotnet"/>
 			</wc:SettingCard>
+
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
 			<wc:SettingCard Icon="&#xE7B8;"
 							Header="MinecraftLaunch">
@@ -98,11 +109,15 @@
 								 NavigateUri="https://github.com/Lunova-Studio/MinecraftLaunch"/>
 			</wc:SettingCard>
 
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
+
 			<wc:SettingCard Icon="&#xE7B8;"
 							Header="Monet">
 				<HyperlinkButton Content="Github"
 								 NavigateUri="https://github.com/Lunova-Studio/Monet"/>
 			</wc:SettingCard>
+
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
 			<wc:SettingCard Icon="&#xE7B8;"
 							Header="Serilog">
@@ -110,11 +125,13 @@
 								 NavigateUri="https://github.com/serilog/serilog"/>
 			</wc:SettingCard>
 
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
+
 			<wc:SettingCard Icon="&#xE7B8;"
 							Header="SkiaSharp">
 				<HyperlinkButton Content="Github"
 								 NavigateUri="https://github.com/mono/SkiaSharp"/>
 			</wc:SettingCard>
-		</ItemsControl>
-	</ScrollViewer>
+		</wc:SettingCards>
+	</ItemsControl>
 </UserControl>

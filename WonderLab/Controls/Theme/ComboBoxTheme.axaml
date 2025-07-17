@@ -39,13 +39,13 @@
 		<Setter Property="BorderThickness" Value="1"/>
 		<Setter Property="MaxDropDownHeight" Value="250"/>
 		<Setter Property="VerticalAlignment" Value="Top"/>
-		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="HorizontalAlignment" Value="Left"/>
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
 		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
 		<Setter Property="Padding" Value="{DynamicResource ComboBoxPadding}"/>
 		<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}"/>
 		<Setter Property="BorderBrush" Value="{DynamicResource ComboBoxBorderBrush}"/>
+		<Setter Property="Background" Value="{DynamicResource ComboBoxBackgroundBrush}"/>
 		<Setter Property="Foreground" Value="{DynamicResource ComboBoxForegroundBrush}"/>
 		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
 		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>

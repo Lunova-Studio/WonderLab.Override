@@ -6,23 +6,22 @@
 			 xmlns:wa="using:WonderLab.Media.Attachments"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="WonderLab.LaunchPage">
-	<ScrollViewer>
-		<ItemsControl Margin="0 0 16 24"
-					  wa:ItemsControlExtensions.AnimatedScroll="True">
-			<ItemsControl.ItemsPanel>
-				<ItemsPanelTemplate>
-					<StackPanel Spacing="8"/>
-				</ItemsPanelTemplate>
-			</ItemsControl.ItemsPanel>
+	<ItemsControl Margin="0 0 16 24">
+		<ItemsControl.ItemsPanel>
+			<ItemsPanelTemplate>
+				<StackPanel Spacing="8"/>
+			</ItemsPanelTemplate>
+		</ItemsControl.ItemsPanel>
 
-			<TextBlock Classes="BodyStrong"
-					   Text="Minecraft 目录设置"/>
-			
+		<wc:SettingCards Header="Minecraft 目录设置">
 			<wc:SettingCard Icon="&#xF89A;"
-							Header="选择目录">
+							Header="选择目录"
+							Effect="{StaticResource ComboBoxDropShadowEffect}">
 				<ComboBox ItemsSource="{Binding MinecraftFolders, Mode=Default}"
 						  SelectedItem="{Binding ActiveMinecraftFolder, Mode=Default}"/>
 			</wc:SettingCard>
+
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
 			<wc:SettingCard Icon="&#xE8F4;"
 							Header="导入目录">
@@ -31,26 +30,31 @@
 						Command="{Binding BrowserFolderCommand}"/>
 			</wc:SettingCard>
 
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
+
 			<wc:SettingCard Icon="&#xE8F6;"
 							Header="移除当前目录">
 				<Button Content="移除"
 						Classes="settingsDelete"
 						Command="{Binding RemoveFolderCommand}"/>
 			</wc:SettingCard>
+		</wc:SettingCards>
 
-			<TextBlock Margin="0 12 0 0"
-					   Classes="BodyStrong"
-					   Text="全局启动设置"/>
-
+		<wc:SettingCards Margin="0 12 0 0"
+						 Header="全局启动设置">
 			<wc:SettingCard Icon="&#xF0B2;"
 							Header="版本隔离">
 				<ToggleSwitch IsChecked="{Binding IsEnableIndependency}"/>
 			</wc:SettingCard>
 
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
+
 			<wc:SettingCard Icon="&#xE740;"
 							Header="是否全屏">
 				<ToggleSwitch IsChecked="{Binding IsFullScreen}"/>
 			</wc:SettingCard>
+
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
 			<wc:SettingCard Icon="&#xE743;"
 							Header="游戏窗口大小调整">
@@ -64,10 +68,12 @@
 				</StackPanel>
 			</wc:SettingCard>
 
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
+
 			<wc:SettingCard Icon="&#xEB41;"
 							Header="服务器地址">
 				<TextBox Text="{Binding ServerAddress, Mode=TwoWay}"/>
 			</wc:SettingCard>
-		</ItemsControl>
-	</ScrollViewer>
+		</wc:SettingCards>
+	</ItemsControl>
 </UserControl>

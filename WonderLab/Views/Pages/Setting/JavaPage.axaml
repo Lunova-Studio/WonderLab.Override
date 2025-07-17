@@ -6,23 +6,21 @@
 			 xmlns:wc="using:WonderLab.Controls"
 			 xmlns:wa="using:WonderLab.Media.Attachments"
              x:Class="WonderLab.Views.Pages.Setting.JavaPage">
-	<ScrollViewer>
-		<ItemsControl Margin="0 0 16 24"
-					  wa:ItemsControlExtensions.AnimatedScroll="True">
-			<ItemsControl.ItemsPanel>
-				<ItemsPanelTemplate>
-					<StackPanel Spacing="8"/>
-				</ItemsPanelTemplate>
-			</ItemsControl.ItemsPanel>
+	<ItemsControl Margin="0 0 16 24">
+		<ItemsControl.ItemsPanel>
+			<ItemsPanelTemplate>
+				<StackPanel Spacing="8"/>
+			</ItemsPanelTemplate>
+		</ItemsControl.ItemsPanel>
 
-			<TextBlock Classes="BodyStrong"
-					   Text="Java 运行时管理"/>
-
+		<wc:SettingCards Header="Java 运行时管理">
 			<wc:SettingCard Icon="&#xE762;"
 							Header="选择 Java 运行时">
 				<ComboBox ItemsSource="{Binding Javas}"
 						  SelectedItem="{Binding ActiveJava}"/>
 			</wc:SettingCard>
+
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
 			<wc:SettingCard Icon="&#xE721;"
 							Header="搜索 Java">
@@ -38,6 +36,8 @@
 				</StackPanel>
 			</wc:SettingCard>
 
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
+
 			<wc:SettingCard Icon="&#xECC9;"
 							Header="移除当前 Java 运行时">
 				<Button Content="移除"
@@ -46,10 +46,14 @@
 						Foreground="{DynamicResource OnTertiaryContainerColor}"/>
 			</wc:SettingCard>
 
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
+
 			<wc:SettingCard Icon="&#xE835;"
 							Header="是否自动选择 Java 运行时">
 				<ToggleSwitch IsChecked="{Binding IsAutoSelectJava}"/>
 			</wc:SettingCard>
+
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
 			<wc:SettingCard Icon="&#xF8A6;"
 							Header="配置游戏内存">
@@ -58,12 +62,15 @@
 							   Value="{Binding MaxMemorySize}"/>
 			</wc:SettingCard>
 
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
+
 			<wc:SettingCard Icon="&#xE835;"
 							Header="是否自动配置游戏内存">
 				<ToggleSwitch IsEnabled="False"/>
 			</wc:SettingCard>
+		</wc:SettingCards>
 
-			<!--<TextBlock Margin="0 12 0 0"
+		<!--<TextBlock Margin="0 12 0 0"
 					   Classes="BodyStrong"
 					   Text="下载新的 Java 运行时"/>
 
@@ -72,6 +79,5 @@
 				<Button Content="下载"
 						Classes="secondary"/>
 			</wc:SettingCard>-->
-		</ItemsControl>
-	</ScrollViewer>
+	</ItemsControl>
 </UserControl>

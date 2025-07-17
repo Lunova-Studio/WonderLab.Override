@@ -35,11 +35,11 @@
 		<Setter Property="MinWidth" Value="100"/>
 		<Setter Property="BorderThickness" Value="1"/>
 		<Setter Property="FocusAdorner" Value="{x:Null}"/>
-		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="UseLayoutRounding" Value="False"/>
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
 		<Setter Property="BorderBrush" Value="{DynamicResource TextBoxBorderBrush}"/>
 		<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}"/>
+		<Setter Property="Background" Value="{DynamicResource TextBoxBackgroundBrush}"/>
 		<Setter Property="Foreground" Value="{DynamicResource TextBoxForegroundBrush}"/>
 		<Setter Property="CaretBrush" Value="{DynamicResource TextBoxForegroundBrush}"/>
 		<Setter Property="SelectionBrush" Value="{DynamicResource TextBoxSelectionBrush}"/>

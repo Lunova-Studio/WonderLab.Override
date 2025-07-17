@@ -133,8 +133,8 @@
 											  ContentTemplate="{TemplateBinding ContentTemplate}"/>
 
 							<wc:FontIcon FontSize="16"
-										 Glyph="&#xE76C;"
 										 VerticalAlignment="Center"
+										 Glyph="{TemplateBinding FooterIcon}"
 										 Foreground="{DynamicResource TileForegroundBrush}"/>
 						</StackPanel>
 					</Grid>
@@ -269,8 +269,8 @@
 												  ContentTemplate="{TemplateBinding ContentTemplate}"/>
 
 								<wc:FontIcon FontSize="16"
-											 Glyph="&#xE76C;"
 											 VerticalAlignment="Center"
+											 Glyph="{TemplateBinding FooterIcon}"
 											 Foreground="{DynamicResource TileForegroundBrush}"/>
 							</StackPanel>
 						</Grid>

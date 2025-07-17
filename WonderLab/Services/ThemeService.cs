@@ -11,6 +11,7 @@ using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using WonderLab.Classes.Enums;
+using WonderLab.Classes.Models;
 using WonderLab.Controls;
 using WonderLab.Extensions;
 
@@ -35,16 +36,16 @@ public sealed class ThemeService {
         BackgroundType.Bubble
     ];
 
-    public FrozenDictionary<uint, string> MonetColors => new Dictionary<uint, string>() {
-        [Colors.Red.ToUInt32()] = "Red",
-        [Colors.Orange.ToUInt32()] = "Orange",
-        [Colors.Yellow.ToUInt32()] = "Yellow",
-        [Colors.Green.ToUInt32()] = "Green",
-        [Colors.Cyan.ToUInt32()] = "Cyan",
-        [Colors.Blue.ToUInt32()] = "Blue",
-        [Colors.Purple.ToUInt32()] = "Purple",
-        [Colors.Pink.ToUInt32()] = "Pink",
-    }.ToFrozenDictionary();
+    public IReadOnlyList<ColorInfo> ColorInfos { get; } = [
+        new ColorInfo { Key="Red", Color = Colors.Red, ColorData = Colors.Red.ToUInt32() },
+        new ColorInfo { Key="Orange", Color = Colors.Orange, ColorData = Colors.Orange.ToUInt32() },
+        new ColorInfo { Key="Yellow", Color = Colors.Yellow, ColorData = Colors.Yellow.ToUInt32() },
+        new ColorInfo { Key="Green", Color = Colors.Green, ColorData = Colors.Green.ToUInt32() },
+        new ColorInfo { Key="Cyan", Color = Colors.Cyan, ColorData = Colors.Cyan.ToUInt32() },
+        new ColorInfo { Key="Blue", Color = Colors.Blue, ColorData = Colors.Blue.ToUInt32() },
+        new ColorInfo { Key="Purple", Color = Colors.Purple, ColorData = Colors.Purple.ToUInt32() },
+        new ColorInfo { Key="Pink", Color = Colors.Pink, ColorData = Colors.Pink.ToUInt32() },
+    ];
 
     public event EventHandler BackgroundTypeChanged;
 

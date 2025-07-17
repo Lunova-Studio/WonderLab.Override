@@ -2,8 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<ResourceDictionary.ThemeDictionaries>
 		<ResourceDictionary x:Key="Light">
-			<SolidColorBrush x:Key="DynamicBarBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
-
 			<SolidColorBrush x:Key="BackgroundMaskBrush" Color="#65FFFFFF"/>
 			<SolidColorBrush x:Key="RippleEffectFillBrush" Color="#20000000"/>
 			<SolidColorBrush x:Key="BottomBarItemPointerOverBackgroundBrush" Color="#20000000"/>
@@ -20,8 +18,6 @@
 		</ResourceDictionary>
 
 		<ResourceDictionary x:Key="Dark">
-			<SolidColorBrush x:Key="DynamicBarBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
-
 			<SolidColorBrush x:Key="BackgroundMaskBrush" Color="#65000000"/>
 			<SolidColorBrush x:Key="RippleEffectFillBrush" Color="#20FFFFFF"/>
 			<SolidColorBrush x:Key="BottomBarItemPointerOverBackgroundBrush" Color="#20FFFFFF"/>
@@ -55,6 +51,8 @@
 	<SolidColorBrush x:Key="BottomBarItemSelectedForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
 	<SolidColorBrush x:Key="BottomBarItemSelectedBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
 
+	<SolidColorBrush x:Key="SegmentedBorderBrush" Color="{DynamicResource OutlineColor}"/>
+
 	<SolidColorBrush x:Key="ButtonForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
 	<SolidColorBrush x:Key="ButtonBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
 	<SolidColorBrush x:Key="ButtonPointerOverBackgroundBrush" Color="{DynamicResource OnSurfaceColor}" Opacity="0.1"/>
@@ -64,11 +62,12 @@
 	<SolidColorBrush x:Key="ProgressButtonHighlightForegroundBrush" Color="{DynamicResource OnPrimaryColor}"/>
 	<SolidColorBrush x:Key="ProgressButtonIndicatorForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
 	<SolidColorBrush x:Key="ProgressButtonBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
+	
 	<SolidColorBrush x:Key="SettingsButtonBorderBrush" Color="{DynamicResource OutlineColor}"/>
-	<SolidColorBrush x:Key="SettingsButtonForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
-	<SolidColorBrush x:Key="SettingsButtonBackgroundBrush" Color="{DynamicResource SurfaceContainerHighestColor}"/>
+	<SolidColorBrush x:Key="SettingsButtonForegroundBrush" Color="{DynamicResource OnSecondaryColor}"/>
+	<SolidColorBrush x:Key="SettingsButtonBackgroundBrush" Color="{DynamicResource SecondaryColor}"/>
 	<SolidColorBrush x:Key="SettingsButtonPointerOverBackgroundBrush" Color="{DynamicResource PrimaryColor}" Opacity="0.2"/>
-	<SolidColorBrush x:Key="SettingsDeleteButtonBorderBrush" Color="{DynamicResource ErrorContainerColor}"/>
+	<SolidColorBrush x:Key="SettingsDeleteButtonBackgroundBrush" Color="{DynamicResource ErrorContainerColor}"/>
 	<SolidColorBrush x:Key="SettingsDeleteButtonForegroundBrush" Color="{DynamicResource OnErrorContainerColor}"/>
 	<SolidColorBrush x:Key="SettingsDeleteButtonPointerOverBackgroundBrush" Color="{DynamicResource ErrorContainerColor}" Opacity="0.2"/>
 
@@ -82,13 +81,14 @@
 	<SolidColorBrush x:Key="BreadcrumbBarItemPointOverForegroundBrush" Color="{DynamicResource OnBackgroundColor}" Opacity="0.8"/>
 
 	<SolidColorBrush x:Key="TileForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
-	<SolidColorBrush x:Key="TileBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
+	<SolidColorBrush x:Key="TileBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
 	<SolidColorBrush x:Key="TileSelectedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
 
 	<SolidColorBrush x:Key="SettingCardForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
-	<SolidColorBrush x:Key="SettingCardBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
+	<SolidColorBrush x:Key="SettingCardsBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
 
 	<SolidColorBrush x:Key="DynamicBarBorderBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="DynamicBarBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
 
 	<SolidColorBrush x:Key="AccountTileIconBorderBrush" Color="{DynamicResource OutlineColor}"/>
 	
@@ -107,8 +107,8 @@
 	<SolidColorBrush x:Key="ComboBoxBorderBrush" Color="{DynamicResource OutlineColor}"/>
 	<SolidColorBrush x:Key="ComboBoxForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
 	<SolidColorBrush x:Key="ComboBoxFocusedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
-	<SolidColorBrush x:Key="ComboBoxBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
 	<SolidColorBrush x:Key="ComboBoxPointerPressedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="ComboBoxBackgroundBrush" Color="{DynamicResource SurfaceContainerHighestColor}"/>
 
 	<SolidColorBrush x:Key="ToggleSwitchBorderBrush" Color="{DynamicResource OutlineColor}"/>
 	<SolidColorBrush x:Key="ToggleSwitchKnobOffFillBrush" Color="{DynamicResource OutlineColor}"/>

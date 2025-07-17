@@ -39,7 +39,6 @@
 					 Text="{Binding Keyword}"
 					 Name="PART_SearchTextBox"
 					 Watermark="在此键入进行搜索"
-					 Background="{DynamicResource TextBoxBackgroundBrush}"
 					 Grid.Column="0">
 				<TextBox.InnerLeftContent>
 					<wc:FontIcon FontSize="16"

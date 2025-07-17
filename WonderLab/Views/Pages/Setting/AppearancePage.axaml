@@ -10,198 +10,148 @@
 			 xmlns:wb="using:WonderLab.Media.Behaviors"
 			 xmlns:me="using:Monet.Shared.Enums"
              x:Class="WonderLab.AppearancePage">
-	<!--<UserControl.-->
+	<UserControl.Resources>
+		<DataTemplate x:Key="ColorsTemplate">
+			<Border Width="25"
+					Height="25"
+					Opacity="0.8"
+					Background="{Binding Brush}"
+					CornerRadius="{StaticResource FullCornerRadius}"
+					ToolTip.Tip="{Binding Key}"/>
+		</DataTemplate>
+	</UserControl.Resources>
 	
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
 			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
-	
-	<ScrollViewer>
-		<ItemsControl Margin="0 0 16 24"
-					  wa:ItemsControlExtensions.AnimatedScroll="True">
-			<ItemsControl.ItemsPanel>
-				<ItemsPanelTemplate>
-					<StackPanel Spacing="8"/>
-				</ItemsPanelTemplate>
-			</ItemsControl.ItemsPanel>
 
-			<Border Width="250"
-					Padding="12"
-					Height="150"
-					Margin="0 0 0 8"
-					BorderThickness="3"
-					VerticalAlignment="Top"
-					HorizontalAlignment="Left"
-					BorderBrush="{DynamicResource OutlineBrush}"
-					CornerRadius="{DynamicResource StrongCornerRadius}"
-					Background="{DynamicResource ApplicationBackgroundBrush}"
-					RenderOptions.BitmapInterpolationMode="LowQuality">
-				<Interaction.Behaviors>
-					<wb:PreviewWindowBackgroundBehavior/>
-				</Interaction.Behaviors>
-				
-				<StackPanel Spacing="4"
-							HorizontalAlignment="Left"
-							VerticalAlignment="Bottom">
-					<Border Width="60"
-							Height="25"
-							BorderThickness="1.5"
-							CornerRadius="{DynamicResource WeakCornerRadius}"
-							Background="{DynamicResource ButtonBackgroundBrush}"
-							BorderBrush="{DynamicResource PrimaryButtonBackgroundBrush}"/>
+	<ItemsControl Margin="0 0 16 24">
+		<ItemsControl.ItemsPanel>
+			<ItemsPanelTemplate>
+				<StackPanel Spacing="8"/>
+			</ItemsPanelTemplate>
+		</ItemsControl.ItemsPanel>
 
-					<Border Width="40"
-							Height="15"
-							HorizontalAlignment="Left"
-							CornerRadius="{DynamicResource WeakCornerRadius}"
-							Background="{DynamicResource PrimaryButtonBackgroundBrush}"/>
-				</StackPanel>
-			</Border>
+		<Border Width="250"
+				Padding="12"
+				Height="150"
+				Margin="0 0 0 8"
+				BorderThickness="3"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Left"
+				BorderBrush="{DynamicResource OutlineBrush}"
+				CornerRadius="{DynamicResource StrongCornerRadius}"
+				Background="{DynamicResource ApplicationBackgroundBrush}"
+				RenderOptions.BitmapInterpolationMode="LowQuality">
+			<Interaction.Behaviors>
+				<wb:PreviewWindowBackgroundBehavior/>
+			</Interaction.Behaviors>
 
-			<wc:SettingCard Icon="&#xE793;"
-							Header="选择主题模式">
-				<ComboBox SelectedItem="{Binding ActiveTheme}"
-						  ItemsSource="{wem:EnumBinding {x:Type wce:ThemeType}}"/>
+			<StackPanel Spacing="4"
+						HorizontalAlignment="Left"
+						VerticalAlignment="Bottom">
+				<Border Width="60"
+						Height="25"
+						BorderThickness="1.5"
+						CornerRadius="{DynamicResource WeakCornerRadius}"
+						Background="{DynamicResource ButtonBackgroundBrush}"
+						BorderBrush="{DynamicResource PrimaryButtonBackgroundBrush}"/>
+
+				<Border Width="40"
+						Height="15"
+						HorizontalAlignment="Left"
+						CornerRadius="{DynamicResource WeakCornerRadius}"
+						Background="{DynamicResource PrimaryButtonBackgroundBrush}"/>
+			</StackPanel>
+		</Border>
+
+		<wc:SettingCard Icon="&#xE793;"
+						Header="整体主题"
+						Background="{DynamicResource SettingCardsBackgroundBrush}">
+			<ListBox Classes="segmented"
+					 SelectedIndex="{Binding ActiveThemeIndex}">
+				<ListBoxItem Tag="&#xE770;"
+							 Content="系统"/>
+
+				<ListBoxItem Tag="&#xE706;"
+							 Content="亮色"/>
+
+				<ListBoxItem Tag="&#xE708;"
+							 Content="暗色"/>
+			</ListBox>
+		</wc:SettingCard>
+
+		<wc:SettingCards Margin="0 12 0 0"
+						 Header="主题">
+			<wc:SettingCard Icon="&#xE790;"
+							Header="主题色"
+							IsVisible="{Binding IsEnableBitmapColor, Converter={StaticResource BoolReverseConverter}}">
+				<ListBox Classes="colors"
+						 Margin="-12 0 0 0"
+						 ItemsSource="{Binding Colors}"
+						 SelectedItem="{Binding ActiveColor}"
+						 ItemTemplate="{StaticResource ColorsTemplate}"
+						 IsEnabled="{Binding IsEnableSystemColor, Converter={StaticResource BoolReverseConverter}}"/>
 			</wc:SettingCard>
 
-			<wc:SettingExpandCard Padding="16 4"
-								  Icon="&#xE790;"
-								  IsExpanded="True"
-								  Header="选择主题色">
-				<wc:SettingExpandCard.Footer>
-					<Button Content="{DynamicResource PrimaryBrush}"
-							Background="{DynamicResource PrimaryBrush}"
-							Foreground="{DynamicResource OnPrimaryBrush}"/>
-				</wc:SettingExpandCard.Footer>
-				
-				<Grid Margin="16 0 12 0"
-					  ColumnDefinitions="Auto * Auto">
-					<TextBlock Classes="Body"
-							   VerticalAlignment="Center"
-							   Text="使用系统主题色"/>
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"
+					   IsVisible="{Binding IsEnableBitmapColor, Converter={StaticResource BoolReverseConverter}}"/>
 
-					<ToggleSwitch IsChecked="{Binding IsEnableSystemColor}"
-								  Grid.Column="2"/>
-				</Grid>
+			<wc:SettingCard Icon="&#xE770;"
+							Header="使用系统主题色">
+				<ToggleSwitch IsChecked="{Binding IsEnableSystemColor}"/>
+			</wc:SettingCard>
 
-				<Separator Height="1"
-						   Opacity="0.65"
-						   Margin="-16 6"
-						   Background="{DynamicResource FlyoutBorderBrush}"
-						   IsVisible="{Binding IsEnableBitmapColor, Converter={StaticResource BoolReverseConverter}}"/>
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"
+					   IsVisible="{Binding IsBitmapBackground}"/>
 
-				<Grid Margin="16 3 12 3"
-					  ColumnDefinitions="Auto * Auto"
-					  IsVisible="{Binding IsEnableBitmapColor, Converter={StaticResource BoolReverseConverter}}"
-					  IsEnabled="{Binding IsEnableSystemColor, Converter={StaticResource BoolReverseConverter}}">
-					<TextBlock Classes="Body"
-							   VerticalAlignment="Center"
-							   Text="自定义主题色"/>
+			<wc:SettingCard Icon="&#xEF3C;"
+							Header="使用自动取色"
+							IsVisible="{Binding IsBitmapBackground}"
+							IsEnabled="{Binding IsEnableSystemColor, Converter={StaticResource BoolReverseConverter}}">
+				<ToggleSwitch IsChecked="{Binding IsEnableBitmapColor}"/>
+			</wc:SettingCard>
 
-					<ComboBox ItemsSource="{Binding Colors}"
-							  SelectedItem="{Binding ActiveColor}"
-							  Grid.Column="2">
-						<ComboBox.ItemTemplate>
-							<DataTemplate>
-								<StackPanel Spacing="8"
-											Orientation="Horizontal">
-									<Border Width="15"
-											Height="15"
-											VerticalAlignment="Center"
-											CornerRadius="{StaticResource FullCornerRadius}"
-											Background="{Binding Key, Converter={StaticResource SolidColorBrushConverter}}"/>
-									
-									<TextBlock Classes="Body"
-											   VerticalAlignment="Center"
-											   Text="{Binding Value}"/>
-								</StackPanel>
-							</DataTemplate>
-						</ComboBox.ItemTemplate>
-					</ComboBox>
-				</Grid>
-
-				<Separator Height="1"
-						   Opacity="0.65"
-						   Margin="-16 6"
-						   IsVisible="{Binding IsBitmapBackground}"
-						   Background="{DynamicResource FlyoutBorderBrush}"/>
-
-				<Grid Margin="16 3 12 3"
-					  ColumnDefinitions="auto * auto"
-					  IsVisible="{Binding IsBitmapBackground}"
-					  IsEnabled="{Binding IsEnableSystemColor, Converter={StaticResource BoolReverseConverter}}">
-					<TextBlock Classes="Body"
-							   VerticalAlignment="Center"
-							   Text="使用图片背景主题色"/>
-
-					<ToggleSwitch IsChecked="{Binding IsEnableBitmapColor}"
-								  Grid.Column="2"/>
-					<!--<Button Width="60"
-							Classes="primary"
-							Content="自动选择"
-							Command="{Binding AutoSelectBitmapPrimaryColorCommand}"
-							Grid.Column="2"/>-->
-				</Grid>
-			</wc:SettingExpandCard>
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
 			<wc:SettingCard Icon="&#xEBC6;"
 							Header="选择动态主题色方案">
 				<ComboBox SelectedIndex="{Binding ActiveColorVariant}"
 						  ItemsSource="{wem:EnumBinding {x:Type me:Variant}}"/>
 			</wc:SettingCard>
+		</wc:SettingCards>
 
-			<TextBlock Margin="0 12 0 0"
-					   Classes="BodyStrong"
-					   Text="背景"/>
-			
-			<wc:SettingExpandCard Padding="0"
-								  Icon="&#xEF1F;"
-								  Header="选择背景方案">
-				<wc:SettingExpandCard.Footer>
-					<ComboBox SelectedItem="{Binding ActiveBackground}"
-							  ItemsSource="{Binding Backgrounds, Mode=TwoWay}"/>
-				</wc:SettingExpandCard.Footer>
+		<wc:SettingCards Margin="0 12 0 0"
+						 Header="背景">
+			<wc:SettingCard Icon="&#xEF1F;"
+							Header="背景类型">
+				<ComboBox SelectedItem="{Binding ActiveBackground}"
+						  ItemsSource="{Binding Backgrounds, Mode=TwoWay}"/>
+			</wc:SettingCard>
 
-				<Button Padding="16 8"
-						Classes="ripple"
-						CornerRadius="0"
-						Background="Transparent"
-						VerticalContentAlignment="Stretch"
-						HorizontalContentAlignment="Stretch"
-						Command="{Binding BrowserImageCommand}">
-					<Grid Margin="32 0 0 0"
-						  ColumnDefinitions="auto * auto auto">
-						<TextBlock Classes="Body"
-								   VerticalAlignment="Center"
-								   Text="图像路径"/>
+			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"
+					   IsVisible="{Binding IsBitmapBackground}"/>
 
-						<TextBox MinWidth="200"
-								 MaxWidth="400"
-								 Margin="0 0 16 0"
-								 Text="{Binding ImagePath, Mode=TwoWay}"
-								 Grid.Column="2">
-							<TextBox.InnerRightContent>
-								<Button Classes="icon"
-										Margin="0 0 2 0"
-										Content="&#xED43;"
-										Command="{Binding BrowserImageCommand}"/>
-							</TextBox.InnerRightContent>
-						</TextBox>
-						
-						<wc:FontIcon FontSize="12"
-									 Glyph="&#xE76C;"
-									 VerticalAlignment="Center"
-									 Grid.Column="3"/>
-					</Grid>
-				</Button>
-			</wc:SettingExpandCard>
+			<wc:SettingCard Icon="&#xE7C5;"
+							Header="背景图片路径"
+							IsVisible="{Binding IsBitmapBackground}">
+				<TextBox MinWidth="300"
+						 MaxWidth="500"
+						 Text="{Binding ImagePath, Mode=TwoWay}">
+					<TextBox.InnerRightContent>
+						<Button Classes="icon"
+								Margin="0 0 4 0"
+								Content="&#xED43;"
+								Command="{Binding BrowserImageCommand}"/>
+					</TextBox.InnerRightContent>
+				</TextBox>
+			</wc:SettingCard>
+		</wc:SettingCards>
 
-			<TextBlock Margin="0 12 0 0"
-					   Classes="BodyStrong"
-					   Text="语言"/>
-
+		<wc:SettingCards Margin="0 12 0 0"
+						 Header="语言">
 			<wc:SettingCard Icon="&#xF2B7;"
 							Header="选择语言">
 				<ComboBox MinWidth="150"
@@ -228,6 +178,6 @@
 					</ComboBox.ItemTemplate>
 				</ComboBox>
 			</wc:SettingCard>
-		</ItemsControl>
-	</ScrollViewer>
+		</wc:SettingCards>
+	</ItemsControl>
 </UserControl>
