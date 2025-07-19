@@ -20,15 +20,13 @@ namespace WonderLab.Controls;
 [PseudoClasses(":press")]
 [StyledProperty(typeof(BarState), "BarState", BarState.Collapsed)]
 public partial class DynamicBar : ContentControl {
-    // 记录拖拽起点、初始偏移和实时偏移
     private double _startX;
     private double _initialOffsetX;
-    private double _offsetX;
+    private double _offsetX = -16;
 
     private bool _isDragging;
     private bool _canOpenPanel;
     
-    private Panel _PART_Layout;
     private Border _PART_LayoutBorder;
     private Border _PART_ContentLayoutBorder;
 
@@ -39,24 +37,16 @@ public partial class DynamicBar : ContentControl {
         Loaded += OnLoaded;
     }
 
+    private void AnimateBackTo(double to) {
+        _PART_LayoutBorder.Animate(TranslateTransform.XProperty)
+            .WithDuration(TimeSpan.FromMilliseconds(300))
+            .From(_offsetX)
+            .To(to)
+            .RunAsync(_cts.Token);
+    }
+
     private void SetPseudoclasses(bool isPress)
         => PseudoClasses.Set(":press", isPress);
-
-    protected override void OnApplyTemplate(TemplateAppliedEventArgs e) {
-        base.OnApplyTemplate(e);
-
-        _PART_Layout = e.NameScope.Find<Panel>("PART_Layout")!;
-        _PART_LayoutBorder = e.NameScope.Find<Border>("PART_LayoutBorder")!;
-        _PART_ContentLayoutBorder = e.NameScope.Find<Border>("PART_ContentLayoutBorder")!;
-
-        _PART_LayoutBorder.PointerMoved += OnPointerMoved;
-        _PART_LayoutBorder.PointerPressed += OnPointerPressed;
-        _PART_LayoutBorder.PointerReleased += OnPointerReleased;
-
-        _PART_LayoutBorder.RenderTransform = new TransformGroup {
-            Children = { new TranslateTransform() }
-        };
-    }
 
     private async void OnLoaded(object sender, RoutedEventArgs e) {
         // 初始淡入和滑入动画
@@ -126,6 +116,10 @@ public partial class DynamicBar : ContentControl {
         SetPseudoclasses(false);
         _isDragging = false;
 
+        if (_offsetX is -16) {
+            BarState = BarState.Expanded;
+        }
+
         if (e.InitialPressMouseButton == MouseButton.Left) {
             if (_canOpenPanel) {
                 BarState = BarState.Expanded;
@@ -134,25 +128,23 @@ public partial class DynamicBar : ContentControl {
             }
         }
 
-        _offsetX = 0;
+        _offsetX = -16;
         _canOpenPanel = false;
     }
 
-    private async void OnPointerCaptureLost(object sender, PointerCaptureLostEventArgs e) {
-        var tt = (TranslateTransform)((TransformGroup)_PART_LayoutBorder.RenderTransform).Children[0];
-        await _PART_LayoutBorder
-            .Animate(TranslateTransform.XProperty)
-            .WithDuration(TimeSpan.FromMilliseconds(300))
-            .From(tt.X).To(0)
-            .RunAsync(_cts.Token);
-    }
+    protected override void OnApplyTemplate(TemplateAppliedEventArgs e) {
+        base.OnApplyTemplate(e);
 
-    private void AnimateBackTo(double to) {
-        _PART_LayoutBorder.Animate(TranslateTransform.XProperty)
-            .WithDuration(TimeSpan.FromMilliseconds(300))
-            .From(_offsetX)
-            .To(to)
-            .RunAsync(_cts.Token);
+        _PART_LayoutBorder = e.NameScope.Find<Border>("PART_LayoutBorder")!;
+        _PART_ContentLayoutBorder = e.NameScope.Find<Border>("PART_ContentLayoutBorder")!;
+
+        _PART_LayoutBorder.PointerMoved += OnPointerMoved;
+        _PART_LayoutBorder.PointerPressed += OnPointerPressed;
+        _PART_LayoutBorder.PointerReleased += OnPointerReleased;
+
+        _PART_LayoutBorder.RenderTransform = new TransformGroup {
+            Children = { new TranslateTransform() }
+        };
     }
 
     protected override async void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change) {
