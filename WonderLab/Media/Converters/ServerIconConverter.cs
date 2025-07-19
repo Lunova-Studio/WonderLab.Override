@@ -1,5 +1,6 @@
 ﻿using Avalonia.Data.Converters;
 using Avalonia.Media;
+using LiteSkinViewer2D.Extensions;
 using System;
 using System.Globalization;
 using WonderLab.Extensions;

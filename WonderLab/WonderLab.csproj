@@ -106,6 +106,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\refs\LiteSkinViewer\LiteSkinViewer.2D\LiteSkinViewer.2D.csproj" />
+        <ProjectReference Include="..\refs\LiteSkinViewer\LiteSkinViewer.3D\LiteSkinViewer.3D.csproj" />
         <ProjectReference Include="..\refs\Monet\Monet.Avalonia\Monet.Avalonia.csproj" />
         <ProjectReference Include="..\WonderLab.Override.I18n\WonderLab.Override.I18n\WonderLab.Override.I18n.csproj" />
         <ProjectReference Include="..\WonderLab.SourceGenerator.Attributes\WonderLab.SourceGenerator.Attributes.csproj" />

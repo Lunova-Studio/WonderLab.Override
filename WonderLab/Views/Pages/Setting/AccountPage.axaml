@@ -3,24 +3,22 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:lsv="using:LiteSkinViewer3D.Avalonia.Controls"
 			 xmlns:wa="using:WonderLab.Media.Attachments"
 			 xmlns:wb="using:WonderLab.Media.Behaviors"
 			 xmlns:wc="using:WonderLab.Controls"
-             x:Class="WonderLab.AccountPage">
+             x:Class="WonderLab.AccountPage">	
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Navigated">
 			<InvokeCommandAction Command="{Binding NavigatedCommand}"/>
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
 
-	<ItemsControl Margin="0 0 16 24">
-		<ItemsControl.ItemsPanel>
-			<ItemsPanelTemplate>
-				<StackPanel Spacing="8"/>
-			</ItemsPanelTemplate>
-		</ItemsControl.ItemsPanel>
-
-		<wc:SettingCards Header="账户管理">
+	<Grid RowSpacing="8"
+		  Margin="0 0 16 24"
+		  RowDefinitions="auto auto *">
+		<wc:SettingCards Header="账户管理"
+						 Grid.Row="0">
 			<wc:SettingCard Icon="&#xE8FA;"
 							Header="添加账户">
 				<Button Classes="secondary"
@@ -32,95 +30,168 @@
 
 			<wc:SettingCard Icon="&#xE72C;"
 							Header="是否在启动前自动刷新账户">
-				<ToggleSwitch/>
+				<ToggleSwitch IsChecked="{Binding IsAutoRefreshAccount, Mode=TwoWay}"/>
 			</wc:SettingCard>
 		</wc:SettingCards>
 
 		<TextBlock Margin="0 12 0 0"
 				   Classes="BodyStrong"
-				   Text="所有账户"/>
+				   Text="所有账户"
+				   Grid.Row="1"/>
 
 		<ContentControl Classes="tip"
 						Content="没有账户哦喵~"
-						IsVisible="{Binding HasAccounts, Converter={StaticResource BoolReverseConverter}}"/>
+						IsVisible="{Binding HasAccounts, Converter={StaticResource BoolReverseConverter}}"
+						Grid.Row="2"/>
+		
+		<ListBox ItemsSource="{Binding Accounts}"
+				 SelectedItem="{Binding ActiveAccount}"
+				 Grid.Row="2">
+			<ListBox.ItemsPanel>
+				<ItemsPanelTemplate>
+					<VirtualizingStackPanel Orientation="Vertical"/>
+				</ItemsPanelTemplate>
+			</ListBox.ItemsPanel>
 
-		<ItemsRepeater ItemsSource="{Binding Accounts}">
-			<ItemsRepeater.Layout>
-				<UniformGridLayout MinItemWidth="260"
-								   ItemsStretch="Fill"
-								   MinRowSpacing="4"
-								   MinColumnSpacing="4"
-								   ItemsJustification="Start"/>
-			</ItemsRepeater.Layout>
+			<ListBox.ItemContainerTheme>
+				<ControlTheme TargetType="ListBoxItem">
+					<Setter Property="Margin" Value="0 0 0 8"/>
+					<Setter Property="Padding" Value="{DynamicResource ListBoxItemPadding}"/>
+					<Setter Property="Background" Value="{DynamicResource TileBackgroundBrush}"/>
+					<Setter Property="CornerRadius" Value="{StaticResource StrongCornerRadius}"/>
+					
+					<Setter Property="Template">
+						<ControlTemplate>
+							<Panel>
+								<Border CornerRadius="{TemplateBinding CornerRadius}"
+										Background="{DynamicResource TileBackgroundBrush}"/>
+								
+								<Border Name="PART_Border"
+										Padding="{TemplateBinding Padding}"
+										Background="{TemplateBinding Background}"
+										CornerRadius="{TemplateBinding CornerRadius}">
+									<Grid RowDefinitions="* *"
+										  ColumnDefinitions="auto * auto">
+										<Border Width="38"
+												Height="38"
+												Grid.Row="0"
+												Grid.RowSpan="2">
+											<Border.Effect>
+												<DropShadowEffect BlurRadius="4" OffsetX="0" OffsetY="1" Color="#40000000"/>
+											</Border.Effect>
 
-			<ItemsRepeater.ItemTemplate>
-				<DataTemplate>
-					<wc:Tile Padding="8"
-							 Height="68"
-							 MinHeight="35"
-							 MinWidth="80"
-							 BorderThickness="2"
-							 IsEnableAnimation="False"
-							 VerticalContentAlignment="Stretch"
-							 HorizontalContentAlignment="Stretch"
-							 Loaded="OnAccountCardLoaded">
-						<wc:Tile.Transitions>
-							<Transitions>
-								<BrushTransition Duration="0:0:.35"
-												 Easing="CubicEaseOut"
-												 Property="BorderBrush"/>
-							</Transitions>
-						</wc:Tile.Transitions>
+											<Border.Background>
+												<ImageBrush Source="{Binding Avatar}"/>
+											</Border.Background>
+										</Border>
 
-						<Interaction.Behaviors>
-							<wb:PointerOverVisibleBehavior Target="{Binding ElementName=PART_Button}"/>
-						</Interaction.Behaviors>
+										<TextBlock Margin="8 0 16 0"
+												   Classes="BodyStrong"
+												   VerticalAlignment="Center"
+												   HorizontalAlignment="Left"
+												   TextTrimming="CharacterEllipsis"
+												   Text="{Binding Account.Name}"
+												   Grid.Row="0"
+												   Grid.Column="1"/>
 
-						<Grid RowDefinitions="auto auto"
-							  ColumnDefinitions="auto auto * auto">
-							<Border Width="38"
-									Height="38"
-									Grid.RowSpan="2">
-								<Interaction.Behaviors>
-									<wb:AccountAvatarLoadBehavior Account="{Binding}"/>
-								</Interaction.Behaviors>
+										<wc:Tag Margin="8 2 16 0"
+												HorizontalAlignment="Left"
+												Text="{Binding Account.Type}"
+												Grid.Row="1"
+												Grid.Column="1"/>
 
-								<Border.Effect>
-									<DropShadowEffect BlurRadius="4" OffsetX="0" OffsetY="1" Color="#40000000"/>
-								</Border.Effect>
-							</Border>
+										<Grid ColumnSpacing="8"
+											  ColumnDefinitions="auto auto auto"
+											  Grid.Row="0"
+											  Grid.Column="2"
+											  Grid.RowSpan="2">
+											<Button Width="30"
+													Height="30"
+													FontSize="20"
+													Classes="icon"
+													Content="&#xE72C;"
+													Grid.Column="0"/>
 
-							<TextBlock Grid.Row="0"
-									   Grid.Column="1"
-									   Margin="8 0 0 0"
-									   Classes="BodyStrong"
-									   Text="{Binding Name}"
-									   VerticalAlignment="Center"
-									   TextTrimming="CharacterEllipsis"/>
+											<Button Width="30"
+													Height="30"
+													FontSize="28"
+													Classes="icon"
+													Content="&#xE76E;"
+													Grid.Column="1"/>
 
-							<TextBlock Grid.Row="1"
-									   Grid.Column="1"
-									   Margin="8 -2 0 0"
-									   Classes="Caption"
-									   Text="{Binding Type}"
-									   VerticalAlignment="Center"
-									   Foreground="{DynamicResource ApplicationSubtitleForegroundBrush}"/>
+											<Button Width="30"
+													Height="30"
+													FontSize="20"
+													Classes="icon"
+													Content="&#xE74D;"
+													CommandParameter="{Binding}"
+													Command="{Binding $parent[ListBox].DataContext.RemoveAccountCommand}"
+													Grid.Column="2"/>
+										</Grid>
+									</Grid>
+								</Border>
 
-							<Button Padding="0"
-									MinWidth="50"
-									MinHeight="28"
-									Grid.Column="3"
-									Grid.RowSpan="2"
-									Classes="primary"
-									Name="PART_Button"
-									VerticalAlignment="Center"
-									Content="选择"
-									CommandParameter="{Binding}"
-									Command="{Binding $parent[ItemsRepeater].DataContext.ActiveAccountCommand}"/>
-						</Grid>
-					</wc:Tile>
-				</DataTemplate>
-			</ItemsRepeater.ItemTemplate>
-		</ItemsRepeater>
-	</ItemsControl>
+								<Border Height="5"
+										Width="3.5"
+										Opacity="0"
+										UseLayoutRounding="False"
+										Name="PART_SelectedBorder"
+										VerticalAlignment="Center"
+										HorizontalAlignment="Left"
+										CornerRadius="{TemplateBinding CornerRadius}"
+										Background="{DynamicResource ListBoxItemIndicatorBackgroundBrush}">
+									<Border.Transitions>
+										<Transitions>
+											<DoubleTransition Property="Height"
+															  Duration="0:0:.25"
+															  Easing="ExponentialEaseOut"/>
+
+											<DoubleTransition Property="Opacity"
+															  Duration="0:0:.15"/>
+										</Transitions>
+									</Border.Transitions>
+								</Border>
+							</Panel>
+						</ControlTemplate>
+					</Setter>
+
+					<!--  PointerOver State  -->
+					<Style Selector="^:pointerover /template/ Border#PART_Border">
+						<Setter Property="Background" Value="{DynamicResource ListBoxItemPointeroverBackgroundBrush}" />
+					</Style>
+
+					<!--  Pressed State  -->
+					<Style Selector="^:pressed /template/ Border#PART_Border">
+						<Setter Property="Background" Value="{DynamicResource ListBoxItemPointerPressedBackgroundBrush}" />
+					</Style>
+
+					<!--  Selected State  -->
+					<Style Selector="^:selected">
+						<Style Selector="^ /template/ Border#PART_Border">
+							<Setter Property="Background" Value="{DynamicResource ListBoxItemSelectedBackgroundBrush}" />
+						</Style>
+
+						<Style Selector="^ /template/ Border#PART_SelectedBorder">
+							<Setter Property="Height" Value="20" />
+							<Setter Property="Opacity" Value="1" />
+						</Style>
+
+						<!--  Selected PointerOver State  -->
+						<Style Selector="^:pointerover /template/ Border#PART_Border">
+							<Setter Property="Background" Value="{DynamicResource ListBoxItemSelectedPointeroverBackgroundBrush}" />
+						</Style>
+
+						<!--  Selected Pressed State  -->
+						<Style Selector="^:pressed /template/ Border#PART_Border">
+							<Setter Property="Background" Value="{DynamicResource ListBoxItemSelectedPointerPressedBackgroundBrush}" />
+						</Style>
+
+						<Style Selector="^:pressed /template/ Border#PART_SelectedBorder">
+							<Setter Property="Height" Value="14" />
+						</Style>
+					</Style>
+				</ControlTheme>
+			</ListBox.ItemContainerTheme>
+		</ListBox>
+	</Grid>
 </UserControl>

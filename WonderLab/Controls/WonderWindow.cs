@@ -37,21 +37,6 @@ public partial class WonderWindow : Window {
 
     protected override Type StyleKeyOverride => typeof(WonderWindow);
 
-    protected override async void OnLoaded(RoutedEventArgs e) {
-        base.OnLoaded(e);
-
-        await Task.Delay(100);
-        if (BackgroundType is BackgroundType.Bitmap) {
-            _PART_BackgroundBorder.Margin = new(-50);
-            _PART_BackgroundBorder.Effect = new BlurEffect() {
-                Radius = 50
-            };
-
-            await Task.Delay(200);
-            RunInitAnimation();
-        }
-    }
-
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e) {
         base.OnApplyTemplate(e);
 
@@ -76,15 +61,6 @@ public partial class WonderWindow : Window {
 
         if (change.Property == BackgroundTypeProperty && IsLoaded)
             UpdateBackground(change.GetOldAndNewValue<BackgroundType>());
-
-        if(change.Property == ShieldBackgroundOpacityProperty && BackgroundType is BackgroundType.Bitmap) {
-            Dispatcher.UIThread.Post(() => {
-                if (ShieldBackgroundOpacity is 0)
-                    RunClearBlurAnimation();
-                else
-                    RunBlurAnimation();
-            });
-        }
     }
 
     private void UpdateBackground((BackgroundType oldValue, BackgroundType newValue) values) {
@@ -133,42 +109,5 @@ public partial class WonderWindow : Window {
                 TransparencyLevelHint = [WindowTransparencyLevel.Mica, WindowTransparencyLevel.None];
                 break;
         }
-    }
-
-    private async void RunInitAnimation() {
-        await _PART_BackgroundBorder.Animate(MarginProperty)
-            .WithEasing(new ExponentialEaseOut())
-            .WithDuration(TimeSpan.FromSeconds(1))
-            .From(_PART_BackgroundBorder.Margin)
-            .To(new(0))
-            .RunAsync(_cancellationTokenSource.Token);
-    }
-
-    private async void RunBlurAnimation() {
-        using (_cancellationTokenSource) {
-            _cancellationTokenSource.Cancel();
-            _cancellationTokenSource = new();
-        }
-
-        await _PART_BackgroundBorder.Animate(MarginProperty)
-            .WithEasing(new ExponentialEaseOut())
-            .WithDuration(TimeSpan.FromSeconds(1))
-            .From(_PART_BackgroundBorder.Margin)
-            .To(new(-50))
-            .RunAsync(_cancellationTokenSource.Token);
-    }
-
-    private async void RunClearBlurAnimation() {
-        using (_cancellationTokenSource) {
-            _cancellationTokenSource.Cancel();
-            _cancellationTokenSource = new();
-        }
-
-        await _PART_BackgroundBorder.Animate(MarginProperty)
-            .WithEasing(new ExponentialEaseOut())
-            .WithDuration(TimeSpan.FromSeconds(1))
-            .From(_PART_BackgroundBorder.Margin)
-            .To(new(0))
-            .RunAsync(_cancellationTokenSource.Token);
     }
 }

@@ -179,9 +179,9 @@
 											<Border Width="35"
 													Height="35"
 													Grid.RowSpan="2">
-												<Interaction.Behaviors>
+												<!--<Interaction.Behaviors>
 													<wb:AccountAvatarLoadBehavior Account="{Binding}"/>
-												</Interaction.Behaviors>
+												</Interaction.Behaviors>-->
 
 												<Border.Effect>
 													<DropShadowEffect BlurRadius="4" OffsetX="0" OffsetY="1" Color="#40000000"/>
@@ -254,10 +254,6 @@
 				<Border Width="35"
 						Height="35"
 						Grid.RowSpan="2">
-					<Interaction.Behaviors>
-						<wb:AccountAvatarLoadBehavior Account="{Binding ActiveAccount}"/>
-					</Interaction.Behaviors>
-
 					<Border.Effect>
 						<DropShadowEffect BlurRadius="4" OffsetX="0" OffsetY="1" Color="#40000000"/>
 					</Border.Effect>

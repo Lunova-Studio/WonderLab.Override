@@ -1,4 +1,4 @@
-﻿using Avalonia.Media;
+﻿using Avalonia.Media.Imaging;
 using Flurl.Http;
 using MinecraftLaunch.Base.Models.Authentication;
 using MinecraftLaunch.Extensions;
@@ -6,6 +6,7 @@ using MinecraftLaunch.Utilities;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -15,16 +16,36 @@ using WonderLab.Extensions;
 namespace WonderLab.Utilities;
 
 public static class SkinUtil {
-    public static Dictionary<Guid, IImmutableBrush> SkinAvatarCaches { get; } = [];
+    private static readonly string CacheFolderPath =
+        Path.Combine(PathUtil.GetDataFolderPath(), "cache", "skin");
 
-    public static async Task<byte[]> GetSkinDataAsync(Account account, CancellationToken cancellationToken = default) {
+    public static Dictionary<Guid, SKBitmap> SkinCaches { get; } = [];
+    public static Dictionary<Guid, Bitmap> SkinAvatarCaches { get; } = [];
+
+    public static void InitCacheFolder() {
+        if (Directory.Exists(CacheFolderPath))
+            return;
+
+        Directory.CreateDirectory(CacheFolderPath);
+    }
+
+    public static async Task<SKBitmap> GetSkinDataAsync(Account account, CancellationToken cancellationToken = default) {
         return await Task.Run(async () => {
-            return account switch {
-                OfflineAccount => "resm:WonderLab.Assets.gawrgura-13490790.png".ToBytes(),
+            var cachePath = Path.Combine(CacheFolderPath, $"{account.Uuid:N}");
+            if (File.Exists(cachePath))
+                return SKBitmap.Decode(File.OpenRead(cachePath));
+
+            var data = account switch {
+                OfflineAccount => "resm:WonderLab.Assets.gawrgura-13490790.png".ToStream(),
                 MicrosoftAccount mAccount => await GetMicrosoftSkinDataAsync(mAccount, cancellationToken),
                 YggdrasilAccount yAccount => await GetYggdrasilSkinDataAsync(yAccount, cancellationToken),
                 _ => throw new NotSupportedException()
             };
+
+            var skinBitmap = SKBitmap.Decode(data);
+            skinBitmap.Save(cachePath);
+
+            return skinBitmap;
         }, cancellationToken);
     }
 
@@ -33,19 +54,19 @@ public static class SkinUtil {
     private static readonly string YggdrasilSplitUrl = "{0}/sessionserver/session/minecraft/profile/{1}";
     private static readonly string MicrosoftSplitUrl = "https://sessionserver.mojang.com/session/minecraft/profile/{0}";
 
-    private static Task<byte[]> GetYggdrasilSkinDataAsync(YggdrasilAccount account, CancellationToken cancellationToken) {
+    private static Task<Stream> GetYggdrasilSkinDataAsync(YggdrasilAccount account, CancellationToken cancellationToken) {
         var url = string.Format(YggdrasilSplitUrl, account.YggdrasilServerUrl,
             account.Uuid.ToString("N"));
 
         return GetSkinDataAsync(url, cancellationToken);
     }
 
-    private static Task<byte[]> GetMicrosoftSkinDataAsync(MicrosoftAccount account, CancellationToken cancellationToken) {
+    private static Task<Stream> GetMicrosoftSkinDataAsync(MicrosoftAccount account, CancellationToken cancellationToken) {
         var url = string.Format(MicrosoftSplitUrl, account.Uuid.ToString("N"));
         return GetSkinDataAsync(url, cancellationToken);
     }
 
-    private static async Task<byte[]> GetSkinDataAsync(string url, CancellationToken cancellationToken) {
+    private static async Task<Stream> GetSkinDataAsync(string url, CancellationToken cancellationToken) {
         var baseJson = await HttpUtil.Request(url).GetStringAsync(cancellationToken: cancellationToken);
         var baseNode = baseJson?.AsNode();
 
@@ -60,7 +81,7 @@ public static class SkinUtil {
             .Select("SKIN")?
             .GetString("url");
 
-        return await HttpUtil.Request(skinUrl).GetBytesAsync(cancellationToken: cancellationToken);
+        return await HttpUtil.Request(skinUrl).GetStreamAsync(cancellationToken: cancellationToken);
     }
 
     private static SKBitmap ResizeImage(SKBitmap source, int width, int height) {

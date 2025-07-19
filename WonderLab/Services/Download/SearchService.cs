@@ -165,7 +165,7 @@ public sealed class SearchService {
     private static int GetClassId(SearchType searchType) {
         return searchType switch {
             SearchType.Mod => 6,
-            SearchType.Mpdpack => 4471,
+            SearchType.Modpack => 4471,
             SearchType.Datapack => 6945,
             SearchType.Shaderpack => 6552,
             SearchType.Resourcepack => 12,
@@ -176,7 +176,7 @@ public sealed class SearchService {
     private static string GetProjectType(SearchType searchType) {
         return searchType switch {
             SearchType.Mod => "mod",
-            SearchType.Mpdpack => "modpack",
+            SearchType.Modpack => "modpack",
             SearchType.Datapack => "datapack",
             SearchType.Shaderpack => "shader",
             SearchType.Resourcepack => "resourcepack",

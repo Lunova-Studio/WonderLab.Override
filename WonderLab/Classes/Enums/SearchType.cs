@@ -3,7 +3,7 @@
 public enum SearchType {
     Minecraft,
     Mod,
-    Mpdpack,
+    Modpack,
     Datapack,
     Resourcepack,
     Shaderpack,

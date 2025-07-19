@@ -184,6 +184,7 @@ public sealed partial class App : Application {
     private void OnStartup(object sender, ControlledApplicationLifetimeStartupEventArgs e) {
         Get<SettingService>().Initialize();
         Get<GameService>().RefreshGames();
+
         HttpUtil.Initialize(new FlurlClient {
             Settings = {
                 Timeout = TimeSpan.FromSeconds(15),
@@ -195,6 +196,8 @@ public sealed partial class App : Application {
 
         ActualThemeVariantChanged += OnActualThemeVariantChanged;
         PlatformSettings.ColorValuesChanged += OnColorValuesChanged;
+
+        SkinUtil.InitCacheFolder();
         Get<ILogger<App>>().LogInformation("当前版本号：{version}", new Uri("resm:WonderLab.version.txt").ToText());
     }
 
