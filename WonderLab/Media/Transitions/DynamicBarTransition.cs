@@ -41,7 +41,7 @@ internal class DynamicBarTransition : IPageTransition {
         }
     }
 
-    private static double? GetTransformXValue(Visual control) {
+    public static double? GetTransformXValue(Visual control) {
         if (control.RenderTransform is not TransformGroup transforms || transforms.Children.Count <= 0)
             return null;
 
@@ -55,7 +55,7 @@ internal class DynamicBarTransition : IPageTransition {
             .WithDuration(TimeSpan.FromSeconds(0.3))
             .From(-16d)
             .To(460d)
-            .RunAsync(CancellationToken.None);//此段代码不要使用参数里的 cancellationToken，会因为玄学问题出现 Bug.
+            .RunAsync(CancellationToken.None);//这段代码不要使用参数里的 cancellationToken，会因为玄学问题出现 Bug.
 
         await bar.Animate(TranslateTransform.XProperty)
             .WithDuration(TimeSpan.FromSeconds(0.3))
@@ -65,10 +65,12 @@ internal class DynamicBarTransition : IPageTransition {
     }
 
     private static async Task CollapsedToExpandedAsync(Visual bar, Visual content, CancellationToken cancellationToken) {
+        var value = GetTransformXValue(bar);
+
         await bar.Animate(TranslateTransform.XProperty)
             .WithEasing(new ExponentialEaseIn())
             .WithDuration(TimeSpan.FromSeconds(0.3))
-            .From(-16d)
+            .From(value ?? -16d)
             .To(25d)
             .RunAsync(cancellationToken);
 

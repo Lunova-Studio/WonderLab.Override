@@ -17,7 +17,8 @@
 
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Panel Background="{x:Null}"
+				<Panel Name="PART_Layout"
+					   Background="{x:Null}"
 					   MinWidth="{TemplateBinding MinWidth}"
 					   MaxWidth="{TemplateBinding MaxWidth}"
 					   ClipToBounds="{TemplateBinding ClipToBounds}"

@@ -4,8 +4,10 @@ using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
+using Avalonia.Interactivity;
 using Avalonia.Media;
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Extensions;
@@ -14,132 +16,163 @@ using WonderLab.SourceGenerator.Attributes;
 
 namespace WonderLab.Controls;
 
+
 [PseudoClasses(":press")]
 [StyledProperty(typeof(BarState), "BarState", BarState.Collapsed)]
 public partial class DynamicBar : ContentControl {
+    // 记录拖拽起点、初始偏移和实时偏移
     private double _startX;
+    private double _initialOffsetX;
     private double _offsetX;
+
+    private bool _isDragging;
     private bool _canOpenPanel;
+    
+    private Panel _PART_Layout;
     private Border _PART_LayoutBorder;
     private Border _PART_ContentLayoutBorder;
-    private CancellationTokenSource _cancellationTokenSource = new();
 
+    private CancellationTokenSource _cts = new();
     private readonly DynamicBarTransition _barTransition = new();
 
-    private void SetPseudoclasses(bool isPress) {
-        PseudoClasses.Set(":press", isPress);
+    public DynamicBar() {
+        Loaded += OnLoaded;
     }
 
-    private void OnLayoutPointerMoved(object sender, PointerEventArgs e) {
-        if (BarState is not BarState.Collapsed) {
-            return;
-        }
-
-        if (e.GetCurrentPoint(_PART_LayoutBorder).Properties.IsLeftButtonPressed) {
-            var position = e.GetPosition(this);
-            _offsetX = position.X - _startX;
-            if (_offsetX > 0 || _offsetX < -15) {
-                return;
-            }
-
-            _canOpenPanel = _offsetX < -5;
-            _PART_LayoutBorder.Margin = new(0, 0, -_offsetX, 0);
-        }
-    }
-
-    private void OnLayoutPointerReleased(object sender, PointerReleasedEventArgs e) {
-        if (BarState is not BarState.Collapsed) {
-            return;
-        }
-
-        SetPseudoclasses(false);
-        if (e.InitialPressMouseButton is MouseButton.Left) {
-            _PART_LayoutBorder.Margin = new Thickness(0, 0, 0, 0);
-
-            if (_offsetX is 0) {
-                BarState = BarState.Expanded;
-            }
-
-            if (_canOpenPanel) {
-                BarState = _canOpenPanel ? BarState.Expanded : BarState.Collapsed;
-                _canOpenPanel = false;
-            }
-
-            _offsetX = 0;
-        }
-    }
-
-    private void OnLayoutPointerPressed(object sender, PointerPressedEventArgs e) {
-        if (BarState is not BarState.Collapsed)
-            return;
-
-        SetPseudoclasses(true);
-        if (e.GetCurrentPoint(_PART_LayoutBorder).Properties.IsLeftButtonPressed) {
-            _startX = e.GetPosition(this).X;
-        }
-    }
-
-    private void OnLayoutPointerCaptureLost(object sender, PointerCaptureLostEventArgs e) {
-        _PART_LayoutBorder.Margin = new Thickness(0, 0, 0, 0);
-    }
-
-    protected override async void OnLoaded(Avalonia.Interactivity.RoutedEventArgs e) {
-        base.OnLoaded(e);
-
-        await Task.Delay(250);
-
-        var task = _PART_LayoutBorder.Animate(OpacityProperty)
-            .WithDuration(TimeSpan.FromSeconds(0.8))
-            .From(0)
-            .To(1)
-            .RunAsync(_cancellationTokenSource.Token);
-
-        var task1 = _PART_LayoutBorder.Animate(TranslateTransform.XProperty)
-            .WithDuration(TimeSpan.FromSeconds(0.5))
-            .From(25d)
-            .To(-16d)
-            .RunAsync(_cancellationTokenSource.Token);
-
-        var taks2 = _PART_ContentLayoutBorder.Animate(TranslateTransform.XProperty)
-            .WithEasing(new ExponentialEaseIn())
-            .WithDuration(TimeSpan.FromSeconds(0.1))
-            .From(-16d)
-            .To(460d)
-            .RunAsync(_cancellationTokenSource.Token);
-
-        await Task.WhenAll(task, task1, taks2);
-        _PART_ContentLayoutBorder.Opacity = 1;
-    }
+    private void SetPseudoclasses(bool isPress)
+        => PseudoClasses.Set(":press", isPress);
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e) {
         base.OnApplyTemplate(e);
-        _PART_LayoutBorder = e.NameScope.Find<Border>("PART_LayoutBorder");
-        _PART_ContentLayoutBorder = e.NameScope.Find<Border>("PART_ContentLayoutBorder");
 
-        _PART_LayoutBorder.PointerMoved += OnLayoutPointerMoved;
-        _PART_LayoutBorder.PointerPressed += OnLayoutPointerPressed;
-        _PART_LayoutBorder.PointerReleased += OnLayoutPointerReleased;
-        _PART_LayoutBorder.PointerCaptureLost += OnLayoutPointerCaptureLost;
+        _PART_Layout = e.NameScope.Find<Panel>("PART_Layout")!;
+        _PART_LayoutBorder = e.NameScope.Find<Border>("PART_LayoutBorder")!;
+        _PART_ContentLayoutBorder = e.NameScope.Find<Border>("PART_ContentLayoutBorder")!;
+
+        _PART_LayoutBorder.PointerMoved += OnPointerMoved;
+        _PART_LayoutBorder.PointerPressed += OnPointerPressed;
+        _PART_LayoutBorder.PointerReleased += OnPointerReleased;
+
+        _PART_LayoutBorder.RenderTransform = new TransformGroup {
+            Children = { new TranslateTransform() }
+        };
+    }
+
+    private async void OnLoaded(object sender, RoutedEventArgs e) {
+        // 初始淡入和滑入动画
+        await Task.Delay(250);
+
+        var fadeIn = _PART_LayoutBorder
+            .Animate(OpacityProperty)
+            .WithDuration(TimeSpan.FromSeconds(0.8))
+            .From(0).To(1)
+            .RunAsync(_cts.Token);
+
+        var slideIn = _PART_LayoutBorder
+            .Animate(TranslateTransform.XProperty)
+            .WithDuration(TimeSpan.FromSeconds(0.5))
+            .From(25).To(-16)
+            .RunAsync(_cts.Token);
+
+        var contentSlide = _PART_ContentLayoutBorder
+            .Animate(TranslateTransform.XProperty)
+            .WithEasing(new ExponentialEaseIn())
+            .WithDuration(TimeSpan.FromSeconds(0.1))
+            .From(-16).To(460)
+            .RunAsync(_cts.Token);
+
+        await Task.WhenAll(fadeIn, slideIn, contentSlide);
+        _PART_ContentLayoutBorder.Opacity = 1;
+    }
+
+    private void OnPointerPressed(object sender, PointerPressedEventArgs e) {
+        if (BarState != BarState.Collapsed)
+            return;
+
+        var pt = e.GetCurrentPoint(_PART_LayoutBorder);
+        if (!pt.Properties.IsLeftButtonPressed)
+            return;
+
+        SetPseudoclasses(true);
+        _isDragging = true;
+
+        var tt = (TranslateTransform)((TransformGroup)_PART_LayoutBorder.RenderTransform).Children[0];
+        _initialOffsetX = tt.X;
+        _startX = pt.Position.X;
+    }
+
+    private void OnPointerMoved(object sender, PointerEventArgs e) {
+        if (!_isDragging || BarState != BarState.Collapsed)
+            return;
+
+        var curX = e.GetCurrentPoint(_PART_LayoutBorder).Position.X;
+        var newX = _initialOffsetX + (curX - _startX);
+
+        _offsetX = Math.Min(newX, _offsetX);
+
+        if (_offsetX > -15 || _offsetX < -50)
+            return;
+
+        _canOpenPanel = _offsetX <= -40;
+
+        var tt = (TranslateTransform)((TransformGroup)_PART_LayoutBorder.RenderTransform).Children[0];
+        tt.X = _offsetX;
+    }
+
+    private void OnPointerReleased(object sender, PointerReleasedEventArgs e) {
+        if (!_isDragging || BarState != BarState.Collapsed)
+            return;
+
+        SetPseudoclasses(false);
+        _isDragging = false;
+
+        if (e.InitialPressMouseButton == MouseButton.Left) {
+            if (_canOpenPanel) {
+                BarState = BarState.Expanded;
+            } else {
+                AnimateBackTo(-16);
+            }
+        }
+
+        _offsetX = 0;
+        _canOpenPanel = false;
+    }
+
+    private async void OnPointerCaptureLost(object sender, PointerCaptureLostEventArgs e) {
+        var tt = (TranslateTransform)((TransformGroup)_PART_LayoutBorder.RenderTransform).Children[0];
+        await _PART_LayoutBorder
+            .Animate(TranslateTransform.XProperty)
+            .WithDuration(TimeSpan.FromMilliseconds(300))
+            .From(tt.X).To(0)
+            .RunAsync(_cts.Token);
+    }
+
+    private void AnimateBackTo(double to) {
+        _PART_LayoutBorder.Animate(TranslateTransform.XProperty)
+            .WithDuration(TimeSpan.FromMilliseconds(300))
+            .From(_offsetX)
+            .To(to)
+            .RunAsync(_cts.Token);
     }
 
     protected override async void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change) {
         base.OnPropertyChanged(change);
 
         if (change.Property == BarStateProperty) {
-            Cancel();
-            var (oldValue, newValue) = change.GetOldAndNewValue<BarState>();
+            // 取消所有进行中动画
+            _cts.Cancel();
+            _cts = new CancellationTokenSource();
 
-            _barTransition.OldState = oldValue;
-            _barTransition.NewState = newValue;
+            var (oldState, newState) = change.GetOldAndNewValue<BarState>();
+            _barTransition.OldState = oldState;
+            _barTransition.NewState = newState;
 
-            await _barTransition.Start(_PART_LayoutBorder, _PART_ContentLayoutBorder, false, _cancellationTokenSource.Token);
-            return;
+            await _barTransition.Start(
+                _PART_LayoutBorder,
+                _PART_ContentLayoutBorder,
+                false,
+                _cts.Token);
         }
-    }
-
-    private void Cancel() {
-        _cancellationTokenSource.Cancel();
-        _cancellationTokenSource = new();
     }
 }
 
