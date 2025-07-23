@@ -105,7 +105,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\Wrap.Remastered\Wrap.Remastered\Wrap.Remastered.csproj" />
         <ProjectReference Include="..\refs\LiteSkinViewer\LiteSkinViewer.2D\LiteSkinViewer.2D.csproj" />
         <ProjectReference Include="..\refs\LiteSkinViewer\LiteSkinViewer.3D\LiteSkinViewer.3D.csproj" />
         <ProjectReference Include="..\refs\Monet\Monet.Avalonia\Monet.Avalonia.csproj" />

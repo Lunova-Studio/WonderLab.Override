@@ -30,6 +30,16 @@ public sealed partial class DownloadNavigationPageViewModel : PageViewModelBase 
                 HeaderItems.Add(arg.S);
             });
         });
+
+        WeakReferenceMessenger.Default.Register<RequestResourcePageMessage>(this, (_, args) => {
+            Dispatcher.UIThread.Post(() => {
+                if (HeaderItems.Count > 1)
+                    HeaderItems.Remove(HeaderItems.Last());
+
+                HeaderItems.Add(args.ResourceName);
+                ActivePageKey = args.Key;
+            });
+        });
     }
 
     [RelayCommand]
@@ -40,11 +50,16 @@ public sealed partial class DownloadNavigationPageViewModel : PageViewModelBase 
 
     [RelayCommand]
     private void OnItemClicked(BreadcrumbBarItemClickedEventArgs arg) {
+        var last = HeaderItems.Last();
+        var isHasTrueChild = last.Contains("Search");
         var isHasChild = arg.Index + 1 <= HeaderItems.Count - 1;
 
         if (isHasChild) {
-            HeaderItems.RemoveAt(arg.Index + 1);
-            WeakReferenceMessenger.Default.Send(new RequestDownloadPageGobackMessage());
+            HeaderItems.Remove(last);
+            if (isHasTrueChild)
+                WeakReferenceMessenger.Default.Send(new RequestDownloadPageGobackMessage());
+            else
+                ActivePageKey = "Download/Dashboard";
         }
     }
 }

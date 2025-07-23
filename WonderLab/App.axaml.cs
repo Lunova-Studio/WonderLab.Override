@@ -12,14 +12,12 @@ using MinecraftLaunch.Utilities;
 using Monet.Avalonia;
 using Serilog;
 using System;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using WonderLab.Classes.Processors;
 using WonderLab.Controls;
 using WonderLab.Extensions;
 using WonderLab.Extensions.Hosting;
-using WonderLab.Override.I18n;
 using WonderLab.Services;
 using WonderLab.Services.Authentication;
 using WonderLab.Services.Auxiliary;
@@ -145,6 +143,7 @@ public sealed partial class App : Application {
 
         //Download
         pageProvider.AddPage<DownloadNavigationPage, DownloadNavigationPageViewModel>("Download/Navigation");
+        pageProvider.AddPage<DownloadMinecraftPage, DownloadMinecraftPageViewModel>("Download/Minecraft");
         pageProvider.AddPage<DownloadDashboardPage, DownloadDashboardPageViewModel>("Download/Dashboard");
         pageProvider.AddPage<SearchPage, SearchPageViewModel>("Download/Search");
 

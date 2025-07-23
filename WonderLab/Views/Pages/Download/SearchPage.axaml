@@ -25,7 +25,9 @@
 				<DataTemplate x:Key="Minecraft">
 					<wc:NavigationTile Classes="content"
 									   IsEnableAnimation="False"
-									   Title="{Binding Id}">
+									   Title="{Binding Id}"
+									   CommandParameter="{Binding}"
+									   Command="{Binding $parent[ItemsRepeater].DataContext.JumpToResourcePageCommand}">
 						<wc:NavigationTile.Icon>
 							<Border Width="40"
 									Height="40"
@@ -56,7 +58,9 @@
 					<wc:NavigationTile Padding="4 2"
 									   Classes="content"
 									   IsEnableAnimation="False"
-									   Title="{Binding Name}">
+									   Title="{Binding Name}"
+									   CommandParameter="{Binding}"
+									   Command="{Binding $parent[ItemsRepeater].DataContext.JumpToResourcePageCommand}">
 						<wc:NavigationTile.Icon>
 							<Border Width="50"
 									Height="50"
@@ -141,7 +145,9 @@
 					<wc:NavigationTile Padding="4 2"
 									   Classes="content"
 									   IsEnableAnimation="False"
-									   Title="{Binding Name}">
+									   Title="{Binding Name}"
+									   CommandParameter="{Binding}"
+									   Command="{Binding $parent[ItemsRepeater].DataContext.JumpToResourcePageCommand}">
 						<wc:NavigationTile.Icon>
 							<Border Width="50"
 									Height="50"

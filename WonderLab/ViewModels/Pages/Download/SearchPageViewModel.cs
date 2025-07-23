@@ -2,6 +2,8 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Base.Enums;
+using MinecraftLaunch.Base.Models.Network;
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -51,6 +53,18 @@ public sealed partial class SearchPageViewModel : PageViewModelBase {
         PropertyChanged += OnPropertyChanged;
         _searchService.Resources.CollectionChanged += OnCollectionChanged;
     });
+
+    [RelayCommand]
+    private void JumpToResourcePage(object parameter) {
+        if (parameter is VersionManifestEntry minecraft)
+            WeakReferenceMessenger.Default.Send(new RequestResourcePageMessage("Download/Minecraft", minecraft.Id, minecraft));
+        else if (parameter is ModrinthResource modrinthResource)
+            WeakReferenceMessenger.Default.Send(new RequestResourcePageMessage("6", modrinthResource.Name, modrinthResource));
+        else if (parameter is CurseforgeResource curseforgeResource)
+            WeakReferenceMessenger.Default.Send(new RequestResourcePageMessage("6", curseforgeResource.Name, curseforgeResource));
+        else
+            throw new NotSupportedException($"Unsupported resource type");
+    }
 
     [RelayCommand]
     private static void Search() {

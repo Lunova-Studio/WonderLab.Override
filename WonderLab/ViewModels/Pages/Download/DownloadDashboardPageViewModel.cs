@@ -41,7 +41,7 @@ public sealed partial class DownloadDashboardPageViewModel : PageViewModelBase {
         _pageProvider = pageProvider;
 
         WeakReferenceMessenger.Default.Register<RequestSearchMessage>(this, async (_, _) => {
-            await SearchCommand.ExecuteAsync(default);
+            await SearchCommand.ExecuteAsync(string.Empty);
         });
 
         WeakReferenceMessenger.Default.Register<RequestDownloadPageGobackMessage>(this, async (_, _) => {
@@ -63,27 +63,8 @@ public sealed partial class DownloadDashboardPageViewModel : PageViewModelBase {
     }
 
     [RelayCommand]
-    private Task OnLoaded() => Task.Run(async () => {
-        await Task.Delay(200);
-        await _searchService.InitSearchCacheContainerAsync();
-
-        SearchCaches = new(_searchService.Caches);
-        var featuredResources = await _searchService.GetFeaturedResourcesAsync(default);
-        FeaturedResources = [.. featuredResources.Select(x => new FeaturedResourcesItem(x,
-            x.Screenshots?.FirstOrDefault() ?? x.IconUrl))];
-
-        FeaturedResourcesIndex = 0;
-        IsFeaturedResourcesLoading = false;
-
-        HasSearchCache = SearchCaches.Count > 0;
-        PropertyChanged += OnPropertyChanged;
-
-        _searchService.Reset();
-    });
-
-    [RelayCommand]
-    private Task Search() => Task.Run(async () => {
-        if (string.IsNullOrEmpty(Keyword))
+    private Task Search(string flag = null) => Task.Run(async () => {
+        if (string.IsNullOrEmpty(Keyword) && flag is null)
             return;
 
         IsEnterKeyDown = true;
@@ -116,6 +97,23 @@ public sealed partial class DownloadDashboardPageViewModel : PageViewModelBase {
         if (e.PropertyName is nameof(ActiveSearchType))
             _searchService.SearchType = ActiveSearchType;
     }
+
+    protected override void OnNavigated() => Task.Run(async () => {
+        await _searchService.InitSearchCacheContainerAsync();
+
+        SearchCaches = new(_searchService.Caches);
+        var featuredResources = await _searchService.GetFeaturedResourcesAsync(CancellationTokenSource.Token);
+        FeaturedResources = [.. featuredResources.Select(x => new FeaturedResourcesItem(x,
+            x.Screenshots?.FirstOrDefault() ?? x.IconUrl))];
+
+        FeaturedResourcesIndex = 0;
+        IsFeaturedResourcesLoading = false;
+
+        HasSearchCache = SearchCaches.Count > 0;
+        PropertyChanged += OnPropertyChanged;
+
+        _searchService.Reset();
+    });
 }
 
 public record FeaturedResourcesItem(ModrinthResource Resource, string FirstImageUrl);
