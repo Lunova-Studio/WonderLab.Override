@@ -94,5 +94,43 @@
 		<Style Selector="^:disabled">
 			<Setter Property="Opacity" Value="0.6"/>
 		</Style>
+		
+		<Style Selector="^.image">
+			<Setter Property="Background" Value="{DynamicResource SettingCardsBackgroundBrush}"/>
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border Padding="{TemplateBinding Padding}"
+							Background="{TemplateBinding Background}"
+							CornerRadius="{TemplateBinding CornerRadius}">
+						<Grid Name="PART_LayoutGrid"
+							  ColumnDefinitions="auto auto *">
+							<ContentPresenter VerticalAlignment="Center"
+											  Name="PART_IconContentPresenter"
+											  Content="{TemplateBinding Icon}"
+											  Foreground="{TemplateBinding Foreground}"
+											  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+											  Grid.Column="0"/>
+
+							<ContentPresenter Margin="12 0 0 0"
+											  VerticalAlignment="Center"
+											  HorizontalAlignment="Left"
+											  Content="{TemplateBinding Header}"
+											  Foreground="{TemplateBinding Foreground}"
+											  Grid.Column="1"/>
+
+							<ContentPresenter Name="PART_ContentPresenter"
+											  Content="{TemplateBinding Content}"
+											  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+											  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+											  Grid.Column="2"/>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="^.image:disabled">
+			<Setter Property="Opacity" Value="0.6"/>
+		</Style>
 	</ControlTheme>
 </ResourceDictionary>

@@ -10,9 +10,10 @@ namespace WonderLab.Classes.Models;
 public record SettingModel {
     [JsonPropertyName("isFullScreen")] public bool IsFullScreen { get; set; }
     [JsonPropertyName("isEnableMirror")] public bool IsEnableMirror { get; set; }
-    [JsonPropertyName("isAutoSelectJava")] public bool IsAutoSelectJava { get; set; }
     [JsonPropertyName("isEnableBitmapColor")] public bool IsEnableBitmapColor { get; set; }
     [JsonPropertyName("isAutoRefreshAccount")] public bool IsAutoRefreshAccount { get; set; }
+    [JsonPropertyName("isAutoMemory")] public bool IsAutoMemory { get; set; } = true;
+    [JsonPropertyName("isAutoSelectJava")] public bool IsAutoSelectJava { get; set; } = true;
     [JsonPropertyName("isEnableSystemColor")] public bool IsEnableSystemColor { get; set; } = true;
     [JsonPropertyName("isEnableIndependency")] public bool IsEnableIndependency { get; set; } = true;
 
@@ -23,7 +24,7 @@ public record SettingModel {
     [JsonPropertyName("maxMemorySize")] public int MaxMemorySize { get; set; }
     [JsonPropertyName("minMemorySize")] public int MinMemorySize { get; set; } = 512;
 
-    [JsonPropertyName("languageCode")] public string LanguageCode { get; set; } = null;
+    [JsonPropertyName("languageCode")] public string LanguageCode { get; set; } = "zh-Hans";
     [JsonPropertyName("imagePath")] public string ImagePath { get; set; } = string.Empty;
     [JsonPropertyName("activeGameId")] public string ActiveGameId { get; set; } = string.Empty;
     [JsonPropertyName("serverAddress")] public string ServerAddress { get; set; } = string.Empty;
@@ -33,7 +34,7 @@ public record SettingModel {
     [JsonPropertyName("activeAccount")] public Account ActiveAccount { get; set; }
 
     [JsonPropertyName("activeTheme")] public ThemeType ActiveTheme { get; set; } = ThemeType.Auto;
-    [JsonPropertyName("activeColorVariant")] public Variant ActiveColorVariant { get; set; } = Variant.Default;
+    [JsonPropertyName("activeColorVariant")] public Variant ActiveColorVariant { get; set; } = Variant.Tonal_Spot;
     [JsonPropertyName("activeBackgroundType")] public BackgroundType ActiveBackground { get; set; } = BackgroundType.SolidColor;
 
     [JsonPropertyName("accounts")] public List<Account> Accounts { get; set; } = [];

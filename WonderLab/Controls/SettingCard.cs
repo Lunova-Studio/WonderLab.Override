@@ -1,8 +1,4 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.Presenters;
-using Avalonia.Controls.Primitives;
-using Avalonia.Interactivity;
+﻿using Avalonia.Controls;
 using WonderLab.SourceGenerator.Attributes;
 
 namespace WonderLab.Controls;
@@ -10,8 +6,8 @@ namespace WonderLab.Controls;
 [StyledProperty(typeof(string), "Header", "Header")]
 public sealed partial class SettingCards : ItemsControl;
 
-[StyledProperty(typeof(string), "Icon")]
-[StyledProperty(typeof(string), "Header", "Header")]
+[StyledProperty(typeof(object), "Icon")]
+[StyledProperty(typeof(object), "Header", "Header")]
 public sealed partial class SettingCard : ContentControl;
 
 [StyledProperty(typeof(string), "Icon")]

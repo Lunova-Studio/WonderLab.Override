@@ -11,7 +11,7 @@ namespace WonderLab.Services;
 
 public sealed class SettingService {
     private readonly ILogger<SettingService> _logger;
-    private readonly FileInfo _settingFileInfo = new(Path.Combine(PathUtil.GetDataFolderPath(), "settings.json"));
+    public static readonly FileInfo SettingFileInfo = new(Path.Combine(PathUtil.GetDataFolderPath(), "settings.json"));
 
     public SettingModel Setting { get; set; }
 
@@ -22,7 +22,7 @@ public sealed class SettingService {
         _logger.LogInformation("读取设置项");
 
         try {
-            var json = File.ReadAllText(_settingFileInfo.FullName);
+            var json = File.ReadAllText(SettingFileInfo.FullName);
             Setting = json.Deserialize(SettingModelJsonContext.Default.SettingModel);
 
             DownloadMirrorManager.MaxThread = Setting.MaxThread;
@@ -37,7 +37,7 @@ public sealed class SettingService {
         _logger.LogInformation("保存设置项");
 
         try {
-            File.WriteAllText(_settingFileInfo.FullName, (Setting ??= new()).Serialize(SettingModelJsonContext.Default.SettingModel));
+            File.WriteAllText(SettingFileInfo.FullName, (Setting ??= new()).Serialize(SettingModelJsonContext.Default.SettingModel));
         } catch (Exception ex) {
             _logger.LogError(ex, "遭遇错误：{ex}", ex.ToString());
         }
@@ -47,11 +47,11 @@ public sealed class SettingService {
         _logger.LogInformation("初始化设置项");
 
         try {
-            if (!_settingFileInfo.Exists) {
+            if (!SettingFileInfo.Exists) {
                 _logger.LogInformation("数据文件不存在或丢失");
-                _settingFileInfo.Directory.Create();
+                SettingFileInfo.Directory.Create();
 
-                using var fs = _settingFileInfo.Create();
+                using var fs = SettingFileInfo.Create();
                 fs.Close();
                 Save();
             }

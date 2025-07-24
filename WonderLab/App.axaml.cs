@@ -14,6 +14,8 @@ using Serilog;
 using System;
 using System.IO;
 using System.Linq;
+using WonderLab.Classes.Importer;
+using WonderLab.Classes.Interfaces;
 using WonderLab.Classes.Processors;
 using WonderLab.Controls;
 using WonderLab.Extensions;
@@ -68,8 +70,9 @@ public sealed partial class App : Application {
             desktop.Exit += OnExit;
             desktop.Startup += OnStartup;
 
-            desktop.MainWindow = Get<MainWindow>();
-            desktop.MainWindow.DataContext = Get<MainWindowViewModel>();
+            var flag = SettingService.SettingFileInfo.Exists && false;//TODO: 这里需要判断是否是第一次运行,目前为了调试方便暂时关闭主界面
+            desktop.MainWindow = flag ? Get<MainWindow>() : Get<OobeWindow>();
+            desktop.MainWindow.DataContext = flag ? Get<MainWindowViewModel>() : Get<OobeWindowViewModel>();
 
             if (desktop.MainWindow is WonderWindow)
                 Get<ThemeService>().Initialize(desktop.MainWindow as WonderWindow);
@@ -86,6 +89,9 @@ public sealed partial class App : Application {
 
         builder.Services.AddSingleton<ModrinthProvider>();
         builder.Services.AddSingleton<CurseforgeProvider>();
+
+        builder.Services.AddSingleton<ISettingImporter, PclSettingImporter>();
+        builder.Services.AddSingleton<ISettingImporter, HmclSettingImporter>();
 
         //Configure Service
         builder.Services.AddSingleton<ModService>();
@@ -106,6 +112,9 @@ public sealed partial class App : Application {
         //Configure Window
         builder.Services.AddSingleton<MainWindow>();
         builder.Services.AddSingleton<MainWindowViewModel>();
+
+        builder.Services.AddSingleton<OobeWindow>();
+        builder.Services.AddSingleton<OobeWindowViewModel>();
 
         //Configure Dialog
         var dialogProvider = builder.DialogProvider;

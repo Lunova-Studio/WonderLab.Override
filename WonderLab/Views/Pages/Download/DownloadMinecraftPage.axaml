@@ -3,6 +3,70 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:wa="using:WonderLab.Media.Attachments"
              x:Class="WonderLab.DownloadMinecraftPage">
-  Welcome to Avalonia!
+	<UserControl.Resources>
+		<RecyclingElementFactory x:Key="LoaderTypeTemplateSelector">
+			<RecyclingElementFactory.Templates>
+				<!--<DataTemplate>
+					
+				</DataTemplate>-->
+			</RecyclingElementFactory.Templates>
+		</RecyclingElementFactory>
+	</UserControl.Resources>
+	<ScrollViewer>
+		<ItemsControl MaxWidth="1000"
+					  Margin="0 0 16 0"
+					  wa:AnimatedScrollExtensions.AnimatedScroll="True">
+			<wc:SettingCard Classes="image"
+							Header="1.21.8"
+							Background="{DynamicResource SettingCardsBackgroundBrush}">
+				<wc:SettingCard.Icon>
+					<Border Width="40"
+							Height="40"
+							CornerRadius="{StaticResource WeakCornerRadius}">
+						<Border.Background>
+							<ImageBrush Source="resm:WonderLab.Assets.Images.Icons.release_minecraft.png"/>
+						</Border.Background>
+					</Border>
+				</wc:SettingCard.Icon>
+
+				<wc:SettingCard.Content>
+					<StackPanel>
+						<TextBlock Classes="BodyStrong"
+								   Text="1.20.8"/>
+								   
+						<TextBlock Classes="Caption"
+								   Text="正式版"/>
+					</StackPanel>
+				</wc:SettingCard.Content>
+				
+				<Button Content="安装"/>
+			</wc:SettingCard>
+			
+			<TextBlock Margin="0 24 16 12"
+					   Classes="BodyStrong"
+					   Text="附加组件"/>
+
+			<Border CornerRadius="{StaticResource StrongCornerRadius}"
+					Background="{DynamicResource SettingCardsBackgroundBrush}">
+				<StackPanel Spacing="8">
+					<TabStrip Background="Transparent"
+							  SelectedIndex="{Binding ActiveLoaderType}">
+						<TabStripItem Content="Forge"/>
+						<TabStripItem Content="Neoforge"/>
+						<TabStripItem Content="Fabric"/>
+						<TabStripItem Content="Quilt"/>
+						<TabStripItem Content="Optifine"/>
+					</TabStrip>
+					
+					<ItemsRepeater Background="Red"
+								   ItemTemplate="{StaticResource LoaderTypeTemplateSelector}">
+						
+					</ItemsRepeater>
+				</StackPanel>
+			</Border>
+		</ItemsControl>
+	</ScrollViewer>
 </UserControl>
