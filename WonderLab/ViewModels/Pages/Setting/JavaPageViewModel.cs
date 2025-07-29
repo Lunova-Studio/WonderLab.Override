@@ -12,6 +12,9 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia.Controls.Notifications;
+using CommunityToolkit.Mvvm.Messaging;
+using WonderLab.Classes.Models.Messaging;
 using WonderLab.Services;
 
 namespace WonderLab.ViewModels.Pages.Setting;
@@ -58,8 +61,14 @@ public sealed partial class JavaPageViewModel : ObservableObject {
                 return;
 
             var path = result[0].Path.LocalPath;
-            var javaInfo = await JavaUtil.GetJavaInfoAsync(path)
-                ?? throw new NullReferenceException();
+            if (EnvironmentUtil.IsLinux && !path.EndsWith("java", StringComparison.OrdinalIgnoreCase))
+            {
+                WeakReferenceMessenger.Default.Send(new NotificationMessage("Java选择错误，请选择正确的java可执行文件",
+                    NotificationType.Error));
+                return;
+            }
+
+            var javaInfo = await JavaUtil.GetJavaInfoAsync(path);
 
             _javas.Add(javaInfo);
             ActiveJava = _javas.Last();
