@@ -8,6 +8,7 @@
 				 xmlns:wb="using:WonderLab.Media.Behaviors"
 				 xmlns:wt="using:WonderLab.Media.Transitions"
 				 ShieldBackgroundOpacity="{Binding ShieldBackgroundOpacity}"
+				 Icon="resm:WonderLab.Assets.Images.Icons.Icon.png"
 				 Title="WonderLab">	
 	<wc:WonderWindow.Resources>
 		<DataTemplate x:Key="MinecraftProcessCardItemTemplate">

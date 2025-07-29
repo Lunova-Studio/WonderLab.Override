@@ -70,7 +70,7 @@ public sealed partial class App : Application {
             desktop.Exit += OnExit;
             desktop.Startup += OnStartup;
 
-            var flag = SettingService.SettingFileInfo.Exists && false;//TODO: 这里需要判断是否是第一次运行,目前为了调试方便暂时关闭主界面
+            var flag = true;//TODO: 这里需要判断是否是第一次运行,目前为了调试方便暂时关闭主界面
             desktop.MainWindow = flag ? Get<MainWindow>() : Get<OobeWindow>();
             desktop.MainWindow.DataContext = flag ? Get<MainWindowViewModel>() : Get<OobeWindowViewModel>();
 
