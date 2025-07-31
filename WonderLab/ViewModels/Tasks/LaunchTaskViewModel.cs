@@ -19,7 +19,7 @@ public sealed partial class LaunchTaskViewModel : ObservableObject, ITaskJob<Tas
     private readonly CancellationTokenSource _launchCancellationTokenSource = new();
 
     public string ProgressText => Progress.ToString("P2");
-    public string SpeedText => Speed is null ? string.Empty : FileDownloader.GetSpeedText(Speed.Value);
+    public string SpeedText => Speed is null ? string.Empty : DefaultDownloader.FormatSize(Speed.Value, true);
 
     [ObservableProperty] private TaskStatus _taskStatus;
     [ObservableProperty] private bool _isSupportSpeed;

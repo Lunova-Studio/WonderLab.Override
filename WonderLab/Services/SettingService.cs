@@ -10,6 +10,8 @@ using WonderLab.Utilities;
 namespace WonderLab.Services;
 
 public sealed class SettingService {
+    private const string CURSEFORGE_API_KEY = "$2a$10$Awb53b9gSOIJJkdV3Zrgp.CyFP.dI13QKbWn/4UZI4G4ff18WneB6";
+
     private readonly ILogger<SettingService> _logger;
     public static readonly FileInfo SettingFileInfo = new(Path.Combine(PathUtil.GetDataFolderPath(), "settings.json"));
 
@@ -24,10 +26,14 @@ public sealed class SettingService {
         try {
             var json = File.ReadAllText(SettingFileInfo.FullName);
             Setting = json.Deserialize(SettingModelJsonContext.Default.SettingModel);
-
-            DownloadMirrorManager.MaxThread = Setting.MaxThread;
-            DownloadMirrorManager.IsEnableMirror = Setting.IsEnableMirror;
             I18nExtension.LanguageCode = Setting.LanguageCode ??= "zh-Hans";
+
+            InitializeHelper.Initialize(x => {
+                x.UserAgent = "WonderLab/2.0";
+                x.MaxThread = Setting.MaxThread;
+                x.IsEnableMirror = Setting.IsEnableMirror;
+                x.CurseForgeApiKey = CURSEFORGE_API_KEY;
+            });
         } catch (Exception ex) {
             _logger.LogError(ex, "遭遇错误：{ex}", ex.ToString());
         }

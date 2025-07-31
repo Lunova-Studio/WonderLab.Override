@@ -59,7 +59,7 @@ public sealed class SaveService {
         var serverPaths = workingFolders.Select(x => (Path.Combine(x.Item1, "servers.dat"), x.Id, x.MinecraftFolderPath));
 
         var saves = await GetSinglePlayerEntrysAsync(minecrafts, cancellationToken)
-            .ToListAsync(cancellationToken: cancellationToken);
+            .ToListAsync(cancellationToken);
 
         InitializeTime();
 

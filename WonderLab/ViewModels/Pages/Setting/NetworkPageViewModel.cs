@@ -23,11 +23,11 @@ public sealed partial class NetworkPageViewModel : ObservableObject {
 
         switch (e.PropertyName) {
             case nameof(MaxThread):
-                DownloadMirrorManager.MaxThread =
+                DownloadManager.MaxThread =
                     _settingService.Setting.MaxThread = MaxThread;
                 break;
             case nameof(IsEnableMirror):
-                DownloadMirrorManager.IsEnableMirror =
+                DownloadManager.IsEnableMirror =
                     _settingService.Setting.IsEnableMirror = IsEnableMirror;
                 break;
         }

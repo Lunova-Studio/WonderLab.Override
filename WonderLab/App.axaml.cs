@@ -6,6 +6,7 @@ using Flurl.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MinecraftLaunch;
 using MinecraftLaunch.Components.Parser;
 using MinecraftLaunch.Components.Provider;
 using MinecraftLaunch.Utilities;
@@ -14,6 +15,7 @@ using Serilog;
 using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using WonderLab.Classes.Importer;
 using WonderLab.Classes.Interfaces;
 using WonderLab.Classes.Processors;
@@ -60,7 +62,6 @@ public sealed partial class App : Application {
 
         _ = ConfigureIoC(out var host).RunAsync();
         ServiceProvider = host.Services;
-        CurseforgeProvider.CurseforgeApiKey = "$2a$10$Awb53b9gSOIJJkdV3Zrgp.CyFP.dI13QKbWn/4UZI4G4ff18WneB6";
     }
 
     public override void OnFrameworkInitializationCompleted() {
@@ -70,7 +71,7 @@ public sealed partial class App : Application {
             desktop.Exit += OnExit;
             desktop.Startup += OnStartup;
 
-            var flag = true;//TODO: 这里需要判断是否是第一次运行,目前为了调试方便暂时关闭主界面
+            var flag = SettingService.SettingFileInfo.Exists && true; //TODO: 这里需要判断是否是第一次运行,目前为了调试方便暂时关闭主界面
             desktop.MainWindow = flag ? Get<MainWindow>() : Get<OobeWindow>();
             desktop.MainWindow.DataContext = flag ? Get<MainWindowViewModel>() : Get<OobeWindowViewModel>();
 
@@ -90,8 +91,9 @@ public sealed partial class App : Application {
         builder.Services.AddSingleton<ModrinthProvider>();
         builder.Services.AddSingleton<CurseforgeProvider>();
 
-        builder.Services.AddSingleton<ISettingImporter, PclSettingImporter>();
         builder.Services.AddSingleton<ISettingImporter, HmclSettingImporter>();
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            builder.Services.AddSingleton<ISettingImporter, PclSettingImporter>();
 
         //Configure Service
         builder.Services.AddSingleton<ModService>();
@@ -192,15 +194,6 @@ public sealed partial class App : Application {
     private void OnStartup(object sender, ControlledApplicationLifetimeStartupEventArgs e) {
         Get<SettingService>().Initialize();
         Get<GameService>().RefreshGames();
-
-        HttpUtil.Initialize(new FlurlClient {
-            Settings = {
-                Timeout = TimeSpan.FromSeconds(15),
-            },
-            Headers = {
-                { "User-Agent", "WonderLab/2.0" },
-            },
-        });
 
         ActualThemeVariantChanged += OnActualThemeVariantChanged;
         PlatformSettings.ColorValuesChanged += OnColorValuesChanged;

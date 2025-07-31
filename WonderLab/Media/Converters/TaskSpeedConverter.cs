@@ -10,7 +10,7 @@ public sealed class TaskSpeedConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
         if (value is TaskModel task)
             return $"{(task.TaskJob.IsSupportSpeed
-                ? FileDownloader.GetSpeedText(task.TaskJob.Speed.Value) : "")} {task.TaskJob.RunningTimeText}";
+                ? DefaultDownloader.FormatSize(task.TaskJob.Speed.Value, true) : "")} {task.TaskJob.RunningTimeText}";
 
         return value;
     }

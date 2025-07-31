@@ -143,4 +143,6 @@
 
 	<SolidColorBrush x:Key="ErrorMenuItemPointerOverBackgroundBrush" Color="{DynamicResource ErrorColor}"/>
 	<SolidColorBrush x:Key="ErrorMenuItemPointerOverForegroundBrush" Color="{DynamicResource OnErrorColor}"/>
+
+	<SolidColorBrush x:Key="OOBEWindowBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
 </ResourceDictionary>

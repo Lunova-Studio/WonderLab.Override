@@ -4,10 +4,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="WonderLab.OobeWindow"
+		Width="850"
         Title="OobeWindow">
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
 			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
+
+	<Grid>
+		<Border Margin="16"
+				VerticalAlignment="Stretch"
+				HorizontalAlignment="Stretch"
+				CornerRadius="{StaticResource StrongCornerRadius}"
+				Background="{DynamicResource OOBEWindowBackgroundBrush}">
+			
+		</Border>
+	</Grid>
 </Window>

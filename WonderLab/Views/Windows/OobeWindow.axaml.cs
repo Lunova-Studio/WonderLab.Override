@@ -1,13 +1,9 @@
-using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
+using WonderLab.Controls;
 
 namespace WonderLab;
 
-public partial class OobeWindow : Window
-{
-    public OobeWindow()
-    {
+public partial class OobeWindow : WonderWindow {
+    public OobeWindow() {
         InitializeComponent();
     }
 }
