@@ -3,22 +3,106 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+		xmlns:wc="using:WonderLab.Controls"
+		xmlns:wb="using:WonderLab.Media.Behaviors"
+		xmlns:al="using:Avalonia.Labs.Lottie"
         x:Class="WonderLab.OobeWindow"
-		Width="850"
-        Title="OobeWindow">
+		Width="850" Classes="test"
+        Title="设置向导">	
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
 			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
 		</EventTriggerBehavior>
+		
+		<wb:OobeInitAnimationBehavior BarTarget="{Binding ElementName=PART_BottomBar}"
+									  FrameTarget="{Binding ElementName=PART_Frame}"
+									  LottieTarget="{Binding ElementName=PART_Lottie}"/>
 	</Interaction.Behaviors>
-
-	<Grid>
-		<Border Margin="16"
-				VerticalAlignment="Stretch"
+	
+	<Grid RowDefinitions="* auto">
+		<al:Lottie RepeatCount="1"
+				   Name="PART_Lottie"
+				   VerticalAlignment="Center"
+				   HorizontalAlignment="Center"
+				   Grid.RowSpan="2"/>
+		
+		<wc:Frame Opacity="0"
+				  Name="PART_Frame"
+				  PageKey="{Binding ActivePageKey}"
+				  PageProvider="{Binding PageProvider}"/>
+		
+		<Border Name="PART_BottomBar"
+				VerticalAlignment="Bottom"
 				HorizontalAlignment="Stretch"
-				CornerRadius="{StaticResource StrongCornerRadius}"
-				Background="{DynamicResource OOBEWindowBackgroundBrush}">
-			
+				Background="{DynamicResource OOBEWindowBottomBarBackgroundBrush}"
+				Grid.Row="1">
+			<Grid Margin="16 12"
+				  ColumnDefinitions="* auto auto auto">
+				<StackPanel>
+					<TextBlock Classes="Caption"
+							   TextAlignment="Left">
+						<Run Text="{Binding PageIndex}"/>
+						<Run Text="of"/>
+						<Run Text="3"/>
+					</TextBlock>
+					
+					<TextBlock Classes="Body"
+							   TextAlignment="Left"
+							   Text="Select your language"/>
+				</StackPanel>
+
+				<Button Padding="32 4"
+						Classes="ripple"
+						BorderThickness="1"
+						Background="Transparent"
+						UseLayoutRounding="False"
+						VerticalAlignment="Center"
+						VerticalContentAlignment="Center"
+						Content="Back"
+						Command="{Binding BackCommand}"
+						IsVisible="{Binding IsBackButtonVisible}"
+						CornerRadius="{StaticResource FullCornerRadius}"
+						BorderBrush="{DynamicResource ButtonBorderBrush}"
+						Grid.Column="1">
+					<TextBlock Classes="Body"
+							   Text="Back"/>
+				</Button>
+
+				<Button Padding="32 5"
+						Classes="ripple"
+						Margin="12 0 0 0"
+						VerticalAlignment="Center"
+						VerticalContentAlignment="Center"
+						Command="{Binding NextCommand}"
+						IsVisible="{Binding IsSkipButtonVisible}"
+						CornerRadius="{StaticResource FullCornerRadius}"
+						Background="{DynamicResource SecondaryContainerBrush}"
+						Grid.Column="2">
+					<TextBlock Classes="Body"
+							   Text="Skip"/>
+				</Button>
+				
+				<Button Padding="32 5"
+						Classes="ripple"
+						Margin="12 0 0 0"
+						VerticalAlignment="Center"
+						VerticalContentAlignment="Center"
+						Command="{Binding NextCommand}"
+						IsVisible="{Binding IsNextButtonVisible}"
+						IsEnabled="{Binding IsNextButtonEnabled}"
+						CornerRadius="{StaticResource FullCornerRadius}"
+						Background="{DynamicResource SecondaryContainerBrush}"
+						Grid.Column="3">
+					<StackPanel Spacing="8"
+								Orientation="Horizontal">
+						<TextBlock Classes="Body"
+								   Text="Next"/>
+						
+						<wc:FontIcon Glyph="&#xE72A;"
+									 VerticalAlignment="Center"/>
+					</StackPanel>
+				</Button>
+			</Grid>
 		</Border>
 	</Grid>
 </Window>

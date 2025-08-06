@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Threading;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using DialogHostAvalonia;
@@ -29,7 +30,7 @@ public partial class PageViewModelBase : ObservableObject {
 
 public partial class DialogViewModelBase : ObservableObject {
     [RelayCommand]
-    public virtual void Close() => DialogHost.Close("Host");
+    public virtual void Close() => Dispatcher.UIThread.Post(() => DialogHost.Close("Host"));
 }
 
 public partial class DynamicPageViewModelBase : PageViewModelBase {

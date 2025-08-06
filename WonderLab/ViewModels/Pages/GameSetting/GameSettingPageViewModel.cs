@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MinecraftLaunch.Base.Models.Authentication;
+using ObservableCollections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using WonderLab.Classes.Models;
@@ -26,14 +27,14 @@ public sealed partial class GameSettingPageViewModel : ObservableObject {
     [ObservableProperty] private bool _isEnableSpecificSetting;
     [ObservableProperty] private Account _activeAccount;
 
-    public ReadOnlyObservableCollection<Account> Accounts { get; }
+    public INotifyCollectionChangedSynchronizedViewList<Account> Accounts { get; }
 
     public GameSettingPageViewModel(GameService gameService, AccountService accountService, SettingService settingService) {
         _gameService = gameService;
         _settingService = settingService;
         _accountService = accountService;
 
-        Accounts = new(_accountService.Accounts);
+        Accounts = _accountService.Accounts.ToNotifyCollectionChangedSlim();
     }
 
     [RelayCommand]

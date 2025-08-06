@@ -17,5 +17,5 @@ public interface ISettingImporter {
     /// <summary>
     /// 导入设置
     /// </summary>
-    Task<SettingModel> ImportAsync();
+    Task<(SettingModel Settings, bool IsSuccess)> ImportAsync();
 }

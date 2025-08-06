@@ -21,82 +21,92 @@ public sealed class HmclSettingImporter : ISettingImporter {
     public string Type => "HMCL";
     public string LauncherPath { get; set; }
 
-    public async Task<SettingModel> ImportAsync() {
-        var accountList = new List<Account>();
-        var accountPath = GetAccountFilePath();
+    public async Task<(SettingModel Settings, bool IsSuccess)> ImportAsync() {
+        try {
+            var accountList = new List<Account>();
+            var accountPath = GetAccountFilePath();
 
-        if (string.IsNullOrWhiteSpace(accountPath) || !File.Exists(accountPath))
-            throw new FileNotFoundException("未找到账户文件。", accountPath);
+            if (string.IsNullOrWhiteSpace(accountPath) || !File.Exists(accountPath))
+                return (null, false);
 
-        var accountJson = await File.ReadAllTextAsync(accountPath).ConfigureAwait(false);
-        var accountNodeList = accountJson.AsNode().GetEnumerable();
+            var accountJson = await File.ReadAllTextAsync(accountPath).ConfigureAwait(false);
+            var accountNodeList = accountJson.AsNode().GetEnumerable();
 
-        foreach (var node in accountNodeList)
-            accountList.Add(ParseHmclAccount(node));
+            foreach (var node in accountNodeList)
+                accountList.Add(ParseHmclAccount(node));
 
-        var baseDir = Path.GetDirectoryName(LauncherPath)
-            ?? throw new DirectoryNotFoundException("启动器路径无效。");
+            var baseDir = Path.GetDirectoryName(LauncherPath);
 
-        var configPath = Path.Combine(baseDir, "hmcl.json");
-        if (!File.Exists(configPath))
-            throw new FileNotFoundException("配置文件不存在。", configPath);
+            var configPath = Path.Combine(baseDir, "hmcl.json");
+            if (!File.Exists(configPath))
+                return (null, false);
 
-        var configJson = await File.ReadAllTextAsync(configPath).ConfigureAwait(false);
-        var configNode = configJson.AsNode();
+            var configJson = await File.ReadAllTextAsync(configPath).ConfigureAwait(false);
+            var configNode = configJson.AsNode();
 
-        // active account
-        var selectedAccountStr = configNode.GetString("selectedAccount");
-        var selectedUuid = selectedAccountStr?.Split(':').LastOrDefault();
-        var activeAccount = Guid.TryParse(selectedUuid, out var uuid)
-            ? accountList.FirstOrDefault(a => a.Uuid == uuid)
-            : null;
+            // active account
+            var selectedAccountStr = configNode.GetString("selectedAccount");
+            var selectedUuid = selectedAccountStr?.Split(':').LastOrDefault();
+            var activeAccount = Guid.TryParse(selectedUuid, out var uuid)
+                ? accountList.FirstOrDefault(a => a.Uuid == uuid)
+                : null;
 
-        // portable accounts
-        var portableNodes = configNode.GetEnumerable("accounts");
-        foreach (var node in portableNodes)
-            accountList.Add(ParseHmclAccount(node));
+            // portable accounts
+            var portableNodes = configNode.GetEnumerable("accounts");
+            foreach (var node in portableNodes)
+                accountList.Add(ParseHmclAccount(node));
 
-        var configMap = configNode.Select("configurations").AsObject();
-        JsonNode activeGameSettings = null;
-        string activeGameId = string.Empty;
-        var minecraftFolders = new List<string>();
+            var lastFolderId = configNode.GetString("last");
+            var configMap = configNode.Select("configurations").AsObject();
+            JsonNode activeGameSettings = null;
+            string activeGameId = string.Empty;
+            string activeMinecraftFolder = null;
+            var minecraftFolders = new List<string>();
 
-        foreach (var entry in configMap) {
-            var value = entry.Value;
-            if (value.GetBool("useRelativePath"))
-                continue;
+            foreach (var entry in configMap) {
+                var value = entry.Value;
+                if (value.GetBool("useRelativePath"))
+                    continue;
 
-            var gameDir = value.GetString("gameDir");
-            if (!string.IsNullOrEmpty(gameDir))
-                minecraftFolders.Add(gameDir);
+                var gameDir = value.GetString("gameDir");
+                if (!string.IsNullOrEmpty(gameDir))
+                    minecraftFolders.Add(gameDir);
 
-            var versionId = value.GetString("selectedMinecraftVersion");
-            if (!string.IsNullOrEmpty(versionId)) {
-                activeGameId = versionId;
-                activeGameSettings = value.Select("global");
+                if (entry.Key == lastFolderId)
+                    activeMinecraftFolder = gameDir;
+
+                var versionId = value.GetString("selectedMinecraftVersion");
+                if (!string.IsNullOrEmpty(versionId)) {
+                    activeGameId = versionId;
+                    activeGameSettings = value.Select("global");
+                }
             }
+
+            if (activeGameSettings is null)
+                throw new InvalidOperationException("未找到有效的游戏配置。");
+
+            return (new SettingModel {
+                Accounts = accountList,
+                ActiveAccount = activeAccount,
+                ImagePath = configNode.GetString("bgpath"),
+                MaxThread = configNode.GetInt32("downloadThreads"),
+                IsEnableMirror = configNode.GetString("downloadType") == "bmclapi",
+                ActiveColor = Color.Parse(configNode.GetString("theme")).ToUInt32(),
+                ActiveBackground = ParseBackgroundType(configNode.GetString("backgroundType")),
+                MaxMemorySize = activeGameSettings.GetInt32("maxMemory"),
+                IsAutoMemory = activeGameSettings.GetBool("autoMemory"),
+                Width = activeGameSettings.GetInt32("width"),
+                Height = activeGameSettings.GetInt32("height"),
+                ServerAddress = configNode.GetString("serverIp"),
+                IsFullScreen = activeGameSettings.GetBool("fullscreen"),
+                IsAutoSelectJava = activeGameSettings.GetString("java") == "Auto",
+                ActiveGameId = activeGameId,
+                MinecraftFolders = minecraftFolders,
+                ActiveMinecraftFolder = activeMinecraftFolder ?? minecraftFolders.First(),
+            }, true);
+        } catch (Exception) {
+            return (null, false);
         }
-
-        if (activeGameSettings is null)
-            throw new InvalidOperationException("未找到有效的游戏配置。");
-
-        return new SettingModel {
-            Accounts = accountList,
-            ActiveAccount = activeAccount,
-            ImagePath = configNode.GetString("bgpath"),
-            MaxThread = configNode.GetInt32("downloadThreads"),
-            IsEnableMirror = configNode.GetString("downloadType") == "bmclapi",
-            ActiveColor = Color.Parse(configNode.GetString("theme")).ToUInt32(),
-            ActiveBackground = ParseBackgroundType(configNode.GetString("backgroundType")),
-            MaxMemorySize = activeGameSettings.GetInt32("maxMemory"),
-            IsAutoMemory = activeGameSettings.GetBool("autoMemory"),
-            Width = activeGameSettings.GetInt32("width"),
-            Height = activeGameSettings.GetInt32("height"),
-            ServerAddress = configNode.GetString("serverIp"),
-            IsFullScreen = activeGameSettings.GetBool("fullscreen"),
-            IsAutoSelectJava = activeGameSettings.GetString("java") == "Auto",
-            ActiveGameId = activeGameId
-        };
     }
 
     private static string GetAccountFilePath() {

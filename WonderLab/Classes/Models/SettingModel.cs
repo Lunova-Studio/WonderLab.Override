@@ -10,6 +10,7 @@ namespace WonderLab.Classes.Models;
 public record SettingModel {
     [JsonPropertyName("isFullScreen")] public bool IsFullScreen { get; set; }
     [JsonPropertyName("isEnableMirror")] public bool IsEnableMirror { get; set; }
+    [JsonPropertyName("isCompletedOOBE")] public bool IsCompletedOOBE { get; set; }
     [JsonPropertyName("isEnableBitmapColor")] public bool IsEnableBitmapColor { get; set; }
     [JsonPropertyName("isAutoRefreshAccount")] public bool IsAutoRefreshAccount { get; set; }
     [JsonPropertyName("isAutoMemory")] public bool IsAutoMemory { get; set; } = true;

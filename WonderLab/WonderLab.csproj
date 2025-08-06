@@ -31,6 +31,7 @@
 		<CFBundleShortVersionString>2.0</CFBundleShortVersionString>
 		<NSPrincipalClass>NSApplication</NSPrincipalClass>
 		<NSHighResolutionCapable>true</NSHighResolutionCapable>
+		<ApplicationIcon>Assets\Images\Icons\Icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
@@ -50,17 +51,21 @@
         <AvaloniaResource Remove="Assets\Images\doro_loading.jpg" />
         <AvaloniaResource Remove="Assets\Images\Icons\Icon.1024.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\Icon.icns" />
-        <AvaloniaResource Remove="Assets\Images\Icons\Icon.png" />
+        <AvaloniaResource Remove="Assets\Images\Icons\launcher_HMCL.ico" />
+        <AvaloniaResource Remove="Assets\Images\Icons\launcher_PCL2.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\loader_minecraft.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\old_minecraft.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\release_minecraft.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\snapshot_minecraft.png" />
+        <AvaloniaResource Remove="Assets\Lotties\OOBE_Confetti.json" />
+        <AvaloniaResource Remove="Assets\Lotties\OOBE_Hello.json" />
         <AvaloniaResource Remove="Assets\Shaders\bubble.sksl" />
         <AvaloniaResource Remove="Assets\Shaders\voronoi.sksl" />
         <AvaloniaResource Remove="Assets\steve.png" />
         <AvaloniaResource Remove="Assets\Text\dateTime.txt" />
         <AvaloniaResource Remove="Assets\Text\Default.isl" />
         <None Remove="version.txt" />
+        <EmbeddedResource Include="Assets\Images\Icons\Icon.ico" />
         <EmbeddedResource Include="Assets\Font\DinPro.ttf" />
         <EmbeddedResource Include="Assets\Font\MinecraftTen.ttf" />
         <EmbeddedResource Include="Assets\Font\SegoeFluentIcons.ttf" />
@@ -68,11 +73,14 @@
         <EmbeddedResource Include="Assets\Images\doro_loading.jpg" />
         <EmbeddedResource Include="Assets\Images\Icons\Icon.1024.png" />
         <EmbeddedResource Include="Assets\Images\Icons\Icon.icns" />
-        <EmbeddedResource Include="Assets\Images\Icons\Icon.png" />
+        <EmbeddedResource Include="Assets\Images\Icons\launcher_HMCL.ico" />
+        <EmbeddedResource Include="Assets\Images\Icons\launcher_PCL2.png" />
         <EmbeddedResource Include="Assets\Images\Icons\loader_minecraft.png" />
         <EmbeddedResource Include="Assets\Images\Icons\old_minecraft.png" />
         <EmbeddedResource Include="Assets\Images\Icons\release_minecraft.png" />
         <EmbeddedResource Include="Assets\Images\Icons\snapshot_minecraft.png" />
+        <EmbeddedResource Include="Assets\Lotties\OOBE_Confetti.json" />
+        <EmbeddedResource Include="Assets\Lotties\OOBE_Hello.json" />
         <EmbeddedResource Include="Assets\Shaders\bubble.sksl" />
         <EmbeddedResource Include="Assets\Shaders\voronoi.sksl" />
         <EmbeddedResource Include="Assets\steve.png" />

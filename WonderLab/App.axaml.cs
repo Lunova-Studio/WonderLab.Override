@@ -2,14 +2,13 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
-using Flurl.Http;
+using Avalonia.Media;
+using Avalonia.Platform;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using MinecraftLaunch;
 using MinecraftLaunch.Components.Parser;
 using MinecraftLaunch.Components.Provider;
-using MinecraftLaunch.Utilities;
 using Monet.Avalonia;
 using Serilog;
 using System;
@@ -28,10 +27,12 @@ using WonderLab.Services.Auxiliary;
 using WonderLab.Services.Download;
 using WonderLab.Services.Launch;
 using WonderLab.Utilities;
+using WonderLab.ViewModels.Dialogs.Oobe;
 using WonderLab.ViewModels.Dialogs.Setting;
 using WonderLab.ViewModels.Pages;
 using WonderLab.ViewModels.Pages.Download;
 using WonderLab.ViewModels.Pages.GameSetting;
+using WonderLab.ViewModels.Pages.Oobe;
 using WonderLab.ViewModels.Pages.Setting;
 using WonderLab.ViewModels.Windows;
 using WonderLab.Views.Pages;
@@ -46,6 +47,7 @@ public sealed partial class App : Application {
 
     public static MonetColors Monet { get; private set; }
     public static IServiceProvider ServiceProvider { get; private set; }
+    public static Color SystemColor => Current.PlatformSettings.GetColorValues().AccentColor1;
 
     public static TKey Get<TKey>() where TKey : class {
         return ServiceProvider.GetRequiredService<TKey>();
@@ -71,7 +73,10 @@ public sealed partial class App : Application {
             desktop.Exit += OnExit;
             desktop.Startup += OnStartup;
 
-            var flag = SettingService.SettingFileInfo.Exists && true; //TODO: 这里需要判断是否是第一次运行,目前为了调试方便暂时关闭主界面
+            var settingService = Get<SettingService>();
+
+            settingService.Initialize();
+            var flag = settingService.IsCompletedOOBE; //TODO: 这里需要判断是否是第一次运行,目前为了调试方便暂时关闭主界面
             desktop.MainWindow = flag ? Get<MainWindow>() : Get<OobeWindow>();
             desktop.MainWindow.DataContext = flag ? Get<MainWindowViewModel>() : Get<OobeWindowViewModel>();
 
@@ -91,9 +96,9 @@ public sealed partial class App : Application {
         builder.Services.AddSingleton<ModrinthProvider>();
         builder.Services.AddSingleton<CurseforgeProvider>();
 
-        builder.Services.AddSingleton<ISettingImporter, HmclSettingImporter>();
         if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             builder.Services.AddSingleton<ISettingImporter, PclSettingImporter>();
+        builder.Services.AddSingleton<ISettingImporter, HmclSettingImporter>();
 
         //Configure Service
         builder.Services.AddSingleton<ModService>();
@@ -120,6 +125,7 @@ public sealed partial class App : Application {
 
         //Configure Dialog
         var dialogProvider = builder.DialogProvider;
+        dialogProvider.AddDialog<QuickImportDialog, QuickImportDialogViewModel>("QuickImport");
         dialogProvider.AddDialog<OfflineAuthDialog, OfflineAuthDialogViewModel>("OfflineAuth");
         dialogProvider.AddDialog<MicrosoftAuthDialog, MicrosoftAuthDialogViewModel>("MicrosoftAuth");
         dialogProvider.AddDialog<YggdrasilAuthDialog, YggdrasilAuthDialogViewModel>("YggdrasilAuth");
@@ -131,6 +137,15 @@ public sealed partial class App : Application {
         pageProvider.AddPage<GamePage, GamePageViewModel>("Game");
         pageProvider.AddPage<TaskPage, TaskPageViewModel>("Tasks");
         pageProvider.AddPage<MultiplayerPage, MultiplayerPageViewModel>("Multiplayer");
+
+        //OOBE
+        pageProvider.AddPage<CompletedPage, CompletedPageViewModel>("OOBE/Completed");
+        pageProvider.AddPage<AddAccountPage, AddAccountPageViewModel>("OOBE/AddAccount");
+        pageProvider.AddPage<ChooseJavaPage, ChooseJavaPageViewModel>("OOBE/ChooseJava");
+        pageProvider.AddPage<QuickImportPage, QuickImportPageViewModel>("OOBE/QuickImport");
+        pageProvider.AddPage<ChooseThemePage, ChooseThemePageViewModel>("OOBE/ChooseTheme");
+        pageProvider.AddPage<ChooseLanguagePage, ChooseLanguagePageViewModel>("OOBE/ChooseLanguage");
+        pageProvider.AddPage<ChooseMinecraftPage, ChooseMinecraftPageViewModel>("OOBE/ChooseMinecraft");
 
         //Setting
         pageProvider.AddPage<SettingNavigationPage, SettingNavigationPageViewModel>("Setting/Navigation");
@@ -192,7 +207,6 @@ public sealed partial class App : Application {
     }
 
     private void OnStartup(object sender, ControlledApplicationLifetimeStartupEventArgs e) {
-        Get<SettingService>().Initialize();
         Get<GameService>().RefreshGames();
 
         ActualThemeVariantChanged += OnActualThemeVariantChanged;
@@ -215,3 +229,5 @@ public sealed partial class App : Application {
 
     #endregion
 }
+
+public class FuckException : Exception;

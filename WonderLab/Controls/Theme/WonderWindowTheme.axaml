@@ -31,6 +31,7 @@
 		<Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
 		<Setter Property="ExtendClientAreaTitleBarHeightHint" Value="0" />
 		<Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
+		<Setter Property="Icon" Value="resm:WonderLab.Assets.Images.Icons.Icon.ico"/>
 		<Setter Property="Background" Value="{DynamicResource ApplicationBackgroundBrush}"/>
 		<Setter Property="TextElement.Foreground" Value="{DynamicResource ApplicationTitleBarForegroundBrush}" />
 		<Setter Property="SystemDecorations" Value="{OnPlatform Full, Linux=None, x:TypeArguments=SystemDecorations}"/>
@@ -140,5 +141,105 @@
 				</Border>
 			</ControlTemplate>
 		</Setter>
+
+		<Style Selector="^.test">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border ClipToBounds="True"
+							Margin="{TemplateBinding Margin}"
+							CornerRadius="{OnPlatform '0', Linux='10', x:TypeArguments=CornerRadius}">
+						<VisualLayerManager IsHitTestVisible="True"
+											Name="PART_VisualLayerManager">
+							<dialogHost:DialogHost Padding="0"
+												   DialogMargin="0"
+												   Identifier="Host"
+												   Background="{DynamicResource DialogPopupBackgroundBrush}"
+												   dialogHost:DialogHostStyle.CornerRadius="{DynamicResource StrongCornerRadius}">
+								<Panel Name="PART_RootPanel">
+									<!--Experimental-->
+									<wcee:SkiaShaderRenderer Focusable="True"
+															 Name="PART_SkiaShaderRenderer"/>
+
+									<ExperimentalAcrylicBorder Focusable="True"
+															   IsVisible="False"
+															   Name="PART_AcrylicBlurMask"
+															   Material="{DynamicResource ApplicationAcrylicMaterial}">
+									</ExperimentalAcrylicBorder>
+
+									<Border Margin="0"
+											Focusable="True"
+											Name="PART_Background"
+											VerticalAlignment="Stretch"
+											HorizontalAlignment="Stretch"
+											Background="{TemplateBinding Background}"/>
+
+									<Border Focusable="True"
+											VerticalAlignment="Stretch"
+											HorizontalAlignment="Stretch"
+											Background="{DynamicResource BackgroundMaskBrush}"
+											Opacity="{TemplateBinding ShieldBackgroundOpacity}">
+										<Border.Transitions>
+											<Transitions>
+												<DoubleTransition Easing="CircularEaseOut"
+																  Property="Opacity"
+																  Duration="0:0:.70"/>
+											</Transitions>
+										</Border.Transitions>
+									</Border>
+
+									<DockPanel LastChildFill="True">
+										<Border Height="45"
+												Name="PART_DragLayoutBorder"
+												HorizontalAlignment="Stretch"
+												Background="{DynamicResource OOBEWindowTitleBarBackgroundBrush}"
+												DockPanel.Dock="Top">
+											<Grid ColumnDefinitions="* auto auto">
+												<TextBlock Margin="16 0"
+														   Classes="BodyStrong"
+														   Name="TitleTextBlock"
+														   VerticalAlignment="Center"
+														   Text="{TemplateBinding Title}"
+														   Foreground="{DynamicResource OnSurfaceBrush}"
+														   Grid.Column="0"/>
+
+												<Button Width="28"
+														Height="28"
+														FontSize="14"
+														Classes="icon"
+														Content="&#xE921;"
+														Name="PART_MinimizeButton"
+														Foreground="{TemplateBinding Foreground}"
+														CornerRadius="{DynamicResource FullCornerRadius}"
+														Grid.Column="1"/>
+
+												<Button Width="28"
+														Height="28"
+														FontSize="14"
+														Classes="icon"
+														Margin="4 0 12 0"
+														Content="&#xE8BB;"
+														Name="PART_CloseButton"
+														Foreground="{TemplateBinding Foreground}"
+														CornerRadius="{DynamicResource FullCornerRadius}"
+														Grid.Column="2"/>
+											</Grid>
+										</Border>
+
+										<ContentPresenter ClipToBounds="True"
+														  IsHitTestVisible="True"
+														  Name="PART_ContentPresenter"
+														  Content="{TemplateBinding Content}"
+														  CornerRadius="{DynamicResource StrongCornerRadius}"
+														  ContentTemplate="{TemplateBinding ContentTemplate}"
+														  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+														  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+									</DockPanel>
+								</Panel>
+							</dialogHost:DialogHost>
+						</VisualLayerManager>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
 	</ControlTheme>
 </ResourceDictionary>

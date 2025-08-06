@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using MinecraftLaunch.Base.Models.Authentication;
+using ObservableCollections;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using WonderLab.Classes.Models;
@@ -18,13 +19,16 @@ public sealed partial class DashboardPageViewModel : DynamicPageViewModelBase {
 
     [ObservableProperty] private bool _hasSaves;
     [ObservableProperty] private Account _activeAccount;
-    [ObservableProperty] private ReadOnlyObservableCollection<Account> _accounts;
     [ObservableProperty] private ReadOnlyObservableCollection<SaveModel> _lastSaves;
+
+    public INotifyCollectionChangedSynchronizedViewList<Account> Accounts { get; private set; }
 
     public DashboardPageViewModel(AccountService accountService, SaveService saveService, ILogger<DashboardPageViewModel> logger) {
         _logger = logger;
         _saveService = saveService;
         _accountService = accountService;
+
+        Accounts = _accountService.Accounts.ToNotifyCollectionChangedSlim();
     }
 
     partial void OnActiveAccountChanged(Account value) => _accountService.ActivateAccount(value);
@@ -33,7 +37,6 @@ public sealed partial class DashboardPageViewModel : DynamicPageViewModelBase {
         await _saveService.RefreshSavesAsync();
 
         LastSaves = new(_saveService.Saves);
-        Accounts = new(_accountService.Accounts);
         ActiveAccount = _accountService.ActiveAccount;
 
         HasSaves = LastSaves.Count > 0;

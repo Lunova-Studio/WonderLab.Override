@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Logging;
 using MinecraftLaunch.Base.Models.Authentication;
+using ObservableCollections;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Security.Principal;
 using WonderLab.Classes.Models.Messaging;
 
 namespace WonderLab.Services.Authentication;
@@ -13,17 +15,28 @@ public sealed class AccountService {
     private readonly ILogger<AccountService> _logger;
 
     public Account ActiveAccount { get; private set; }
-    public ObservableCollection<Account> Accounts { get; private set; }
+    public ObservableList<Account> Accounts { get; private set; }
 
     public AccountService(SettingService settingService, ILogger<AccountService> logger) {
         _logger = logger;
         _settingService = settingService;
 
         Accounts = [.. _settingService.Setting.Accounts];
-        Accounts.CollectionChanged += OnCollectionChanged;
+        Accounts.CollectionChanged += Accounts_CollectionChanged;
 
         ActivateAccount(_settingService.Setting.ActiveAccount);
         _logger.LogInformation("初始化 {name}", nameof(AccountService));
+    }
+
+    private void Accounts_CollectionChanged(in NotifyCollectionChangedEventArgs<Account> e) {
+        switch (e.Action) {
+            case NotifyCollectionChangedAction.Add:
+                _settingService.Setting.Accounts.Add(e.NewItem);
+                break;
+            case NotifyCollectionChangedAction.Remove:
+                _settingService.Setting.Accounts.Remove(e.OldItem);
+                break;
+        }
     }
 
     public bool RemoveAccount(Account account) => Accounts.Remove(account);
@@ -43,16 +56,5 @@ public sealed class AccountService {
 
         _settingService.Setting.ActiveAccount = ActiveAccount = account;
         WeakReferenceMessenger.Default.Send(new ActiveAccountChangedMessage());
-    }
-
-    private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
-        switch (e.Action) {
-            case NotifyCollectionChangedAction.Add:
-                _settingService.Setting.Accounts.Add(Accounts.Last());
-                break;
-            case NotifyCollectionChangedAction.Remove:
-                _settingService.Setting.Accounts.Remove(e.OldItems[0] as Account);
-                break;
-        }
     }
 }

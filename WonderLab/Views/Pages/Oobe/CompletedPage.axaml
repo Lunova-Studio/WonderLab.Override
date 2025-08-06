@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:al="using:Avalonia.Labs.Lottie"
+			 xmlns:wc="using:WonderLab.Controls"
+             x:Class="WonderLab.CompletedPage">
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Navigated">
+			<InvokeCommandAction Command="{Binding NavigatedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
+	
+	<Panel>
+		<StackPanel VerticalAlignment="Center"
+					HorizontalAlignment="Center">
+			<TextBlock FontSize="28"
+					   Classes="MDTitleLarge"
+					   TextAlignment="Center"
+					   Text="完成"/>
+			
+			<TextBlock Classes="MDBodyLarge"
+					   TextAlignment="Center"
+					   TextWrapping="WrapWithOverflow"
+					   Text="你已完成所有基础设置，点击下方按钮开始正式使用！"/>
+
+			<Button Height="38"
+					Width="120"
+					Margin="0 16 0 0"
+					Classes="primary"
+					HorizontalAlignment="Center">
+				<StackPanel Spacing="8"
+							Orientation="Horizontal">
+					<TextBlock Classes="MDBodyMedium"
+							   TextAlignment="Center"
+							   Text="开始使用"/>
+
+					<wc:FontIcon FontSize="14"
+								 Glyph="&#xE72A;"
+								 VerticalAlignment="Center"/>
+				</StackPanel>
+			</Button>
+		</StackPanel>
+		
+		<al:Lottie RepeatCount="1"
+				   IsHitTestVisible="False"
+				   Path="{Binding LottiePath}"/>
+	</Panel>
+</UserControl>

@@ -1,0 +1,63 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:wa="using:WonderLab.Media.Attachments"
+             x:Class="WonderLab.QuickImportPage">
+	<Grid Margin="36 0"
+		  MaxWidth="1500"
+		  ColumnSpacing="72"
+		  RowSpacing="16"
+		  RowDefinitions=".9* *"
+		  ColumnDefinitions="* *">
+		<wc:FontIcon Padding="1"
+					 FontSize="26"
+					 Glyph="&#xE896;"
+					 HorizontalAlignment="Left"
+					 VerticalAlignment="Bottom"
+					 Foreground="{DynamicResource OOBEWindowFontIconForegroundBrush}"
+					 Grid.Row="0"/>
+
+		<Grid VerticalAlignment="Top"
+			  HorizontalAlignment="Left"
+			  RowDefinitions="auto auto auto"
+			  Grid.Row="1">
+			<TextBlock Classes="MDTitleLarge"
+					   Margin="0 0 0 4"
+					   Text="快速导入设置"
+					   Grid.Row="1"/>
+
+			<TextBlock Classes="MDBodyMedium"
+					   TextWrapping="WrapWithOverflow"
+					   Text="快速导入以下启动器的设置信息以供无缝衔接"
+					   Grid.Row="2"/>
+		</Grid>
+
+		<ItemsRepeater VerticalAlignment="Top"
+					   HorizontalAlignment="Right"
+					   ItemsSource="{Binding Importers}"
+					   Grid.Row="1"
+					   Grid.Column="1">
+			<ItemsRepeater.Layout>
+				<StackLayout Spacing="8"/>
+			</ItemsRepeater.Layout>
+
+			<ItemsRepeater.ItemTemplate>
+				<DataTemplate>
+					<wc:NavigationTile Classes="content"
+									   IsEnableAnimation="False"
+									   Title="{Binding Type}"
+									   CommandParameter="{Binding}"
+									   Command="{Binding $parent[ItemsRepeater].DataContext.OpenImportDialogCommand}">
+						<wc:NavigationTile.Icon>
+							<Image Height="35"
+								   Source="{Binding Type, Converter={StaticResource LauncherIconConverter}}"/>
+						</wc:NavigationTile.Icon>
+					</wc:NavigationTile>
+				</DataTemplate>
+			</ItemsRepeater.ItemTemplate>
+		</ItemsRepeater>
+	</Grid>
+</UserControl>

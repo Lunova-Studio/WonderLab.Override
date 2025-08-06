@@ -7,7 +7,6 @@ using Microsoft.Extensions.Logging;
 using MinecraftLaunch.Base.Utilities;
 using Monet.Shared.Enums;
 using System;
-using System.Collections.Frozen;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using WonderLab.Classes.Enums;
@@ -24,6 +23,8 @@ public sealed class ThemeService {
     private WonderWindow _hostWindow;
 
     public static readonly Lazy<Bitmap> LoadingIcon = new("resm:WonderLab.Assets.Images.doro_loading.jpg".ToBitmap());
+    public static readonly Lazy<Bitmap> PCLIcon = new("resm:WonderLab.Assets.Images.Icons.launcher_PCL2.png".ToBitmap());
+    public static readonly Lazy<Bitmap> HMCLIcon = new("resm:WonderLab.Assets.Images.Icons.launcher_HMCL.ico".ToBitmap());
     public static readonly Lazy<Bitmap> OldMinecraftIcon = new("resm:WonderLab.Assets.Images.Icons.old_minecraft.png".ToBitmap());
     public static readonly Lazy<Bitmap> LoaderMinecraftIcon = new("resm:WonderLab.Assets.Images.Icons.loader_minecraft.png".ToBitmap());
     public static readonly Lazy<Bitmap> ReleaseMinecraftIcon = new("resm:WonderLab.Assets.Images.Icons.release_minecraft.png".ToBitmap());
@@ -57,35 +58,39 @@ public sealed class ThemeService {
     public void Initialize(WonderWindow window) {
         _hostWindow = window;
 
-        if (EnvironmentUtil.IsMac) {
+        if (EnvironmentUtil.IsMac && BackgroundTypes.Count is 4) {
             BackgroundTypes.Add(BackgroundType.Acrylic);
-        } else if (EnvironmentUtil.IsWindow) {
+        } else if (EnvironmentUtil.IsWindow && BackgroundTypes.Count is 4) {
             BackgroundTypes.Add(BackgroundType.Mica);
             BackgroundTypes.Add(BackgroundType.Acrylic);
         }
 
+        var settings = _settingService.Setting;
         Dispatcher.UIThread.Post(() => {
-            if (_settingService.Setting.IsEnableSystemColor)
+            if (settings.IsEnableSystemColor)
                 UseSystemColor();
-            else if (_settingService.Setting.ActiveColor is 0)
-                _settingService.Setting.ActiveColor = Colors.Red.ToUInt32();
+            else if (settings.ActiveColor is 0)
+                settings.ActiveColor = Colors.Red.ToUInt32();
 
-            if (!_settingService.Setting.IsEnableSystemColor)
-                UpdateColorScheme(_settingService.Setting.ActiveColorVariant);
+            if (!settings.IsEnableSystemColor)
+                UpdateColorScheme(settings.ActiveColorVariant);
 
-            UpdateThemeVariant(_settingService.Setting.ActiveTheme);
-            UpdateBackgroundType(_settingService.Setting.ActiveBackground, _settingService.Setting.ImagePath);
+            UpdateThemeVariant(settings.ActiveTheme);
+            UpdateBackgroundType(settings.ActiveBackground, settings.ImagePath);
         });
     }
 
     public void UseSystemColor() {
         UpdateColorScheme(_settingService.Setting.ActiveColorVariant,
-            Application.Current.PlatformSettings.GetColorValues().AccentColor1.ToUInt32());
+            App.SystemColor.ToUInt32());
     }
 
     public void UpdateColorScheme(Variant variant, uint? color = null) {
         _logger.LogInformation("切换动态颜色变种，类别：{variant}", variant.ToString());
-        App.Monet.BuildScheme(variant, Color.FromUInt32(color ?? _settingService.Setting.ActiveColor), 0);
+        if (_settingService.Setting.IsEnableSystemColor)
+            App.Monet.BuildScheme(variant, App.SystemColor, 0);
+        else
+            App.Monet.BuildScheme(variant, Color.FromUInt32(color ?? _settingService.Setting.ActiveColor), 0);
     }
 
     public void UpdateThemeVariant(ThemeType type) {
@@ -105,7 +110,10 @@ public sealed class ThemeService {
         Application.Current.RequestedThemeVariant = variant;
 
         App.Monet.IsDarkMode = variant == ThemeVariant.Dark;
-        App.Monet.BuildScheme(colorVariant, Color.FromUInt32(_settingService.Setting.ActiveColor), 0);
+        if (_settingService.Setting.IsEnableSystemColor)
+            App.Monet.BuildScheme(colorVariant, App.SystemColor, 0);
+        else
+            App.Monet.BuildScheme(colorVariant, Color.FromUInt32(_settingService.Setting.ActiveColor), 0);
     }
 
     public void UpdateBackgroundType(BackgroundType type, string imagePath = default) {

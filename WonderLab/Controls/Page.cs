@@ -8,7 +8,7 @@ public class Page : UserControl {
 
     public event EventHandler<EventArgs> Navigated;
     public event EventHandler<EventArgs> UnNavigated;
-
+    
     public void InvokeNavigated() => Navigated?.Invoke(this, EventArgs.Empty);
     public void InvokeUnNavigated() => UnNavigated?.Invoke(this, EventArgs.Empty);
 }

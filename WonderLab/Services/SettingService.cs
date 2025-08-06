@@ -13,8 +13,14 @@ public sealed class SettingService {
     private const string CURSEFORGE_API_KEY = "$2a$10$Awb53b9gSOIJJkdV3Zrgp.CyFP.dI13QKbWn/4UZI4G4ff18WneB6";
 
     private readonly ILogger<SettingService> _logger;
-    public static readonly FileInfo SettingFileInfo = new(Path.Combine(PathUtil.GetDataFolderPath(), "settings.json"));
 
+#if DEBUG
+    public static readonly FileInfo SettingFileInfo = new(Path.Combine(PathUtil.GetDataFolderPath(), "settings_debug.json"));
+#else
+    public static readonly FileInfo SettingFileInfo = new(Path.Combine(PathUtil.GetDataFolderPath(), "settings.json"));
+#endif
+
+    public bool IsCompletedOOBE { get;set; }
     public SettingModel Setting { get; set; }
 
     public SettingService(ILogger<SettingService> logger) =>
@@ -27,6 +33,9 @@ public sealed class SettingService {
             var json = File.ReadAllText(SettingFileInfo.FullName);
             Setting = json.Deserialize(SettingModelJsonContext.Default.SettingModel);
             I18nExtension.LanguageCode = Setting.LanguageCode ??= "zh-Hans";
+
+            if (IsCompletedOOBE && !Setting.IsCompletedOOBE)
+                IsCompletedOOBE = false;
 
             InitializeHelper.Initialize(x => {
                 x.UserAgent = "WonderLab/2.0";
@@ -52,6 +61,7 @@ public sealed class SettingService {
     public void Initialize() {
         _logger.LogInformation("初始化设置项");
 
+        IsCompletedOOBE = SettingFileInfo.Exists;
         try {
             if (!SettingFileInfo.Exists) {
                 _logger.LogInformation("数据文件不存在或丢失");

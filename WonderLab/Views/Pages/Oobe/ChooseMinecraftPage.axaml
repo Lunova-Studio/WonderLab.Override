@@ -1,0 +1,92 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 xmlns:wc="using:WonderLab.Controls"
+             x:Class="WonderLab.ChooseMinecraftPage">
+	<Grid Margin="36 0"
+		  MaxWidth="1500"
+		  ColumnSpacing="72"
+		  ColumnDefinitions=".9* *"
+		  RowDefinitions="auto auto"
+		  VerticalAlignment="Center"
+		  HorizontalAlignment="Stretch">
+		<wc:FontIcon Padding="1"
+					 FontSize="26"
+					 Glyph="&#xE838;"
+					 VerticalAlignment="Bottom"
+					 HorizontalAlignment="Left"
+					 Foreground="{DynamicResource OOBEWindowFontIconForegroundBrush}"/>
+
+		<Grid Margin="0 16 0 0"
+			  VerticalAlignment="Top"
+			  HorizontalAlignment="Left"
+			  RowDefinitions="auto auto auto auto"
+			  Grid.Row="1">
+			<TextBlock Classes="MDTitleLarge"
+					   Margin="0 0 0 4"
+					   Text="Minecraft 文件夹设置"
+					   Grid.Row="1"/>
+
+			<TextBlock Classes="MDBodyMedium"
+					   TextWrapping="WrapWithOverflow"
+					   Text="您需要 .minecraft 目录以存储您的游戏"
+					   Grid.Row="2"/>
+
+			<Button Margin="0 12 0 0"
+					Classes="primary"
+					VerticalAlignment="Top"
+					HorizontalAlignment="Left"
+					Command="{Binding BrowserFolderCommand}"
+					Grid.Row="3">
+				<StackPanel Spacing="8"
+							Orientation="Horizontal">
+					<wc:FontIcon FontSize="14"
+								 Glyph="&#xE8F4;"
+								 VerticalAlignment="Center"/>
+					
+					<TextBlock Classes="MDBodyMedium"
+							   TextAlignment="Center"
+							   Text="添加"/>
+				</StackPanel>
+			</Button>
+		</Grid>
+
+		<Grid VerticalAlignment="Center"
+			  RowDefinitions="auto auto"
+			  Grid.Row="1"
+			  Grid.Column="1">
+			<TextBlock Classes="MDTitleMedium"
+					   Text="添加的文件夹列表"/>
+
+			<ListBox Margin="0 8 0 0"
+					 ItemsSource="{Binding MinecraftFolders}"
+					 SelectedItem="{Binding ActiveMinecraftFolder}"
+					 Grid.Row="1">
+				<ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<StackPanel Spacing="8"/>
+					</ItemsPanelTemplate>
+				</ListBox.ItemsPanel>
+				
+				<ListBox.ItemTemplate>
+					<DataTemplate>
+						<Grid ColumnDefinitions="auto *">
+							<wc:FontIcon FontSize="14"
+										 Glyph="&#xE8B7;"
+										 VerticalAlignment="Center"/>
+
+							<TextBlock Margin="8 0 0 0"
+									   Classes="MDBodyMedium"
+									   TextTrimming="WordEllipsis"
+									   Text="{Binding}"
+									   Foreground="{DynamicResource ApplicationSubtitleForegroundBrush}"
+									   Grid.Column="1"/>
+						</Grid>
+					</DataTemplate>
+				</ListBox.ItemTemplate>
+			</ListBox>
+		</Grid>
+	</Grid>
+</UserControl>

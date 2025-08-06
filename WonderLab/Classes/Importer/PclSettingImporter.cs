@@ -23,63 +23,65 @@ public sealed class PclSettingImporter : ISettingImporter {
 
     public string LauncherPath { get; set; }
 
-    public async Task<SettingModel> ImportAsync() {
+    public async Task<(SettingModel Settings, bool IsSuccess)> ImportAsync() {
         if (string.IsNullOrWhiteSpace(LauncherPath) || !File.Exists(LauncherPath))
-            throw new ArgumentException(nameof(LauncherPath));
+            return (null, false);
 
-        var baseDir = Path.GetDirectoryName(LauncherPath)
-            ?? throw new DirectoryNotFoundException("无法从启动器路径解析目录。");
+		try {
+            var baseDir = Path.GetDirectoryName(LauncherPath);
+            var settingsFilePath = Path.Combine(baseDir, "PCL", "Setup.ini");
+            if (!File.Exists(settingsFilePath))
+                return (null, false);
 
-        var settingsFilePath = Path.Combine(baseDir, "PCL", "Setup.ini");
-        if (!File.Exists(settingsFilePath))
-            throw new FileNotFoundException("配置文件不存在：", settingsFilePath);
+            var settingsContent = await File.ReadAllTextAsync(settingsFilePath)
+                .ConfigureAwait(false);
 
-        var settingsContent = await File.ReadAllTextAsync(settingsFilePath)
-            .ConfigureAwait(false);
+            var node = OptionsNode.Parse(settingsContent);
+            using var pclRegistry = Registry.CurrentUser.OpenSubKey(@"Software\PCL")
+                ?? throw new InvalidOperationException("注册表键 'Software\\PCL' 未找到。");
 
-        var node = OptionsNode.Parse(settingsContent);
-        using var pclRegistry = Registry.CurrentUser.OpenSubKey(@"Software\PCL")
-            ?? throw new InvalidOperationException("注册表键 'Software\\PCL' 未找到。");
+            var rawJavaList = pclRegistry.GetValue("LaunchArgumentJavaAll")?.ToString();
+            var javaNodeList = rawJavaList.AsNode()
+                .GetEnumerable();
 
-        var rawJavaList = pclRegistry.GetValue("LaunchArgumentJavaAll")?.ToString();
-        var javaNodeList = rawJavaList.AsNode()
-            .GetEnumerable();
+            var javaPaths = new List<string>();
+            foreach (var javaNode in javaNodeList) {
+                var path = javaNode.GetString("Path");
 
-        var javaPaths = new List<string>();
-        foreach (var javaNode in javaNodeList) {
-            var path = javaNode.GetString("Path");
+                if (Directory.Exists(path))
+                    javaPaths.Add(Path.Combine(path, "javaw.exe"));
+            }
 
-            if (Directory.Exists(path))
-                javaPaths.Add(Path.Combine(path, "javaw.exe"));
+            var javaEntries = new List<JavaEntry>();
+            foreach (var path in javaPaths) {
+                try {
+                    var javaInfo = await JavaUtil.GetJavaInfoAsync(path)
+                        .ConfigureAwait(false);
+
+                    if (javaInfo is not null)
+                        javaEntries.Add(javaInfo);
+                } catch (Exception) { }
+            }
+
+            var minecraftFolders = pclRegistry.GetValue("LaunchFolders")
+                ?.ToString()
+                ?.Split('|')
+                ?.Select(x => x.Split('>').Last());
+
+            var minecraftId = node.GetValue<string>("LaunchVersionSelect");
+            var minecraftFolder = node.GetValue<string>("LaunchFolderSelect");
+            var settings = new SettingModel {
+                ActiveGameId = minecraftId,
+                ActiveMinecraftFolder = minecraftFolder,
+                Javas = [.. javaEntries],
+                MinecraftFolders = [.. minecraftFolders],
+                IsAutoMemory = node.GetValue<int>("LaunchRamType") is 0,
+                IsFullScreen = node.GetValue<int>("LaunchArgumentWindowType") is 0
+            };
+
+            return (settings, true);
+        } catch (Exception) {
+            return (null, false);
         }
-
-        var javaEntries = new List<JavaEntry>();
-        foreach (var path in javaPaths) {
-            try {
-                var javaInfo = await JavaUtil.GetJavaInfoAsync(path)
-                    .ConfigureAwait(false);
-
-                if (javaInfo is not null)
-                    javaEntries.Add(javaInfo);
-            } catch (Exception) { }
-        }
-
-        var minecraftFolders = pclRegistry.GetValue("LaunchFolders")
-            ?.ToString()
-            ?.Split('|')
-            ?.Select(x => x.Split('>').Last());
-
-        var minecraftId = node.GetValue<string>("LaunchVersionSelect");
-        var minecraftFolder = node.GetValue<string>("LaunchFolderSelect");
-        var settings = new SettingModel {
-            ActiveGameId = minecraftId,
-            ActiveMinecraftFolder = minecraftFolder,
-            Javas = [.. javaEntries],
-            MinecraftFolders = [.. minecraftFolders],
-            IsAutoMemory = node.GetValue<int>("LaunchRamType") is 0,
-            IsFullScreen = node.GetValue<int>("LaunchArgumentWindowType") is 0
-        };
-
-        return settings;
     }
 }

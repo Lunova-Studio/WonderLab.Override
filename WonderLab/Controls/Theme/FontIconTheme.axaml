@@ -14,8 +14,9 @@
 		
 		<Setter Property="Template">
 			<ControlTemplate>
-				<TextBlock UseLayoutRounding="False"
+				<TextBlock UseLayoutRounding="False" 
 						   Text="{TemplateBinding Glyph}"
+						   Padding="{TemplateBinding Padding}"
 						   FontSize="{TemplateBinding FontSize}"
 						   FontFamily="{TemplateBinding FontFamily}"
 						   Background="{TemplateBinding Background}"/>

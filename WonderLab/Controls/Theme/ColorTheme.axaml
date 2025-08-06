@@ -53,6 +53,7 @@
 
 	<SolidColorBrush x:Key="SegmentedBorderBrush" Color="{DynamicResource OutlineColor}"/>
 
+	<SolidColorBrush x:Key="ButtonBorderBrush" Color="{DynamicResource OutlineColor}"/>
 	<SolidColorBrush x:Key="ButtonForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
 	<SolidColorBrush x:Key="ButtonBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
 	<SolidColorBrush x:Key="ButtonPointerOverBackgroundBrush" Color="{DynamicResource OnSurfaceColor}" Opacity="0.1"/>
@@ -144,5 +145,7 @@
 	<SolidColorBrush x:Key="ErrorMenuItemPointerOverBackgroundBrush" Color="{DynamicResource ErrorColor}"/>
 	<SolidColorBrush x:Key="ErrorMenuItemPointerOverForegroundBrush" Color="{DynamicResource OnErrorColor}"/>
 
-	<SolidColorBrush x:Key="OOBEWindowBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
+	<SolidColorBrush x:Key="OOBEWindowFontIconForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="OOBEWindowBottomBarBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
+	<SolidColorBrush x:Key="OOBEWindowTitleBarBackgroundBrush" Color="{DynamicResource SurfaceContainerHighestColor}"/>
 </ResourceDictionary>

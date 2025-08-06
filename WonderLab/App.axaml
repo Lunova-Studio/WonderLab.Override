@@ -82,6 +82,7 @@
 			<wc:TaskSpeedConverter x:Key="TaskSpeedConverter"/>
 			<wc:ServerIconConverter x:Key="ServerIconConverter"/>
 			<wc:BoolReverseConverter x:Key="BoolReverseConverter"/>
+			<wc:LauncherIconConverter x:Key="LauncherIconConverter"/>
 			<wc:MinecraftTagsConverter x:Key="MinecraftTagsConverter"/>
 			<wc:MinecraftIconConverter x:Key="MinecraftIconConverter"/>
 			<wc:BackEaseValueConverter x:Key="BackEaseValueConverter"/>
