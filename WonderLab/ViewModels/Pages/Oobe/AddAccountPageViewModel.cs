@@ -64,7 +64,7 @@ public sealed partial class AddAccountPageViewModel : PageViewModelBase {
         _accounts.AddRange(_accountService.Accounts
             .Select(x => new AccountModel(x, default)));
 
-        ActiveAccount = Accounts.FirstOrDefault(x => x.Account.Equals(_accountService.ActiveAccount));
+        ActiveAccount = Accounts.FirstOrDefault(x => x.Account.ProfileEquals(_accountService.ActiveAccount));
         _accountService.Accounts.CollectionChanged += OnCollectionChanged;
         PropertyChanged += OnPropertyChanged;
 
@@ -74,5 +74,9 @@ public sealed partial class AddAccountPageViewModel : PageViewModelBase {
     protected override void OnUnNavigated() {
         base.OnUnNavigated();
         _accountService.Accounts.CollectionChanged -= OnCollectionChanged;
+    }
+
+    partial void OnActiveAccountChanged(AccountModel value) {
+        _accountService.ActivateAccount(value.Account);
     }
 }

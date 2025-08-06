@@ -51,7 +51,7 @@ public sealed class AccountService {
     public void ActivateAccount(Account account) {
         _logger.LogInformation("选择账户：{account} - {type}", account?.Name, account?.Type);
 
-        if (account != null && !Accounts.Contains(account))
+        if (account != null && !Accounts.Any(x => x.Uuid == account.Uuid))
             return;
 
         _settingService.Setting.ActiveAccount = ActiveAccount = account;
