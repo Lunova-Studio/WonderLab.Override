@@ -41,6 +41,7 @@ public sealed partial class OobeWindowViewModel : ObservableObject {
 
         WeakReferenceMessenger.Default.Register<PageNotificationMessage>(this, (_, arg) => {
             ActivePageKey = arg.PageKey;
+            PageIndex++;
         });
     }
 
