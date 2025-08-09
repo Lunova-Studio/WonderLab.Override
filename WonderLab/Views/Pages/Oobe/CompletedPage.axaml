@@ -29,7 +29,8 @@
 					Width="120"
 					Margin="0 16 0 0"
 					Classes="primary"
-					HorizontalAlignment="Center">
+					HorizontalAlignment="Center"
+					Command="{Binding RestartCommand}">
 				<StackPanel Spacing="8"
 							Orientation="Horizontal">
 					<TextBlock Classes="MDBodyMedium"

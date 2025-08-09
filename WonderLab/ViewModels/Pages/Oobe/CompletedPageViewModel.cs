@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia;
+using Avalonia.Controls.ApplicationLifetimes;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using WonderLab.Services;
 
 namespace WonderLab.ViewModels.Pages.Oobe;
@@ -14,5 +17,11 @@ public sealed partial class CompletedPageViewModel : PageViewModelBase {
 
     protected override void OnNavigated() {
         LottiePath = "resm:WonderLab.Assets.Lotties.OOBE_Confetti.json";
+    }
+
+    [RelayCommand]
+    private void Restart() {
+        if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime lifetime)
+            lifetime.Shutdown();
     }
 }

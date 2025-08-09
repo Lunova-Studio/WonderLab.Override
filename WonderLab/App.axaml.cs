@@ -15,6 +15,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using WonderLab.Classes.Importer;
 using WonderLab.Classes.Interfaces;
 using WonderLab.Classes.Processors;
@@ -45,6 +46,8 @@ namespace WonderLab;
 public sealed partial class App : Application {
     private const string LOG_OUTPUT_TEMPLATE = "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz}] ({SourceContext}): {Message:lj}{NewLine}{Exception}";
 
+    private IHost _appHost;
+
     public static MonetColors Monet { get; private set; }
     public static IServiceProvider ServiceProvider { get; private set; }
     public static Color SystemColor => Current.PlatformSettings.GetColorValues().AccentColor1;
@@ -62,7 +65,9 @@ public sealed partial class App : Application {
     public override void RegisterServices() {
         base.RegisterServices();
 
-        _ = ConfigureIoC(out var host).RunAsync();
+        _appHost = ConfigureIoC(out var host);
+        _ = _appHost.RunAsync();
+
         ServiceProvider = host.Services;
     }
 
@@ -199,10 +204,11 @@ public sealed partial class App : Application {
             logger.LogError(ex, "Unhandled exception occurred: {Message}", ex.Message);
     }
 
-    private void OnExit(object sender, ControlledApplicationLifetimeExitEventArgs e) {
+    private async void OnExit(object sender, ControlledApplicationLifetimeExitEventArgs e) {
         var logger = Get<ILogger<Application>>();
         logger.LogInformation("Exiting, exitcode is {exitCode}", e.ApplicationExitCode);
 
+        await _appHost.StopAsync();
         Get<SettingService>().Save();
     }
 

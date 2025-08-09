@@ -1,8 +1,6 @@
-﻿using Avalonia.Threading;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using System.Threading.Tasks;
 using WonderLab.Classes.Models.Messaging;
 using WonderLab.Extensions.Hosting.UI;
 
