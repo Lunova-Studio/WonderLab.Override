@@ -8,15 +8,15 @@
 		xmlns:al="using:Avalonia.Labs.Lottie"
         x:Class="WonderLab.OobeWindow"
 		Width="850" Classes="test"
-        Title="设置向导">	
+        Title="{I18n SettingsWizards}">	
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
 			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
 		</EventTriggerBehavior>
 		
-		<wb:OobeInitAnimationBehavior BarTarget="{Binding ElementName=PART_BottomBar}"
-									  FrameTarget="{Binding ElementName=PART_Frame}"
-									  LottieTarget="{Binding ElementName=PART_Lottie}"/>
+		<wb:OobeInitAnimationBehavior FrameTarget="{Binding ElementName=PART_Frame}"
+									  LottieTarget="{Binding ElementName=PART_Lottie}"
+									  NextTarget="{Binding ElementName=PART_NextButton}"/>
 	</Interaction.Behaviors>
 	
 	<Grid RowDefinitions="* auto">
@@ -41,14 +41,17 @@
 				<StackPanel>
 					<TextBlock Classes="Caption"
 							   TextAlignment="Left">
-						<Run Text="{Binding PageIndex}"/>
-						<Run Text="of"/>
-						<Run Text="3"/>
+						<TextBlock.Text>
+							<I18n Key="OOBE_PageIndex_Format">
+								<Binding Path="PageIndex"/>
+								<Binding Path="OOBE_Pages.Count"/>
+							</I18n>
+						</TextBlock.Text>
 					</TextBlock>
 					
 					<TextBlock Classes="Body"
 							   TextAlignment="Left"
-							   Text="Select your language"/>
+							   Text="{I18n {Binding PageLanguageKey}}"/>
 				</StackPanel>
 
 				<Button Padding="32 4"
@@ -65,7 +68,7 @@
 						BorderBrush="{DynamicResource ButtonBorderBrush}"
 						Grid.Column="1">
 					<TextBlock Classes="Body"
-							   Text="Back"/>
+							   Text="{I18n OOBE_Back}"/>
 				</Button>
 
 				<Button Padding="32 5"
@@ -79,12 +82,13 @@
 						Background="{DynamicResource SecondaryContainerBrush}"
 						Grid.Column="2">
 					<TextBlock Classes="Body"
-							   Text="Skip"/>
+							   Text="{I18n Skip}"/>
 				</Button>
 				
 				<Button Padding="32 5"
 						Classes="ripple"
 						Margin="12 0 0 0"
+						Name="PART_NextButton"
 						VerticalAlignment="Center"
 						VerticalContentAlignment="Center"
 						Command="{Binding NextCommand}"
@@ -96,7 +100,7 @@
 					<StackPanel Spacing="8"
 								Orientation="Horizontal">
 						<TextBlock Classes="Body"
-								   Text="Next"/>
+								   Text="{I18n OOBE_Next}"/>
 						
 						<wc:FontIcon Glyph="&#xE72A;"
 									 VerticalAlignment="Center"/>

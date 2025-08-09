@@ -43,8 +43,10 @@ public sealed partial class ChooseJavaPageViewModel : PageViewModelBase {
     }
 
     private void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
-        if (e.PropertyName is nameof(ActiveJava))
+        if (e.PropertyName is nameof(ActiveJava)) {
+            _settingService.Setting.ActiveJava = ActiveJava;
             SendEnabledMessage();
+        }
     }
 
     private void SendEnabledMessage() {

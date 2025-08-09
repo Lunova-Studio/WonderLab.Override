@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using System.Collections.Generic;
 using WonderLab.Classes.Models.Messaging;
 using WonderLab.Extensions.Hosting.UI;
 
@@ -15,22 +16,13 @@ public sealed partial class OobeWindowViewModel : ObservableObject {
     private const string OOBE_ChooseLanguage = "OOBE/ChooseLanguage";
     private const string OOBE_ChooseMinecraft = "OOBE/ChooseMinecraft";
 
-    private static readonly string[] OOBE_Pages = [
-        OOBE_ChooseLanguage,
-        OOBE_ChooseTheme,
-        OOBE_QuickImport,
-        OOBE_ChooseMinecraft,
-        OOBE_ChooseJava,
-        OOBE_AddAccount,
-        OOBE_Completed
-    ];
-
     private int _pageIndex;
 
     [ObservableProperty] private bool _isNextButtonEnabled = true;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(PageIndex))]
+    [NotifyPropertyChangedFor(nameof(PageLanguageKey))]
     [NotifyPropertyChangedFor(nameof(IsBackButtonVisible))]
     [NotifyPropertyChangedFor(nameof(IsSkipButtonVisible))]
     [NotifyPropertyChangedFor(nameof(IsNextButtonVisible))]
@@ -39,9 +31,20 @@ public sealed partial class OobeWindowViewModel : ObservableObject {
     public AvaloniaPageProvider PageProvider { get; }
 
     public int PageIndex => _pageIndex + 1;
+    public string PageLanguageKey => ActivePageKey?.Replace('/', '_');
     public bool IsSkipButtonVisible => ActivePageKey is OOBE_QuickImport;
     public bool IsBackButtonVisible => ActivePageKey is not OOBE_ChooseLanguage;
     public bool IsNextButtonVisible => ActivePageKey is not OOBE_Completed && ActivePageKey is not OOBE_QuickImport;
+
+    public List<string> OOBE_Pages { get; } = [
+        OOBE_ChooseLanguage,
+        OOBE_ChooseTheme,
+        OOBE_QuickImport,
+        OOBE_ChooseMinecraft,
+        OOBE_ChooseJava,
+        OOBE_AddAccount,
+        OOBE_Completed
+    ];
 
     public OobeWindowViewModel(AvaloniaPageProvider pageProvider) {
         PageProvider = pageProvider;
@@ -72,7 +75,7 @@ public sealed partial class OobeWindowViewModel : ObservableObject {
     }
 
     private void ChangePage(int newIndex, bool? setNextEnabled = null) {
-        if (newIndex < 0 || newIndex >= OOBE_Pages.Length)
+        if (newIndex < 0 || newIndex >= OOBE_Pages.Count)
             return;
 
         _pageIndex = newIndex;

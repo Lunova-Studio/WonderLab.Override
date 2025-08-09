@@ -24,10 +24,13 @@ public sealed partial class ChooseLanguagePageViewModel : PageViewModelBase {
     public ChooseLanguagePageViewModel(SettingService settingService) {
         _settingService = settingService;
 
-        ActiveLanguage = GetDefaultLanguage();
+        ActiveLanguage = _settingService.Setting.LanguageCode is null 
+            ? GetDefaultLanguage() 
+            : Languages.FirstOrDefault(lang => lang.LanguageCode == _settingService.Setting.LanguageCode);
     }
 
     public static LanguageInfo GetDefaultLanguage() {
+
         var culture = CultureInfo.CurrentUICulture;
         var code = culture.Name switch {
             "zh-CN" or "zh-SG" => "zh-Hans",

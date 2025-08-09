@@ -36,6 +36,7 @@ public sealed partial class ChooseMinecraftPageViewModel : PageViewModelBase {
 
     private void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
         if (e.PropertyName is nameof(ActiveMinecraftFolder)) {
+            _settingService.Setting.ActiveMinecraftFolder = ActiveMinecraftFolder;
             SendEnabledMessage();
         }
     }

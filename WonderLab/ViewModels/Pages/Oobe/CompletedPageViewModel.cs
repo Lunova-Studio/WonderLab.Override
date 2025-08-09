@@ -2,6 +2,8 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System;
+using System.Diagnostics;
 using WonderLab.Services;
 
 namespace WonderLab.ViewModels.Pages.Oobe;
@@ -21,6 +23,10 @@ public sealed partial class CompletedPageViewModel : PageViewModelBase {
 
     [RelayCommand]
     private void Restart() {
+        _settingService.Setting.IsCompletedOOBE = true;
+        _settingService.Save();
+
+        Process.Start(Environment.ProcessPath).Dispose();
         if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime lifetime)
             lifetime.Shutdown();
     }
