@@ -17,10 +17,22 @@ public sealed partial class OobeWindowViewModel : ObservableObject {
     private const string OOBE_ChooseLanguage = "OOBE/ChooseLanguage";
     private const string OOBE_ChooseMinecraft = "OOBE/ChooseMinecraft";
 
-    [ObservableProperty] private int _pageIndex = 1;
+    private static readonly string[] OOBE_Pages = [
+        OOBE_ChooseLanguage,
+        OOBE_ChooseTheme,
+        OOBE_QuickImport,
+        OOBE_ChooseMinecraft,
+        OOBE_ChooseJava,
+        OOBE_AddAccount,
+        OOBE_Completed
+    ];
+
+    private int _pageIndex;
+
     [ObservableProperty] private bool _isNextButtonEnabled = true;
 
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(PageIndex))]
     [NotifyPropertyChangedFor(nameof(IsBackButtonVisible))]
     [NotifyPropertyChangedFor(nameof(IsSkipButtonVisible))]
     [NotifyPropertyChangedFor(nameof(IsNextButtonVisible))]
@@ -28,6 +40,7 @@ public sealed partial class OobeWindowViewModel : ObservableObject {
 
     public AvaloniaPageProvider PageProvider { get; }
 
+    public int PageIndex => _pageIndex + 1;
     public bool IsSkipButtonVisible => ActivePageKey is OOBE_QuickImport;
     public bool IsBackButtonVisible => ActivePageKey is not OOBE_ChooseLanguage;
     public bool IsNextButtonVisible => ActivePageKey is not OOBE_Completed && ActivePageKey is not OOBE_QuickImport;
@@ -41,7 +54,7 @@ public sealed partial class OobeWindowViewModel : ObservableObject {
 
         WeakReferenceMessenger.Default.Register<PageNotificationMessage>(this, (_, arg) => {
             ActivePageKey = arg.PageKey;
-            PageIndex++;
+            _pageIndex++;
         });
     }
 
@@ -52,48 +65,22 @@ public sealed partial class OobeWindowViewModel : ObservableObject {
 
     [RelayCommand]
     private void Next() {
-        if (ActivePageKey is OOBE_ChooseLanguage) {
-            PageIndex++;
-            ActivePageKey = OOBE_ChooseTheme;
-        } else if (ActivePageKey is OOBE_ChooseTheme) {
-            PageIndex++;
-            ActivePageKey = OOBE_QuickImport;
-        } else if (ActivePageKey is OOBE_QuickImport) {
-            PageIndex++;
-            ActivePageKey = OOBE_ChooseMinecraft;
-        } else if (ActivePageKey is OOBE_ChooseMinecraft) {
-            PageIndex++;
-            ActivePageKey = OOBE_ChooseJava;
-        } else if (ActivePageKey is OOBE_ChooseJava) {
-            PageIndex++;
-            ActivePageKey = OOBE_AddAccount;
-        } else if (ActivePageKey is OOBE_AddAccount) {
-            PageIndex++;
-            ActivePageKey = OOBE_Completed;
-        }
-
-        IsNextButtonEnabled = false;
+        ChangePage(_pageIndex + 1, false);
     }
 
-    [RelayCommand(AllowConcurrentExecutions = false)]
-    private async Task Back() => await Dispatcher.UIThread.InvokeAsync(() => {
-        if (PageIndex - 1 < 1 && ActivePageKey != OOBE_ChooseLanguage)
+    [RelayCommand]
+    private void Back() {
+        ChangePage(_pageIndex - 1, true);
+    }
+
+    private void ChangePage(int newIndex, bool? setNextEnabled = null) {
+        if (newIndex < 0 || newIndex >= OOBE_Pages.Length)
             return;
 
-        if (ActivePageKey is OOBE_ChooseTheme)
-            ActivePageKey = OOBE_ChooseLanguage;
-        else if (ActivePageKey is OOBE_QuickImport)
-            ActivePageKey = OOBE_ChooseTheme;
-        else if (ActivePageKey is OOBE_ChooseMinecraft)
-            ActivePageKey = OOBE_QuickImport;
-        else if (ActivePageKey is OOBE_ChooseJava)
-            ActivePageKey = OOBE_ChooseMinecraft;
-        else if (ActivePageKey is OOBE_AddAccount)
-            ActivePageKey = OOBE_ChooseJava;
-        else if (ActivePageKey is OOBE_Completed)
-            ActivePageKey = OOBE_AddAccount;
+        _pageIndex = newIndex;
+        ActivePageKey = OOBE_Pages[newIndex];
 
-        PageIndex--;
-        IsNextButtonEnabled = true;
-    });
+        if (setNextEnabled.HasValue)
+            IsNextButtonEnabled = setNextEnabled.Value;
+    }
 }
