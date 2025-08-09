@@ -13,7 +13,7 @@
 		  MaxWidth="1500"
 		  ColumnSpacing="72"
 		  RowSpacing="16"
-		  RowDefinitions=".9* *"
+		  RowDefinitions=".7* *"
 		  ColumnDefinitions="* *">
 		<wc:FontIcon Padding="1"
 					 FontSize="26"
@@ -38,11 +38,12 @@
 					   Grid.Row="2"/>
 		</Grid>
 
-		<Grid VerticalAlignment="Top"
+		<Grid VerticalAlignment="Center"
 			  HorizontalAlignment="Right"
 			  RowDefinitions="auto auto auto auto"
-			  Grid.Row="1"
-			  Grid.Column="1">
+			  Grid.Row="0"
+			  Grid.Column="1"
+			  Grid.RowSpan="2">
 			<Separator Height="1"
 					   Padding="0"
 					   Opacity="0.2"

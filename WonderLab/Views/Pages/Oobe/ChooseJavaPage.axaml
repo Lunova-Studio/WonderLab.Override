@@ -6,12 +6,12 @@
 			 xmlns:wc="using:WonderLab.Controls"
              x:Class="WonderLab.ChooseJavaPage">
 	<Grid Margin="36 0"
-			  MaxWidth="1500"
-			  ColumnSpacing="72"
-			  ColumnDefinitions=".9* *"
-			  RowDefinitions="auto auto"
-			  VerticalAlignment="Center"
-			  HorizontalAlignment="Stretch">
+		  MaxWidth="1500"
+		  ColumnSpacing="72"
+		  RowDefinitions=".7* *"
+		  ColumnDefinitions="* *"
+		  VerticalAlignment="Stretch"
+		  HorizontalAlignment="Stretch">
 		<wc:FontIcon Padding="1"
 					 FontSize="26"
 					 Glyph="&#xEC32;"
@@ -70,10 +70,12 @@
 			</StackPanel>
 		</Grid>
 
-		<Grid VerticalAlignment="Center"
+		<Grid Margin="0 16 0 0"
 			  RowDefinitions="auto auto"
-			  Grid.Row="1"
-			  Grid.Column="1">
+			  VerticalAlignment="Center"
+			  Grid.Row="0"
+			  Grid.Column="1"
+			  Grid.RowSpan="2">
 			<TextBlock Classes="MDTitleMedium"
 					   Text="添加的 Java 列表"/>
 

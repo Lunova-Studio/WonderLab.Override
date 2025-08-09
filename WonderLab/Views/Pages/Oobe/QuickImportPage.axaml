@@ -8,9 +8,9 @@
              x:Class="WonderLab.QuickImportPage">
 	<Grid Margin="36 0"
 		  MaxWidth="1500"
-		  ColumnSpacing="72"
 		  RowSpacing="16"
-		  RowDefinitions=".9* *"
+		  ColumnSpacing="72"
+		  RowDefinitions=".7* *"
 		  ColumnDefinitions="* *">
 		<wc:FontIcon Padding="1"
 					 FontSize="26"
@@ -35,11 +35,12 @@
 					   Grid.Row="2"/>
 		</Grid>
 
-		<ItemsRepeater VerticalAlignment="Top"
+		<ItemsRepeater VerticalAlignment="Center"
 					   HorizontalAlignment="Right"
 					   ItemsSource="{Binding Importers}"
-					   Grid.Row="1"
-					   Grid.Column="1">
+					   Grid.Row="0"
+					   Grid.Column="1"
+					   Grid.RowSpan="2">
 			<ItemsRepeater.Layout>
 				<StackLayout Spacing="8"/>
 			</ItemsRepeater.Layout>

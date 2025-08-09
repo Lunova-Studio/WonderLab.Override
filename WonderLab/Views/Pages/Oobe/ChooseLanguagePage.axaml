@@ -26,7 +26,7 @@
 		  MaxWidth="1500"
 		  ColumnSpacing="72"
 		  RowSpacing="16"
-		  RowDefinitions=".9* *"
+		  RowDefinitions=".7* *"
 		  ColumnDefinitions="* *">
 		<wc:FontIcon Padding="1"
 					 FontSize="26"
@@ -54,12 +54,13 @@
 		</Grid>
 
 		<ComboBox MinWidth="250"
-				  VerticalAlignment="Top"
+				  VerticalAlignment="Center"
 				  HorizontalAlignment="Right"
 				  ItemsSource="{Binding Languages}"
 				  SelectedItem="{Binding ActiveLanguage}"
-				  Grid.Row="1"
-				  Grid.Column="1">
+				  Grid.Row="0"
+				  Grid.Column="1"
+				  Grid.RowSpan="2">
 			<ComboBox.ItemTemplate>
 				<DataTemplate>
 					<TextBlock Classes="Body"

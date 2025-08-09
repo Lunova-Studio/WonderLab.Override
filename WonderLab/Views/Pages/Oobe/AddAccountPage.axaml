@@ -12,12 +12,12 @@
 	</Interaction.Behaviors>
 	
 	<Grid Margin="36 0"
-			  MaxWidth="1500"
-			  ColumnSpacing="72"
-			  ColumnDefinitions=".9* *"
-			  RowDefinitions="auto auto"
-			  VerticalAlignment="Center"
-			  HorizontalAlignment="Stretch">
+		  MaxWidth="1500"
+		  ColumnSpacing="72"
+		  RowDefinitions=".7* *"
+		  ColumnDefinitions=".9* *"
+		  VerticalAlignment="Stretch"
+		  HorizontalAlignment="Stretch">
 		<wc:FontIcon Padding="1"
 					 FontSize="26"
 					 Glyph="&#xE77B;"
@@ -61,8 +61,9 @@
 
 		<Grid VerticalAlignment="Center"
 			  RowDefinitions="auto auto"
-			  Grid.Row="1"
-			  Grid.Column="1">
+			  Grid.Row="0"
+			  Grid.Column="1"
+			  Grid.RowSpan="2">
 			<TextBlock Classes="MDTitleMedium"
 					   Text="账户列表"/>
 
