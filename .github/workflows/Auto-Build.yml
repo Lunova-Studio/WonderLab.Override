@@ -150,9 +150,10 @@ jobs:
             mv ./bin/Release/net8.0/linux-musl-x64/publish/WonderLab ./bin/Release/net8.0/linux-musl-x64/publish/WonderLab_musl_x64
             dotnet publish -r linux-musl-arm64 --self-contained true -p:PublishSingleFile=true
             mv ./bin/Release/net8.0/linux-musl-arm64/publish/WonderLab ./bin/Release/net8.0/linux-musl-arm64/publish/WonderLab_musl_arm64
-            cd ./bin/Release/net8.0/linux-musl-x64/
+            cd ./bin/Release/net8.0
+            cd linux-musl-x64/
             zip -9 -r "../WonderLab.linux-musl.x64.zip" "./publish"
-            cd ./bin/Release/net8.0/linux-musl-arm64/
+            cd ../linux-musl-arm64/
             zip -9 -r "../WonderLab.linux-musl.arm64.zip" "./publish"
         - name: UploadArtifacts
           uses: actions/upload-artifact@v4
