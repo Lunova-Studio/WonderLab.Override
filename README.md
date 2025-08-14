@@ -22,27 +22,23 @@
 
 ## 自我介绍
 
-WonderLab 是一个跨平台 Minecraft 启动器，支持自动更新、Modrinth、Curseforge 资源下载、全格式整合包安装（大概），并支持 Windows，MacOS，Linux 等操作系统，同时兼容 x64、Arm64 架构
+WonderLab 是一个跨平台 Minecraft 启动器，支持自动更新、Modrinth、Curseforge 资源下载、全格式整合包安装（大概），并支持 Windows，MacOS，Linux(glibc & musl) 等操作系统，同时兼容 x64、Arm64 架构
 
-支持的语言：简体中文、繁体中文、文言華夏、English(US)、Русский язык、日本語
-
-> [!WARNING]
->
 > 当前分支为 `dev` 开发分支，是一个 更新速率快、不稳定、附带多种未知功能 的版本
-
-## 测试版 UI 展示
-
-> [!WARNING]
->
-> 以下展示的 UI 为 240214-1023 版本。在未来，实际可能会有所差别，请以实际为准
-
-<img src="https://s21.ax1x.com/2024/11/17/pARPOBt.md.png" alt="pARPOBt.png" border="0" />
-
-<img src="https://s21.ax1x.com/2024/11/17/pARPbjA.png" alt="pARPbjA.png" border="0" />
 
 ## 食用文档
 
 请移步至 [此处](https://docs.lunova.studio/docs/WonderLab) 查看如何食用
+
+## 贡献
+
+🤝 想要帮助我们？请移步我们的 [贡献指南](/CONTRIBUTING&BUILD.md)
+
+## 翻译
+
+支持的语言：简体中文、繁体中文、文言華夏、广东话、English(US)、日本語
+
+帮助我们更好的表达 [Crowdin](https://crowdin.com/project/wonderlaboverridei18n)
 
 ## 反馈问题
 
@@ -57,6 +53,20 @@ WonderLab 是一个跨平台 Minecraft 启动器，支持自动更新、Modrinth
 [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)
 
 [MinecraftLaunch](https://github.com/Lunova-Studio/MinecraftLaunch)
+
+[AsyncImageLoader.Avalonia](https://github.com/AvaloniaUtils/AsyncImageLoader.Avalonia)
+
+[Avalonia.Xaml.Behaviors](https://github.com/AvaloniaUI/Avalonia.Xaml.Behaviors)
+
+[DialogHost.Avalonia](https://github.com/AvaloniaUtils/DialogHost.Avalonia)
+
+[CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet)
+
+[Monet](https://github.com/Lunova-Studio/Monet)
+
+[Serilog](https://github.com/serilog/serilog)
+
+[SkiaSharp](https://github.com/mono/SkiaSharp)
 
 ## 鸣谢
 
