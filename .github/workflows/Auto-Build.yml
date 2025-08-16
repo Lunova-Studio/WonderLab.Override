@@ -2,8 +2,12 @@ name: WonderLab 自动构建发布
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 2 * * *'
+  push:
+    branches:
+      - dev
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
 
 env:
   VERSION_FILE_PATH: "./WonderLab/version.txt"
@@ -21,18 +25,32 @@ jobs:
           ref: dev
           token: ${{ secrets.TOKEN }}
           fetch-depth: 0
-      - name: Check commits in last 3 days
+      - name: Check commits in this push
         id: has
         run: |
-          count=$(git log --since="3 days ago" --oneline | wc -l)
-          echo "Recent commit count: $count"
-          if [ "$count" -eq 0 ]; then
-            echo "has_recent_commits=0" >> $GITHUB_OUTPUT
-            echo "has_recent_commits is: false"
+          FROM_SHA="${{ github.event.before }}"
+          TO_SHA="${{ github.sha }}"
+
+          if [[ "$FROM_SHA" == "0000000000000000000000000000000000000000" ]]; then
+            echo "New branch push, checking latest commit."
+            count=1
           else
+            git fetch origin "$FROM_SHA" || echo "Warning: Could not fetch FROM_SHA, using shallow history."
+            commits=$(git rev-list "$FROM_SHA..$TO_SHA" --oneline 2>/dev/null) || commits=$(git log --oneline "$FROM_SHA..$TO_SHA")
+            count=$(echo "$commits" | grep -c '^' || echo 0)
+          fi
+
+          echo "count: $count"
+          if [ "$count" -gt 0 ]; then
             echo "has_recent_commits=1" >> $GITHUB_OUTPUT
             echo "has_recent_commits is: true"
+            echo "$commits" | sed 's/^/   ▶ /'
+          else
+            echo "has_recent_commits=0" >> $GITHUB_OUTPUT
+            echo "has_recent_commits is: false"
           fi
+
+          echo "has_commits=$count" >> $GITHUB_OUTPUT
       - name: Echo
         run: |
           echo "is: ${{ steps.has.outputs.has_recent_commits }}"
@@ -280,10 +298,6 @@ jobs:
         with:
           name: osx-artifacts
           path: ./WonderLab.Release/
-      
-      - name: List Files
-        run: |
-          ls -la ./WonderLab.Release/
       
       - name: Publish Release
         uses: marvinpinto/action-automatic-releases@latest
