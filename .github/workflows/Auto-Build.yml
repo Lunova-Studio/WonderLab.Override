@@ -127,7 +127,6 @@ jobs:
             echo "Version is ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}"
         - name: Sub-Module
           run: |
-            git pull
             git submodule update --init --recursive --remote
         - name: Dependency
           run: |
@@ -137,42 +136,35 @@ jobs:
         - name: Build-AppImage
           run: |
             cd ./WonderLab
-            sudo su
-            pupnet --runtime linux-x64 --kind appimage -o WonderLab.linux.x64.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }} -p:Version=${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
-            pupnet --runtime linux-arm --kind appimage -o WonderLab.linux.arm.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }} -p:Version=${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
-            pupnet --runtime linux-arm64 --kind appimage -o WonderLab.linux.arm64.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }} -p:Version=${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
+            sudo pupnet --runtime linux-x64 --kind appimage -o WonderLab.linux.x64.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }} -p:Version=${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
+            sudo pupnet --runtime linux-arm --kind appimage -o WonderLab.linux.arm.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }} -p:Version=${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
+            sudo pupnet --runtime linux-arm64 --kind appimage -o WonderLab.linux.arm64.AppImage -y --app-version ${{ needs.version-management.outputs.base_version }} -p:Version=${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}
         - name: Build-WinExe
           run: |
             cd ./WonderLab
-            sudo su
-            dotnet publish -r win-x86 --self-contained true -p:PublishSingleFile=true
-            dotnet publish -r win-x64 --self-contained true -p:PublishSingleFile=true
-            dotnet publish -r win-arm64 --self-contained true -p:PublishSingleFile=true     
+            sudo dotnet publish -r win-x86 --self-contained true -p:PublishSingleFile=true
+            sudo dotnet publish -r win-x64 --self-contained true -p:PublishSingleFile=true
+            sudo dotnet publish -r win-arm64 --self-contained true -p:PublishSingleFile=true     
             mv ./bin/Release/net8.0/win-x86/publish/WonderLab.exe ./bin/Release/net8.0/win-x86/publish/WonderLab.x86.exe
             mv ./bin/Release/net8.0/win-x64/publish/WonderLab.exe ./bin/Release/net8.0/win-x64/publish/WonderLab.x64.exe
             mv ./bin/Release/net8.0/win-arm64/publish/WonderLab.exe ./bin/Release/net8.0/win-arm64/publish/WonderLab.arm64.exe
             cd ./bin/Release/net8.0/
             cd ./win-x86/
             zip -9 -r "../WonderLab.win.x86.zip" "./publish"
-            cd ../
-            cd ./win-x64/
+            cd ../win-x64/
             zip -9 -r "../WonderLab.win.x64.zip" "./publish"
-            cd ../
-            cd ./win-arm64/
+            cd ../win-arm64/
             zip -9 -r "../WonderLab.win.arm64.zip" "./publish"
         - name: Build-Linux-musl
           run: |
             cd ./WonderLab
-            sudo su
-            dotnet publish -r linux-musl-x64 --self-contained true -p:PublishSingleFile=true
+            sudo dotnet publish -r linux-musl-x64 --self-contained true -p:PublishSingleFile=true
             mv ./bin/Release/net8.0/linux-musl-x64/publish/WonderLab ./bin/Release/net8.0/linux-musl-x64/publish/WonderLab_musl_x64
-            dotnet publish -r linux-musl-arm64 --self-contained true -p:PublishSingleFile=true
+            sudo dotnet publish -r linux-musl-arm64 --self-contained true -p:PublishSingleFile=true
             mv ./bin/Release/net8.0/linux-musl-arm64/publish/WonderLab ./bin/Release/net8.0/linux-musl-arm64/publish/WonderLab_musl_arm64
-            cd ./bin/Release/net8.0
-            cd linux-musl-x64/
+            cd ./bin/Release/net8.0/linux-musl-x64/
             zip -9 -r "../WonderLab.linux-musl.x64.zip" "./publish"
             cd ../linux-musl-arm64/
-
             zip -9 -r "../WonderLab.linux-musl.arm64.zip" "./publish"
         - name: UploadArtifacts
           uses: actions/upload-artifact@v4
@@ -193,7 +185,6 @@ jobs:
           fetch-depth: 0
       - name: Sub-Module
         run: |
-          git pull
           git submodule update --init --recursive --remote
       - name: Dependency-InnoSetup
         uses: ConorMacBride/install-package@v1
@@ -241,7 +232,6 @@ jobs:
         shell: bash
       - name: Sub-Module
         run: |
-          git pull
           git submodule update --init --recursive --remote
       - name: Build-MacOsApp
         run: |
@@ -280,25 +270,25 @@ jobs:
         run: |
           echo "date=$(date +'%Y-%m-%d.%H-%M-%S')" >> $GITHUB_OUTPUT
           echo "title=$(date +'%Y.%m.%d.%H.%M')" >> $GITHUB_OUTPUT
-      
+
       - name: Download-LinuxArtifacts
         uses: actions/download-artifact@v4
         with:
           name: linux-artifacts
           path: ./WonderLab.Release/
-      
+
       - name: Download-WindowsArtifacts
         uses: actions/download-artifact@v4
         with:
           name: win-artifacts
           path: ./WonderLab.Release/
-      
+
       - name: Download-MacArtifacts
         uses: actions/download-artifact@v4
         with:
           name: osx-artifacts
           path: ./WonderLab.Release/
-      
+
       - name: Publish Release
         uses: marvinpinto/action-automatic-releases@latest
         with:
@@ -311,3 +301,11 @@ jobs:
             WonderLab.Release/*.dmg
             WonderLab.Release/Deploy/OUT/*.AppImage
             WonderLab.Release/bin/Release/net8.0/*.zip
+
+      - name: Delete Artifacts
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: |
+            linux-artifacts
+            win-artifacts
+            osx-artifacts
