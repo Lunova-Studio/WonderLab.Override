@@ -66,7 +66,8 @@ public sealed class PclSettingImporter : ISettingImporter {
             var minecraftFolders = pclRegistry.GetValue("LaunchFolders")
                 ?.ToString()
                 ?.Split('|')
-                ?.Select(x => x.Split('>').Last());
+                ?.Select(x => x.Split('>').Last())
+                .Where(x => !string.IsNullOrEmpty(x) && Directory.Exists(x));
 
             var minecraftId = node.GetValue<string>("LaunchVersionSelect");
             var minecraftFolder = node.GetValue<string>("LaunchFolderSelect");

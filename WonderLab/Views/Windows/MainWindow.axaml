@@ -56,9 +56,7 @@
 	</wc:WonderWindow.Resources>
 
 	<wc:WonderWindow.TitleBarContent>
-		<ComboBox Margin="0 4"
-				  HorizontalAlignment="Right"
-				  PlaceholderText="无正在运行的实例"/>
+		<HyperlinkButton/>
 	</wc:WonderWindow.TitleBarContent>
 	
 	<Interaction.Behaviors>

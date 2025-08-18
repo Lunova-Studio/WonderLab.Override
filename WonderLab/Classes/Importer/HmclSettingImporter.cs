@@ -101,8 +101,8 @@ public sealed class HmclSettingImporter : ISettingImporter {
                 IsFullScreen = activeGameSettings.GetBool("fullscreen"),
                 IsAutoSelectJava = activeGameSettings.GetString("java") == "Auto",
                 ActiveGameId = activeGameId,
-                MinecraftFolders = minecraftFolders,
                 ActiveMinecraftFolder = activeMinecraftFolder ?? minecraftFolders.First(),
+                MinecraftFolders = [.. minecraftFolders.Where(x => !string.IsNullOrEmpty(x) && Directory.Exists(x))],
             }, true);
         } catch (Exception) {
             return (null, false);
