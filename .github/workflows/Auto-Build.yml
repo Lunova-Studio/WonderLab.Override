@@ -2,8 +2,12 @@ name: WonderLab 自动构建发布
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 2 * * *'
+  push:
+    branches:
+      - dev
+    paths-ignore:
+      - '**.md'
+      - '.gitignore'
 
 env:
   VERSION_FILE_PATH: "./WonderLab/version.txt"
@@ -21,18 +25,32 @@ jobs:
           ref: dev
           token: ${{ secrets.TOKEN }}
           fetch-depth: 0
-      - name: Check commits in last 3 days
+      - name: Check commits in this push
         id: has
         run: |
-          count=$(git log --since="3 days ago" --oneline | wc -l)
-          echo "Recent commit count: $count"
-          if [ "$count" -eq 0 ]; then
-            echo "has_recent_commits=0" >> $GITHUB_OUTPUT
-            echo "has_recent_commits is: false"
+          FROM_SHA="${{ github.event.before }}"
+          TO_SHA="${{ github.sha }}"
+
+          if [[ "$FROM_SHA" == "0000000000000000000000000000000000000000" ]]; then
+            echo "New branch push, checking latest commit."
+            count=1
           else
+            git fetch origin "$FROM_SHA" || echo "Warning: Could not fetch FROM_SHA, using shallow history."
+            commits=$(git rev-list "$FROM_SHA..$TO_SHA" --oneline 2>/dev/null) || commits=$(git log --oneline "$FROM_SHA..$TO_SHA")
+            count=$(echo "$commits" | grep -c '^' || echo 0)
+          fi
+
+          echo "count: $count"
+          if [ "$count" -gt 0 ]; then
             echo "has_recent_commits=1" >> $GITHUB_OUTPUT
             echo "has_recent_commits is: true"
+            echo "$commits" | sed 's/^/   ▶ /'
+          else
+            echo "has_recent_commits=0" >> $GITHUB_OUTPUT
+            echo "has_recent_commits is: false"
           fi
+
+          echo "has_commits=$count" >> $GITHUB_OUTPUT
       - name: Echo
         run: |
           echo "is: ${{ steps.has.outputs.has_recent_commits }}"
@@ -109,7 +127,6 @@ jobs:
             echo "Version is ${{ needs.version-management.outputs.base_version }}.${{ needs.version-management.outputs.build_number }}"
         - name: Sub-Module
           run: |
-            git pull
             git submodule update --init --recursive --remote
         - name: Dependency
           run: |
@@ -126,22 +143,30 @@ jobs:
         - name: Build-WinExe
           run: |
             cd ./WonderLab
-            sudo su
             dotnet publish -r win-x86 --self-contained true -p:PublishSingleFile=true
             dotnet publish -r win-x64 --self-contained true -p:PublishSingleFile=true
-            dotnet publish -r win-arm64 --self-contained true -p:PublishSingleFile=true     
+            dotnet publish -r win-arm64 --self-contained true -p:PublishSingleFile=true 
             mv ./bin/Release/net8.0/win-x86/publish/WonderLab.exe ./bin/Release/net8.0/win-x86/publish/WonderLab.x86.exe
             mv ./bin/Release/net8.0/win-x64/publish/WonderLab.exe ./bin/Release/net8.0/win-x64/publish/WonderLab.x64.exe
             mv ./bin/Release/net8.0/win-arm64/publish/WonderLab.exe ./bin/Release/net8.0/win-arm64/publish/WonderLab.arm64.exe
             cd ./bin/Release/net8.0/
             cd ./win-x86/
             zip -9 -r "../WonderLab.win.x86.zip" "./publish"
-            cd ../
-            cd ./win-x64/
+            cd ../win-x64/
             zip -9 -r "../WonderLab.win.x64.zip" "./publish"
-            cd ../
-            cd ./win-arm64/
+            cd ../win-arm64/
             zip -9 -r "../WonderLab.win.arm64.zip" "./publish"
+        - name: Build-Linux-musl
+          run: |
+            cd ./WonderLab
+            dotnet publish -r linux-musl-x64 --self-contained true -p:PublishSingleFile=true
+            mv ./bin/Release/net8.0/linux-musl-x64/publish/WonderLab ./bin/Release/net8.0/linux-musl-x64/publish/WonderLab_musl_x64
+            dotnet publish -r linux-musl-arm64 --self-contained true -p:PublishSingleFile=true
+            mv ./bin/Release/net8.0/linux-musl-arm64/publish/WonderLab ./bin/Release/net8.0/linux-musl-arm64/publish/WonderLab_musl_arm64
+            cd ./bin/Release/net8.0/linux-musl-x64/
+            zip -9 -r "../WonderLab.linux-musl.x64.zip" "./publish"
+            cd ../linux-musl-arm64/
+            zip -9 -r "../WonderLab.linux-musl.arm64.zip" "./publish"
         - name: UploadArtifacts
           uses: actions/upload-artifact@v4
           with:
@@ -161,7 +186,6 @@ jobs:
           fetch-depth: 0
       - name: Sub-Module
         run: |
-          git pull
           git submodule update --init --recursive --remote
       - name: Dependency-InnoSetup
         uses: ConorMacBride/install-package@v1
@@ -209,7 +233,6 @@ jobs:
         shell: bash
       - name: Sub-Module
         run: |
-          git pull
           git submodule update --init --recursive --remote
       - name: Build-MacOsApp
         run: |
@@ -248,29 +271,25 @@ jobs:
         run: |
           echo "date=$(date +'%Y-%m-%d.%H-%M-%S')" >> $GITHUB_OUTPUT
           echo "title=$(date +'%Y.%m.%d.%H.%M')" >> $GITHUB_OUTPUT
-      
+
       - name: Download-LinuxArtifacts
         uses: actions/download-artifact@v4
         with:
           name: linux-artifacts
           path: ./WonderLab.Release/
-      
+
       - name: Download-WindowsArtifacts
         uses: actions/download-artifact@v4
         with:
           name: win-artifacts
           path: ./WonderLab.Release/
-      
+
       - name: Download-MacArtifacts
         uses: actions/download-artifact@v4
         with:
           name: osx-artifacts
           path: ./WonderLab.Release/
-      
-      - name: List Files
-        run: |
-          ls -la ./WonderLab.Release/
-      
+
       - name: Publish Release
         uses: marvinpinto/action-automatic-releases@latest
         with:
@@ -283,3 +302,11 @@ jobs:
             WonderLab.Release/*.dmg
             WonderLab.Release/Deploy/OUT/*.AppImage
             WonderLab.Release/bin/Release/net8.0/*.zip
+
+      - name: Delete Artifacts
+        uses: geekyeggo/delete-artifact@v5
+        with:
+          name: |
+            linux-artifacts
+            win-artifacts
+            osx-artifacts

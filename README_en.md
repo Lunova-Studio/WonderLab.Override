@@ -20,27 +20,25 @@ The powerful NEXT generation cross-platform Minecraft launcher
 
 ## About
 
-WonderLab is a cross-platform Minecraft launcher, supports auto-update, Modrinth, Curseforge resource download, full format modpacks install(probably), and also supports Windows，MacOS，Linux, etc, and supports x64, Arm64
-
-Language support: 简体中文, 繁体中文, 文言華夏, English(US), Русский язык, 日本語
+WonderLab is a cross-platform Minecraft launcher, supports auto-update, Modrinth, Curseforge resource download, full format modpacks install(probably), and also supports Windows，MacOS，Linux(glib & musl), etc, and supports x64, Arm64
 
 > [!WARNING]
 >
 > This branch is `dev`(developing) branch，a rolling-release, unstable version  works with many unknowns
 
-## UI (feature)
-
-> [!WARNING]
->
-> The UI pictures below was a version created at 240214-1023, the true latest version's UI will be different from this
-
-<img src="https://s21.ax1x.com/2024/11/17/pARPOBt.md.png" alt="pARPOBt.png" border="0" />
-
-<img src="https://s21.ax1x.com/2024/11/17/pARPbjA.png" alt="pARPbjA.png" border="0" />
-
 ## How to use
 
-View our docs [here](https://docs.lunova.studio/docs/WonderLab)
+View our [docs](https://docs.lunova.studio/docs/WonderLab)
+
+## Contributing
+
+🤝 Want to help? Check our [Contributing Guide](/CONTRIBUTING&BUILD_en.md)
+
+## Translations
+
+Language support: 简体中文, 繁体中文, 文言華夏, 广东话, English(US), 日本語
+
+Help us locazition at [Crowdin](https://crowdin.com/project/wonderlaboverridei18n)
 
 ## Report issues
 
@@ -55,6 +53,20 @@ Also, your [`PRs`](https://github.com/Lunova-Studio/WonderLab.Override/pulls) ar
 [Newtonsoft.Json](https://github.com/JamesNK/Newtonsoft.Json)
 
 [MinecraftLaunch](https://github.com/Lunova-Studio/MinecraftLaunch)
+
+[AsyncImageLoader.Avalonia](https://github.com/AvaloniaUtils/AsyncImageLoader.Avalonia)
+
+[Avalonia.Xaml.Behaviors](https://github.com/AvaloniaUI/Avalonia.Xaml.Behaviors)
+
+[DialogHost.Avalonia](https://github.com/AvaloniaUtils/DialogHost.Avalonia)
+
+[CommunityToolkit.Mvvm](https://github.com/CommunityToolkit/dotnet)
+
+[Monet](https://github.com/Lunova-Studio/Monet)
+
+[Serilog](https://github.com/serilog/serilog)
+
+[SkiaSharp](https://github.com/mono/SkiaSharp)
 
 ## Credits
 
