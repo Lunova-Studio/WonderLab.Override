@@ -8,6 +8,7 @@
 			 xmlns:wce="using:WonderLab.Classes.Enums"
 			 xmlns:wem="using:WonderLab.Extensions.Markup"
 			 xmlns:me="using:Monet.Shared.Enums"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.ChooseThemePage">
 	<Grid Margin="36 0"
 		  MaxWidth="1500"
@@ -15,13 +16,12 @@
 		  RowSpacing="16"
 		  RowDefinitions=".7* *"
 		  ColumnDefinitions="* *">
-		<wc:FontIcon Padding="1"
-					 FontSize="26"
-					 Glyph="&#xE790;"
-					 HorizontalAlignment="Left"
-					 VerticalAlignment="Bottom"
-					 Foreground="{DynamicResource OOBEWindowFontIconForegroundBrush}"
-					 Grid.Row="0"/>
+		<mi:MaterialIcon FontSize="26"
+						 Kind="Palette"
+						 HorizontalAlignment="Left"
+						 VerticalAlignment="Bottom"
+						 Foreground="{DynamicResource OOBEWindowFontIconForegroundBrush}"
+						 Grid.Row="0"/>
 
 		<Grid VerticalAlignment="Top"
 			  HorizontalAlignment="Left"

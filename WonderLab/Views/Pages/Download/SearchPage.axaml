@@ -9,6 +9,7 @@
 			 xmlns:mbe="using:MinecraftLaunch.Base.Enums"
 			 xmlns:wem="using:WonderLab.Extensions.Markup"
 			 xmlns:ail="using:AsyncImageLoader"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.SearchPage">
 	<UserControl.Resources>
 		<DataTemplate x:Key="CategoryTagTemplate">
@@ -103,10 +104,10 @@
 										<ColumnDefinition Width="*"/>
 									</Grid.ColumnDefinitions>
 
-									<wc:FontIcon Glyph="&#xF158;"
-												 VerticalAlignment="Center"
-												 Grid.Column="0"/>
-
+									<mi:MaterialIcon Kind="Minecraft"
+													 VerticalAlignment="Center"
+													 Grid.Column="0"/>
+									
 									<TextBlock Classes="Caption"
 											   Margin="8 0 0 0"
 											   VerticalAlignment="Center"
@@ -114,10 +115,10 @@
 											   Text="{Binding MinecraftVersions, Converter={StaticResource MinecraftVersionsConverter}}"
 											   Grid.Column="1"/>
 
-									<wc:FontIcon Glyph="&#xE896;"
-												 VerticalAlignment="Center"
-												 Grid.Column="2"/>
-
+									<mi:MaterialIcon Kind="Download"
+													 VerticalAlignment="Center"
+													 Grid.Column="2"/>
+									
 									<TextBlock Classes="Caption"
 											   Margin="8 0 0 0"
 											   VerticalAlignment="Center"
@@ -125,9 +126,9 @@
 											   Text="{Binding DownloadCount}"
 											   Grid.Column="3"/>
 
-									<wc:FontIcon Glyph="&#xE774;"
-												 VerticalAlignment="Center"
-												 Grid.Column="4"/>
+									<mi:MaterialIcon Kind="Web"
+													 VerticalAlignment="Center"
+													 Grid.Column="4"/>
 
 									<TextBlock Text="Modrinth"
 											   Margin="8 0 0 0"
@@ -191,9 +192,9 @@
 										<ColumnDefinition Width="*"/>
 									</Grid.ColumnDefinitions>
 
-									<wc:FontIcon Glyph="&#xF158;"
-												 VerticalAlignment="Center"
-												 Grid.Column="0"/>
+									<mi:MaterialIcon Kind="Minecraft"
+													 VerticalAlignment="Center"
+													 Grid.Column="0"/>
 
 									<TextBlock Classes="Caption"
 											   Margin="8 0 0 0"
@@ -202,9 +203,9 @@
 											   Text="{Binding MinecraftVersions, Converter={StaticResource MinecraftVersionsConverter}}"
 											   Grid.Column="1"/>
 
-									<wc:FontIcon Glyph="&#xE896;"
-												 VerticalAlignment="Center"
-												 Grid.Column="2"/>
+									<mi:MaterialIcon Kind="Download"
+													 VerticalAlignment="Center"
+													 Grid.Column="2"/>
 
 									<TextBlock Classes="Caption"
 											   Margin="8 0 0 0"
@@ -213,9 +214,9 @@
 											   Text="{Binding DownloadCount}"
 											   Grid.Column="3"/>
 
-									<wc:FontIcon Glyph="&#xE774;"
-												 VerticalAlignment="Center"
-												 Grid.Column="4"/>
+									<mi:MaterialIcon Kind="Web"
+													 VerticalAlignment="Center"
+													 Grid.Column="4"/>
 
 									<TextBlock Text="Curseforge"
 											   Margin="8 0 0 0"
@@ -251,11 +252,11 @@
 			<!--Type-->
 			<Grid ColumnSpacing="8"
 				  ColumnDefinitions="auto auto *">
-				<wc:FontIcon FontSize="18"
-							 Glyph="&#xE97C;"
-							 VerticalAlignment="Center"
-							 Foreground="{DynamicResource OnBackgroundBrush}"
-							 Grid.Column="0"/>
+				<mi:MaterialIcon FontSize="16"
+								 Kind="ImageFilterNone"
+								 VerticalAlignment="Center"
+								 Foreground="{DynamicResource OnBackgroundBrush}"
+								 Grid.Column="0"/>
 				
 				<TextBlock Classes="Body"
 						   Text="资源类型"
@@ -275,11 +276,11 @@
 			<Grid ColumnSpacing="8"
 				  ColumnDefinitions="auto auto *"
 				  IsVisible="{Binding IsCommunityResourcesFilterVisible, Converter={StaticResource BoolReverseConverter}}">
-				<wc:FontIcon FontSize="18"
-							 Glyph="&#xE71C;"
-							 VerticalAlignment="Center"
-							 Foreground="{DynamicResource OnBackgroundBrush}"
-							 Grid.Column="0"/>
+				<mi:MaterialIcon FontSize="16"
+								 Kind="FilterOutline"
+								 VerticalAlignment="Center"
+								 Foreground="{DynamicResource OnBackgroundBrush}"
+								 Grid.Column="0"/>
 
 				<TextBlock Classes="Body"
 						   Text="发布类型"
@@ -299,12 +300,12 @@
 			<Grid ColumnSpacing="8"
 				  ColumnDefinitions="auto auto *"
 				  IsVisible="{Binding IsCommunityResourcesFilterVisible}">
-				<wc:FontIcon FontSize="18"
-							 Glyph="&#xE8A9;"
-							 VerticalAlignment="Center"
-							 Foreground="{DynamicResource OnBackgroundBrush}"
-							 Grid.Column="0"/>
-
+				<mi:MaterialIcon FontSize="16"
+								 Kind="ViewGridOutline"
+								 VerticalAlignment="Center"
+								 Foreground="{DynamicResource OnBackgroundBrush}"
+								 Grid.Column="0"/>
+				
 				<TextBlock Classes="Body"
 						   Text="资源分类"
 						   VerticalAlignment="Center"
@@ -323,12 +324,12 @@
 			<Grid ColumnSpacing="8"
 				  ColumnDefinitions="auto auto *"
 				  IsVisible="{Binding IsCommunityResourcesFilterVisible}">
-				<wc:FontIcon FontSize="18"
-							 Glyph="&#xE8F1;"
-							 VerticalAlignment="Center"
-							 Foreground="{DynamicResource OnBackgroundBrush}"
-							 Grid.Column="0"/>
-
+				<mi:MaterialIcon FontSize="16"
+								 Kind="AnimationOutline"
+								 VerticalAlignment="Center"
+								 Foreground="{DynamicResource OnBackgroundBrush}"
+								 Grid.Column="0"/>
+				
 				<TextBlock Classes="Body"
 						   Text="搜索源"
 						   VerticalAlignment="Center"

@@ -1,7 +1,8 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:wc="using:WonderLab.Controls"
-					xmlns:we="using:WonderLab.Media.Easings">
+					xmlns:we="using:WonderLab.Media.Easings"
+					xmlns:mi="using:Material.Icons.Avalonia">
 	<Design.PreviewWith>
 		<Border Width="350" Padding="0" Background="White">
 			<StackPanel>
@@ -42,11 +43,11 @@
 									HorizontalAlignment="Left"
 									CornerRadius="{DynamicResource FullCornerRadius}"
 									Background="{DynamicResource NotificationCardIconBackgroundBrush}">
-								<wc:FontIcon FontSize="16"
-											 Name="PART_FontIcon"
-											 VerticalAlignment="Center"
-											 HorizontalAlignment="Center"
-											 Foreground="{DynamicResource NotificationCardIconForegroundBrush}"/>
+								<mi:MaterialIcon FontSize="16"
+												 Name="PART_MaterialIcon"
+												 VerticalAlignment="Center"
+												 HorizontalAlignment="Center"
+												 Foreground="{DynamicResource NotificationCardIconForegroundBrush}"/>
 							</Border>
 
 							<Grid RowDefinitions="auto auto"
@@ -150,26 +151,26 @@
 		</Style>
 
 		<Style Selector="^:information">
-			<Style Selector="^ /template/ wc|FontIcon#PART_FontIcon">
-				<Setter Property="Glyph" Value="&#xEA1F;"/>
+			<Style Selector="^ /template/ mi|MaterialIcon#PART_MaterialIcon">
+				<Setter Property="Kind" Value="Information"/>
 			</Style>
 		</Style>
 
 		<Style Selector="^:success">
-			<Style Selector="^ /template/ wc|FontIcon#PART_FontIcon">
-				<Setter Property="Glyph" Value="&#xF78C;"/>
+			<Style Selector="^ /template/ mi|MaterialIcon#PART_MaterialIcon">
+				<Setter Property="Kind" Value="CheckCircle"/>
 			</Style>
 		</Style>
 
 		<Style Selector="^:warning">
-			<Style Selector="^ /template/ wc|FontIcon#PART_FontIcon">
-				<Setter Property="Glyph" Value="&#xE7BA;"/>
+			<Style Selector="^ /template/ mi|MaterialIcon#PART_MaterialIcon">
+				<Setter Property="Kind" Value="AlertDecagram"/>
 			</Style>
 		</Style>
 		
 		<Style Selector="^:error">
-			<Style Selector="^ /template/ wc|FontIcon#PART_FontIcon">
-				<Setter Property="Glyph" Value="&#xEDAE;"/>
+			<Style Selector="^ /template/ mi|MaterialIcon#PART_MaterialIcon">
+				<Setter Property="Kind" Value="AlertCircle"/>
 				<Setter Property="Foreground" Value="{DynamicResource NotificationCardIconErrorForegroundBrush}"/>
 			</Style>
 
@@ -177,19 +178,6 @@
 				<Setter Property="Background" Value="{DynamicResource NotificationCardIconErrorBackgroundBrush}"/>
 			</Style>
 		</Style>
-		<!--<Style Selector="^:information /template/ Panel#PART_HeaderBar">
-			<Setter Property="Background" Value="{DynamicResource NotificationCardInformationBackgroundBrush}"/>
-		</Style>
-		
-		<Style Selector="^:success /template/ Panel#PART_HeaderBar">
-			<Setter Property="Background" Value="{DynamicResource NotificationCardSuccessBackgroundBrush}"/>
-		</Style>
-		<Style Selector="^:warning /template/ Panel#PART_HeaderBar">
-			<Setter Property="Background" Value="{DynamicResource NotificationCardWarningBackgroundBrush}"/>
-		</Style>
-		<Style Selector="^:error /template/ Panel#PART_HeaderBar">
-			<Setter Property="Background" Value="{DynamicResource NotificationCardErrorBackgroundBrush}"/>
-		</Style>-->
 	</ControlTheme>
 
 	<ControlTheme x:Key="{x:Type WindowNotificationManager}" TargetType="WindowNotificationManager">

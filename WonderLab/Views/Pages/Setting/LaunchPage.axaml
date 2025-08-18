@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:wc="using:WonderLab.Controls"
 			 xmlns:wa="using:WonderLab.Media.Attachments"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="WonderLab.LaunchPage">
 	<ItemsControl Margin="0 0 16 24">
@@ -61,8 +62,9 @@
 				<StackPanel Orientation="Horizontal" Spacing="8">
 					<TextBox Text="{Binding Width, Mode=TwoWay}"/>
 
-					<wc:FontIcon Glyph="&#xE711;"
-								 VerticalAlignment="Center"/>
+					<mi:MaterialIcon Kind="Close"
+									 FontSize="12"
+									 VerticalAlignment="Center"/>
 
 					<TextBox Text="{Binding Height, Mode=TwoWay}"/>
 				</StackPanel>

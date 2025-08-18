@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:wc="using:WonderLab.Controls">
+					xmlns:wc="using:WonderLab.Controls"
+					xmlns:mi="using:Material.Icons.Avalonia">
 	<Design.PreviewWith>
 		<Border Padding="20">
 			<StackPanel Spacing="20">
@@ -213,13 +214,13 @@
 								  CornerRadius="{DynamicResource NormalCornerRadius}"
 								  IsChecked="{Binding $parent[TextBox].RevealPassword, Mode=TwoWay}">
 						<Panel>
-							<wc:FontIcon FontSize="14"
-										 Glyph="&#xED1A;"
-										 IsVisible="{Binding !$parent[ToggleButton].IsChecked}"/>
-							
-							<wc:FontIcon FontSize="14"
-										 Glyph="&#xE7B3;"
-										 IsVisible="{Binding $parent[ToggleButton].IsChecked}"/>
+							<mi:MaterialIcon FontSize="14"
+											 Kind="EyeOffOutline"
+											 IsVisible="{Binding !$parent[ToggleButton].IsChecked}"/>
+
+							<mi:MaterialIcon FontSize="14"
+											 Kind="EyeOutline"
+											 IsVisible="{Binding !$parent[ToggleButton].IsChecked}"/>
 						</Panel>
 					</ToggleButton>
 				</Template>

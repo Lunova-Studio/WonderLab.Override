@@ -96,10 +96,10 @@
 						HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
 					<Grid Margin="{TemplateBinding Padding}" 
 						  ColumnDefinitions="Auto Auto 1* Auto">
-						<wc:FontIcon FontSize="22"
-									 VerticalAlignment="Center"
-									 Glyph="{TemplateBinding Icon}"
-									 Foreground="{DynamicResource TileForegroundBrush}"/>
+						<ContentPresenter FontSize="22"
+										  VerticalAlignment="Center"
+										  Content="{TemplateBinding Icon}"
+										  Foreground="{DynamicResource TileForegroundBrush}"/>
 
 						<Grid Grid.Column="1"
 							  Margin="12 0 0 0"
@@ -132,10 +132,10 @@
 											  Content="{TemplateBinding Footer}"
 											  ContentTemplate="{TemplateBinding ContentTemplate}"/>
 
-							<wc:FontIcon FontSize="16"
-										 VerticalAlignment="Center"
-										 Glyph="{TemplateBinding FooterIcon}"
-										 Foreground="{DynamicResource TileForegroundBrush}"/>
+							<ContentPresenter FontSize="16"
+											  VerticalAlignment="Center"
+											  Content="{TemplateBinding FooterIcon}"
+											  Foreground="{DynamicResource TileForegroundBrush}"/>
 						</StackPanel>
 					</Grid>
 				</Button>
@@ -268,10 +268,10 @@
 												  Content="{TemplateBinding Footer}"
 												  ContentTemplate="{TemplateBinding ContentTemplate}"/>
 
-								<wc:FontIcon FontSize="16"
-											 VerticalAlignment="Center"
-											 Glyph="{TemplateBinding FooterIcon}"
-											 Foreground="{DynamicResource TileForegroundBrush}"/>
+								<ContentPresenter FontSize="16"
+												  VerticalAlignment="Center"
+												  Content="{TemplateBinding FooterIcon}"
+												  Foreground="{DynamicResource TileForegroundBrush}"/>
 							</StackPanel>
 						</Grid>
 					</Button>

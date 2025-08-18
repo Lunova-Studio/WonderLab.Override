@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
-					 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					 xmlns:wc="using:WonderLab.Controls"
-					 xmlns:conv="using:Avalonia.Controls.Converters">
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wc="using:WonderLab.Controls"
+					xmlns:conv="using:Avalonia.Controls.Converters"
+					xmlns:mi="using:Material.Icons.Avalonia">
 	<Design.PreviewWith>
 		<Border Padding="20" Width="320">
 			<StackPanel Spacing="0" HorizontalAlignment="Left">
@@ -19,22 +20,22 @@
 					<MenuItem Header="Child 2"/>
 					<MenuItem Header="Child 3"/>
 					<Separator/>
-					<MenuItem Icon="&#xE74D;" Header="Child 4"/>
-					<MenuItem Icon="&#xE74D;" Header="Child 5" />
-					<MenuItem Icon="&#xE74D;" Header="Child 6"/>
-					<MenuItem Icon="&#xE74D;" Header="Child 7"/>
-					<MenuItem Icon="&#xE74D;" Header="Child 8"/>
-					<MenuItem Icon="&#xE74D;" Header="Child 9"/>
-					<MenuItem Icon="&#xE74D;" Header="Child 10"/>
-					<MenuItem Icon="&#xE74D;" Header="Child 11"/>
-					<MenuItem Icon="&#xE74D;" Header="Child 12"/>
-					<MenuItem Icon="&#xE74D;" Header="Child 13"/>
-					<MenuItem Icon="&#xE74D;" Header="Child 14"/>
-					<MenuItem Icon="&#xE74D;" Header="Child 15"/>
-					<MenuItem Icon="&#xE74D;" Header="Child 16"/>
-					<MenuItem Icon="&#xE74D;" Header="Child 17"/>
-					<MenuItem Icon="&#xE74D;" Header="Child 18"/>
-					<MenuItem Icon="&#xE74D;" Header="Child 19"/>
+					<MenuItem Icon="{mi:MaterialIconExt Pen}" Header="Child 4"/>
+					<MenuItem Icon="{mi:MaterialIconExt Pen}" Header="Child 5" />
+					<MenuItem Icon="{mi:MaterialIconExt Pen}" Header="Child 6"/>
+					<MenuItem Icon="{mi:MaterialIconExt Pen}" Header="Child 7"/>
+					<MenuItem Icon="{mi:MaterialIconExt Pen}" Header="Child 8"/>
+					<MenuItem Icon="{mi:MaterialIconExt Pen}" Header="Child 9"/>
+					<MenuItem Icon="{mi:MaterialIconExt Pen}" Header="Child 10"/>
+					<MenuItem Icon="{mi:MaterialIconExt Pen}" Header="Child 11"/>
+					<MenuItem Icon="{mi:MaterialIconExt Pen}" Header="Child 12"/>
+					<MenuItem Icon="{mi:MaterialIconExt Pen}" Header="Child 13"/>
+					<MenuItem Icon="{mi:MaterialIconExt Pen}" Header="Child 14"/>
+					<MenuItem Icon="{mi:MaterialIconExt Pen}" Header="Child 15"/>
+					<MenuItem Icon="{mi:MaterialIconExt Pen}" Header="Child 16"/>
+					<MenuItem Icon="{mi:MaterialIconExt Pen}" Header="Child 17"/>
+					<MenuItem Icon="{mi:MaterialIconExt Pen}" Header="Child 18"/>
+					<MenuItem Icon="{mi:MaterialIconExt Pen}" Header="Child 19"/>
 				</MenuItem>
 				<MenuItem Header="Disabled Parent" IsEnabled="False">
 					<MenuItem Header="Child"/>
@@ -63,12 +64,12 @@
 									  RippleFill="{DynamicResource RippleEffectFillBrush}">
 						<Grid Margin="{TemplateBinding Padding}"
 							  ColumnDefinitions="auto auto * auto auto">
-							<wc:FontIcon FontSize="14"
-										 VerticalAlignment="Center"
-										 Glyph="{TemplateBinding Icon}"
-										 Margin="{DynamicResource MenuIconPresenterMargin}"
-									     Foreground="{TemplateBinding Foreground}"
-										 Grid.Column="0"/>
+							<ContentPresenter FontSize="12"
+											  VerticalAlignment="Center"
+											  Content="{TemplateBinding Icon}"
+											  Foreground="{TemplateBinding Foreground}"
+											  Margin="{DynamicResource MenuIconPresenterMargin}"
+											  Grid.Column="0"/>
 
 							<ContentPresenter FontSize="14"
 											  FontWeight="Regular"
@@ -90,13 +91,13 @@
 									   Text="{TemplateBinding InputGesture, Converter={StaticResource KeyGestureConverter}}"
 									   Grid.Column="3"/>
 							
-							<wc:FontIcon FontSize="16"
-										 Glyph="&#xE76C;"
-										 Name="PART_ChevronPath"
-										 VerticalAlignment="Center"
-										 HorizontalAlignment="Left"
-										 Foreground="{TemplateBinding Foreground}"
-										 Grid.Column="4"/>
+							<mi:MaterialIcon FontSize="8"
+											 Kind="MenuRight"
+											 Name="PART_ChevronPath"
+											 VerticalAlignment="Center"
+											 HorizontalAlignment="Left"
+											 Foreground="{TemplateBinding Foreground}"
+											 Grid.Column="4"/>
 						</Grid>
 					</wc:RippleControl>
 					
@@ -152,7 +153,7 @@
 			<Setter Property="IsVisible" Value="True" />
 		</Style>
 
-		<Style Selector="^:empty /template/ wc|FontIcon#PART_ChevronPath">
+		<Style Selector="^:empty /template/ mi|MaterialIcon#PART_ChevronPath">
 			<Setter Property="IsVisible" Value="False" />
 		</Style>
 

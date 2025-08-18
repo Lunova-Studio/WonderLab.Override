@@ -2,7 +2,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="WonderLab.App"
              xmlns:monet="using:Monet.Avalonia"
-			 xmlns:wc1="using:WonderLab.Controls"
 			 xmlns:wc="using:WonderLab.Media.Converters"
 			 xmlns:dha="using:DialogHostAvalonia"
 			 xmlns:mi="using:Material.Icons.Avalonia"
@@ -23,10 +22,9 @@
 					<StackPanel Spacing="8"
 								HorizontalAlignment="Center"
 								IsVisible="{TemplateBinding IsVisible}">
-						<wc1:FontIcon Glyph="&#xF133;"
-									 HorizontalAlignment="Center"
-									 FontSize="{TemplateBinding FontSize}"/>
-
+						<mi:MaterialIcon Kind="InformationCircleOutline"
+										 FontSize="{TemplateBinding FontSize}"/>
+						
 						<TextBlock Classes="BodyStrong"
 								   Text="{TemplateBinding Content}"/>
 					</StackPanel>
@@ -48,7 +46,6 @@
 				<ResourceInclude Source="/Controls/Theme/TextBoxTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/TabStripTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ComboBoxTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/FontIconTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/MenuItemTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ScrollBarTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/PullPanelTheme.axaml"/>

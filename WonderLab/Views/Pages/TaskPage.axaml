@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:wc="using:WonderLab.Controls"
 			 xmlns:wa="using:WonderLab.Media.Attachments"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.Views.Pages.TaskPage">
 	<Grid RowDefinitions="auto 1*">
 		<TextBlock Classes="MDTitleMedium"
@@ -18,10 +19,10 @@
 					Grid.RowSpan="2"
 					VerticalAlignment="Center"
 					HorizontalAlignment="Center"
-					IsVisible="{Binding HasTasks, Converter={StaticResource BoolReverseConverter}}">
-			<wc:FontIcon FontSize="24"
-						 Glyph="&#xF133;"
-						 HorizontalAlignment="Center"/>
+					IsVisible="{Binding HasTasks, Converter={StaticResource BoolReverseConverter}}">			
+			<mi:MaterialIcon FontSize="28"
+							 Kind="PackageVariant"
+							 HorizontalAlignment="Center"/>
 
 			<TextBlock Classes="MDTitleSmall"
 					   Text="{I18n NoActiveTask_Tip}"/>

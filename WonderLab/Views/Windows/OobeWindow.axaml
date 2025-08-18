@@ -6,6 +6,7 @@
 		xmlns:wc="using:WonderLab.Controls"
 		xmlns:wb="using:WonderLab.Media.Behaviors"
 		xmlns:al="using:Avalonia.Labs.Lottie"
+		xmlns:mi="using:Material.Icons.Avalonia"
         x:Class="WonderLab.OobeWindow"
 		Width="850" Classes="test"
         Title="{I18n SettingsWizards}">	
@@ -101,9 +102,10 @@
 								Orientation="Horizontal">
 						<TextBlock Classes="Body"
 								   Text="{I18n OOBE_Next}"/>
-						
-						<wc:FontIcon Glyph="&#xE72A;"
-									 VerticalAlignment="Center"/>
+
+						<mi:MaterialIcon FontSize="14"
+										 Kind="ArrowRight"
+										 VerticalAlignment="Center"/>
 					</StackPanel>
 				</Button>
 			</Grid>

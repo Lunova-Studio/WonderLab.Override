@@ -6,6 +6,7 @@
 			 xmlns:wc="using:WonderLab.Controls"
 			 xmlns:wa="using:WonderLab.Media.Attachments"
 			 xmlns:wb="using:WonderLab.Media.Behaviors"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.Views.Pages.GamePage">
 	<UserControl.Resources>
 		<DataTemplate x:Key="TagTemplate">
@@ -118,10 +119,9 @@
 			<Button Classes="primary">
 				<StackPanel Spacing="8"
 							Orientation="Horizontal">
-					<wc:FontIcon FontSize="14"
-								 Glyph="&#xE896;"
-								 VerticalAlignment="Center"/>
-
+					<mi:MaterialIcon FontSize="14"
+									 Kind="Download"/>
+					
 					<TextBlock Classes="Body"
 							   Text="{I18n Install}"/>
 				</StackPanel>
@@ -134,21 +134,20 @@
 					 Background="{DynamicResource TextBoxBackgroundBrush}"
 					 Grid.Column="0">
 				<TextBox.InnerLeftContent>
-					<wc:FontIcon FontSize="16"
-								 Glyph="&#xE71E;"
-								 Margin="12 2 0 2"
-								 VerticalAlignment="Center"
-								 HorizontalAlignment="Center"/>
+					<mi:MaterialIcon FontSize="16"
+									 Margin="12 2 0 2"
+									 VerticalAlignment="Center"
+									 HorizontalAlignment="Center"/>
 				</TextBox.InnerLeftContent>
 			</TextBox>	
 
 			<Grid ColumnSpacing="8"
 				  ColumnDefinitions="auto auto *">
-				<wc:FontIcon FontSize="18"
-							 Glyph="&#xF168;"
-							 VerticalAlignment="Center"
-							 Foreground="{DynamicResource OnBackgroundBrush}"
-							 Grid.Column="0"/>
+				<mi:MaterialIcon FontSize="18"
+								 Kind="FormatListGroup"
+								 VerticalAlignment="Center"
+								 Foreground="{DynamicResource OnBackgroundBrush}"
+								 Grid.Column="0"/>
 
 				<TextBlock Classes="Body"
 						   Text="{I18n GroupMode}"

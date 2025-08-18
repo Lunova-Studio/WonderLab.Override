@@ -19,7 +19,7 @@
 		<Setter Property="CornerRadius" Value="{DynamicResource WeakCornerRadius}" />
 		<Setter Property="HorizontalAlignment" Value="Stretch" />
 		<Setter Property="VerticalContentAlignment" Value="Center" />
-		<Setter Property="HorizontalContentAlignment" Value="Left" />
+		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 		<Setter Property="Template">
 			<ControlTemplate>
 				<wc:RippleControl Name="PART_RippleControl"

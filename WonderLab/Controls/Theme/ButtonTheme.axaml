@@ -81,10 +81,10 @@
 							</Transitions>
 						</wc:RippleControl.Transitions>
 
-						<wc:FontIcon VerticalAlignment="Center"
-									 HorizontalAlignment="Center"
-									 Glyph="{TemplateBinding Content}"
-									 FontSize="{TemplateBinding FontSize}"/>
+						<ContentPresenter VerticalAlignment="Center"
+										  HorizontalAlignment="Center"
+										  Content="{TemplateBinding Content}"
+										  FontSize="{TemplateBinding FontSize}"/>
 					</wc:RippleControl>
 				</ControlTemplate>
 			</Setter>

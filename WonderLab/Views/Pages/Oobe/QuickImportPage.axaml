@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:wc="using:WonderLab.Controls"
 			 xmlns:wa="using:WonderLab.Media.Attachments"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.QuickImportPage">
 	<Grid Margin="36 0"
 		  MaxWidth="1500"
@@ -12,13 +13,12 @@
 		  ColumnSpacing="72"
 		  RowDefinitions=".7* *"
 		  ColumnDefinitions="* *">
-		<wc:FontIcon Padding="1"
-					 FontSize="26"
-					 Glyph="&#xE896;"
-					 HorizontalAlignment="Left"
-					 VerticalAlignment="Bottom"
-					 Foreground="{DynamicResource OOBEWindowFontIconForegroundBrush}"
-					 Grid.Row="0"/>
+		<mi:MaterialIcon FontSize="26"
+						 Kind="Import"
+						 HorizontalAlignment="Left"
+						 VerticalAlignment="Bottom"
+						 Foreground="{DynamicResource OOBEWindowFontIconForegroundBrush}"
+						 Grid.Row="0"/>
 
 		<Grid VerticalAlignment="Top"
 			  HorizontalAlignment="Left"

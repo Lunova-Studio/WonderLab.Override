@@ -3,7 +3,8 @@
 					xmlns:wa="using:WonderLab.Media.Attachments"
 					xmlns:wc="using:WonderLab.Controls"
 					xmlns:we="using:WonderLab.Media.Easings"
-					xmlns:wb="using:WonderLab.Media.Behaviors">
+					xmlns:wb="using:WonderLab.Media.Behaviors"
+					xmlns:mi="using:Material.Icons.Avalonia">
 	<Design.PreviewWith>
 		<Border Padding="20">
 			<ListBox Classes="bottombar" Height="200" Width="600">
@@ -184,9 +185,9 @@
 												Orientation="Horizontal"
 												VerticalAlignment="Center"
 												HorizontalAlignment="Center">
-										<wc:FontIcon FontSize="14"
-													 VerticalAlignment="Center"
-													 Glyph="{TemplateBinding Tag}"/>
+										<ContentPresenter FontSize="14"
+														  VerticalAlignment="Center"
+														  Content="{TemplateBinding Tag}"/>
 
 										<ContentPresenter Name="PART_ContentPresenter"
 														  Content="{TemplateBinding Content}"

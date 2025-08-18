@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.ChooseJavaPage">
 	<Grid Margin="36 0"
 		  MaxWidth="1500"
@@ -12,12 +13,11 @@
 		  ColumnDefinitions="* *"
 		  VerticalAlignment="Stretch"
 		  HorizontalAlignment="Stretch">
-		<wc:FontIcon Padding="1"
-					 FontSize="26"
-					 Glyph="&#xEC32;"
-					 VerticalAlignment="Bottom"
-					 HorizontalAlignment="Left"
-					 Foreground="{DynamicResource OOBEWindowFontIconForegroundBrush}"/>
+		<mi:MaterialIcon FontSize="32"
+						 Kind="LanguageJava"
+						 VerticalAlignment="Bottom"
+						 HorizontalAlignment="Left"
+						 Foreground="{DynamicResource OOBEWindowFontIconForegroundBrush}"/>
 
 		<Grid Margin="0 16 0 0"
 			  VerticalAlignment="Top"
@@ -44,9 +44,9 @@
 						Command="{Binding AutoSearchJavaCommand}">
 					<StackPanel Spacing="8"
 								Orientation="Horizontal">
-						<wc:FontIcon FontSize="14"
-									 Glyph="&#xE71E;"
-									 VerticalAlignment="Center"/>
+						<mi:MaterialIcon FontSize="14"
+										 Kind="Magnify"
+										 VerticalAlignment="Center"/>
 
 						<TextBlock Classes="MDBodyMedium"
 								   TextAlignment="Center"
@@ -58,9 +58,9 @@
 						Command="{Binding BrowserJavaCommand}">
 					<StackPanel Spacing="8"
 								Orientation="Horizontal">
-						<wc:FontIcon FontSize="14"
-									 Glyph="&#xE710;"
-									 VerticalAlignment="Center"/>
+						<mi:MaterialIcon Kind="Plus"
+										 FontSize="14"
+										 VerticalAlignment="Center"/>
 
 						<TextBlock Classes="MDBodyMedium"
 								   TextAlignment="Center"
@@ -92,9 +92,9 @@
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<Grid ColumnDefinitions="auto *">
-							<wc:FontIcon FontSize="14"
-										 Glyph="&#xEC32;"
-										 VerticalAlignment="Center"/>
+							<mi:MaterialIcon FontSize="14"
+											 Kind="LanguageJava"
+											 VerticalAlignment="Center"/>
 
 							<TextBlock Margin="8 0 0 0"
 									   Classes="MDBodyMedium"

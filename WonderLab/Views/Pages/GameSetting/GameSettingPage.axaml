@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:wc="using:WonderLab.Controls"
 			 xmlns:wa="using:WonderLab.Media.Attachments"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.GameSettingPage">
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
@@ -48,8 +49,9 @@
 				<StackPanel Orientation="Horizontal" Spacing="8">
 					<TextBox Text="{Binding Width, Mode=TwoWay}"/>
 
-					<wc:FontIcon Glyph="&#xE711;"
-								 VerticalAlignment="Center"/>
+					<mi:MaterialIcon Kind="Close"
+									 FontSize="12"
+									 VerticalAlignment="Center"/>
 
 					<TextBox Text="{Binding Height, Mode=TwoWay}"/>
 				</StackPanel>

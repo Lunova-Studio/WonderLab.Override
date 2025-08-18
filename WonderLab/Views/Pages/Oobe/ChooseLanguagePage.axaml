@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.ChooseLanguagePage">
 	<UserControl.Styles>
-		<Style Selector="wc|FontIcon.mqhs">
+		<Style Selector="mi|MaterialIcon.mqhs">
 			<Setter Property="RenderTransform" Value="rotate(0deg)"/>
 			<Setter Property="Transitions">
 				<Transitions>
@@ -17,7 +18,7 @@
 			</Setter>
 		</Style>
 
-		<Style Selector="wc|FontIcon.mqhs:pointerover">
+		<Style Selector="mi|MaterialIcon.mqhs:pointerover">
 			<Setter Property="RenderTransform" Value="rotate(360deg)"/>
 		</Style>
 	</UserControl.Styles>
@@ -28,14 +29,13 @@
 		  RowSpacing="16"
 		  RowDefinitions=".7* *"
 		  ColumnDefinitions="* *">
-		<wc:FontIcon Padding="1"
-					 FontSize="26"
-					 Classes="mqhs"
-					 Glyph="&#xE909;"
-					 HorizontalAlignment="Left"
-					 VerticalAlignment="Bottom"
-					 Foreground="{DynamicResource OOBEWindowFontIconForegroundBrush}"
-					 Grid.Row="0"/>
+		<mi:MaterialIcon Kind="Web"
+						 FontSize="26"
+						 Classes="mqhs"
+						 HorizontalAlignment="Left"
+						 VerticalAlignment="Bottom"
+						 Foreground="{DynamicResource OOBEWindowFontIconForegroundBrush}"
+						 Grid.Row="0"/>
 
 		<Grid VerticalAlignment="Top"
 			  HorizontalAlignment="Left"

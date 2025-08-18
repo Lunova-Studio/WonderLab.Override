@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:wc="using:WonderLab.Controls">
+					xmlns:wc="using:WonderLab.Controls"
+					xmlns:mi="using:Material.Icons.Avalonia">
 	<Design.PreviewWith>
 		<Border Padding="20">
 			<StackPanel Spacing="20">
@@ -45,22 +46,24 @@
 											  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
 											  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
 
-							<wc:FontIcon Grid.Column="1"
-										 Glyph="&#xE70D;"
-										 Margin="0 0 12 0"
-										 Name="PART_FontIcon"
-										 RenderTransform="none"
-										 IsHitTestVisible="False"
-										 VerticalAlignment="Center"
-										 HorizontalAlignment="Right">
-								<wc:FontIcon.Transitions>
+							<mi:MaterialIcon Margin="0 0 12 0"
+											 Kind="ChevronDown"
+											 RenderTransform="none"
+											 Name="PART_MaterialIcon"
+											 IsHitTestVisible="False"
+											 UseLayoutRounding="False"
+											 VerticalAlignment="Center"
+											 HorizontalAlignment="Right"
+											 Foreground="{TemplateBinding Foreground}"
+											 Grid.Column="1">
+								<mi:MaterialIcon.Transitions>
 									<Transitions>
 										<TransformOperationsTransition Duration="0:0:.35"
 																	   Property="RenderTransform"
 																	   Easing="ExponentialEaseOut"/>
 									</Transitions>
-								</wc:FontIcon.Transitions>
-							</wc:FontIcon>
+								</mi:MaterialIcon.Transitions>
+							</mi:MaterialIcon>
 						</Grid>
 					</wc:RippleControl>
 				</ControlTemplate>
@@ -77,7 +80,7 @@
 				<Setter Property="TextElement.Foreground" Value="{DynamicResource ButtonForegroundPointerOver}"/>
 			</Style>
 
-			<Style Selector="^ /template/ wc|FontIcon#PART_FontIcon">
+			<Style Selector="^ /template/ mi|MaterialIcon#PART_MaterialIcon">
 				<Setter Property="Foreground" Value="{DynamicResource ButtonForegroundPointerOver}" />
 			</Style>
 		</Style>
@@ -88,7 +91,7 @@
 				<Setter Property="TextElement.Foreground" Value="{DynamicResource ButtonForegroundPressed}" />
 			</Style>
 
-			<Style Selector="^ /template/ wc|FontIcon#PART_FontIcon">
+			<Style Selector="^ /template/ mi|MaterialIcon#PART_MaterialIcon">
 				<Setter Property="RenderTransform" Value="translateY(3px)"/>
 			</Style>
 		</Style>

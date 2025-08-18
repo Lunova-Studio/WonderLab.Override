@@ -44,7 +44,6 @@
         <EmbeddedResource Remove="logs\**" />
         <None Remove="logs\**" />
         <AvaloniaResource Remove="Assets\Font\MinecraftTen.ttf" />
-        <AvaloniaResource Remove="Assets\Font\SegoeFluentIcons.ttf" />
         <AvaloniaResource Remove="Assets\Images\doro_loading.jpg" />
         <AvaloniaResource Remove="Assets\Images\Icons\Icon.1024.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\Icon.icns" />
@@ -64,7 +63,6 @@
         <None Remove="version.txt" />
         <EmbeddedResource Include="Assets\Images\Icons\Icon.ico" />
         <EmbeddedResource Include="Assets\Font\MinecraftTen.ttf" />
-        <EmbeddedResource Include="Assets\Font\SegoeFluentIcons.ttf" />
         <EmbeddedResource Include="Assets\Images\doro_loading.jpg" />
         <EmbeddedResource Include="Assets\Images\Icons\Icon.1024.png" />
         <EmbeddedResource Include="Assets\Images\Icons\Icon.icns" />

@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:sys="using:System"
 					xmlns:wa="using:WonderLab.Media.Attachments"
-					xmlns:wc="using:WonderLab.Controls">
+					xmlns:wc="using:WonderLab.Controls"
+					xmlns:mi="using:Material.Icons.Avalonia">
 	<Design.PreviewWith>
 		<Border Padding="20">
 			<StackPanel Spacing="10">
@@ -114,24 +115,24 @@
 								HorizontalAlignment="Right"
 								Grid.Column="1"/>
 
-						<wc:FontIcon Grid.Column="1"
-									 Glyph="&#xE70D;"
-									 Margin="0 0 10 0"
-									 Name="PART_FontIcon"
-									 RenderTransform="none"
-									 IsHitTestVisible="False"
-									 UseLayoutRounding="False"
-									 VerticalAlignment="Center"
-									 HorizontalAlignment="Right"
-									 Foreground="{TemplateBinding Foreground}">
-							<wc:FontIcon.Transitions>
+						<mi:MaterialIcon Margin="0 0 10 0"
+										 Kind="ChevronDown"
+										 Name="PART_MaterialIcon"
+										 RenderTransform="none"
+										 IsHitTestVisible="False"
+										 UseLayoutRounding="False"
+										 VerticalAlignment="Center"
+										 HorizontalAlignment="Right"
+										 Foreground="{TemplateBinding Foreground}"
+										 Grid.Column="1">
+							<mi:MaterialIcon.Transitions>
 								<Transitions>
 									<TransformOperationsTransition Duration="0:0:.35"
 																   Property="RenderTransform"
 																   Easing="ExponentialEaseOut"/>
 								</Transitions>
-							</wc:FontIcon.Transitions>
-						</wc:FontIcon>
+							</mi:MaterialIcon.Transitions>
+						</mi:MaterialIcon>
 
 						<Popup Name="PART_Popup"
 							   InheritsTransform="True"
@@ -170,12 +171,12 @@
 				<Setter Property="BorderBrush" Value="{DynamicResource ComboBoxPointerPressedBorderBrush}" />
 			</Style>
 
-			<Style Selector="^ /template/ wc|FontIcon#PART_FontIcon">
+			<Style Selector="^ /template/ mi|MaterialIcon#PART_MaterialIcon">
 				<Setter Property="RenderTransform" Value="translateY(3px)"/>
 			</Style>
 		</Style>
 
-		<Style Selector="^:dropdownopen /template/ wc|FontIcon#PART_FontIcon">
+		<Style Selector="^:dropdownopen /template/ mi|MaterialIcon#PART_MaterialIcon">
 			<Setter Property="RenderTransform" Value="rotate(180deg)"/>
 		</Style>
 		
@@ -206,7 +207,7 @@
 			<Style Selector="^ /template/ TextBlock#PlaceholderTextBlock">
 				<Setter Property="Foreground" Value="{DynamicResource ComboBoxForegroundDisabled}" />
 			</Style>
-			<Style Selector="^ /template/ wc|FontIcon#PART_FontIcon">
+			<Style Selector="^ /template/ mi|MaterialIcon#PART_MaterialIcon">
 				<Setter Property="Foreground" Value="{DynamicResource ComboBoxDropDownGlyphForegroundDisabled}" />
 			</Style>
 		</Style>

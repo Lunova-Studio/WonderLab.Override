@@ -56,7 +56,14 @@
 	</wc:WonderWindow.Resources>
 
 	<wc:WonderWindow.TitleBarContent>
-		<HyperlinkButton/>
+		<HyperlinkButton Width="28"
+						 Height="28"
+						 Padding="0"
+						 FontSize="15"
+						 Margin="0 0 4 0"
+						 HorizontalAlignment="Right"
+						 NavigateUri="https://github.com/Lunova-Studio/WonderLab.Override"
+						 Content="{mi:MaterialIconExt Github}"/>
 	</wc:WonderWindow.TitleBarContent>
 	
 	<Interaction.Behaviors>

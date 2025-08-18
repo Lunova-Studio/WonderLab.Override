@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:wc="using:WonderLab.Controls"
 			 xmlns:wa="using:WonderLab.Media.Attachments"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.ModSettingPage">
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
@@ -34,10 +35,9 @@
 					Background="Transparent" IsEnabled="False"
 					IsVisible="{Binding HasUpdateMods}">
 				<StackPanel Spacing="7" Orientation="Horizontal">
-					<wc:FontIcon Glyph="&#xF103;"
-								 FontSize="18"
-								 VerticalAlignment="Center"/>
-
+					<mi:MaterialIcon Kind="UploadCircle"
+									 VerticalAlignment="Center"/>
+					
 					<TextBlock Classes="Body"
 							   VerticalAlignment="Center">
 						<Run Text="{Binding UpdateModCount}"/>
@@ -53,8 +53,8 @@
 					Background="Transparent"
 					Command="{Binding RefreshCommand}">
 				<StackPanel Spacing="8" Orientation="Horizontal">
-					<wc:FontIcon Glyph="&#xE72C;"
-								 VerticalAlignment="Center"/>
+					<mi:MaterialIcon Kind="Refresh"
+									 VerticalAlignment="Center"/>
 
 					<TextBlock Classes="Body"
 							   VerticalAlignment="Center"

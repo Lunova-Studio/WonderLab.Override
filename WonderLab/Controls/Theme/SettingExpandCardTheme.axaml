@@ -8,66 +8,8 @@
 			</wc:SettingExpandCard>
 		</Border>
 	</Design.PreviewWith>
-	
-	<ControlTheme TargetType="wc:SettingExpandCard" x:Key="{x:Type wc:SettingExpandCard}">
-		<Setter Property="Padding" Value="16 12"/>
-		<Setter Property="Template">
-			<ControlTemplate>
-				<Expander Name="PART_Expander"
-						  IsExpanded="{TemplateBinding IsExpanded}">
-					<Expander.Header>
-						<Grid Background="Transparent"
-							  ColumnDefinitions="Auto Auto 1* Auto">
-							<wc:FontIcon FontSize="20"
-										 VerticalAlignment="Center"
-										 Glyph="{TemplateBinding Icon}"
-										 Foreground="{TemplateBinding Foreground}"/>
 
-							<TextBlock Classes="Body"
-									   Grid.Column="1"
-									   Margin="12 0 0 0"
-									   VerticalAlignment="Center"
-									   Text="{TemplateBinding Header}"
-									   Foreground="{TemplateBinding Foreground}"/>
-
-							<ContentPresenter Grid.Column="3"
-											  Content="{TemplateBinding Footer}"/>
-						</Grid>
-					</Expander.Header>
-
-					<Expander.Content>
-						<ScrollViewer Name="PART_ScrollViewer"
-									  Background="Transparent"
-									  Margin="{TemplateBinding Padding}"
-									  AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
-									  VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}"
-									  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
-									  HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}"
-									  BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
-									  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
-									  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}">
-							<ItemsPresenter Name="PART_ItemsPresenter"
-											Margin="{TemplateBinding Padding}"
-											ItemsPanel="{TemplateBinding ItemsPanel}"/>
-						</ScrollViewer>
-					</Expander.Content>
-				</Expander>
-			</ControlTemplate>
-		</Setter>
-
-		<Style Selector="^">
-			<Style Selector="^ /template/ wce|ContentExpandControl#PART_ContentExpand">
-				<Setter Property="Orientation" Value="Vertical" />
-				<Setter Property="VerticalAlignment" Value="Top" />
-			</Style>
-
-			<Style Selector="^ /template/ LayoutTransformControl#PART_ToggleTransform">
-				<Setter Property="VerticalAlignment" Value="Top" />
-			</Style>
-		</Style>
-	</ControlTheme>
-
-	<ControlTheme TargetType="Expander" x:Key="{x:Type Expander}">
+	<!--<ControlTheme TargetType="Expander" x:Key="{x:Type Expander}">
 		<Setter Property="MinWidth" Value="200" />
 		<Setter Property="ClipToBounds" Value="False" />
 		<Setter Property="ContentTransition" Value="{x:Null}"/>
@@ -187,5 +129,5 @@
 				<Setter Property="VerticalAlignment" Value="Top" />
 			</Style>
 		</Style>
-	</ControlTheme>
+	</ControlTheme>-->
 </ResourceDictionary>

@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:al="using:Avalonia.Labs.Lottie"
 			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.CompletedPage">
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Navigated">
@@ -37,9 +38,9 @@
 							   TextAlignment="Center"
 							   Text="开始使用"/>
 
-					<wc:FontIcon FontSize="14"
-								 Glyph="&#xE72A;"
-								 VerticalAlignment="Center"/>
+					<mi:MaterialIcon FontSize="14"
+									 Kind="ArrowRight"
+									 VerticalAlignment="Center"/>
 				</StackPanel>
 			</Button>
 		</StackPanel>

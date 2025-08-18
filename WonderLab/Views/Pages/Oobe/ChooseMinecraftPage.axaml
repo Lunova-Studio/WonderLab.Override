@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.ChooseMinecraftPage">
 	<Grid Margin="36 0"
 		  MaxWidth="1500"
@@ -12,12 +13,12 @@
 		  ColumnDefinitions=".9* *"
 		  VerticalAlignment="Stretch"
 		  HorizontalAlignment="Stretch">
-		<wc:FontIcon Padding="1"
-					 FontSize="26"
-					 Glyph="&#xE838;"
-					 VerticalAlignment="Bottom"
-					 HorizontalAlignment="Left"
-					 Foreground="{DynamicResource OOBEWindowFontIconForegroundBrush}"/>
+		<mi:MaterialIcon FontSize="26"
+						 Kind="Folder"
+						 HorizontalAlignment="Left"
+						 VerticalAlignment="Bottom"
+						 Foreground="{DynamicResource OOBEWindowFontIconForegroundBrush}"
+						 Grid.Row="0"/>
 
 		<Grid Margin="0 16 0 0"
 			  VerticalAlignment="Top"
@@ -42,9 +43,9 @@
 					Grid.Row="3">
 				<StackPanel Spacing="8"
 							Orientation="Horizontal">
-					<wc:FontIcon FontSize="14"
-								 Glyph="&#xE8F4;"
-								 VerticalAlignment="Center"/>
+					<mi:MaterialIcon Kind="Plus"
+									 FontSize="14"
+									 VerticalAlignment="Center"/>
 					
 					<TextBlock Classes="MDBodyMedium"
 							   TextAlignment="Center"
@@ -74,9 +75,9 @@
 				<ListBox.ItemTemplate>
 					<DataTemplate>
 						<Grid ColumnDefinitions="auto *">
-							<wc:FontIcon FontSize="14"
-										 Glyph="&#xE8B7;"
-										 VerticalAlignment="Center"/>
+							<mi:MaterialIcon Kind="Folder"
+											 FontSize="14"
+											 VerticalAlignment="Center"/>
 
 							<TextBlock Margin="8 0 0 0"
 									   Classes="MDBodyMedium"

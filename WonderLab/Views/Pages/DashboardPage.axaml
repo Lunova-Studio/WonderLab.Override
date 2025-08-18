@@ -8,6 +8,7 @@
 			 xmlns:wa="using:WonderLab.Media.Attachments"
 			 xmlns:wm="using:WonderLab.Classes.Models"
 			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.DashboardPage">
 	<UserControl.Resources>
 		<RecyclingElementFactory SelectTemplateKey="OnSelectTemplateKey"
@@ -221,9 +222,9 @@
 										Background="Transparent">
 									<StackPanel Spacing="8"
 												Orientation="Horizontal">
-										<wc:FontIcon FontSize="14"
+										<!--<wc:FontIcon FontSize="14"
 													 Glyph="&#xe8fa;"
-													 VerticalAlignment="Center"/>
+													 VerticalAlignment="Center"/>-->
 										
 										<TextBlock Classes="Body"
 												   Text="Add an account"/>
@@ -235,9 +236,9 @@
 										Background="Transparent">
 									<StackPanel Spacing="8"
 												Orientation="Horizontal">
-										<wc:FontIcon FontSize="14"
+										<!--<wc:FontIcon FontSize="14"
 													 Glyph="&#xE77B;"
-													 VerticalAlignment="Center"/>
+													 VerticalAlignment="Center"/>-->
 
 										<TextBlock Classes="Body"
 												   Text="Manage accounts"/>
@@ -285,8 +286,8 @@
 						  VerticalContentAlignment="Center"
 						  HorizontalContentAlignment="Center">
 				<StackPanel Orientation="Horizontal" Spacing="8">
-					<wc:FontIcon FontSize="22"
-								 Glyph="&#xF0B2;"/>
+					<mi:MaterialIcon FontSize="16"
+									 Kind="Widgets"/>
 					
 					<TextBlock Classes="Body"
 							   Text="{I18n EnableIndependencyGame}"/>
@@ -300,9 +301,9 @@
 						  HorizontalContentAlignment="Center"
 						  Grid.Column="1">
 				<StackPanel Orientation="Horizontal" Spacing="8">
-					<wc:FontIcon FontSize="22"
-								 Glyph="&#xF0E2;"/>
-
+					<mi:MaterialIcon FontSize="16"
+									 Kind="FormatListGroup"/>
+					
 					<TextBlock Classes="Body"
 							   Text="{I18n EnableIndependencySetting}"/>
 				</StackPanel>

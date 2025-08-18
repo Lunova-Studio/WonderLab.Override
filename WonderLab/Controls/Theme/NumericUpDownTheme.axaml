@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:wc="using:WonderLab.Controls">
+					xmlns:wc="using:WonderLab.Controls"
+					xmlns:mi="using:Material.Icons.Avalonia">
 	<Design.PreviewWith>
 		<Border Padding="20">
 			<StackPanel Spacing="20">
@@ -36,8 +37,8 @@
 										  Foreground="{TemplateBinding Foreground}"
 										  BorderBrush="{TemplateBinding BorderBrush}"
 										  Theme="{StaticResource MaterialButtonSpinnerRepeatButton}">
-								<wc:FontIcon FontSize="14"
-											 Glyph="&#xE70E;"/>
+								<mi:MaterialIcon FontSize="10"
+												 Kind="MenuUp"/>
 							</RepeatButton>
 
 							<RepeatButton Name="PART_DecreaseButton"
@@ -48,8 +49,8 @@
 										  Foreground="{TemplateBinding Foreground}"
 										  BorderBrush="{TemplateBinding BorderBrush}"
 										  Theme="{StaticResource MaterialButtonSpinnerRepeatButton}">
-								<wc:FontIcon FontSize="14"
-											 Glyph="&#xE70D;"/>
+								<mi:MaterialIcon FontSize="10"
+												 Kind="MenuDown"/>
 							</RepeatButton>
 						</StackPanel>
 					</Border>

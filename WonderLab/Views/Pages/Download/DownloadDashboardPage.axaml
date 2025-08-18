@@ -10,6 +10,7 @@
 			 xmlns:we="using:WonderLab.Classes.Enums"
 			 xmlns:wce="using:WonderLab.Controls.Experimental.BreadcrumbBar"
 			 xmlns:ail="using:AsyncImageLoader"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.DownloadDashboardPage">
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Navigated">
@@ -41,11 +42,11 @@
 					 Watermark="在此键入进行搜索"
 					 Grid.Column="0">
 				<TextBox.InnerLeftContent>
-					<wc:FontIcon FontSize="16"
-								 Glyph="&#xE71E;"
-								 Margin="12 2 0 2"
-								 VerticalAlignment="Center"
-								 HorizontalAlignment="Center"/>
+					<mi:MaterialIcon FontSize="16"
+									 Kind="Magnify"
+									 Margin="12 2 0 2"
+									 VerticalAlignment="Center"
+									 HorizontalAlignment="Center"/>
 				</TextBox.InnerLeftContent>
 
 				<TextBox.KeyBindings>
@@ -106,11 +107,11 @@
 									CommandParameter="{Binding}"
 									Command="{Binding $parent[ItemsRepeater].DataContext.SearchHistoryCommand}">
 								<Grid ColumnDefinitions="auto auto * auto">
-									<wc:FontIcon FontSize="16"
-												 Margin="4 0 0 0"
-												 Glyph="&#xE71E;"
-												 VerticalAlignment="Center"
-												 Grid.Column="0"/>
+									<mi:MaterialIcon FontSize="16"
+													 Kind="Magnify"
+													 Margin="4 0 0 0"
+													 VerticalAlignment="Center"
+													 Grid.Column="0"/>
 
 									<wc:Tag Margin="8 4"
 											VerticalAlignment="Center"
