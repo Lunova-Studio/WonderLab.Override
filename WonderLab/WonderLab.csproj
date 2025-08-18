@@ -5,7 +5,6 @@
 		<LangVersion>latest</LangVersion>
 		<TargetFramework>net8.0</TargetFramework>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
-        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
 		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
 		<AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -44,10 +43,8 @@
         <Compile Remove="logs\**" />
         <EmbeddedResource Remove="logs\**" />
         <None Remove="logs\**" />
-        <AvaloniaResource Remove="Assets\Font\DinPro.ttf" />
         <AvaloniaResource Remove="Assets\Font\MinecraftTen.ttf" />
         <AvaloniaResource Remove="Assets\Font\SegoeFluentIcons.ttf" />
-        <AvaloniaResource Remove="Assets\gawrgura-13490790.png" />
         <AvaloniaResource Remove="Assets\Images\doro_loading.jpg" />
         <AvaloniaResource Remove="Assets\Images\Icons\Icon.1024.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\Icon.icns" />
@@ -66,10 +63,8 @@
         <AvaloniaResource Remove="Assets\Text\Default.isl" />
         <None Remove="version.txt" />
         <EmbeddedResource Include="Assets\Images\Icons\Icon.ico" />
-        <EmbeddedResource Include="Assets\Font\DinPro.ttf" />
         <EmbeddedResource Include="Assets\Font\MinecraftTen.ttf" />
         <EmbeddedResource Include="Assets\Font\SegoeFluentIcons.ttf" />
-        <EmbeddedResource Include="Assets\gawrgura-13490790.png" />
         <EmbeddedResource Include="Assets\Images\doro_loading.jpg" />
         <EmbeddedResource Include="Assets\Images\Icons\Icon.1024.png" />
         <EmbeddedResource Include="Assets\Images\Icons\Icon.icns" />
@@ -90,6 +85,7 @@
     </ItemGroup>
 
     <ItemGroup>
+		<PackageReference Include="Material.Icons.Avalonia" Version="3.0.0-preview3.1" />
 		<PackageReference Include="System.Linq.Async" Version="6.0.1" />
         <PackageReference Include="AsyncImageLoader.Avalonia" Version="3.3.0" />
         <PackageReference Include="Avalonia" Version="11.3.2" />
@@ -110,7 +106,6 @@
         <PackageReference Include="Serilog.Sinks.Console" Version="6.0.1-dev-00953" />
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
 		<PackageReference Include="SkiaSharp" Version="2.88.9" />
-		<PackageReference Include="Xaml.Behaviors.Interactions.Draggable" Version="11.3.0.10" />
 
 		<PackageReference Include="Avalonia.Diagnostics" Version="11.3.2">
 			<IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
@@ -120,7 +115,6 @@
 
     <ItemGroup>
         <ProjectReference Include="..\refs\LiteSkinViewer\LiteSkinViewer.2D\LiteSkinViewer.2D.csproj" />
-        <ProjectReference Include="..\refs\LiteSkinViewer\LiteSkinViewer.3D\LiteSkinViewer.3D.csproj" />
         <ProjectReference Include="..\refs\Monet\Monet.Avalonia\Monet.Avalonia.csproj" />
         <ProjectReference Include="..\WonderLab.Override.I18n\WonderLab.Override.I18n\WonderLab.Override.I18n.csproj" />
         <ProjectReference Include="..\WonderLab.SourceGenerator.Attributes\WonderLab.SourceGenerator.Attributes.csproj" />

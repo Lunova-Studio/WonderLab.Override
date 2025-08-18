@@ -2,16 +2,13 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Globalization;
 using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
 using WonderLab.Classes.Models;
 using WonderLab.Classes.Models.Messaging;
 using WonderLab.Controls;
 using WonderLab.Extensions.Hosting.UI;
-using WonderLab.Override.I18n;
 using WonderLab.Services;
 using WonderLab.Services.Launch;
 
@@ -22,8 +19,6 @@ public sealed partial class MainWindowViewModel : ObservableObject {
     private readonly SettingService _settingService;
     private readonly GameProcessService _gameProcessService;
 
-    private bool _isManualTrigger;
-
     public double ShieldBackgroundOpacity => ActivePageIndex is 0
         ? 0
         : _settingService?.Setting?.ActiveBackground
@@ -33,9 +28,12 @@ public sealed partial class MainWindowViewModel : ObservableObject {
     public ReadOnlyObservableCollection<TaskModel> Tasks { get; private set; }
 
     [ObservableProperty] private string _pageKey;
+    [ObservableProperty] private string _gamesPageKey;
+    [ObservableProperty] private string _tasksPageKey;
     [ObservableProperty] private string _dynamicPageKey;
     [ObservableProperty] private bool _isDynamicPageDataLoading;
-    [ObservableProperty] private BarState _barState = BarState.Collapsed;
+    [ObservableProperty] private bool _isGamesPanelOpen;
+    [ObservableProperty] private bool _isTasksPanelOpen;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShieldBackgroundOpacity))]
@@ -62,16 +60,9 @@ public sealed partial class MainWindowViewModel : ObservableObject {
         });
 
         WeakReferenceMessenger.Default.Register<DynamicPageNotificationMessage>(this, (_, arg) => {
-            _isManualTrigger = true;
             DynamicPageKey = string.Empty;
             DynamicPageKey = arg.PageKey;
-            BarState = BarState.Expanded;
             IsDynamicPageDataLoading = false;
-            _isManualTrigger = false;
-        });
-
-        WeakReferenceMessenger.Default.Register<DynamicPageCloseNotificationMessage>(this, (_, arg) => {
-            BarState = PageKey is "Home" ? BarState.Collapsed : BarState.Hidden;
         });
 
         WeakReferenceMessenger.Default.Register<PageDataLoadingMessage>(this, (_, arg) => {
@@ -83,8 +74,15 @@ public sealed partial class MainWindowViewModel : ObservableObject {
     private async Task OnLoaded() {
         await Task.Delay(160);
         ActivePageIndex = 0;
+    }
 
-        PropertyChanged += OnPropertyChanged;
+    [RelayCommand]
+    private async Task OpenGamesPanel() {
+        IsTasksPanelOpen = false;
+        if (string.IsNullOrEmpty(GamesPageKey)) {
+            await Task.Delay(150);
+            GamesPageKey = "Game";
+        }
     }
 
     [RelayCommand]
@@ -97,19 +95,20 @@ public sealed partial class MainWindowViewModel : ObservableObject {
             _ => PageKey ?? "Home",
         };
 
-        BarState = ActivePageIndex is 0 ? BarState.Collapsed : BarState.Hidden;
+        CloseAllPanel();
     }
 
     [RelayCommand]
-    private void ShowTaskCenter() {
-        _isManualTrigger = true;
-        BarState = BarState.Expanded;
-        DynamicPageKey = "Tasks";
-        _isManualTrigger = false;
+    private async Task OpenTasksPanel() {
+        IsGamesPanelOpen = false;
+        if (string.IsNullOrEmpty(TasksPageKey)) {
+            await Task.Delay(150);
+            TasksPageKey = "Tasks";
+        }
     }
 
-    private void OnPropertyChanged(object sender, PropertyChangedEventArgs e) {
-        if (e.PropertyName is nameof(BarState) && BarState is BarState.Expanded && !_isManualTrigger)
-            DynamicPageKey = "Dashboard";
+    private void CloseAllPanel() {
+        IsGamesPanelOpen = false;
+        IsTasksPanelOpen = false;
     }
 }

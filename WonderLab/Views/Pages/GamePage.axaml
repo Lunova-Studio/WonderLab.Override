@@ -52,6 +52,7 @@
 					 HorizontalContentAlignment="Stretch"
 					 CommandParameter="{Binding}"
 					 ContextMenu="{StaticResource MinecraftItemContextMenu}"
+					 Background="{DynamicResource SurfaceContainerHighestBrush}"
 					 Command="{Binding Path=DataContext.ActiveMinecraftCommand, ElementName=PART_ItemsRepeater}">
 				<wc:Tile.Transitions>
 					<Transitions>
@@ -108,19 +109,12 @@
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
 
-	<Grid RowDefinitions="auto auto auto *">
-		<TextBlock Classes="Title"
-				   Margin="0 12 0 0"
-				   VerticalAlignment="Top"
-				   HorizontalAlignment="Left"
-				   Foreground="{DynamicResource ApplicationTitleBarForegroundBrush}"
-				   Text="{I18n GameManager}"/>
-
+	<Grid RowDefinitions="auto auto *">
 		<WrapPanel LineSpacing="16"
 				   ItemSpacing="16"
-				   Margin="0 20 0 16"
+				   Margin="0 0 0 16"
 				   Orientation="Horizontal"
-				   Grid.Row="1">
+				   Grid.Row="0">
 			<Button Classes="primary">
 				<StackPanel Spacing="8"
 							Orientation="Horizontal">
@@ -147,29 +141,6 @@
 								 HorizontalAlignment="Center"/>
 				</TextBox.InnerLeftContent>
 			</TextBox>	
-			
-			<Grid ColumnSpacing="8"
-				  ColumnDefinitions="auto auto *">
-				<wc:FontIcon FontSize="18"
-							 Glyph="&#xE8CB;"
-							 VerticalAlignment="Center"
-							 Foreground="{DynamicResource OnBackgroundBrush}"
-							 Grid.Column="0"/>
-
-				<TextBlock Classes="Body"
-						   VerticalAlignment="Center"
-						   Text="{I18n SortMode}"
-						   Foreground="{DynamicResource OnBackgroundBrush}"
-						   Grid.Column="1"/>
-
-				<ComboBox MinWidth="100"
-						  CornerRadius="6"
-						  SelectedIndex="{Binding SortMode}"
-						  Background="{DynamicResource TextBoxBackgroundBrush}"
-						  Grid.Column="2">
-					<ComboBoxItem Content="{I18n Sort_Name}"/>
-				</ComboBox>
-			</Grid>
 
 			<Grid ColumnSpacing="8"
 				  ColumnDefinitions="auto auto *">
@@ -200,9 +171,9 @@
 		<ContentControl Classes="tip"
 						Content="{I18n NoInstalledGame_Tip}"
 						IsVisible="{Binding HasMinecrafts, Converter={StaticResource BoolReverseConverter}}"
-						Grid.Row="3"/>
+						Grid.Row="2"/>
 
-		<ScrollViewer Grid.Row="3">
+		<ScrollViewer Grid.Row="2">
 			<ItemsRepeater Margin="0 0 16 0" 
 						   Background="Transparent"
 						   Name="PART_ItemsRepeater"

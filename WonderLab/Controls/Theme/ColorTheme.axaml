@@ -145,7 +145,9 @@
 	<SolidColorBrush x:Key="ErrorMenuItemPointerOverBackgroundBrush" Color="{DynamicResource ErrorColor}"/>
 	<SolidColorBrush x:Key="ErrorMenuItemPointerOverForegroundBrush" Color="{DynamicResource OnErrorColor}"/>
 
+	<SolidColorBrush x:Key="PullPanelBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
+
 	<SolidColorBrush x:Key="OOBEWindowFontIconForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
 	<SolidColorBrush x:Key="OOBEWindowBottomBarBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
-	<SolidColorBrush x:Key="OOBEWindowTitleBarBackgroundBrush" Color="{DynamicResource SurfaceContainerHighestColor}"/>
+	<SolidColorBrush x:Key="OOBEWindowTitleBarBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
 </ResourceDictionary>

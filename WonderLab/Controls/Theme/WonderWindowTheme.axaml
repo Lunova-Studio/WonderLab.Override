@@ -188,20 +188,28 @@
 									</Border>
 
 									<DockPanel LastChildFill="True">
-										<Border Height="45"
+										<Border MinHeight="35"
 												Name="PART_DragLayoutBorder"
 												HorizontalAlignment="Stretch"
 												Background="{DynamicResource OOBEWindowTitleBarBackgroundBrush}"
 												DockPanel.Dock="Top">
-											<Grid ColumnDefinitions="* auto auto">
+											<Grid ColumnDefinitions="auto * auto auto">
 												<TextBlock Margin="16 0"
-														   Classes="BodyStrong"
+														   FontSize="14"
+														   FontWeight="SemiBold"
 														   Name="TitleTextBlock"
 														   VerticalAlignment="Center"
 														   Text="{TemplateBinding Title}"
 														   Foreground="{DynamicResource OnSurfaceBrush}"
 														   Grid.Column="0"/>
 
+												<ContentPresenter VerticalAlignment="Stretch"
+																  HorizontalAlignment="Stretch"
+																  VerticalContentAlignment="Stretch"
+																  HorizontalContentAlignment="Stretch"
+																  Content="{TemplateBinding TitleBarContent}"
+																  Grid.Column="1"/>
+												
 												<Button Width="28"
 														Height="28"
 														FontSize="14"
@@ -210,7 +218,7 @@
 														Name="PART_MinimizeButton"
 														Foreground="{TemplateBinding Foreground}"
 														CornerRadius="{DynamicResource FullCornerRadius}"
-														Grid.Column="1"/>
+														Grid.Column="2"/>
 
 												<Button Width="28"
 														Height="28"
@@ -221,7 +229,7 @@
 														Name="PART_CloseButton"
 														Foreground="{TemplateBinding Foreground}"
 														CornerRadius="{DynamicResource FullCornerRadius}"
-														Grid.Column="2"/>
+														Grid.Column="3"/>
 											</Grid>
 										</Border>
 

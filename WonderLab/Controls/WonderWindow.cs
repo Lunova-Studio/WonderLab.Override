@@ -25,6 +25,7 @@ using WonderLab.Utilities;
 namespace WonderLab.Controls;
 
 [StyledProperty(typeof(string), "ImagePath")]
+[StyledProperty(typeof(object), "TitleBarContent")]
 [StyledProperty(typeof(double), "ShieldBackgroundOpacity")]
 [StyledProperty(typeof(BackgroundType), "BackgroundType", BackgroundType.SolidColor)]
 [TemplatePart("PART_CloseButton", typeof(Button), IsRequired = true)]

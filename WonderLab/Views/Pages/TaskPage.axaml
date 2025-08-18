@@ -7,19 +7,11 @@
 			 xmlns:wa="using:WonderLab.Media.Attachments"
              x:Class="WonderLab.Views.Pages.TaskPage">
 	<Grid RowDefinitions="auto 1*">
-		<TextBlock Classes="Subtitle"
+		<TextBlock Classes="MDTitleMedium"
+				   FontWeight="Bold"
 				   VerticalAlignment="Top"
 				   HorizontalAlignment="Left"
 				   Text="{I18n TaskList}"/>
-
-		<Button Width="25"
-				Height="25"
-				FontSize="16"
-				Classes="icon"
-				Margin="0 0 16 0"
-				Content="&#xE72A;"
-				HorizontalAlignment="Right"
-				Command="{Binding CloseCommand}"/>
 
 		<StackPanel Spacing="8"
 					Grid.Row="0"
@@ -31,7 +23,7 @@
 						 Glyph="&#xF133;"
 						 HorizontalAlignment="Center"/>
 
-			<TextBlock Classes="BodyStrong"
+			<TextBlock Classes="MDTitleSmall"
 					   Text="{I18n NoActiveTask_Tip}"/>
 		</StackPanel>
 

@@ -12,7 +12,6 @@
 		<Button Padding="0"
 				Classes="ripple"
 				BorderThickness="1.5"
-				Command="{Binding NavigationToGameCommand}"
 				CornerRadius="{DynamicResource StrongCornerRadius}"
 				BorderBrush="{DynamicResource DynamicBarBorderBrush}"
 				Background="{DynamicResource DynamicBarBackgroundBrush}">

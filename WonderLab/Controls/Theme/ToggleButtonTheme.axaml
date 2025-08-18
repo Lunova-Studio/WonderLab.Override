@@ -101,5 +101,28 @@
 		<Style Selector="^.Basic">
 			<Setter Property="Foreground" Value="{DynamicResource HyperlinkButtonForegroundBrush}" />
 		</Style>
+
+		<Style Selector="^.highest">
+			<Setter Property="CornerRadius" Value="{DynamicResource FullCornerRadius}"/>
+			<Setter Property="Background" Value="{DynamicResource SurfaceContainerHighestBrush}"/>
+			<Setter Property="Foreground" Value="{DynamicResource HyperlinkButtonForegroundBrush}"/>
+		</Style>
+
+
+		<Style Selector="^.highest:checked">
+			<Style Selector="^">
+				<Setter Property="Background" Value="{DynamicResource PrimaryButtonBackgroundBrush}" />
+				<Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForegroundBrush}" />
+			</Style>
+
+			<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Background" Value="{DynamicResource ListBoxItemPointeroverBackgroundBrush}"/>
+			</Style>
+
+			<Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Background" Value="{DynamicResource ToggleButtonBackgroundCheckedDisabled}" />
+				<Setter Property="Foreground" Value="{DynamicResource ToggleButtonForegroundCheckedDisabled}" />
+			</Style>
+		</Style>
 	</ControlTheme>
 </ResourceDictionary>

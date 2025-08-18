@@ -7,6 +7,8 @@
 				 xmlns:wc="using:WonderLab.Controls"
 				 xmlns:wb="using:WonderLab.Media.Behaviors"
 				 xmlns:wt="using:WonderLab.Media.Transitions"
+				 xmlns:mi="using:Material.Icons.Avalonia"
+				 Classes="test"
 				 ShieldBackgroundOpacity="{Binding ShieldBackgroundOpacity}"
 				 Title="WonderLab">	
 	<wc:WonderWindow.Resources>
@@ -52,6 +54,12 @@
 			</Button>
 		</DataTemplate>
 	</wc:WonderWindow.Resources>
+
+	<wc:WonderWindow.TitleBarContent>
+		<ComboBox Margin="0 4"
+				  HorizontalAlignment="Right"
+				  PlaceholderText="无正在运行的实例"/>
+	</wc:WonderWindow.TitleBarContent>
 	
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
@@ -59,28 +67,33 @@
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
 	
-	<Grid RowDefinitions="1* Auto">		
+	<Grid RowDefinitions="* auto">
 		<wc:Frame Margin="16 12 0 12"
 				  PageKey="{Binding PageKey}"
 				  PageProvider="{Binding PageProvider}"/>
-		
-		<wc:DynamicBar Margin="0 12"
-					   BarState="{Binding BarState, Mode=TwoWay}">
-			<Grid RowDefinitions="* auto">
-				<wc:Frame Margin="16 16 0 16"
-						  PageKey="{Binding DynamicPageKey}"
-						  PageProvider="{Binding PageProvider}">
-					<wc:Frame.PageTransition>
-						<wt:EntrancePageTransition/>
-					</wc:Frame.PageTransition>
-				</wc:Frame>
 
-				<ProgressBar Background="Transparent"
-							 IsVisible="{Binding IsDynamicPageDataLoading}"
-							 IsIndeterminate="{Binding IsDynamicPageDataLoading}"
-							 Grid.Row="1"/>
-			</Grid>
-		</wc:DynamicBar>
+		<wc:PullPanel Width="824"
+					  Height="450"
+					  Margin="8 0 8 8"
+					  HorizontalAlignment="Left"
+					  VerticalAlignment="Bottom"
+					  IsPanelOpen="{Binding IsGamesPanelOpen}"
+					  Grid.Row="0">
+			<wc:Frame Margin="16 16 0 16"
+					  PageKey="{Binding GamesPageKey}"
+					  PageProvider="{Binding PageProvider}"/>
+		</wc:PullPanel>
+
+		<wc:PullPanel Margin="8"
+					  Width="400"
+					  HorizontalAlignment="Right"
+					  VerticalAlignment="Stretch"
+					  IsPanelOpen="{Binding IsTasksPanelOpen}"
+					  Grid.Row="0">
+			<wc:Frame Margin="16 16 0 16"
+					  PageKey="{Binding TasksPageKey}"
+					  PageProvider="{Binding PageProvider}"/>
+		</wc:PullPanel>
 
 		<WindowNotificationManager Margin="12 6 12 0"
 								   Position="TopCenter">
@@ -102,24 +115,46 @@
 			</TextBlock.Inlines>
 		</TextBlock>
 		
-		<ListBox Grid.Row="1"
-				 Classes="bottombar"
-				 SelectedIndex="{Binding ActivePageIndex, Mode=TwoWay}">
+		<ListBox Classes="bottombar"
+				 SelectedIndex="{Binding ActivePageIndex, Mode=TwoWay}"
+				 CornerRadius="{Binding ActivePageIndex, Converter={StaticResource NavigationBarCornerRadiusConverter}}"
+				 Grid.Row="1">
 			<Interaction.Behaviors>
 				<EventTriggerBehavior EventName="SelectionChanged">
 					<InvokeCommandAction Command="{Binding ChangeActivePageCommand}"/>
 				</EventTriggerBehavior>
 			</Interaction.Behaviors>
+
+			<ListBox.Transitions>
+				<Transitions>
+					<CornerRadiusTransition Duration="0:0:.25"
+											Property="CornerRadius"
+											Easing="CubicEaseOut"/>
+				</Transitions>
+			</ListBox.Transitions>
 			
 			<ListBox.Tag>
-				<Grid ColumnDefinitions="auto auto">
-					<Interaction.Behaviors>
-						<wb:ListBoxTagAnimationBehavior/>
-					</Interaction.Behaviors>
+				<Grid ColumnDefinitions="auto * auto auto">
+					<ToggleButton Width="35"
+								  Height="35"
+								  Padding="0"
+								  FontSize="16"
+								  Margin="8 0 0 0"
+								  Classes="highest"
+								  IsChecked="{Binding IsGamesPanelOpen}"
+								  Command="{Binding OpenGamesPanelCommand}"
+								  Content="{mi:MaterialIconExt AtomVariant}"
+								  ToolTip.ShowDelay="0"
+								  ToolTip.Placement="Top"
+								  ToolTip.VerticalOffset="-16"
+								  ToolTip.Tip="游戏管理"
+								  Grid.Column="0">
+					</ToggleButton>
 					
 					<ItemsControl Background="Transparent"
 								  ItemsSource="{Binding MinecraftProcesses}"
-								  ItemTemplate="{StaticResource MinecraftProcessCardItemTemplate}">
+								  ItemTemplate="{StaticResource MinecraftProcessCardItemTemplate}"
+								  Grid.Column="2">
 						<ItemsControl.ItemsPanel>
 							<ItemsPanelTemplate>
 								<ReversibleStackPanel Spacing="2" 
@@ -128,46 +163,67 @@
 							</ItemsPanelTemplate>
 						</ItemsControl.ItemsPanel>
 					</ItemsControl>
-					
-					<Button Margin="8 0"
-							Padding="8 4"
-							Grid.Column="1"
-							Classes="ripple"
-							Background="Transparent"
-							VerticalAlignment="Center"
-							Command="{Binding ShowTaskCenterCommand}">
-						<Grid ColumnDefinitions="Auto, Auto">
-							<wc:FontIcon Glyph="&#xE7C4;"
-										 FontSize="20"
-										 Grid.Column="1"
-										 Margin="8 0 0 0"
-										 VerticalAlignment="Center"
-										 Foreground="{DynamicResource BottomBarItemForegroundBrush}"/>
 
-							<Grid Grid.Column="0"
-								  RowDefinitions="Auto, Auto">
-								<TextBlock Classes="Caption"
-										   HorizontalAlignment="Right"
-										   Foreground="{DynamicResource BottomBarItemForegroundBrush}"
-										   Text="{I18n TaskCenter}"/>
+					<ToggleButton Height="35"
+								  Padding="12 4"
+								  Classes="highest"
+								  CornerRadius="20 6 6 20"
+								  VerticalAlignment="Center"
+								  VerticalContentAlignment="Center"
+								  Grid.Column="2">
+						<Grid ColumnSpacing="8"
+							  ColumnDefinitions="auto auto">
+							<mi:MaterialIcon FontSize="16"
+											 Kind="CameraControl"/>
 
-								<TextBlock Grid.Row="1"
-										   Classes="Caption"
-										   HorizontalAlignment="Right"
-										   Foreground="{DynamicResource BottomBarItemForegroundBrush}">
-									<TextBlock.Text>
-										<I18n Key="TaskCount_Format">
-											<Binding Path="Tasks.Count"/>
-										</I18n>
-									</TextBlock.Text>
-								</TextBlock>
-							</Grid>
+							<TextBlock Text="控制中心"
+									   FontSize="14"
+									   Grid.Column="1"/>
 						</Grid>
-					</Button>
+					</ToggleButton>
+
+					<Border Height="35"
+							Margin="4 0 8 0"
+							Padding="8 4"
+							CornerRadius="6 20 20 6"
+							VerticalAlignment="Center"
+							Background="{DynamicResource SurfaceContainerHighestBrush}"
+							Grid.Column="3">
+						<Grid ColumnDefinitions="auto auto">
+							<ToggleButton Width="25"
+										  Height="25"
+										  Padding="0"
+										  FontSize="14"
+										  Margin="0 0 4 0"
+										  Classes="highest"
+										  IsVisible="False"
+										  Content="{mi:MaterialIconExt ArrowUpBoldCircle}"
+										  Command="{Binding ShowTaskCenterCommand}"
+										  ToolTip.ShowDelay="0"
+										  ToolTip.Placement="Top"
+										  ToolTip.VerticalOffset="-16"
+										  ToolTip.Tip="有可用的更新"
+										  Grid.Column="0"/>
+							
+							<ToggleButton Width="25"
+										  Height="25"
+										  Padding="0"
+										  FontSize="14"
+										  Classes="highest"
+										  IsChecked="{Binding IsTasksPanelOpen}"
+										  Command="{Binding OpenTasksPanelCommand}"
+										  Content="{mi:MaterialIconExt CollapseAll}"
+										  ToolTip.ShowDelay="0"
+										  ToolTip.Placement="Top"
+										  ToolTip.VerticalOffset="-16"
+										  ToolTip.Tip="任务中心"
+										  Grid.Column="1"/>
+						</Grid>
+					</Border>
 				</Grid>
 			</ListBox.Tag>
-
-			<ListBoxItem Tag="&#xE80F;"
+			
+			<ListBoxItem Tag="{mi:MaterialIconExt Home}"
 						 Foreground="{DynamicResource PrimaryBrush}"
 						 Content="{I18n Home}">
 				<Interaction.Behaviors>
@@ -175,7 +231,7 @@
 				</Interaction.Behaviors>
 			</ListBoxItem>
 
-			<ListBoxItem Tag="&#xE896;"
+			<ListBoxItem Tag="{mi:MaterialIconExt TrayDownload}"
 						 Foreground="{DynamicResource PrimaryBrush}"
 						 Content="{I18n Download}">
 				<Interaction.Behaviors>
@@ -183,7 +239,7 @@
 				</Interaction.Behaviors>
 			</ListBoxItem>
 
-			<ListBoxItem Tag="&#xF22C;"
+			<ListBoxItem Tag="{mi:MaterialIconExt VirusOutline}"
 						 Foreground="{DynamicResource PrimaryBrush}"
 						 Content="{I18n Multiplayer}">
 				<Interaction.Behaviors>
@@ -191,7 +247,7 @@
 				</Interaction.Behaviors>
 			</ListBoxItem>
 
-			<ListBoxItem Tag="&#xE713;"
+			<ListBoxItem Tag="{mi:MaterialIconExt CogOutline}"
 						 Foreground="{DynamicResource PrimaryBrush}"
 						 Content="{I18n Settings}">
 				<Interaction.Behaviors>

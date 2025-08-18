@@ -2,14 +2,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="WonderLab.App"
              xmlns:monet="using:Monet.Avalonia"
-			 xmlns:wc="using:WonderLab.Media.Converters"
 			 xmlns:wc1="using:WonderLab.Controls"
-			 xmlns:dialogHostAvalonia="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
+			 xmlns:wc="using:WonderLab.Media.Converters"
+			 xmlns:dha="using:DialogHostAvalonia"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              RequestedThemeVariant="Default">
     <Application.Styles>
         <FluentTheme />
 		<monet:MonetColors/>
-		<dialogHostAvalonia:DialogHostStyles/>
+		<dha:DialogHostStyles/>
+		<mi:MaterialIconStyles/>
 
 		<Style Selector="ContentControl.tip">
 			<Setter Property="FontSize" Value="26"/>
@@ -49,6 +51,7 @@
 				<ResourceInclude Source="/Controls/Theme/FontIconTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/MenuItemTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ScrollBarTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/PullPanelTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/TextBlockTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/PopupRootTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/DynamicBarTheme.axaml"/>
@@ -77,7 +80,7 @@
 			<CornerRadius x:Key="FullCornerRadius">100</CornerRadius>
 			<CornerRadius x:Key="NormalCornerRadius">8</CornerRadius>
 			<CornerRadius x:Key="StrongCornerRadius">12</CornerRadius>
-			
+
 			<wc:TimeTextConverter x:Key="TimeTextConverter"/>
 			<wc:TaskSpeedConverter x:Key="TaskSpeedConverter"/>
 			<wc:ServerIconConverter x:Key="ServerIconConverter"/>
@@ -92,6 +95,7 @@
 			<wc:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
 			<wc:MinecraftVersionsConverter x:Key="MinecraftVersionsConverter"/>
 			<wc:SettingCardIsVisibleConverter x:Key="SettingCardIsVisibleConverter"/>
+			<wc:NavigationBarCornerRadiusConverter x:Key="NavigationBarCornerRadiusConverter"/>
 			<wc:FitSquarelyWithinAspectRatioConverter x:Key="FitSquarelyWithinAspectRatioConverter"/>
 		</ResourceDictionary>
 	</Application.Resources>

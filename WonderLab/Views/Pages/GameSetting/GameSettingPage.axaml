@@ -79,7 +79,7 @@
 						  SelectedItem="{Binding ActiveAccount}">
 					<ComboBox.ItemTemplate>
 						<DataTemplate>
-							<DockPanel>
+							<DockPanel LastChildFill="True">
 								<TextBlock Classes="Body"
 										   Text="{Binding Name}"
 										   VerticalAlignment="Center"
@@ -88,6 +88,7 @@
 
 								<TextBlock Classes="Body"
 										   Text="{Binding Type}"
+										   TextAlignment="Right"
 										   VerticalAlignment="Center"
 										   HorizontalAlignment="Right"
 										   Foreground="{DynamicResource ApplicationSubtitleForegroundBrush}"

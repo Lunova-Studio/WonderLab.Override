@@ -36,7 +36,7 @@ public static class SkinUtil {
                 return SKBitmap.Decode(File.OpenRead(cachePath));
 
             var data = account switch {
-                OfflineAccount => "resm:WonderLab.Assets.gawrgura-13490790.png".ToStream(),
+                OfflineAccount => "resm:WonderLab.Assets.steve.png".ToStream(),
                 MicrosoftAccount mAccount => await GetMicrosoftSkinDataAsync(mAccount, cancellationToken),
                 YggdrasilAccount yAccount => await GetYggdrasilSkinDataAsync(yAccount, cancellationToken),
                 _ => throw new NotSupportedException()
