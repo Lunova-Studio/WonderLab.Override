@@ -111,15 +111,28 @@
 								<ContentPresenter Margin="8 0"
 												  FontSize="16"
 												  Name="PART_Icon"
+												  RenderTransform="none"
 												  VerticalAlignment="Center"
 												  HorizontalAlignment="Center"
 												  Content="{TemplateBinding Tag}"
 												  Transitions="{TemplateBinding Transitions}"
-												  Foreground="{DynamicResource BottomBarItemForegroundBrush}"/>
+												  Foreground="{DynamicResource BottomBarItemForegroundBrush}">
+									<ContentPresenter.Transitions>
+										<Transitions>
+											<TransformOperationsTransition Duration="0:0:.3"
+																		   Property="RenderTransform"
+																		   Easing="ExponentialEaseOut"/>
+										</Transitions>
+									</ContentPresenter.Transitions>
+								</ContentPresenter>
 							</Panel>
 						</ControlTemplate>
 					</Setter>
 
+					<Style Selector="^:pressed /template/ ContentPresenter#PART_Icon">
+						<Setter Property="RenderTransform" Value="scale(0.8)"/>
+					</Style>
+					
 					<Style Selector="^:selected">
 						<Style Selector="^ /template/ ContentPresenter#PART_Icon">
 							<Setter Property="Foreground" Value="{DynamicResource BottomBarItemSelectedForegroundBrush}"/>
