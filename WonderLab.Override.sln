@@ -28,8 +28,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteSkinViewer.2D", "refs\L
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteSkinViewer.Shared", "refs\LiteSkinViewer\LiteSkinViewer.Shared\LiteSkinViewer.Shared.csproj", "{26CECA9D-4E31-22FA-42D7-8684FA17BEC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiteSkinViewer.3D", "refs\LiteSkinViewer\LiteSkinViewer.3D\LiteSkinViewer.3D.csproj", "{14D8A29C-7C11-B811-1A54-FA133A625C83}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,10 +66,6 @@ Global
 		{26CECA9D-4E31-22FA-42D7-8684FA17BEC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{26CECA9D-4E31-22FA-42D7-8684FA17BEC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{26CECA9D-4E31-22FA-42D7-8684FA17BEC6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{14D8A29C-7C11-B811-1A54-FA133A625C83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{14D8A29C-7C11-B811-1A54-FA133A625C83}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{14D8A29C-7C11-B811-1A54-FA133A625C83}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{14D8A29C-7C11-B811-1A54-FA133A625C83}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,7 +77,6 @@ Global
 		{D35E261B-9BD3-4A60-A3E8-696DD7C6E97C} = {50499423-9383-434C-AA89-162AE3ADEC25}
 		{DD12FB77-C95A-B00D-08B7-241783C28CCF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{26CECA9D-4E31-22FA-42D7-8684FA17BEC6} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
-		{14D8A29C-7C11-B811-1A54-FA133A625C83} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0C808D3E-F7AB-41DF-B008-C4C9026BCDCE}

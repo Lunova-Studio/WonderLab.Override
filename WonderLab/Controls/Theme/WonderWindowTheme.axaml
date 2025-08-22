@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:wc="using:WonderLab.Controls"
+					xmlns:mi="using:Material.Icons.Avalonia"
 					xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
 					xmlns:wcee="using:WonderLab.Controls.Experimental.Effect">
 	<ResourceDictionary.ThemeDictionaries>
@@ -102,13 +103,14 @@
 												Margin="12 0 0 0"
 												CornerRadius="{DynamicResource FullCornerRadius}"
 												Background="{DynamicResource ApplicationTitleBarBackgroundBrush}">
-											<Grid Margin="15 0" ColumnDefinitions="Auto Auto">
+											<Grid Margin="15 0"
+												  ColumnDefinitions="auto auto">
 												<Button Width="22"
 														Height="22"
 														FontSize="12"
 														Classes="icon"
-														Content="&#xE921;"
 														Name="PART_MinimizeButton"
+														Content="{mi:MaterialIconExt Minimize}"
 														Foreground="{TemplateBinding Foreground}"
 														CornerRadius="{DynamicResource FullCornerRadius}"/>
 
@@ -117,8 +119,8 @@
 														FontSize="12"
 														Classes="icon"
 														Margin="5 0 0 0"
-														Content="&#xE8BB;"
 														Name="PART_CloseButton"
+														Content="{mi:MaterialIconExt Close}"
 														Foreground="{TemplateBinding Foreground}"
 														CornerRadius="{DynamicResource FullCornerRadius}"
 														Grid.Column="1"/>
@@ -214,8 +216,8 @@
 														Height="28"
 														FontSize="14"
 														Classes="icon"
-														Content="&#xE921;"
 														Name="PART_MinimizeButton"
+														Content="{mi:MaterialIconExt Minimize}"
 														Foreground="{TemplateBinding Foreground}"
 														CornerRadius="{DynamicResource FullCornerRadius}"
 														Grid.Column="2"/>
@@ -225,8 +227,8 @@
 														FontSize="14"
 														Classes="icon"
 														Margin="4 0 12 0"
-														Content="&#xE8BB;"
 														Name="PART_CloseButton"
+														Content="{mi:MaterialIconExt Close}"
 														Foreground="{TemplateBinding Foreground}"
 														CornerRadius="{DynamicResource FullCornerRadius}"
 														Grid.Column="3"/>

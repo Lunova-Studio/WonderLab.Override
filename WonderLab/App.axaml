@@ -53,6 +53,7 @@
 				<ResourceInclude Source="/Controls/Theme/PopupRootTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/DynamicBarTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/BlurBorderTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/SplitButtonTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ContextMenuTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/SettingCardTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ListBoxItemTheme.axaml"/>

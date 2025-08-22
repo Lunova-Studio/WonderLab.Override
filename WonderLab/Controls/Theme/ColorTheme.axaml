@@ -150,4 +150,8 @@
 	<SolidColorBrush x:Key="OOBEWindowFontIconForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
 	<SolidColorBrush x:Key="OOBEWindowBottomBarBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
 	<SolidColorBrush x:Key="OOBEWindowTitleBarBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
+	
+	<SolidColorBrush x:Key="SplitButtonBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
+	<SolidColorBrush x:Key="SplitButtonForegroundBrush" Color="{DynamicResource OnSecondaryContainerColor}"/>
+
 </ResourceDictionary>

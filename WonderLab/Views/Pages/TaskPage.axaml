@@ -59,7 +59,7 @@
 										Height="22"
 										FontSize="12"
 										Classes="icon"
-										Content="&#xE8BB;"
+										Content="{mi:MaterialIconExt Close}"
 										Command="{Binding TaskJob.CancelTaskCommand}"/>
 							</wc:NavigationTile.Footer>
 						</wc:NavigationTile>

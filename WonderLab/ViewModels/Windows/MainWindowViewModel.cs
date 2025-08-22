@@ -1,8 +1,12 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using Avalonia.Controls.Notifications;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using MinecraftLaunch.Base.Models.Game;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
 using WonderLab.Classes.Models;
@@ -16,6 +20,8 @@ namespace WonderLab.ViewModels.Windows;
 
 public sealed partial class MainWindowViewModel : ObservableObject {
     private readonly TaskService _taskService;
+    private readonly GameService _gameService;
+    private readonly LaunchService _launchService;
     private readonly SettingService _settingService;
     private readonly GameProcessService _gameProcessService;
 
@@ -34,24 +40,32 @@ public sealed partial class MainWindowViewModel : ObservableObject {
     [ObservableProperty] private bool _isDynamicPageDataLoading;
     [ObservableProperty] private bool _isGamesPanelOpen;
     [ObservableProperty] private bool _isTasksPanelOpen;
+    [ObservableProperty] private MinecraftEntry _activeMinecraft;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShieldBackgroundOpacity))]
     private int _activePageIndex = -1;
 
+    public ReadOnlyObservableCollection<MinecraftEntry> Minecrafts { get; }
     public ReadOnlyObservableCollection<MinecraftProcessModel> MinecraftProcesses { get; }
 
-    public MainWindowViewModel(AvaloniaPageProvider avaloniaPageProvider,
+    public MainWindowViewModel(
+        AvaloniaPageProvider avaloniaPageProvider,
         SettingService settingService,
         GameProcessService gameProcessService,
-        TaskService taskService) {
+        TaskService taskService,
+        GameService gameService,
+        LaunchService launchService) {
         _taskService = taskService;
+        _gameService = gameService;
+        _launchService = launchService;
         _settingService = settingService;
         _gameProcessService = gameProcessService;
 
         PageProvider = avaloniaPageProvider;
 
         Tasks = new(_taskService.Tasks);
+        Minecrafts = new(_gameService.Minecrafts);
         MinecraftProcesses = new(_gameProcessService.MinecraftProcesses);
 
         WeakReferenceMessenger.Default.Register<PageNotificationMessage>(this, (_, arg) => {
@@ -74,6 +88,9 @@ public sealed partial class MainWindowViewModel : ObservableObject {
     private async Task OnLoaded() {
         await Task.Delay(160);
         ActivePageIndex = 0;
+        _gameService.RefreshGames();
+
+        ActiveMinecraft = _gameService.ActiveGame;
     }
 
     [RelayCommand]
@@ -107,8 +124,21 @@ public sealed partial class MainWindowViewModel : ObservableObject {
         }
     }
 
+    [RelayCommand]
+    private Task Launch() => Task.Run(async () => {
+        var launchTask = await _launchService.LaunchTaskAsync(_gameService.ActiveGame);
+
+        launchTask.Completed += (_, _) => WeakReferenceMessenger.Default.Send(
+            new NotificationMessage($"游戏 {_gameService.ActiveGame.Id} 启动成功，祝您游戏愉快！",
+                NotificationType.Success));
+    });
+
     private void CloseAllPanel() {
         IsGamesPanelOpen = false;
         IsTasksPanelOpen = false;
+    }
+
+    partial void OnActiveMinecraftChanged(MinecraftEntry value) {
+        _gameService.ActivateMinecraft(value);
     }
 }

@@ -1,0 +1,138 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wc="using:WonderLab.Controls"
+					xmlns:mi="using:Material.Icons.Avalonia">
+	<Design.PreviewWith>
+		<Border Padding="60">
+			<StackPanel Spacing="20">
+				<SplitButton Classes="top" Content="ktn" Foreground="Black" Background="Red">
+				</SplitButton>
+			</StackPanel>
+		</Border>
+	</Design.PreviewWith>
+
+	<ControlTheme x:Key="MaterialButtonTheme" TargetType="Button">
+		<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}"/>
+		<Setter Property="Transitions">
+			<Transitions>
+				<BrushTransition Duration="0:0:0.35"
+								 Property="Background"
+								 Easing="ExponentialEaseOut"/>
+
+				<DoubleTransition Duration="0:0:0.35"
+								  Property="Opacity"
+								  Easing="ExponentialEaseOut"/>
+			</Transitions>
+		</Setter>
+
+		<Setter Property="Template">
+			<ControlTemplate>
+				<wc:RippleControl Width="{TemplateBinding Width}"
+								  Height="{TemplateBinding Height}"
+								  Background="{TemplateBinding Background}"
+								  BorderBrush="{TemplateBinding BorderBrush}"
+								  CornerRadius="{TemplateBinding CornerRadius}"
+								  BorderThickness="{TemplateBinding BorderThickness}"
+								  RenderTransform="{TemplateBinding RenderTransform}"
+								  RippleFill="{DynamicResource RippleEffectFillBrush}"
+								  RenderTransformOrigin="{TemplateBinding RenderTransformOrigin}">
+					<Panel>
+						<Border Name="PART_PointerOverBorder"
+								Background="Transparent"
+								VerticalAlignment="Stretch"
+								HorizontalAlignment="Stretch"/>
+
+						<ContentPresenter RecognizesAccessKey="True"
+										  Name="PART_ContentPresenter"
+										  Padding="{TemplateBinding Padding}"
+										  Content="{TemplateBinding Content}"
+										  Transitions="{TemplateBinding Transitions}"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+										  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+					</Panel>
+				</wc:RippleControl>
+			</ControlTemplate>
+		</Setter>
+
+		<Style Selector="^:pointerover /template/ Border#PART_PointerOverBorder">
+			<Setter Property="Background" Value="{DynamicResource ButtonPointerOverBackgroundBrush}"/> 
+		</Style>
+	</ControlTheme>
+
+	<ControlTheme x:Key="{x:Type SplitButton}" TargetType="SplitButton">
+		<Setter Property="Focusable" Value="True"/>
+		<Setter Property="VerticalAlignment" Value="Center"/>
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="Padding" Value="{DynamicResource ButtonPadding}"/>
+		<Setter Property="MinHeight" Value="{DynamicResource SplitButtonMinHeight}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource SplitButtonBorderBrush}"/>
+		<Setter Property="Foreground" Value="{DynamicResource SplitButtonForegroundBrush}"/>
+		<Setter Property="Background" Value="{DynamicResource SplitButtonBackgroundBrush}"/>
+		<Setter Property="KeyboardNavigation.IsTabStop" Value="True"/>
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Grid ColumnSpacing="4"
+					  ColumnDefinitions="* auto">
+					<Button Focusable="False"
+							MinWidth="60"
+							CornerRadius="20 6 6 20"
+							Name="PART_PrimaryButton"
+							VerticalAlignment="Stretch"
+							HorizontalAlignment="Stretch"
+							Content="{TemplateBinding Content}"
+							Command="{TemplateBinding Command}"
+							Padding="{TemplateBinding Padding}"
+							Foreground="{TemplateBinding Foreground}"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							Theme="{StaticResource MaterialButtonTheme}"
+							ContentTemplate="{TemplateBinding ContentTemplate}"
+							CommandParameter="{TemplateBinding CommandParameter}"
+							VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+							HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+							Grid.Column="0"
+							KeyboardNavigation.IsTabStop="False"/>
+
+					<Button Padding="12"
+							FontSize="10"
+							Focusable="False"
+							CornerRadius="6 20 20 6"
+							Name="PART_SecondaryButton"
+							VerticalAlignment="Stretch"
+							HorizontalAlignment="Stretch"
+							VerticalContentAlignment="Center"
+							HorizontalContentAlignment="Center"
+							Background="{TemplateBinding Background}"
+							Foreground="{TemplateBinding Foreground}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							Theme="{StaticResource MaterialButtonTheme}"
+							Grid.Column="1"
+							KeyboardNavigation.IsTabStop="False">
+						<mi:MaterialIcon FontSize="10"
+										 Kind="MenuDown"
+										 Name="PART_MaterialIcon"/>
+					</Button>
+				</Grid>
+			</ControlTemplate>
+		</Setter>
+
+		<Style Selector="^:flyout-open /template/ Button">
+			<Setter Property="Tag" Value="flyout-open" />
+		</Style>
+
+		<Style Selector="^:checked /template/ Button">
+			<Setter Property="Tag" Value="checked" />
+
+			<Style Selector="^:flyout-open /template/ Button">
+				<Setter Property="Tag" Value="checked-flyout-open" />
+			</Style>
+		</Style>
+
+		<Style Selector="^.top /template/ mi|MaterialIcon#PART_MaterialIcon">
+			<Setter Property="Kind" Value="MenuUp"/>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

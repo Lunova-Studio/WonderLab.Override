@@ -9,7 +9,7 @@
 	<Grid VerticalAlignment="Bottom"
 		  HorizontalAlignment="Left"
 		  RowDefinitions="Auto, 10, Auto">
-		<Button Padding="0"
+		<!--<Button Padding="0"
 				Classes="ripple"
 				BorderThickness="1.5"
 				CornerRadius="{DynamicResource StrongCornerRadius}"
@@ -39,6 +39,6 @@
 				Content="{I18n Launch}"
 				Command="{Binding LaunchCommand}"
 				wa:ButtonExtensions.Value="{Binding CurrentLaunchTask.Progress, FallbackValue=100}">
-		</Button>
+		</Button>-->
 	</Grid>
 </UserControl>

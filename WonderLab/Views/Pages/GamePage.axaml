@@ -135,6 +135,7 @@
 					 Grid.Column="0">
 				<TextBox.InnerLeftContent>
 					<mi:MaterialIcon FontSize="16"
+									 Kind="Magnify"
 									 Margin="12 2 0 2"
 									 VerticalAlignment="Center"
 									 HorizontalAlignment="Center"/>

@@ -54,17 +54,6 @@
 			</Button>
 		</DataTemplate>
 	</wc:WonderWindow.Resources>
-
-	<wc:WonderWindow.TitleBarContent>
-		<HyperlinkButton Width="28"
-						 Height="28"
-						 Padding="0"
-						 FontSize="15"
-						 Margin="0 0 4 0"
-						 HorizontalAlignment="Right"
-						 NavigateUri="https://github.com/Lunova-Studio/WonderLab.Override"
-						 Content="{mi:MaterialIconExt Github}"/>
-	</wc:WonderWindow.TitleBarContent>
 	
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
@@ -140,21 +129,88 @@
 			
 			<ListBox.Tag>
 				<Grid ColumnDefinitions="auto * auto auto">
-					<ToggleButton Width="35"
-								  Height="35"
-								  Padding="0"
-								  FontSize="16"
-								  Margin="8 0 0 0"
-								  Classes="highest"
-								  IsChecked="{Binding IsGamesPanelOpen}"
-								  Command="{Binding OpenGamesPanelCommand}"
-								  Content="{mi:MaterialIconExt AtomVariant}"
-								  ToolTip.ShowDelay="0"
-								  ToolTip.Placement="Top"
-								  ToolTip.VerticalOffset="-16"
-								  ToolTip.Tip="游戏管理"
-								  Grid.Column="0">
-					</ToggleButton>
+					<SplitButton Height="35"
+								 Classes="top"
+								 Padding="24 4"
+								 Margin="8 0 0 0"
+								 HorizontalAlignment="Left"
+								 VerticalAlignment="Center"
+								 Command="{Binding LaunchCommand}"
+								 CornerRadius="{StaticResource FullCornerRadius}"
+								 Background="{DynamicResource SecondaryContainerBrush}"
+								 Grid.Row="2">
+						<Grid ColumnSpacing="8"
+							  ColumnDefinitions="auto auto">
+							<mi:MaterialIcon FontSize="16"
+											 Kind="RocketLaunch"/>
+
+							<TextBlock FontSize="14"
+									   Text="{I18n Launch}"
+									   Grid.Column="1"/>
+						</Grid>
+
+						<SplitButton.Flyout>
+							<Flyout Placement="TopEdgeAlignedLeft"
+									VerticalOffset="-12">
+								<Flyout.FlyoutPresenterTheme>
+									<ControlTheme TargetType="FlyoutPresenter"/>
+								</Flyout.FlyoutPresenterTheme>
+								
+								<ListBox Padding="6"
+										 MinWidth="250"
+										 MaxWidth="600"
+										 MaxHeight="350"
+										 ItemsSource="{Binding Minecrafts}"
+										 SelectedItem="{Binding ActiveMinecraft}"
+										 CornerRadius="{DynamicResource NormalCornerRadius}"
+										 Background="{DynamicResource FlyoutBackgroundBrush}">
+									<ListBox.ItemsPanel>
+										<ItemsPanelTemplate>
+											<StackPanel Spacing="4"/>
+										</ItemsPanelTemplate>
+									</ListBox.ItemsPanel>
+									
+									<ListBox.ItemTemplate>
+										<DataTemplate>
+											<Grid ColumnSpacing="8"
+												  RowDefinitions="* *"
+												  ColumnDefinitions="auto *">
+												<Border Width="30"
+														Height="30"
+														CornerRadius="6"
+														Grid.Row="0"
+														Grid.Column="0"
+														Grid.RowSpan="2">
+													<Border.Background>
+														<ImageBrush Source="{Binding Converter={StaticResource MinecraftIconConverter}}"/>
+													</Border.Background>
+												</Border>
+												
+												<TextBlock Classes="MDTitleSmall"
+														   Text="{Binding Id}"
+														   Grid.Row="0"
+														   Grid.Column="1"/>
+
+												<Grid ColumnSpacing="4"
+													  ColumnDefinitions="auto auto"
+													  Grid.Row="1"
+													  Grid.Column="1">
+													<TextBlock Classes="MDBodySmall"
+															   Text="{Binding Version.VersionId}"
+															   Foreground="{DynamicResource OutlineBrush}"/>
+													
+													<TextBlock Classes="MDBodySmall"
+															   Text="{Binding Version.Type}"
+															   Foreground="{DynamicResource OutlineBrush}"
+															   Grid.Column="1"/>
+												</Grid>
+											</Grid>
+										</DataTemplate>
+									</ListBox.ItemTemplate>
+								</ListBox>
+							</Flyout>
+						</SplitButton.Flyout>
+					</SplitButton>
 					
 					<ItemsControl Background="Transparent"
 								  ItemsSource="{Binding MinecraftProcesses}"
@@ -175,21 +231,23 @@
 								  CornerRadius="20 6 6 20"
 								  VerticalAlignment="Center"
 								  VerticalContentAlignment="Center"
+								  IsChecked="{Binding IsGamesPanelOpen}"
+								  Command="{Binding OpenGamesPanelCommand}"
 								  Grid.Column="2">
 						<Grid ColumnSpacing="8"
 							  ColumnDefinitions="auto auto">
 							<mi:MaterialIcon FontSize="16"
-											 Kind="CameraControl"/>
+											 Kind="AtomVariant"/>
 
-							<TextBlock Text="控制中心"
+							<TextBlock Text="游戏管理"
 									   FontSize="14"
 									   Grid.Column="1"/>
 						</Grid>
 					</ToggleButton>
 
 					<Border Height="35"
-							Margin="4 0 8 0"
 							Padding="8 4"
+							Margin="4 0 8 0"
 							CornerRadius="6 20 20 6"
 							VerticalAlignment="Center"
 							Background="{DynamicResource SurfaceContainerHighestBrush}"
