@@ -66,18 +66,6 @@
 				  PageKey="{Binding PageKey}"
 				  PageProvider="{Binding PageProvider}"/>
 
-		<wc:PullPanel Width="824"
-					  Height="450"
-					  Margin="8 0 8 8"
-					  HorizontalAlignment="Left"
-					  VerticalAlignment="Bottom"
-					  IsPanelOpen="{Binding IsGamesPanelOpen}"
-					  Grid.Row="0">
-			<wc:Frame Margin="16 16 0 16"
-					  PageKey="{Binding GamesPageKey}"
-					  PageProvider="{Binding PageProvider}"/>
-		</wc:PullPanel>
-
 		<wc:PullPanel Margin="8"
 					  Width="400"
 					  HorizontalAlignment="Right"
@@ -96,7 +84,8 @@
 			</Interaction.Behaviors>
 		</WindowNotificationManager>
 		
-		<TextBlock Margin="12 4" Name="Temp"
+		<TextBlock Margin="12 4" 
+				   Name="Temp"
 				   Classes="Caption"
 				   TextAlignment="Right"
 				   IsHitTestVisible="False"
@@ -130,9 +119,9 @@
 			<ListBox.Tag>
 				<Grid ColumnDefinitions="auto * auto auto">
 					<SplitButton Height="35"
-								 Classes="top"
 								 Padding="24 4"
 								 Margin="8 0 0 0"
+								 Classes="reverse-top"
 								 HorizontalAlignment="Left"
 								 VerticalAlignment="Center"
 								 Command="{Binding LaunchCommand}"
@@ -225,25 +214,78 @@
 						</ItemsControl.ItemsPanel>
 					</ItemsControl>
 
-					<ToggleButton Height="35"
-								  Padding="12 4"
-								  Classes="highest"
-								  CornerRadius="20 6 6 20"
-								  VerticalAlignment="Center"
-								  VerticalContentAlignment="Center"
-								  IsChecked="{Binding IsGamesPanelOpen}"
-								  Command="{Binding OpenGamesPanelCommand}"
-								  Grid.Column="2">
+					<Button Height="35"
+							Padding="12 4"
+							Classes="ripple"
+							CornerRadius="20 6 6 20"
+							VerticalAlignment="Center"
+							VerticalContentAlignment="Center"
+							Command="{Binding OpenGamesPanelCommand}"
+							Grid.Column="2">
 						<Grid ColumnSpacing="8"
 							  ColumnDefinitions="auto auto">
 							<mi:MaterialIcon FontSize="16"
-											 Kind="AtomVariant"/>
+											 Kind="AccountCircleOutline"/>
 
-							<TextBlock Text="游戏管理"
-									   FontSize="14"
+							<TextBlock FontSize="14"
+									   Text="{Binding ActiveAccount.Account.Name}"
 									   Grid.Column="1"/>
 						</Grid>
-					</ToggleButton>
+
+						<Button.Flyout>
+							<Flyout VerticalOffset="-12"
+									Placement="TopEdgeAlignedRight">
+								<Flyout.FlyoutPresenterTheme>
+									<ControlTheme TargetType="FlyoutPresenter"/>
+								</Flyout.FlyoutPresenterTheme>
+
+								<ListBox Padding="6"
+										 MinWidth="250"
+										 MaxWidth="600"
+										 MaxHeight="350"
+										 ItemsSource="{Binding Accounts}"
+										 SelectedItem="{Binding ActiveAccount}"
+										 CornerRadius="{DynamicResource NormalCornerRadius}"
+										 Background="{DynamicResource FlyoutBackgroundBrush}">
+									<ListBox.ItemsPanel>
+										<ItemsPanelTemplate>
+											<StackPanel Spacing="4"/>
+										</ItemsPanelTemplate>
+									</ListBox.ItemsPanel>
+
+									<ListBox.ItemTemplate>
+										<DataTemplate>
+											<Grid ColumnSpacing="8"
+												  RowDefinitions="* *"
+												  ColumnDefinitions="auto *">
+												<Border Width="30"
+														Height="30"
+														CornerRadius="6"
+														Grid.Row="0"
+														Grid.Column="0"
+														Grid.RowSpan="2">
+													<Border.Background>
+														<ImageBrush Source="{Binding Avatar}"/>
+													</Border.Background>
+												</Border>
+
+												<TextBlock Classes="MDTitleSmall"
+														   Text="{Binding Account.Name}"
+														   Grid.Row="0"
+														   Grid.Column="1"/>
+
+												<TextBlock Classes="MDBodySmall"
+														   Text="{Binding Account.Type}"
+														   Foreground="{DynamicResource OutlineBrush}"
+														   Grid.Row="1"
+														   Grid.Column="1"/>
+											</Grid>
+										</DataTemplate>
+									</ListBox.ItemTemplate>
+								</ListBox>
+							</Flyout>
+						</Button.Flyout>
+					</Button>
 
 					<Border Height="35"
 							Padding="8 4"
@@ -289,6 +331,14 @@
 			<ListBoxItem Tag="{mi:MaterialIconExt Home}"
 						 Foreground="{DynamicResource PrimaryBrush}"
 						 Content="{I18n Home}">
+				<Interaction.Behaviors>
+					<wb:ListBoxAnimationBehavior/>
+				</Interaction.Behaviors>
+			</ListBoxItem>
+
+			<ListBoxItem Tag="{mi:MaterialIconExt AtomVariant}"
+						 Foreground="{DynamicResource PrimaryBrush}"
+						 Content="游戏管理">
 				<Interaction.Behaviors>
 					<wb:ListBoxAnimationBehavior/>
 				</Interaction.Behaviors>

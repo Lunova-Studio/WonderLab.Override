@@ -6,39 +6,45 @@
 			 xmlns:wa="using:WonderLab.Media.Attachments"
 			 xmlns:wb="using:WonderLab.Media.Behaviors"
              x:Class="WonderLab.Views.Pages.HomePage">	
-	<Grid VerticalAlignment="Bottom"
-		  HorizontalAlignment="Left"
-		  RowDefinitions="Auto, 10, Auto">
-		<!--<Button Padding="0"
-				Classes="ripple"
-				BorderThickness="1.5"
-				CornerRadius="{DynamicResource StrongCornerRadius}"
-				BorderBrush="{DynamicResource DynamicBarBorderBrush}"
-				Background="{DynamicResource DynamicBarBackgroundBrush}">
-			<Grid Margin="12 6"
-				  MinWidth="155"
-				  RowDefinitions="Auto, Auto">
-				<TextBlock FontSize="16"
-						   Classes="BodyStrong"
-						   Foreground="{DynamicResource ButtonForegroundBrush}"
-						   Text="{Binding ActiveMinecraft.Id, FallbackValue=Title}"/>
+	<Grid Margin="0 16"
+		  VerticalAlignment="Top"
+		  ColumnDefinitions="auto * auto"
+		  HorizontalAlignment="Stretch">
+		<StackPanel>
+			<TextBlock Classes="Title"
+					   FontWeight="Medium"
+					   Text="晚上好！"/>
 
-				<TextBlock Grid.Row="1"
-						   Margin="0 2 0 0"
-						   Classes="Caption"
-						   Foreground="{DynamicResource ApplicationSubtitleForegroundBrush}"
-						   Text="{Binding ActiveMinecraft.Version.VersionId, FallbackValue=description}"/>
+			<TextBlock Classes="MDBodyLarge"
+					   Text="今天也要好好挖矿哦"/>
+		</StackPanel>
+
+		<!--<DropDownButton Margin="0 0 8 0"
+						Background="Transparent"
+						Grid.Column="2">
+			<Grid Margin="0 0 12 0"
+				  ColumnSpacing="8"
+				  RowDefinitions="* *"
+				  ColumnDefinitions="auto *">
+				<Border Width="35"
+						Height="35"
+						CornerRadius="6"
+						Grid.RowSpan="2">
+					<Border.Background>
+						<ImageBrush Source="C:\Users\wxysd\Desktop\总整包\素材库\图片素材\启动器关于\sdf.png"/>
+					</Border.Background>
+				</Border>
+				
+				<TextBlock Classes="BodyStrong"
+						   Text="Yang429"
+						   Grid.Row="0"
+						   Grid.Column="1"/>
+				
+				<TextBlock Classes="Caption"
+						   Text="Offline"
+						   Grid.Row="1"
+						   Grid.Column="1"/>
 			</Grid>
-		</Button>
-		
-		<Button Width="135"
-				Height="40"
-				Grid.Row="2"
-				Classes="progress"
-				HorizontalAlignment="Left"
-				Content="{I18n Launch}"
-				Command="{Binding LaunchCommand}"
-				wa:ButtonExtensions.Value="{Binding CurrentLaunchTask.Progress, FallbackValue=100}">
-		</Button>-->
+		</DropDownButton>-->
 	</Grid>
 </UserControl>

@@ -5,7 +5,7 @@
 	<Design.PreviewWith>
 		<Border Padding="60">
 			<StackPanel Spacing="20">
-				<SplitButton Classes="top" Content="ktn" Foreground="Black" Background="Red">
+				<SplitButton Classes="reverse-top" Content="ktn" Foreground="Black" Background="Red">
 				</SplitButton>
 			</StackPanel>
 		</Border>
@@ -133,6 +133,55 @@
 
 		<Style Selector="^.top /template/ mi|MaterialIcon#PART_MaterialIcon">
 			<Setter Property="Kind" Value="MenuUp"/>
+		</Style>
+
+		<Style Selector="^.reverse-top">
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Grid ColumnSpacing="4"
+						  ColumnDefinitions="* auto">
+						<Button Focusable="False"
+								MinWidth="60"
+								CornerRadius="6 20 20 6"
+								Name="PART_PrimaryButton"
+								VerticalAlignment="Stretch"
+								HorizontalAlignment="Stretch"
+								Content="{TemplateBinding Content}"
+								Command="{TemplateBinding Command}"
+								Padding="{TemplateBinding Padding}"
+								Foreground="{TemplateBinding Foreground}"
+								Background="{TemplateBinding Background}"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								Theme="{StaticResource MaterialButtonTheme}"
+								ContentTemplate="{TemplateBinding ContentTemplate}"
+								CommandParameter="{TemplateBinding CommandParameter}"
+								VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+								HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+								Grid.Column="1"
+								KeyboardNavigation.IsTabStop="False"/>
+
+						<Button Padding="12"
+								FontSize="10"
+								Focusable="False"
+								CornerRadius="20 6 6 20"
+								Name="PART_SecondaryButton"
+								VerticalAlignment="Stretch"
+								HorizontalAlignment="Stretch"
+								VerticalContentAlignment="Center"
+								HorizontalContentAlignment="Center"
+								Background="{TemplateBinding Background}"
+								Foreground="{TemplateBinding Foreground}"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								Theme="{StaticResource MaterialButtonTheme}"
+								Grid.Column="0"
+								KeyboardNavigation.IsTabStop="False">
+							<mi:MaterialIcon FontSize="10"
+											 Kind="MenuUp"
+											 Name="PART_MaterialIcon"/>
+						</Button>
+					</Grid>
+				</ControlTemplate>
+			</Setter>
 		</Style>
 	</ControlTheme>
 </ResourceDictionary>

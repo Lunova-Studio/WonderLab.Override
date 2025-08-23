@@ -46,7 +46,8 @@
 											  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
 											  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
 
-							<mi:MaterialIcon Margin="0 0 12 0"
+							<mi:MaterialIcon FontSize="10"
+											 Margin="0 0 12 0"
 											 Kind="ChevronDown"
 											 RenderTransform="none"
 											 Name="PART_MaterialIcon"

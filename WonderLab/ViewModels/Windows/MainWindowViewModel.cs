@@ -3,10 +3,12 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Base.Models.Game;
+using ObservableCollections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
 using WonderLab.Classes.Models;
@@ -14,6 +16,7 @@ using WonderLab.Classes.Models.Messaging;
 using WonderLab.Controls;
 using WonderLab.Extensions.Hosting.UI;
 using WonderLab.Services;
+using WonderLab.Services.Authentication;
 using WonderLab.Services.Launch;
 
 namespace WonderLab.ViewModels.Windows;
@@ -22,8 +25,11 @@ public sealed partial class MainWindowViewModel : ObservableObject {
     private readonly TaskService _taskService;
     private readonly GameService _gameService;
     private readonly LaunchService _launchService;
+    private readonly AccountService _accountService;
     private readonly SettingService _settingService;
     private readonly GameProcessService _gameProcessService;
+
+    private readonly ObservableList<AccountModel> _accounts = [];
 
     public double ShieldBackgroundOpacity => ActivePageIndex is 0
         ? 0
@@ -41,6 +47,7 @@ public sealed partial class MainWindowViewModel : ObservableObject {
     [ObservableProperty] private bool _isGamesPanelOpen;
     [ObservableProperty] private bool _isTasksPanelOpen;
     [ObservableProperty] private MinecraftEntry _activeMinecraft;
+    [ObservableProperty] private AccountModel _activeAccount;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShieldBackgroundOpacity))]
@@ -48,6 +55,7 @@ public sealed partial class MainWindowViewModel : ObservableObject {
 
     public ReadOnlyObservableCollection<MinecraftEntry> Minecrafts { get; }
     public ReadOnlyObservableCollection<MinecraftProcessModel> MinecraftProcesses { get; }
+    public INotifyCollectionChangedSynchronizedViewList<AccountModel> Accounts { get; }
 
     public MainWindowViewModel(
         AvaloniaPageProvider avaloniaPageProvider,
@@ -55,11 +63,13 @@ public sealed partial class MainWindowViewModel : ObservableObject {
         GameProcessService gameProcessService,
         TaskService taskService,
         GameService gameService,
+        AccountService accountService,
         LaunchService launchService) {
         _taskService = taskService;
         _gameService = gameService;
         _launchService = launchService;
         _settingService = settingService;
+        _accountService = accountService;
         _gameProcessService = gameProcessService;
 
         PageProvider = avaloniaPageProvider;
@@ -67,6 +77,7 @@ public sealed partial class MainWindowViewModel : ObservableObject {
         Tasks = new(_taskService.Tasks);
         Minecrafts = new(_gameService.Minecrafts);
         MinecraftProcesses = new(_gameProcessService.MinecraftProcesses);
+        Accounts = _accounts.ToNotifyCollectionChangedSlim();
 
         WeakReferenceMessenger.Default.Register<PageNotificationMessage>(this, (_, arg) => {
             ActivePageIndex = arg.PageKey is "Home" ? 0 : -1;
@@ -89,8 +100,11 @@ public sealed partial class MainWindowViewModel : ObservableObject {
         await Task.Delay(160);
         ActivePageIndex = 0;
         _gameService.RefreshGames();
+        _accounts.AddRange(_accountService.Accounts
+            .Select(x => new AccountModel(x, default)));
 
         ActiveMinecraft = _gameService.ActiveGame;
+        ActiveAccount = Accounts.FirstOrDefault(x => x.Account.ProfileEquals(_accountService.ActiveAccount));
     }
 
     [RelayCommand]
@@ -106,9 +120,10 @@ public sealed partial class MainWindowViewModel : ObservableObject {
     private void ChangeActivePage() {
         PageKey = ActivePageIndex switch {
             0 => "Home",
-            1 => "Download/Navigation",
-            2 => "Multiplayer",
-            3 => "Setting/Navigation",
+            1 => "Game",
+            2 => "Download/Navigation",
+            3 => "Multiplayer",
+            4 => "Setting/Navigation",
             _ => PageKey ?? "Home",
         };
 
@@ -140,5 +155,9 @@ public sealed partial class MainWindowViewModel : ObservableObject {
 
     partial void OnActiveMinecraftChanged(MinecraftEntry value) {
         _gameService.ActivateMinecraft(value);
+    }
+
+    partial void OnActiveAccountChanged(AccountModel value) {
+        _accountService.ActivateAccount(value?.Account);
     }
 }
