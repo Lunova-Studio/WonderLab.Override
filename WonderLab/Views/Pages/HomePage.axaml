@@ -5,46 +5,20 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:wa="using:WonderLab.Media.Attachments"
 			 xmlns:wb="using:WonderLab.Media.Behaviors"
-             x:Class="WonderLab.Views.Pages.HomePage">	
-	<Grid Margin="0 16"
-		  VerticalAlignment="Top"
-		  ColumnDefinitions="auto * auto"
-		  HorizontalAlignment="Stretch">
-		<StackPanel>
-			<TextBlock Classes="Title"
-					   FontWeight="Medium"
-					   Text="晚上好！"/>
+			 xmlns:mi="using:Material.Icons.Avalonia"
+             x:Class="WonderLab.Views.Pages.HomePage">
+	<Button Margin="0 16"
+			Padding="16 8"
+			Classes="ripple"
+			VerticalAlignment="Top"
+			HorizontalAlignment="Left"
+			Background="{DynamicResource SettingCardsBackgroundBrush}">
+		<StackPanel Spacing="2">
+			<TextBlock Classes="MDTitleMedium"
+					   Text="{I18n {Binding TimeSlot}}"/>
 
-			<TextBlock Classes="MDBodyLarge"
-					   Text="今天也要好好挖矿哦"/>
+			<TextBlock Classes="MDBodySmall"
+					   Text="{Binding OneSentence}"/>
 		</StackPanel>
-
-		<!--<DropDownButton Margin="0 0 8 0"
-						Background="Transparent"
-						Grid.Column="2">
-			<Grid Margin="0 0 12 0"
-				  ColumnSpacing="8"
-				  RowDefinitions="* *"
-				  ColumnDefinitions="auto *">
-				<Border Width="35"
-						Height="35"
-						CornerRadius="6"
-						Grid.RowSpan="2">
-					<Border.Background>
-						<ImageBrush Source="C:\Users\wxysd\Desktop\总整包\素材库\图片素材\启动器关于\sdf.png"/>
-					</Border.Background>
-				</Border>
-				
-				<TextBlock Classes="BodyStrong"
-						   Text="Yang429"
-						   Grid.Row="0"
-						   Grid.Column="1"/>
-				
-				<TextBlock Classes="Caption"
-						   Text="Offline"
-						   Grid.Row="1"
-						   Grid.Column="1"/>
-			</Grid>
-		</DropDownButton>-->
-	</Grid>
+	</Button>
 </UserControl>

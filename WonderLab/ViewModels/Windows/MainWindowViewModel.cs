@@ -104,7 +104,8 @@ public sealed partial class MainWindowViewModel : ObservableObject {
             .Select(x => new AccountModel(x, default)));
 
         ActiveMinecraft = _gameService.ActiveGame;
-        ActiveAccount = Accounts.FirstOrDefault(x => x.Account.ProfileEquals(_accountService.ActiveAccount));
+        ActiveAccount = Accounts.FirstOrDefault(x => x.Account.ProfileEquals(_accountService.ActiveAccount))
+            ?? Accounts.FirstOrDefault();
     }
 
     [RelayCommand]

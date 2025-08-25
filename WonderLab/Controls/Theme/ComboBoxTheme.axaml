@@ -115,11 +115,12 @@
 								HorizontalAlignment="Right"
 								Grid.Column="1"/>
 
-						<mi:MaterialIcon Margin="0 0 10 0"
+						<mi:MaterialIcon FontSize="10"
+										 Margin="0 0 10 0"
 										 Kind="ChevronDown"
-										 Name="PART_MaterialIcon"
 										 RenderTransform="none"
 										 IsHitTestVisible="False"
+										 Name="PART_MaterialIcon"
 										 UseLayoutRounding="False"
 										 VerticalAlignment="Center"
 										 HorizontalAlignment="Right"

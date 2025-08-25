@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:sys="using:System"
 			 xmlns:wc="using:WonderLab.Controls"
+			 xmlns:mi="using:Material.Icons.Avalonia"
 			 xmlns:wa="using:WonderLab.Media.Attachments"
              x:Class="WonderLab.Views.Pages.Setting.NetworkPage">
 	<ItemsControl Margin="0 0 16 24">
@@ -15,8 +16,8 @@
 		</ItemsControl.ItemsPanel>
 
 		<wc:SettingCards Header="基础网络设置">
-			<wc:SettingCard Icon="&#xEBD3;"
-							Header="使用镜像下载源">
+			<wc:SettingCard Header="使用镜像下载源"
+							Icon="{mi:MaterialIconExt CloudDownloadOutline}">
 				<StackPanel Spacing="12"
 							Orientation="Horizontal">
 					<ToggleSwitch IsChecked="{Binding IsEnableMirror}"/>
@@ -25,8 +26,8 @@
 
 			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
-			<wc:SettingCard Icon="&#xEC4A;"
-							Header="最大下载线程数">
+			<wc:SettingCard Header="最大下载线程数"
+							Icon="{mi:MaterialIconExt Speedometer}">
 				<StackPanel Spacing="12"
 							Orientation="Horizontal">
 					<TextBlock Classes="Body"

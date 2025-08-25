@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:wc="using:WonderLab.Controls"
 			 xmlns:wa="using:WonderLab.Media.Attachments"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.Views.Pages.Setting.JavaPage">
 	<ItemsControl Margin="0 0 16 24">
 		<ItemsControl.ItemsPanel>
@@ -14,16 +15,16 @@
 		</ItemsControl.ItemsPanel>
 
 		<wc:SettingCards Header="Java 运行时管理">
-			<wc:SettingCard Icon="&#xE762;"
-							Header="选择 Java 运行时">
+			<wc:SettingCard Header="选择 Java 运行时"
+							Icon="{mi:MaterialIconExt SwapHorizontal}">
 				<ComboBox ItemsSource="{Binding Javas}"
 						  SelectedItem="{Binding ActiveJava}"/>
 			</wc:SettingCard>
 
 			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
-			<wc:SettingCard Icon="&#xE721;"
-							Header="搜索 Java">
+			<wc:SettingCard Header="搜索 Java"
+							Icon="{mi:MaterialIconExt Magnify}">
 				<StackPanel Spacing="8"
 							Orientation="Horizontal">
 					<Button Classes="secondary"
@@ -38,8 +39,8 @@
 
 			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
-			<wc:SettingCard Icon="&#xECC9;"
-							Header="移除当前 Java 运行时">
+			<wc:SettingCard Header="移除当前 Java 运行时"
+							Icon="{mi:MaterialIconExt PailRemoveOutline}">
 				<Button Content="移除"
 						Classes="secondary"
 						Background="{DynamicResource TertiaryContainerColor}"
@@ -48,15 +49,15 @@
 
 			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
-			<wc:SettingCard Icon="&#xE835;"
-							Header="是否自动选择 Java 运行时">
+			<wc:SettingCard Header="是否自动选择 Java 运行时"
+							Icon="{mi:MaterialIconExt AutoMode}">
 				<ToggleSwitch IsChecked="{Binding IsAutoSelectJava}"/>
 			</wc:SettingCard>
 
 			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
-			<wc:SettingCard Icon="&#xF8A6;"
-							Header="配置游戏内存">
+			<wc:SettingCard Header="配置游戏内存"
+							Icon="{mi:MaterialIconExt Memory}">
 				<NumericUpDown Minimum="512"
 							   Increment="16"
 							   Value="{Binding MaxMemorySize}"/>
@@ -64,8 +65,8 @@
 
 			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
-			<wc:SettingCard Icon="&#xE835;"
-							Header="是否自动配置游戏内存">
+			<wc:SettingCard Header="是否自动配置游戏内存"
+							Icon="{mi:MaterialIconExt AutoMode}">
 				<ToggleSwitch IsEnabled="False"/>
 			</wc:SettingCard>
 		</wc:SettingCards>

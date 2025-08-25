@@ -64,7 +64,7 @@
 									  RippleFill="{DynamicResource RippleEffectFillBrush}">
 						<Grid Margin="{TemplateBinding Padding}"
 							  ColumnDefinitions="auto auto * auto auto">
-							<ContentPresenter FontSize="12"
+							<ContentPresenter FontSize="14"
 											  VerticalAlignment="Center"
 											  Content="{TemplateBinding Icon}"
 											  Foreground="{TemplateBinding Foreground}"

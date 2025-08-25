@@ -8,6 +8,7 @@
 			 xmlns:wt="using:WonderLab.Media.Transitions"
 			 xmlns:wa="using:WonderLab.Media.Attachments"
 			 xmlns:wce="using:WonderLab.Controls.Experimental.BreadcrumbBar"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.Views.Pages.Setting.SettingNavigationPage">
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
@@ -59,7 +60,7 @@
 			<ScrollViewer Name="PART_NavigationScrollViewer"
 						  ZIndex="{Binding ContentBarOpactiy}">				
 				<ListBox MaxWidth="1000"
-						 Margin="0 0 8 0"
+						 Margin="0 0 16 0"
 						 Name="PART_TileListBox"
 						 VerticalAlignment="Stretch"
 						 HorizontalAlignment="Stretch">
@@ -82,23 +83,23 @@
 								   Text="{I18n Game}"/>
 					</wc:Tile>
 
-					<wc:NavigationTile Icon="&#xE945;"
-									   CommandParameter="0"
+					<wc:NavigationTile CommandParameter="0"
 									   Title="{I18n GameSettings}"
 									   Command="{Binding ChangeActivePageCommand}"
 									   Description="{I18n GameSettings_Description}"
+									   Icon="{mi:MaterialIconExt ControllerClassicOutline}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
 
-					<wc:NavigationTile Icon="&#xEC32;"
-									   CommandParameter="1"
+					<wc:NavigationTile CommandParameter="1"
 									   Title="{I18n JavaSettings}"
+									   Icon="{mi:MaterialIconExt CoffeeOutline}"
 									   Command="{Binding ChangeActivePageCommand}"
 									   Description="{I18n JavaSettings_Description}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
 
-					<wc:NavigationTile Icon="&#xE716;"
-									   CommandParameter="2"
+					<wc:NavigationTile CommandParameter="2"
 									   Title="{I18n AccountSettings}"
+									   Icon="{mi:MaterialIconExt AccountOutline}"
 									   Command="{Binding ChangeActivePageCommand}"
 									   Description="{I18n AccountSettings_Description}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
@@ -109,16 +110,16 @@
 								   Text="{I18n Launcher}"/>
 					</wc:Tile>
 
-					<wc:NavigationTile Icon="&#xE701;"
-									   CommandParameter="3"
+					<wc:NavigationTile CommandParameter="3"
 									   Title="{I18n NetworkSettings}"
+									   Icon="{mi:MaterialIconExt Web}"
 									   Command="{Binding ChangeActivePageCommand}"
 									   Description="{I18n NetworkSettings_Description}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
 
-					<wc:NavigationTile Icon="&#xE790;"
-									   CommandParameter="4"
+					<wc:NavigationTile CommandParameter="4"
 									   Title="{I18n AppearanceSettings}"
+									   Icon="{mi:MaterialIconExt PaletteOutline}"
 									   Command="{Binding ChangeActivePageCommand}"
 									   Description="{I18n AppearanceSettings_Description}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
@@ -129,11 +130,11 @@
 								   Text="{I18n About}"/>
 					</wc:Tile>
 
-					<wc:NavigationTile Icon="&#xE736;"
-									   CommandParameter="5"
+					<wc:NavigationTile CommandParameter="5"
 									   Title="{I18n About}"
 									   Description="{I18n About_Description}"
 									   Command="{Binding ChangeActivePageCommand}"
+									   Icon="{mi:MaterialIconExt ApplicationOutline}"
 									   IsDescriptionVisible="{Binding IsPaginationMode, Converter={StaticResource BoolReverseConverter}}"/>
 				</ListBox>
 			</ScrollViewer>

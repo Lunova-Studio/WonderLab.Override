@@ -18,28 +18,28 @@
 		</ItemsPanelTemplate>
 
 		<ContextMenu x:Key="MinecraftItemContextMenu">
-			<MenuItem Icon="&#xE768;"
-					  Classes="primary"
-					  Header="{I18n Launch}"/>
+			<MenuItem Classes="primary"
+					  Header="{I18n Launch}"
+					  Icon="{mi:MaterialIconExt RocketLaunch}"/>
 			
 			<MenuItem Header="-"/>
 			
-			<MenuItem Icon="&#xE713;"
-					  Header="{I18n Settings}"
+			<MenuItem Header="{I18n Settings}"
 					  CommandParameter="{Binding}"
+					  Icon="{mi:MaterialIconExt CogOutline}"
 					  Command="{Binding Path=DataContext.OpenGameSettingPageCommand, ElementName=PART_ItemsRepeater}"/>
 			
-			<MenuItem Icon="&#xE8DA;"
-					  Header="{I18n OpenFolder}"/>
+			<MenuItem Header="{I18n OpenFolder}"
+					  Icon="{mi:MaterialIconExt FolderOpenOutline}"/>
 			
-			<MenuItem Icon="&#xE8C8;"
-					  Header="{I18n CopyPath}"/>
+			<MenuItem Header="{I18n CopyPath}"
+					  Icon="{mi:MaterialIconExt ContentCopy}"/>
 			
 			<MenuItem Header="-"/>
 			
-			<MenuItem Icon="&#xE74D;"
-					  Classes="error"
-					  Header="{I18n Delete}"/>
+			<MenuItem Classes="error"
+					  Header="{I18n Delete}"
+					  Icon="{mi:MaterialIconExt DeleteOutline}"/>
 		</ContextMenu>
 		
 		<DataTemplate x:Key="MinecraftItemTemplate">
@@ -92,9 +92,9 @@
 
 					<Button Width="28"
 							Height="28"
-							FontSize="15"
+							FontSize="14"
 							Classes="icon"
-							Content="&#xE713;"
+							Content="{mi:MaterialIconExt CogOutline}"
 							CommandParameter="{Binding}"
 							Command="{Binding Path=DataContext.OpenGameSettingPageCommand, ElementName=PART_ItemsRepeater}"
 							Grid.Column="2"
@@ -111,11 +111,14 @@
 	</Interaction.Behaviors>
 
 	<Grid RowDefinitions="auto auto *">
+		<TextBlock Classes="Title"
+				   Text="{I18n GameManager}"/>
+		
 		<WrapPanel LineSpacing="16"
 				   ItemSpacing="16"
-				   Margin="0 0 0 16"
+				   Margin="0 16"
 				   Orientation="Horizontal"
-				   Grid.Row="0">
+				   Grid.Row="1">
 			<Button Classes="primary">
 				<StackPanel Spacing="8"
 							Orientation="Horizontal">

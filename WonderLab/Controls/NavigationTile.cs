@@ -1,4 +1,5 @@
-﻿using WonderLab.SourceGenerator.Attributes;
+﻿using Material.Icons;
+using WonderLab.SourceGenerator.Attributes;
 
 namespace WonderLab.Controls;
 
@@ -6,6 +7,6 @@ namespace WonderLab.Controls;
 [StyledProperty(typeof(object), "Footer")]
 [StyledProperty(typeof(string), "Title")]
 [StyledProperty(typeof(object), "Description")]
-[StyledProperty(typeof(object), "FooterIcon", "\uE76C")]
 [StyledProperty(typeof(bool), "IsDescriptionVisible", true)]
+[StyledProperty(typeof(MaterialIconKind), "FooterIcon")]
 public sealed partial class NavigationTile : Tile;

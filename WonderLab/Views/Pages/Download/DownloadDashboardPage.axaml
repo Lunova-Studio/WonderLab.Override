@@ -126,10 +126,11 @@
 											   Text="{Binding Keyword}"
 											   Grid.Column="2"/>
 
-									<Button Classes="icon"
-											Content="&#xE711;"
+									<Button FontSize="10"
+											Classes="icon"
 											VerticalAlignment="Center"
 											CommandParameter="{Binding}"
+											Content="{mi:MaterialIconExt Close}"
 											Command="{Binding $parent[ItemsRepeater].DataContext.RemoveHistoryCommand}"
 											Grid.Column="3"/>
 								</Grid>
@@ -219,9 +220,9 @@
 					<Button Height="40"
 							Classes="icon"
 							Margin="4 0 0 0"
-							Content="&#xE76B;"
 							VerticalAlignment="Center"
 							HorizontalAlignment="Left"
+							Content="{mi:MaterialIconExt MenuLeft}"
 							IsVisible="{Binding IsPreviousButtonVisible}"
 							Background="{DynamicResource PrimaryButtonBackgroundBrush}"
 							Foreground="{DynamicResource PrimaryButtonForegroundBrush}"
@@ -235,9 +236,9 @@
 					<Button Height="40"
 							Classes="icon"
 							Margin="0 0 20 0"
-							Content="&#xE76C;"
 							VerticalAlignment="Center"
 							HorizontalAlignment="Right"
+							Content="{mi:MaterialIconExt MenuRight}"
 							IsVisible="{Binding IsNextButtonVisible}"
 							Background="{DynamicResource PrimaryButtonBackgroundBrush}"
 							Foreground="{DynamicResource PrimaryButtonForegroundBrush}"
@@ -252,12 +253,12 @@
 							   Text="分类浏览"
 							   Grid.Row="2"/>
 
-					<wc:NavigationTile Icon="&#xE71C;"
-									   Margin="0 8 16 0"
+					<wc:NavigationTile Margin="0 8 16 0"
 									   Title="分类浏览"
 									   CommandParameter="0"
 									   IsEnableAnimation="False"
 									   Command="{Binding JumpToSearchPageCommand}"
+									   Icon="{mi:MaterialIconExt ShapePlusOutline}"
 									   Grid.Row="3"/>
 				</Grid>
 			</ScrollViewer>

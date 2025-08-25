@@ -9,6 +9,7 @@
 			 xmlns:wem="using:WonderLab.Extensions.Markup"
 			 xmlns:wb="using:WonderLab.Media.Behaviors"
 			 xmlns:me="using:Monet.Shared.Enums"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.AppearancePage">
 	<UserControl.Resources>
 		<DataTemplate x:Key="ColorsTemplate">
@@ -67,26 +68,26 @@
 			</StackPanel>
 		</Border>
 
-		<wc:SettingCard Icon="&#xE793;"
-						Header="整体主题"
+		<wc:SettingCard Header="整体主题"
+						Icon="{mi:MaterialIconExt ThemeLightDark}"
 						Background="{DynamicResource SettingCardsBackgroundBrush}">
 			<ListBox Classes="segmented"
 					 SelectedIndex="{Binding ActiveThemeIndex}">
-				<ListBoxItem Tag="&#xE770;"
-							 Content="系统"/>
+				<ListBoxItem Content="自动"
+							 Tag="{mi:MaterialIconExt AutoFix}"/>
 
-				<ListBoxItem Tag="&#xE706;"
-							 Content="亮色"/>
+				<ListBoxItem Content="亮色"
+							 Tag="{mi:MaterialIconExt WeatherSunny}"/>
 
-				<ListBoxItem Tag="&#xE708;"
-							 Content="暗色"/>
+				<ListBoxItem Content="暗色"
+							 Tag="{mi:MaterialIconExt CircleHalfFull}"/>
 			</ListBox>
 		</wc:SettingCard>
 
 		<wc:SettingCards Margin="0 12 0 0"
 						 Header="主题">
-			<wc:SettingCard Icon="&#xE790;"
-							Header="主题色"
+			<wc:SettingCard Header="主题色"
+							Icon="{mi:MaterialIconExt PaletteOutline}"
 							IsVisible="{Binding IsEnableBitmapColor, Converter={StaticResource BoolReverseConverter}}">
 				<ListBox Classes="colors"
 						 Margin="-12 0 0 0"
@@ -99,25 +100,25 @@
 			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"
 					   IsVisible="{Binding IsEnableBitmapColor, Converter={StaticResource BoolReverseConverter}}"/>
 
-			<wc:SettingCard Icon="&#xE770;"
-							Header="使用系统主题色">
+			<wc:SettingCard Header="使用系统主题色"
+							Icon="{mi:MaterialIconExt InvertColors}">
 				<ToggleSwitch IsChecked="{Binding IsEnableSystemColor}"/>
 			</wc:SettingCard>
 
 			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"
 					   IsVisible="{Binding IsBitmapBackground}"/>
 
-			<wc:SettingCard Icon="&#xEF3C;"
-							Header="使用自动取色"
+			<wc:SettingCard Header="使用自动取色"
 							IsVisible="{Binding IsBitmapBackground}"
+							Icon="{mi:MaterialIconExt EyedropperVariant}"
 							IsEnabled="{Binding IsEnableSystemColor, Converter={StaticResource BoolReverseConverter}}">
 				<ToggleSwitch IsChecked="{Binding IsEnableBitmapColor}"/>
 			</wc:SettingCard>
 
 			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
-			<wc:SettingCard Icon="&#xEBC6;"
-							Header="选择动态主题色方案">
+			<wc:SettingCard Header="选择动态主题色方案"
+							Icon="{mi:MaterialIconExt AutoFix}">
 				<ComboBox SelectedIndex="{Binding ActiveColorVariant}"
 						  ItemsSource="{wem:EnumBinding {x:Type me:Variant}}"/>
 			</wc:SettingCard>
@@ -125,8 +126,8 @@
 
 		<wc:SettingCards Margin="0 12 0 0"
 						 Header="背景">
-			<wc:SettingCard Icon="&#xEF1F;"
-							Header="背景类型">
+			<wc:SettingCard Header="背景类型"
+							Icon="{mi:MaterialIconExt ImageSizeSelectSmall}">
 				<ComboBox SelectedItem="{Binding ActiveBackground}"
 						  ItemsSource="{Binding Backgrounds, Mode=TwoWay}"/>
 			</wc:SettingCard>
@@ -134,17 +135,17 @@
 			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"
 					   IsVisible="{Binding IsBitmapBackground}"/>
 
-			<wc:SettingCard Icon="&#xE7C5;"
-							Header="背景图片路径"
-							IsVisible="{Binding IsBitmapBackground}">
+			<wc:SettingCard Header="背景图片路径"
+							IsVisible="{Binding IsBitmapBackground}"
+							Icon="{mi:MaterialIconExt FileImageMarkerOutline}">
 				<TextBox MinWidth="300"
 						 MaxWidth="500"
 						 Text="{Binding ImagePath, Mode=TwoWay}">
 					<TextBox.InnerRightContent>
 						<Button Classes="icon"
 								Margin="0 0 4 0"
-								Content="&#xED43;"
-								Command="{Binding BrowserImageCommand}"/>
+								Command="{Binding BrowserImageCommand}"
+								Content="{mi:MaterialIconExt FolderOpenOutline}"/>
 					</TextBox.InnerRightContent>
 				</TextBox>
 			</wc:SettingCard>
@@ -152,8 +153,8 @@
 
 		<wc:SettingCards Margin="0 12 0 0"
 						 Header="语言">
-			<wc:SettingCard Icon="&#xF2B7;"
-							Header="选择语言">
+			<wc:SettingCard Header="选择语言"
+							Icon="{mi:MaterialIconExt Translate}">
 				<ComboBox MinWidth="150"
 						  ItemsSource="{Binding Languages}"
 						  SelectedItem="{Binding ActiveLanguage}">

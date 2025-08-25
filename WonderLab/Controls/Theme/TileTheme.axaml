@@ -1,7 +1,8 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:wc="using:WonderLab.Controls"
-					xmlns:wa="using:WonderLab.Media.Attachments">
+					xmlns:wa="using:WonderLab.Media.Attachments"
+					xmlns:mi="using:Material.Icons.Avalonia">
 	<Design.PreviewWith>
 		<Border Background="Green" Padding="20">
 			<Grid Grid.Column="1"
@@ -72,6 +73,7 @@
 		<Setter Property="Padding" Value="8"/>
 		<Setter Property="MinWidth" Value="100"/>
 		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="FooterIcon" Value="MenuRight"/>
 		<Setter Property="IsAnimationTurn" Value="True"/>
 		<Setter Property="HorizontalAlignment" Value="Stretch"/>
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -96,13 +98,13 @@
 						HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
 					<Grid Margin="{TemplateBinding Padding}" 
 						  ColumnDefinitions="Auto Auto 1* Auto">
-						<ContentPresenter FontSize="22"
+						<ContentPresenter FontSize="20"
 										  VerticalAlignment="Center"
 										  Content="{TemplateBinding Icon}"
 										  Foreground="{DynamicResource TileForegroundBrush}"/>
 
 						<Grid Grid.Column="1"
-							  Margin="12 0 0 0"
+							  Margin="16 0 0 0"
 							  RowDefinitions="Auto Auto"
 							  VerticalAlignment="Center">
 							<TextBlock Classes="Body"
@@ -132,10 +134,10 @@
 											  Content="{TemplateBinding Footer}"
 											  ContentTemplate="{TemplateBinding ContentTemplate}"/>
 
-							<ContentPresenter FontSize="16"
-											  VerticalAlignment="Center"
-											  Content="{TemplateBinding FooterIcon}"
-											  Foreground="{DynamicResource TileForegroundBrush}"/>
+							<mi:MaterialIcon FontSize="10"
+											 VerticalAlignment="Center"
+											 Kind="{TemplateBinding FooterIcon}"
+											 Foreground="{DynamicResource TileForegroundBrush}"/>
 						</StackPanel>
 					</Grid>
 				</Button>
@@ -268,10 +270,10 @@
 												  Content="{TemplateBinding Footer}"
 												  ContentTemplate="{TemplateBinding ContentTemplate}"/>
 
-								<ContentPresenter FontSize="16"
-												  VerticalAlignment="Center"
-												  Content="{TemplateBinding FooterIcon}"
-												  Foreground="{DynamicResource TileForegroundBrush}"/>
+								<mi:MaterialIcon FontSize="12"
+												 VerticalAlignment="Center"
+												 Kind="{TemplateBinding FooterIcon}"
+												 Foreground="{DynamicResource TileForegroundBrush}"/>
 							</StackPanel>
 						</Grid>
 					</Button>

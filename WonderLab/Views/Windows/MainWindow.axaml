@@ -221,6 +221,7 @@
 							VerticalAlignment="Center"
 							VerticalContentAlignment="Center"
 							Command="{Binding OpenGamesPanelCommand}"
+							Background="{DynamicResource SurfaceContainerHighestBrush}"
 							Grid.Column="2">
 						<Grid ColumnSpacing="8"
 							  ColumnDefinitions="auto auto">
@@ -338,7 +339,7 @@
 
 			<ListBoxItem Tag="{mi:MaterialIconExt AtomVariant}"
 						 Foreground="{DynamicResource PrimaryBrush}"
-						 Content="游戏管理">
+						 Content="{I18n GameManager}">
 				<Interaction.Behaviors>
 					<wb:ListBoxAnimationBehavior/>
 				</Interaction.Behaviors>
@@ -352,7 +353,7 @@
 				</Interaction.Behaviors>
 			</ListBoxItem>
 
-			<ListBoxItem Tag="{mi:MaterialIconExt VirusOutline}"
+			<ListBoxItem Tag="{mi:MaterialIconExt Lan}"
 						 Foreground="{DynamicResource PrimaryBrush}"
 						 Content="{I18n Multiplayer}">
 				<Interaction.Behaviors>

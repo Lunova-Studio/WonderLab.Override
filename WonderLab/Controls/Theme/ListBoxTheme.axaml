@@ -175,6 +175,7 @@
 					<Setter Property="Height" Value="28"/>
 					<Setter Property="MinWidth" Value="80"/>
 					<Setter Property="VerticalAlignment" Value="Center"/>
+					<Setter Property="VerticalContentAlignment" Value="Center"/>
 					<Setter Property="Background" Value="Transparent"/>
 					<Setter Property="CornerRadius" Value="{StaticResource WeakCornerRadius}"/>
 					<Setter Property="Transitions">
@@ -198,11 +199,13 @@
 												Orientation="Horizontal"
 												VerticalAlignment="Center"
 												HorizontalAlignment="Center">
-										<ContentPresenter FontSize="14"
+										<ContentPresenter FontSize="12"
 														  VerticalAlignment="Center"
+														  VerticalContentAlignment="Center"
 														  Content="{TemplateBinding Tag}"/>
 
-										<ContentPresenter Name="PART_ContentPresenter"
+										<ContentPresenter FontSize="12"
+														  Name="PART_ContentPresenter"
 														  Content="{TemplateBinding Content}"
 														  Padding="{TemplateBinding Padding}"
 														  BorderBrush="{TemplateBinding BorderBrush}"

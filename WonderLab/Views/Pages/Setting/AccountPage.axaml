@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-			 xmlns:lsv="using:LiteSkinViewer3D.Avalonia.Controls"
+			 xmlns:mi="using:Material.Icons.Avalonia"
 			 xmlns:wa="using:WonderLab.Media.Attachments"
 			 xmlns:wb="using:WonderLab.Media.Behaviors"
 			 xmlns:wc="using:WonderLab.Controls"
@@ -19,8 +19,8 @@
 		  RowDefinitions="auto auto *">
 		<wc:SettingCards Header="账户管理"
 						 Grid.Row="0">
-			<wc:SettingCard Icon="&#xE8FA;"
-							Header="添加账户">
+			<wc:SettingCard Header="添加账户"
+							Icon="{mi:MaterialIconExt AccountPlusOutline}">
 				<Button Classes="secondary"
 						Content="添加"
 						Command="{Binding ShowAddAccountDialogCommand}"/>
@@ -28,8 +28,8 @@
 
 			<Separator Margin="16 0" Padding="0" Height="1" Opacity="0.2"/>
 
-			<wc:SettingCard Icon="&#xE72C;"
-							Header="是否在启动前自动刷新账户">
+			<wc:SettingCard Header="是否在启动前自动刷新账户"
+							Icon="{mi:MaterialIconExt AccountReactivateOutline}">
 				<ToggleSwitch IsChecked="{Binding IsAutoRefreshAccount, Mode=TwoWay}"/>
 			</wc:SettingCard>
 		</wc:SettingCards>

@@ -33,7 +33,6 @@ public sealed class GameService {
 
         if (MinecraftParser is null && string.IsNullOrEmpty(_settingService.Setting?.ActiveMinecraftFolder))
             return;
-        //throw new InvalidOperationException("The minecraft parser is not initialized.");
 
         MinecraftParser ??= _settingService.Setting.ActiveMinecraftFolder;
         foreach (var minecraft in MinecraftParser.GetMinecrafts())
@@ -54,7 +53,6 @@ public sealed class GameService {
 
         if (!_settingService.Setting.MinecraftFolders.Contains(dir))
             return;
-        //throw new ArgumentException("The specified minecraft folder does not exist.");
 
         MinecraftParser = _settingService.Setting.ActiveMinecraftFolder = dir;
     }

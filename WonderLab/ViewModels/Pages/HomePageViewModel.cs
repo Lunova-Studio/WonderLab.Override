@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Base.Models.Game;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WonderLab.Classes.Models.Messaging;
 using WonderLab.Services;
@@ -16,9 +18,29 @@ public sealed partial class HomePageViewModel : PageViewModelBase {
     private readonly LaunchService _launchService;
     private readonly SettingService _settingService;
 
+    [ObservableProperty] private string _oneSentence;
     [ObservableProperty] private MinecraftEntry _activeMinecraft;
     [ObservableProperty] private string _launchButtonText = "启动";
-    [ObservableProperty] private LaunchTaskViewModel _currentLaunchTask;
+
+    public List<string> OneSentences { get; } = [
+        "今天也要好好挖矿哦",
+        "苦力怕不会等你准备好",
+        "启动器正在思考人生……请稍等",
+        "如果你看到这个，说明启动器还没炸",
+        "别问为什么卡顿，问问末影龙是不是醒了",
+        "苦力怕刚刚路过，我们重新加载一下心情",
+        "今天也要努力不掉进岩浆里哦",
+        "挖矿五小时，收获一组煤和一段人生反思",
+        "正在加载 ‘你以为你能跑得动’ 的材质包，请耐心等待"
+    ];
+
+    public static string TimeSlot => DateTime.Now.Hour switch {
+        >= 0 and < 6 => "LateNight",   // 凌晨
+        >= 6 and < 11 => "Morning",     // 上午
+        >= 11 and < 14 => "Noon",        // 中午
+        >= 14 and < 18 => "Afternoon",   // 下午
+        _ => "Evening"// 晚上
+    };
 
     public HomePageViewModel(SettingService settingService, GameService gameService, LaunchService launchService) {
         _gameService = gameService;
@@ -27,20 +49,17 @@ public sealed partial class HomePageViewModel : PageViewModelBase {
 
         _gameService.ActivateMinecraft(_settingService.Setting.ActiveGameId);
         ActiveMinecraft = _gameService.ActiveGame;
+
+        OneSentence = OneSentences[GetDailyTimeSlotRandom(0, OneSentences.Count)];
     }
 
-    [RelayCommand]
-    private void NavigationToGame() {
-        WeakReferenceMessenger.Default.Send<PageNotificationMessage>(new("Game"));
-    }
+    private static int GetDailyTimeSlotRandom(int min = 0, int max = 5) {
+        var now = DateTime.Now;
 
-    [RelayCommand]
-    private async Task Launch() {
-        LaunchButtonText = "启动中";
-        CurrentLaunchTask = await _launchService.LaunchTaskAsync(_gameService.ActiveGame);
+        string seedSource = $"{now:yyyy-MM-dd}-{TimeSlot}";
+        int seed = seedSource.GetHashCode();
 
-        CurrentLaunchTask.Completed += (_, _) => WeakReferenceMessenger.Default.Send(
-            new NotificationMessage($"游戏 {_gameService.ActiveGame.Id} 启动成功，祝您游戏愉快！", 
-                NotificationType.Success));
+        var random = new Random(seed);
+        return random.Next(min, max);
     }
 }
