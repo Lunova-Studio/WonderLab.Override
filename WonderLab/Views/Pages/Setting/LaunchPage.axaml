@@ -26,8 +26,10 @@
 
 			<wc:SettingCard Header="导入目录"
 							Icon="{mi:MaterialIconExt FolderPlusOutline}">
-				<Button Classes="settings"
-						Content="添加"
+				<Button Padding="8"
+						Classes="icon"
+						FontSize="18"
+						Content="{mi:MaterialIconExt FolderOpenOutline}"
 						Command="{Binding BrowserFolderCommand}"/>
 			</wc:SettingCard>
 
@@ -35,8 +37,9 @@
 
 			<wc:SettingCard Header="移除当前目录"
 							Icon="{mi:MaterialIconExt FolderRemoveOutline}">
-				<Button Content="移除"
-						Classes="settingsDelete"
+				<Button Classes="icon"
+						FontSize="18"
+						Content="{mi:MaterialIconExt CloseCircleOutline}"
 						Command="{Binding RemoveFolderCommand}"/>
 			</wc:SettingCard>
 		</wc:SettingCards>
