@@ -59,5 +59,4 @@ public sealed class WonderBackEaseInOut : Easing {
 
         return 1 + c3 * Math.Pow(p - 1, 3) + c1 * Math.Pow(p - 1, 2);
     }
-
 }

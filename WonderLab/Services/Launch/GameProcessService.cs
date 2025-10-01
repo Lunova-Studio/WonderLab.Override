@@ -6,9 +6,11 @@ using MinecraftLaunch.Launch;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WonderLab.Services.Auxiliary;
+using WonderLab.ViewModels.Windows;
 
 namespace WonderLab.Services.Launch;
 
@@ -68,4 +70,14 @@ public sealed partial class MinecraftProcessModel : ObservableObject {
 
     [RelayCommand]
     private void Close() => MinecraftProcess.Close();
+
+    [RelayCommand]
+    private void OpenLogWindow() {
+        var window = App.Get<MinecraftLogWindow>();
+        var windowViewModel = App.Get<MinecraftLogWindowViewModel>();
+
+        windowViewModel.MinecraftProcess = this;
+        window.DataContext = windowViewModel;
+        window.Show();
+    }
 }

@@ -28,6 +28,8 @@
 			<SolidColorBrush x:Key="ListBoxItemSelectedPointeroverBackgroundBrush" Color="#35FFFFFF"/>
 			<SolidColorBrush x:Key="ListBoxItemSelectedPointerPressedBackgroundBrush" Color="#40FFFFFF"/>
 
+			<SolidColorBrush x:Key="WarningSourceRunBrush" Color="{DynamicResource PrimaryColor}"/>
+
 			<DropShadowEffect x:Key="FlyoutDropShadowEffect" BlurRadius="16" OffsetX="0" OffsetY="0" Color="#60FFFFFF"/>
 			<DropShadowEffect x:Key="ComboBoxDropShadowEffect" BlurRadius="6" OffsetX="1" OffsetY="1" Color="#60FFFFFF"/>
 			<DropShadowEffect x:Key="NotificationCardDropShadowEffect" BlurRadius="6" OffsetX="0" OffsetY="1" Color="#60FFFFFF"/>
@@ -117,6 +119,12 @@
 	<SolidColorBrush x:Key="ToggleSwitchCheckedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
 	<SolidColorBrush x:Key="ToggleSwitchCheckedBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
 
+	<SolidColorBrush x:Key="CheckBoxBorderBrush" Color="{DynamicResource OutlineColor}"/>
+	<SolidColorBrush x:Key="CheckBoxForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+	<SolidColorBrush x:Key="CheckBoxCheckedFillBrush" Color="{DynamicResource OnPrimaryColor}"/>
+	<SolidColorBrush x:Key="CheckBoxCheckedBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
+
+
 	<SolidColorBrush x:Key="NotificationCardBorderBrush" Color="{DynamicResource OutlineColor}"/>
 	<SolidColorBrush x:Key="NotificationCardBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
 	<SolidColorBrush x:Key="NotificationCardIconBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
@@ -154,4 +162,12 @@
 	<SolidColorBrush x:Key="SplitButtonBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
 	<SolidColorBrush x:Key="SplitButtonForegroundBrush" Color="{DynamicResource OnSecondaryContainerColor}"/>
 
+	<SolidColorBrush x:Key="WarningLogRunBrush" Color="#FFB300"/>
+	<SolidColorBrush x:Key="ErrorLogRunBrush" Color="{DynamicResource ErrorColor}"/>
+	<SolidColorBrush x:Key="NormalLogRunBrush" Color="{DynamicResource OnSurfaceColor}"/>
+	
+	<SolidColorBrush x:Key="WarningSourceRunBrush" Color="#FFB300"/>
+	<SolidColorBrush x:Key="ErrorSourceRunBrush" Color="{DynamicResource ErrorColor}"/>
+	<SolidColorBrush x:Key="InfoSourceRunBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="UnknownSourceRunBrush" Color="{DynamicResource PrimaryColor}"/>
 </ResourceDictionary>

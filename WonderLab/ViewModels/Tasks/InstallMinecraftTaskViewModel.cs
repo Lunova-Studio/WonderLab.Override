@@ -1,8 +1,6 @@
-﻿using Avalonia.Controls.Notifications;
-using Avalonia.Threading;
+﻿using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Components.Downloader;
 using System;
 using System.Diagnostics;
@@ -10,21 +8,22 @@ using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Classes.Interfaces;
 using WonderLab.Classes.Models;
-using WonderLab.Classes.Models.Messaging;
 using Timer = System.Timers.Timer;
 
 namespace WonderLab.ViewModels.Tasks;
 
-public sealed partial class LaunchTaskViewModel : ObservableObject, ITaskJob<TaskProgress> {
+public sealed partial class InstallMinecraftTaskViewModel : ObservableObject, ITaskJob<TaskProgress> {
     private readonly CancellationTokenSource _launchCancellationTokenSource = new();
 
     public string ProgressText => Progress.ToString("P2");
-    public string SpeedText => Speed is null ? string.Empty : DefaultDownloader.FormatSize(Speed.Value, true);
+    public string SpeedText => Speed is null ? string.Empty : $"({FinishedCount}/{TotalCount}) {DefaultDownloader.FormatSize(Speed.Value, true)}";
 
-    [ObservableProperty] private TaskStatus _taskStatus;
+    [ObservableProperty] private int _totalCount;
+    [ObservableProperty] private int _finishedCount;
     [ObservableProperty] private bool _isSupportSpeed;
+    [ObservableProperty] private TaskStatus _taskStatus;
     [ObservableProperty] private bool _isIndeterminate = true;
-    [ObservableProperty] private string _runningTimeText = "00:00";
+    [ObservableProperty] private string _runningTimeText = "00:00:00";
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(SpeedText))]
@@ -42,11 +41,11 @@ public sealed partial class LaunchTaskViewModel : ObservableObject, ITaskJob<Tas
     public event EventHandler Completed;
     public event EventHandler ProgressChanged;
 
-    public LaunchTaskViewModel() {
+    public InstallMinecraftTaskViewModel() {
         Stopwatch stopwatch = new();
         Timer timer = new(TimeSpan.FromSeconds(1));
         timer.Elapsed += (_, e) => {
-            RunningTimeText = stopwatch.Elapsed.ToString("mm\\:ss");
+            RunningTimeText = stopwatch.Elapsed.ToString("hh\\:mm\\:ss");
 
             if (TaskStatus is TaskStatus.RanToCompletion or TaskStatus.Canceled or TaskStatus.Faulted) {
                 if (stopwatch.IsRunning)
@@ -60,6 +59,16 @@ public sealed partial class LaunchTaskViewModel : ObservableObject, ITaskJob<Tas
         stopwatch.Start();
         _ = Task.Run(timer.Start);
     }
+
+    public void Report(TaskProgress value, int totalCount, int finishedCount) => Dispatcher.UIThread.InvokeAsync(() => {
+        TotalCount = totalCount;
+        FinishedCount = finishedCount;
+        Speed = value.Speed;
+        Progress = value.Progress;
+        TaskStatus = value.TaskStatus;
+        IsSupportSpeed = value.IsSupportSpeed;
+        ProgressChanged?.Invoke(this, EventArgs.Empty);
+    });
 
     public void Report(TaskProgress value) => Dispatcher.UIThread.InvokeAsync(() => {
         Speed = value.Speed;

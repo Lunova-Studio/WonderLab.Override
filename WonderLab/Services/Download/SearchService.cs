@@ -4,6 +4,7 @@ using MinecraftLaunch.Base.Models.Network;
 using MinecraftLaunch.Components.Installer;
 using MinecraftLaunch.Components.Provider;
 using MinecraftLaunch.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -78,8 +79,6 @@ public sealed class SearchService {
     }
 
     public void FilterMinecrafts() {
-        Resources?.Clear();
-
         var minecrafts = _minecrafts.Where(x => x.Type == GetVersionType(MinecraftVersionType)
             && (string.IsNullOrEmpty(Filter) || x.Id.Contains(Filter)));
 
@@ -88,8 +87,10 @@ public sealed class SearchService {
     }
 
     public async Task SaveAsync() {
-        var json = Caches?.Serialize(SearchCacheContext.Default.IEnumerableSearchCache);
-        await File.WriteAllTextAsync(_searchCacheFileInfo.FullName, json);
+        try {
+            var json = Caches?.Serialize(SearchCacheContext.Default.IEnumerableSearchCache);
+            await File.WriteAllTextAsync(_searchCacheFileInfo.FullName, json);
+        } catch (Exception) { }
     }
 
     public async Task InitSearchCacheContainerAsync() {
@@ -131,6 +132,7 @@ public sealed class SearchService {
 
         await SaveAsync();
 
+        Resources?.Clear();
         if (searchType is SearchType.Minecraft)
             FilterMinecrafts();
         else
@@ -138,8 +140,6 @@ public sealed class SearchService {
     }
 
     public async Task SearchResourcesAsync(CancellationToken cancellationToken) {
-        Resources?.Clear();
-
         IEnumerable<IResource> resources = SearchSource is SearchSourceType.Curseforge
             ? await _curseforgeProvider.SearchResourcesAsync(Filter,
                 GetClassId(SearchType), GetCurseforgeCategory(Category), MinecraftVersion)

@@ -1,0 +1,79 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wc="using:WonderLab.Controls">
+	<Design.PreviewWith>
+		<Border Padding="20">
+			<StackPanel Spacing="10">
+				<RadioButton Content="Option 1"/>
+				<RadioButton Content="Option 2" />
+				<RadioButton IsEnabled="False" Content="Option 3" />
+				<RadioButton Content="Option 2" />
+			</StackPanel>
+		</Border>
+	</Design.PreviewWith>
+
+	<ControlTheme x:Key="{x:Type RadioButton}" TargetType="RadioButton">
+		<Setter Property="Padding" Value="8"/>
+		<Setter Property="FontSize" Value="14"/>
+		<Setter Property="VerticalAlignment" Value="Stretch"/>
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="VerticalContentAlignment" Value="Stretch"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="Background" Value="{DynamicResource TileBackgroundBrush}"/>
+		<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}"/>
+		<Setter Property="Foreground" Value="{DynamicResource HyperlinkButtonForegroundBrush}"/>
+
+		<Setter Property="Transitions">
+			<Transitions>
+				<BrushTransition Duration="0:0:.15"
+								 Property="Background"/>
+			</Transitions>
+		</Setter>
+
+		<Setter Property="Template">
+			<ControlTemplate>
+				<wc:RippleControl ClipToBounds="False"
+								  Name="PART_RippleControl"
+								  Width="{TemplateBinding Width}"
+								  Height="{TemplateBinding Height}"
+								  Background="{TemplateBinding Background}"
+								  CornerRadius="{TemplateBinding CornerRadius}"
+								  RippleFill="{DynamicResource RippleEffectFillBrush}"
+								  VerticalAlignment="{TemplateBinding VerticalAlignment}"
+								  HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
+					<ContentPresenter Background="Transparent"
+									  RecognizesAccessKey="True"
+									  Name="PART_ContentPresenter"
+									  Content="{TemplateBinding Content}"
+									  Padding="{TemplateBinding Padding}"
+									  FontSize="{TemplateBinding FontSize}"
+									  Transitions="{TemplateBinding Transitions}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  ContentTemplate="{TemplateBinding ContentTemplate}"
+									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+				</wc:RippleControl>
+			</ControlTemplate>
+		</Setter>
+
+		<Style Selector="^:disabled">
+			<Setter Property="Opacity" Value="0.6" />
+		</Style>
+		
+		<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{DynamicResource ListBoxItemPointeroverBackgroundBrush}"/>
+		</Style>
+
+		<Style Selector="^:checked">
+			<Style Selector="^">
+				<Setter Property="Background" Value="{DynamicResource PrimaryButtonBackgroundBrush}" />
+				<Setter Property="Foreground" Value="{DynamicResource PrimaryButtonForegroundBrush}" />
+			</Style>
+
+			<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Background" Value="{DynamicResource ListBoxItemPointeroverBackgroundBrush}"/>
+			</Style>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

@@ -4,20 +4,17 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Base.Models.Game;
 using ObservableCollections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
 using WonderLab.Classes.Models;
 using WonderLab.Classes.Models.Messaging;
-using WonderLab.Controls;
 using WonderLab.Extensions.Hosting.UI;
 using WonderLab.Services;
 using WonderLab.Services.Authentication;
 using WonderLab.Services.Launch;
+using WonderLab.ViewModels.Tasks;
 
 namespace WonderLab.ViewModels.Windows;
 
@@ -43,11 +40,10 @@ public sealed partial class MainWindowViewModel : ObservableObject {
     [ObservableProperty] private string _gamesPageKey;
     [ObservableProperty] private string _tasksPageKey;
     [ObservableProperty] private string _dynamicPageKey;
-    [ObservableProperty] private bool _isDynamicPageDataLoading;
-    [ObservableProperty] private bool _isGamesPanelOpen;
     [ObservableProperty] private bool _isTasksPanelOpen;
-    [ObservableProperty] private MinecraftEntry _activeMinecraft;
     [ObservableProperty] private AccountModel _activeAccount;
+    [ObservableProperty] private MinecraftEntry _activeMinecraft;
+    [ObservableProperty] private LaunchTaskViewModel _activeTask;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(ShieldBackgroundOpacity))]
@@ -83,16 +79,6 @@ public sealed partial class MainWindowViewModel : ObservableObject {
             ActivePageIndex = arg.PageKey is "Home" ? 0 : -1;
             PageKey = arg.PageKey;
         });
-
-        WeakReferenceMessenger.Default.Register<DynamicPageNotificationMessage>(this, (_, arg) => {
-            DynamicPageKey = string.Empty;
-            DynamicPageKey = arg.PageKey;
-            IsDynamicPageDataLoading = false;
-        });
-
-        WeakReferenceMessenger.Default.Register<PageDataLoadingMessage>(this, (_, arg) => {
-            IsDynamicPageDataLoading = arg.IsLoading;
-        });
     }
 
     [RelayCommand]
@@ -106,6 +92,10 @@ public sealed partial class MainWindowViewModel : ObservableObject {
         ActiveMinecraft = _gameService.ActiveGame;
         ActiveAccount = Accounts.FirstOrDefault(x => x.Account.ProfileEquals(_accountService.ActiveAccount))
             ?? Accounts.FirstOrDefault();
+
+        WeakReferenceMessenger.Default.Register<ActiveMinecraftChangedMessage>(this, (_, _) => {
+            ActiveMinecraft = _gameService.ActiveGame;
+        });
     }
 
     [RelayCommand]
@@ -133,7 +123,6 @@ public sealed partial class MainWindowViewModel : ObservableObject {
 
     [RelayCommand]
     private async Task OpenTasksPanel() {
-        IsGamesPanelOpen = false;
         if (string.IsNullOrEmpty(TasksPageKey)) {
             await Task.Delay(150);
             TasksPageKey = "Tasks";
@@ -142,23 +131,26 @@ public sealed partial class MainWindowViewModel : ObservableObject {
 
     [RelayCommand]
     private Task Launch() => Task.Run(async () => {
-        var launchTask = await _launchService.LaunchTaskAsync(_gameService.ActiveGame);
+        ActiveTask = await _launchService.LaunchTaskAsync(_gameService.ActiveGame);
 
-        launchTask.Completed += (_, _) => WeakReferenceMessenger.Default.Send(
-            new NotificationMessage($"游戏 {_gameService.ActiveGame.Id} 启动成功，祝您游戏愉快！",
+        ActiveTask.Completed += async (_, _) => {
+            WeakReferenceMessenger.Default.Send(new NotificationMessage($"游戏 {_gameService.ActiveGame.Id} 启动成功，祝您游戏愉快！",
                 NotificationType.Success));
+
+            await Task.Delay(1000);
+            ActiveTask = null;
+        };
     });
 
     private void CloseAllPanel() {
-        IsGamesPanelOpen = false;
         IsTasksPanelOpen = false;
-    }
-
-    partial void OnActiveMinecraftChanged(MinecraftEntry value) {
-        _gameService.ActivateMinecraft(value);
     }
 
     partial void OnActiveAccountChanged(AccountModel value) {
         _accountService.ActivateAccount(value?.Account);
+    }
+
+    partial void OnActiveMinecraftChanged(MinecraftEntry value) {
+        _gameService.ActivateMinecraft(value);
     }
 }

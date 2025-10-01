@@ -15,8 +15,9 @@ public partial class PageViewModelBase : ObservableObject {
     protected virtual void Cancel() {
         using (CancellationTokenSource) {
             CancellationTokenSource.Cancel();
-            CancellationTokenSource.Dispose();
         }
+
+        CancellationTokenSource = new();
     }
 
     [RelayCommand]

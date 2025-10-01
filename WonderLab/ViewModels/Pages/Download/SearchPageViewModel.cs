@@ -55,13 +55,13 @@ public sealed partial class SearchPageViewModel : PageViewModelBase {
     });
 
     [RelayCommand]
-    private void JumpToResourcePage(object parameter) {
+    private static void JumpToResourcePage(object parameter) {
         if (parameter is VersionManifestEntry minecraft)
             WeakReferenceMessenger.Default.Send(new RequestResourcePageMessage("Download/Minecraft", minecraft.Id, minecraft));
         else if (parameter is ModrinthResource modrinthResource)
-            WeakReferenceMessenger.Default.Send(new RequestResourcePageMessage("6", modrinthResource.Name, modrinthResource));
+            WeakReferenceMessenger.Default.Send(new RequestResourcePageMessage("Download/Minecraft", modrinthResource.Name, modrinthResource)); // WIP
         else if (parameter is CurseforgeResource curseforgeResource)
-            WeakReferenceMessenger.Default.Send(new RequestResourcePageMessage("6", curseforgeResource.Name, curseforgeResource));
+            WeakReferenceMessenger.Default.Send(new RequestResourcePageMessage("Download/Minecraft", curseforgeResource.Name, curseforgeResource)); // WIP
         else
             throw new NotSupportedException($"Unsupported resource type");
     }

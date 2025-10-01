@@ -5,6 +5,7 @@ using MinecraftLaunch.Extensions;
 using MinecraftLaunch.Utilities;
 using SkiaSharp;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,8 +20,8 @@ public static class SkinUtil {
     private static readonly string CacheFolderPath =
         Path.Combine(PathUtil.GetDataFolderPath(), "cache", "skin");
 
-    public static Dictionary<Guid, SKBitmap> SkinCaches { get; } = [];
-    public static Dictionary<Guid, Bitmap> SkinAvatarCaches { get; } = [];
+    public static ConcurrentDictionary<Guid, SKBitmap> SkinCaches { get; } = [];
+    public static ConcurrentDictionary<Guid, Bitmap> SkinAvatarCaches { get; } = [];
 
     public static void InitCacheFolder() {
         if (Directory.Exists(CacheFolderPath))

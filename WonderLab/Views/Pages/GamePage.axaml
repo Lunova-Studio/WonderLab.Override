@@ -112,6 +112,7 @@
 
 	<Grid RowDefinitions="auto auto *">
 		<TextBlock Classes="Title"
+				   Margin="0 12 0 0"
 				   Text="{I18n GameManager}"/>
 		
 		<WrapPanel LineSpacing="16"

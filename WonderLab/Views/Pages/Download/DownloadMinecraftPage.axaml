@@ -5,66 +5,211 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
 			 xmlns:wc="using:WonderLab.Controls"
 			 xmlns:wa="using:WonderLab.Media.Attachments"
+			 xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.DownloadMinecraftPage">
 	<UserControl.Resources>
-		<RecyclingElementFactory x:Key="LoaderTypeTemplateSelector">
-			<RecyclingElementFactory.Templates>
-				<!--<DataTemplate>
+		<DataTemplate x:Key="SelectedLoaderTemplate">
+			<wc:RippleControl CornerRadius="{StaticResource NormalCornerRadius}"
+							  Background="{DynamicResource SettingCardsBackgroundBrush}">
+				<Grid Margin="12 8 6 8"
+					  ColumnDefinitions="auto * auto">
+					<Border Width="25"
+							Height="25"
+							CornerRadius="{StaticResource WeakCornerRadius}">
+						<Border.Background>
+							<ImageBrush Source="{Binding, Converter={StaticResource LoaderIconConverter}}"/>
+						</Border.Background>
+					</Border>
+
+					<TextBlock Margin="8 0"
+							   Classes="BodyStrong"
+							   VerticalAlignment="Center"
+							   Text="{Binding DisplayVersion}"
+							   Grid.Column="1"/>
 					
-				</DataTemplate>-->
-			</RecyclingElementFactory.Templates>
-		</RecyclingElementFactory>
+					<Button FontSize="10"
+							Classes="icon"
+							VerticalAlignment="Center"
+							CommandParameter="{Binding}"
+							Content="{mi:MaterialIconExt Close}"
+							Command="{Binding $parent[ItemsRepeater].DataContext.RemoveLoaderCommand}"
+							Grid.Column="2"/>
+				</Grid>
+			</wc:RippleControl>
+		</DataTemplate>
 	</UserControl.Resources>
+	
+	<Interaction.Behaviors>
+		<EventTriggerBehavior EventName="Navigated">
+			<InvokeCommandAction Command="{Binding NavigatedCommand}"/>
+		</EventTriggerBehavior>
+	</Interaction.Behaviors>
+
 	<ScrollViewer>
 		<ItemsControl MaxWidth="1000"
 					  Margin="0 0 16 0"
 					  wa:AnimatedScrollExtensions.AnimatedScroll="True">
-			<wc:SettingCard Classes="image"
-							Header="1.21.8"
-							Background="{DynamicResource SettingCardsBackgroundBrush}">
-				<wc:SettingCard.Icon>
+			<wc:NavigationTile Classes="content"
+							   IsEnableAnimation="False"
+							   Title="{Binding MinecraftId}">
+				<wc:NavigationTile.Icon>
 					<Border Width="40"
 							Height="40"
 							CornerRadius="{StaticResource WeakCornerRadius}">
 						<Border.Background>
-							<ImageBrush Source="resm:WonderLab.Assets.Images.Icons.release_minecraft.png"/>
+							<ImageBrush Source="{Binding, Converter={StaticResource MinecraftIconConverter}}"/>
 						</Border.Background>
 					</Border>
-				</wc:SettingCard.Icon>
+				</wc:NavigationTile.Icon>
 
-				<wc:SettingCard.Content>
-					<StackPanel>
-						<TextBlock Classes="BodyStrong"
-								   Text="1.20.8"/>
-								   
-						<TextBlock Classes="Caption"
-								   Text="正式版"/>
-					</StackPanel>
-				</wc:SettingCard.Content>
-				
-				<Button Content="安装"/>
-			</wc:SettingCard>
+				<wc:NavigationTile.Description>
+					<Grid Margin="0 2 0 0"
+						  ColumnDefinitions="auto *">
+						<wc:Tag Text="{Binding VersionType}"/>
+
+						<TextBlock Margin="8 0 0 0"
+								   Classes="Caption"
+								   VerticalAlignment="Center"
+								   TextTrimming="CharacterEllipsis"
+								   Text="{Binding ReleaseTime}"
+								   Grid.Column="1"/>
+					</Grid>
+				</wc:NavigationTile.Description>
+
+				<wc:NavigationTile.Footer>
+					<Button Margin="0 0 8 0"
+							Classes="primary"
+							VerticalAlignment="Center"
+							Content="安装"
+							Command="{Binding InstallCommand}"/>
+				</wc:NavigationTile.Footer>
+			</wc:NavigationTile>
 			
 			<TextBlock Margin="0 24 16 12"
 					   Classes="BodyStrong"
 					   Text="附加组件"/>
 
-			<Border CornerRadius="{StaticResource StrongCornerRadius}"
-					Background="{DynamicResource SettingCardsBackgroundBrush}">
+
+			<ItemsRepeater Margin="0 0 0 8"
+						   ItemsSource="{Binding SelectedLoaders}"
+						   IsVisible="{Binding IsSelectedLoaderVisible}"
+						   ItemTemplate="{StaticResource SelectedLoaderTemplate}">
+				<ItemsRepeater.Layout>
+					<StackLayout Spacing="8"
+								 Orientation="Horizontal"/>
+				</ItemsRepeater.Layout>
+			</ItemsRepeater>
+
+			<Border Padding="8"
+					CornerRadius="{StaticResource StrongCornerRadius}"
+					Background="{DynamicResource SettingCardsBackgroundBrush}"
+					wa:AnimatedScrollExtensions.AnimatedScroll="True">
 				<StackPanel Spacing="8">
-					<TabStrip Background="Transparent"
-							  SelectedIndex="{Binding ActiveLoaderType}">
-						<TabStripItem Content="Forge"/>
-						<TabStripItem Content="Neoforge"/>
-						<TabStripItem Content="Fabric"/>
-						<TabStripItem Content="Quilt"/>
-						<TabStripItem Content="Optifine"/>
-					</TabStrip>
+					<Grid ColumnDefinitions="* * * * *">
+						<RadioButton Content="Forge"
+									 CommandParameter="Forge"
+									 IsChecked="{Binding IsForgeLoaded}"
+									 Command="{Binding ChangeActiveLoaderCommand}"
+									 Grid.Column="0">
+							<RadioButton.IsEnabled>
+								<MultiBinding Converter="{StaticResource LoaderEnabledConverter}">
+									<Binding Path="IsSupportForge"/>
+									<Binding Path="IsForgeOptional"/>
+								</MultiBinding>
+							</RadioButton.IsEnabled>
+						</RadioButton>
+
+						<RadioButton Content="Neoforge"
+									 CommandParameter="Neoforge"
+									 Command="{Binding ChangeActiveLoaderCommand}"
+									 Grid.Column="1">
+							<RadioButton.IsEnabled>
+								<MultiBinding Converter="{StaticResource LoaderEnabledConverter}">
+									<Binding Path="IsSupportNeoForge"/>
+									<Binding Path="IsNeoForgeOptional"/>
+								</MultiBinding>
+							</RadioButton.IsEnabled>
+						</RadioButton>
+
+						<RadioButton Content="Fabric"
+									 CommandParameter="Fabric"
+									 Command="{Binding ChangeActiveLoaderCommand}"
+									 Grid.Column="2">
+							<RadioButton.IsEnabled>
+								<MultiBinding Converter="{StaticResource LoaderEnabledConverter}">
+									<Binding Path="IsSupportFabric"/>
+									<Binding Path="IsFabricOptional"/>
+								</MultiBinding>
+							</RadioButton.IsEnabled>
+						</RadioButton>
+
+						<RadioButton Content="Quilt"
+									 CommandParameter="Quilt"
+									 Command="{Binding ChangeActiveLoaderCommand}"
+									 Grid.Column="3">
+							<RadioButton.IsEnabled>
+								<MultiBinding Converter="{StaticResource LoaderEnabledConverter}">
+									<Binding Path="IsSupportQuilt"/>
+									<Binding Path="IsQuiltOptional"/>
+								</MultiBinding>
+							</RadioButton.IsEnabled>
+						</RadioButton>
+
+						<RadioButton Content="Optifine"
+									 CommandParameter="Optifine"
+									 Command="{Binding ChangeActiveLoaderCommand}"
+									 Grid.Column="4">
+							<RadioButton.IsEnabled>
+								<MultiBinding Converter="{StaticResource LoaderEnabledConverter}">
+									<Binding Path="IsSupportOptiFine"/>
+									<Binding Path="IsOptiFineOptional"/>
+								</MultiBinding>
+							</RadioButton.IsEnabled>
+						</RadioButton>
+					</Grid>
+
+					<Separator Margin="-8 0" Padding="0" Height="1" Opacity="0.2"/>
+
+					<wc:ProgressRing Width="40"
+									 Height="40"
+									 IsIndeterminate="True"
+									 HorizontalAlignment="Center"
+									 IsVisible="{Binding IsLoaderLoading}"/>
 					
-					<ItemsRepeater Background="Red"
-								   ItemTemplate="{StaticResource LoaderTypeTemplateSelector}">
+					<ListBox ItemsSource="{Binding Loaders}"
+							 SelectedItem="{Binding SelectedLoader}">
+						<ListBox.ItemsPanel>
+							<ItemsPanelTemplate>
+								<StackPanel Spacing="4"/>
+							</ItemsPanelTemplate>
+						</ListBox.ItemsPanel>
 						
-					</ItemsRepeater>
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<Grid ColumnSpacing="8"
+									  ColumnDefinitions="auto *">
+									<Border Height="30"
+											Width="30"
+											CornerRadius="{StaticResource WeakCornerRadius}">
+										<Border.Background>
+											<ImageBrush Source="{Binding Converter={StaticResource LoaderIconConverter}}"/>
+										</Border.Background>
+									</Border>
+									
+									<StackPanel Height="35"
+												HorizontalAlignment="Left"
+												Grid.Column="1">
+										<TextBlock Classes="BodyStrong"
+												   Text="{Binding DisplayVersion}"/>
+
+										<TextBlock Classes="Caption"
+												   Text="{Binding Description}"
+												   Foreground="{DynamicResource ApplicationSubtitleForegroundBrush}"/>
+									</StackPanel>
+								</Grid>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
 				</StackPanel>
 			</Border>
 		</ItemsControl>

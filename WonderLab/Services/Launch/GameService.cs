@@ -71,9 +71,9 @@ public sealed class GameService {
         if (entry != null && !Minecrafts.Contains(entry))
             throw new ArgumentException("The specified minecraft entry does not exist.");
 
-        WeakReferenceMessenger.Default.Send(new ActiveMinecraftChangedMessage());
-        _settingService.Setting.ActiveGameId = entry?.Id;
         ActiveGame = entry;
+        _settingService.Setting.ActiveGameId = entry?.Id;
+        WeakReferenceMessenger.Default.Send(new ActiveMinecraftChangedMessage());
     }
 
     public bool TryGetMinecraftProfile(out SpecificSettingModel profile) {

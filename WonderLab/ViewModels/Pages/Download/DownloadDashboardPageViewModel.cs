@@ -44,7 +44,7 @@ public sealed partial class DownloadDashboardPageViewModel : PageViewModelBase {
             await SearchCommand.ExecuteAsync(string.Empty);
         });
 
-        WeakReferenceMessenger.Default.Register<RequestDownloadPageGobackMessage>(this, async (_, _) => {
+        WeakReferenceMessenger.Default.Register<RequestDownloadPageGobackMessage>(this, (_, _) => {
             Keyword = string.Empty;
             ActivePageKey = string.Empty;
             IsEnterKeyDown = true;

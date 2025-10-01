@@ -17,10 +17,6 @@ namespace WonderLab.Media.Behaviors;
 
 [StyledProperty(typeof(bool), "IsExited")]
 public sealed partial class MinecraftProcessCardAnimationBehavior : Behavior<Button> {
-    protected override void OnAttachedToVisualTree() {
-        base.OnAttachedToVisualTree();
-    }
-
     protected override async void OnLoaded() {
         base.OnLoaded();
         await Task.Delay(100);
@@ -63,7 +59,7 @@ public sealed partial class MinecraftProcessCardAnimationBehavior : Behavior<But
                 new((float)xPoint, (float)height, 0), TimeSpan.FromSeconds(0.4), new WonderBackEaseIn() { Amplitude = Amplitude.Strong });
 
             compositionVisual.StartAnimation(CompositionAnimationUtil.PROPERTY_OFFSET, offsetAni);
-            await Task.Delay(TimeSpan.FromSeconds(0.45));
+            await Task.Delay(TimeSpan.FromSeconds(0.2));
             AssociatedObject.Width = 0;
         }
     }

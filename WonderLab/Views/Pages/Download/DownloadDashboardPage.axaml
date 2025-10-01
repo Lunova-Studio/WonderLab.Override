@@ -142,7 +142,14 @@
 
 			<ScrollViewer Grid.Column="1"
 						  Grid.RowSpan="2">
-				<Grid RowDefinitions="auto * auto auto">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="auto"/>
+						<RowDefinition Height="*" MaxHeight="400"/>
+						<RowDefinition Height="auto"/>
+						<RowDefinition Height="auto"/>
+					</Grid.RowDefinitions>
+					
 					<TextBlock Classes="BodyStrong"
 							   Text="热门资源推荐"
 							   Grid.Row="0"/>

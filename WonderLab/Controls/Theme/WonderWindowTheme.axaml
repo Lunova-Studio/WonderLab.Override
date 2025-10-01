@@ -84,7 +84,7 @@
 								<DockPanel LastChildFill="True">
 									<Grid Height="28"
 										  Margin="16 12 16 0"
-										  ColumnDefinitions="1* Auto"
+										  ColumnDefinitions="* Auto"
 										  HorizontalAlignment="Stretch"
 										  DockPanel.Dock="Top">
 										<Border Grid.Column="0"

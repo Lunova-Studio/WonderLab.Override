@@ -13,7 +13,7 @@
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
 	
-	<Grid RowDefinitions="auto *">
+	<Grid MaxWidth="1000" RowDefinitions="auto *">
 		<wce:BreadcrumbBar Margin="0 12"
 						   VerticalAlignment="Top"
 						   HorizontalAlignment="Left"

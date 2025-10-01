@@ -9,6 +9,7 @@ using MinecraftLaunch.Components.Downloader;
 using MinecraftLaunch.Extensions;
 using MinecraftLaunch.Launch;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using WonderLab.Classes.Models;
 using WonderLab.Classes.Models.Messaging;
@@ -45,16 +46,11 @@ public sealed class LaunchService {
 
     public Task<LaunchTaskViewModel> LaunchTaskAsync(MinecraftEntry entry) {
         LaunchTaskViewModel task = new() {
-            JobName = $"游戏 {entry?.Id} 的启动任务" // TODO: I18n
+            JobName = entry?.Id // TODO: I18n
         };
 
-        _taskService.QueueJob(task);
-
-        WeakReferenceMessenger.Default.Send(new NotificationMessage($"已将游戏 {entry?.Id} 的启动任务添加至任务队列",
-            NotificationType.Information));
-
         Task.Run(() => LaunchAsync(_settingService.Setting
-            .ActiveAccount,entry, task));
+            .ActiveAccount, entry, task));
 
         return Task.FromResult(task);
     }
@@ -120,7 +116,7 @@ public sealed class LaunchService {
             _gameProcessService.AddProcess(gameProcess, entry);
 
             progress.ReportCompleted();
-        } catch (OperationCanceledException) {
+        } catch (TaskCanceledException) {
             progress.Report(new(1d, TaskStatus.Canceled));
             WeakReferenceMessenger.Default.Send(new NotificationMessage($"已中断游戏 {entry.Id} 的启动任务", NotificationType.Information));
         } catch (Exception ex) {

@@ -46,6 +46,7 @@
 				<ResourceInclude Source="/Controls/Theme/TextBoxTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/TabStripTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ComboBoxTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/CheckBoxTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/MenuItemTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ScrollBarTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/PullPanelTheme.axaml"/>
@@ -58,6 +59,7 @@
 				<ResourceInclude Source="/Controls/Theme/SettingCardTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ListBoxItemTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ProgressBarTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/RadioButtonTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ComboBoxItemTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ScrollViewerTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/WonderWindowTheme.axaml"/>
@@ -70,10 +72,11 @@
 				<ResourceInclude Source="/Controls/Theme/HyperlinkButtonTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/NotificationCardTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/SettingExpandCardTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/MenuFlyoutPresenterTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/DialogOverlayPopupHostTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/Experimental/BreadcrumbBarItemTheme.axaml"/>
 			</ResourceDictionary.MergedDictionaries>
-
+			
 			<CornerRadius x:Key="WeakCornerRadius">4</CornerRadius>
 			<CornerRadius x:Key="FullCornerRadius">100</CornerRadius>
 			<CornerRadius x:Key="NormalCornerRadius">8</CornerRadius>
@@ -81,9 +84,11 @@
 
 			<wc:TimeTextConverter x:Key="TimeTextConverter"/>
 			<wc:TaskSpeedConverter x:Key="TaskSpeedConverter"/>
+			<wc:LoaderIconConverter x:Key="LoaderIconConverter"/>
 			<wc:ServerIconConverter x:Key="ServerIconConverter"/>
 			<wc:BoolReverseConverter x:Key="BoolReverseConverter"/>
 			<wc:LauncherIconConverter x:Key="LauncherIconConverter"/>
+			<wc:LoaderEnabledConverter x:Key="LoaderEnabledConverter"/>
 			<wc:MinecraftTagsConverter x:Key="MinecraftTagsConverter"/>
 			<wc:MinecraftIconConverter x:Key="MinecraftIconConverter"/>
 			<wc:BackEaseValueConverter x:Key="BackEaseValueConverter"/>

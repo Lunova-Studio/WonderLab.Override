@@ -26,23 +26,22 @@ public sealed class ListBoxAnimationBehavior : Behavior<ListBoxItem> {
         else
             throw new InvalidOperationException("The control must be a child of IChildIndexProvider");
 
-        var delay = TimeSpan.FromMilliseconds(childIndexProvider.GetChildIndex(AssociatedObject) * 75);
+        var delay = TimeSpan.FromMilliseconds((childIndexProvider.GetChildIndex(AssociatedObject) + 1) * 75);
         var xPoint = compositionVisual.Offset.X;
         var yPoint = compositionVisual.Offset.Y;
         var height = AssociatedObject.Bounds.Height + yPoint;
 
         var offsetAni = CompositionAnimationUtil.CreateVector3Animation(compositionVisual,
             new((float)xPoint, (float)height * 2, 0),
-            new((float)xPoint, (float)yPoint, 0), TimeSpan.FromSeconds(0.4), new WonderBackEaseOut() {
+            new((float)xPoint, (float)yPoint, 0), TimeSpan.FromSeconds(0.45), new WonderBackEaseOut() {
                 Amplitude = Amplitude.Strong
-        }, delay);
+            }, delay);
 
         var scaleAni = CompositionAnimationUtil.CreateVector3Animation(compositionVisual,
-            new(0.5f), new(1), TimeSpan.FromSeconds(0.45), new CubicEaseOut(), delay);
-
+            new(0.8f), new(1), TimeSpan.FromSeconds(0.45), new CubicEaseOut(), delay);
 
         var opacityAni = CompositionAnimationUtil.CreateScalarAnimation(compositionVisual, 0, 1,
-            TimeSpan.FromSeconds(0.6), new CubicEaseOut(), delay);
+            TimeSpan.FromSeconds(0.55), new CubicEaseOut(), delay);
 
         scaleAni.Target = CompositionAnimationUtil.PROPERTY_SCALE;
         offsetAni.Target = CompositionAnimationUtil.PROPERTY_OFFSET;
@@ -58,5 +57,6 @@ public sealed class ListBoxAnimationBehavior : Behavior<ListBoxItem> {
         aniGroup.Add(opacityAni);
 
         compositionVisual.StartAnimationGroup(aniGroup);
+
     }
 }

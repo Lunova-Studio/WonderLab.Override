@@ -49,7 +49,12 @@
         <AvaloniaResource Remove="Assets\Images\Icons\Icon.icns" />
         <AvaloniaResource Remove="Assets\Images\Icons\launcher_HMCL.ico" />
         <AvaloniaResource Remove="Assets\Images\Icons\launcher_PCL2.png" />
+        <AvaloniaResource Remove="Assets\Images\Icons\loader_fabric.png" />
+        <AvaloniaResource Remove="Assets\Images\Icons\loader_forge.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\loader_minecraft.png" />
+        <AvaloniaResource Remove="Assets\Images\Icons\loader_neoforge.png" />
+        <AvaloniaResource Remove="Assets\Images\Icons\loader_optifine.png" />
+        <AvaloniaResource Remove="Assets\Images\Icons\loader_quilt.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\old_minecraft.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\release_minecraft.png" />
         <AvaloniaResource Remove="Assets\Images\Icons\snapshot_minecraft.png" />
@@ -68,7 +73,12 @@
         <EmbeddedResource Include="Assets\Images\Icons\Icon.icns" />
         <EmbeddedResource Include="Assets\Images\Icons\launcher_HMCL.ico" />
         <EmbeddedResource Include="Assets\Images\Icons\launcher_PCL2.png" />
+        <EmbeddedResource Include="Assets\Images\Icons\loader_fabric.png" />
+        <EmbeddedResource Include="Assets\Images\Icons\loader_forge.png" />
         <EmbeddedResource Include="Assets\Images\Icons\loader_minecraft.png" />
+        <EmbeddedResource Include="Assets\Images\Icons\loader_neoforge.png" />
+        <EmbeddedResource Include="Assets\Images\Icons\loader_optifine.png" />
+        <EmbeddedResource Include="Assets\Images\Icons\loader_quilt.png" />
         <EmbeddedResource Include="Assets\Images\Icons\old_minecraft.png" />
         <EmbeddedResource Include="Assets\Images\Icons\release_minecraft.png" />
         <EmbeddedResource Include="Assets\Images\Icons\snapshot_minecraft.png" />
@@ -84,28 +94,28 @@
 
     <ItemGroup>
 		<PackageReference Include="Material.Icons.Avalonia" Version="3.0.0-preview3.1" />
-		<PackageReference Include="System.Linq.Async" Version="6.0.1" />
-        <PackageReference Include="AsyncImageLoader.Avalonia" Version="3.3.0" />
-        <PackageReference Include="Avalonia" Version="11.3.2" />
-        <PackageReference Include="Avalonia.Controls.ColorPicker" Version="11.3.2" />
+		<PackageReference Include="System.Linq.Async" Version="6.0.3" />
+        <PackageReference Include="AsyncImageLoader.Avalonia" Version="3.4.3" />
+        <PackageReference Include="Avalonia" Version="11.3.6" />
+        <PackageReference Include="Avalonia.Controls.ColorPicker" Version="11.3.6" />
         <PackageReference Include="Avalonia.Controls.ItemsRepeater" Version="11.1.5" />
-        <PackageReference Include="Avalonia.Desktop" Version="11.3.2" />
-        <PackageReference Include="Avalonia.Labs.Lottie" Version="11.3.0" />
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.2" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.3.6" />
+        <PackageReference Include="Avalonia.Labs.Lottie" Version="11.3.1" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.6" />
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
         <PackageReference Include="DialogHost.Avalonia" Version="0.9.3" />
         <PackageReference Include="DotNet.Bundle" Version="0.9.13" />
         <PackageReference Include="ObservableCollections" Version="3.3.4" />
         <PackageReference Include="Tomlyn" Version="0.19.0" />
         <PackageReference Include="Xaml.Behaviors.Avalonia" Version="11.3.0.10" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-preview.5.25277.114" />
-        <PackageReference Include="MinecraftLaunch" Version="4.0.2" />
+        <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-rc.1.25451.107" />
+        <PackageReference Include="MinecraftLaunch" Version="4.0.6-preview07" />
         <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.1" />
         <PackageReference Include="Serilog.Sinks.Console" Version="6.0.1-dev-00953" />
         <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
 		<PackageReference Include="SkiaSharp" Version="2.88.9" />
 
-		<PackageReference Include="Avalonia.Diagnostics" Version="11.3.2">
+		<PackageReference Include="Avalonia.Diagnostics" Version="11.3.6">
 			<IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
 			<PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
 		</PackageReference>

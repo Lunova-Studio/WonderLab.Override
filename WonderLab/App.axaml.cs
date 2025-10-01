@@ -7,6 +7,7 @@ using Avalonia.Platform;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MinecraftLaunch;
 using MinecraftLaunch.Components.Parser;
 using MinecraftLaunch.Components.Provider;
 using Monet.Avalonia;
@@ -81,7 +82,7 @@ public sealed partial class App : Application {
             var settingService = Get<SettingService>();
 
             settingService.Initialize();
-            var flag = settingService.IsCompletedOOBE; //TODO: 这里需要判断是否是第一次运行,目前为了调试方便暂时关闭主界面
+            var flag = settingService.IsCompletedOOBE;
             desktop.MainWindow = flag ? Get<MainWindow>() : Get<OobeWindow>();
             desktop.MainWindow.DataContext = flag ? Get<MainWindowViewModel>() : Get<OobeWindowViewModel>();
 
@@ -116,6 +117,7 @@ public sealed partial class App : Application {
         builder.Services.AddSingleton<LaunchService>();
         builder.Services.AddSingleton<SettingService>();
         builder.Services.AddSingleton<AccountService>();
+        builder.Services.AddSingleton<DownloadService>();
         builder.Services.AddSingleton<ShaderpackService>();
         builder.Services.AddSingleton<GameProcessService>();
         builder.Services.AddSingleton<ResourcepackService>();
@@ -127,6 +129,9 @@ public sealed partial class App : Application {
 
         builder.Services.AddSingleton<OobeWindow>();
         builder.Services.AddSingleton<OobeWindowViewModel>();
+
+        builder.Services.AddTransient<MinecraftLogWindow>();
+        builder.Services.AddTransient<MinecraftLogWindowViewModel>();
 
         //Configure Dialog
         var dialogProvider = builder.DialogProvider;

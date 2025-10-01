@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
 using Avalonia.Styling;
@@ -25,6 +26,11 @@ public sealed class ThemeService {
     public static readonly Lazy<Bitmap> LoadingIcon = new("resm:WonderLab.Assets.Images.doro_loading.jpg".ToBitmap());
     public static readonly Lazy<Bitmap> PCLIcon = new("resm:WonderLab.Assets.Images.Icons.launcher_PCL2.png".ToBitmap());
     public static readonly Lazy<Bitmap> HMCLIcon = new("resm:WonderLab.Assets.Images.Icons.launcher_HMCL.ico".ToBitmap());
+    public static readonly Lazy<Bitmap> LoaderQuiltIcon = new("resm:WonderLab.Assets.Images.Icons.loader_quilt.png".ToBitmap());
+    public static readonly Lazy<Bitmap> LoaderForgeIcon = new("resm:WonderLab.Assets.Images.Icons.loader_forge.png".ToBitmap());
+    public static readonly Lazy<Bitmap> LoaderFabricIcon = new("resm:WonderLab.Assets.Images.Icons.loader_fabric.png".ToBitmap());
+    public static readonly Lazy<Bitmap> LoaderOptifineIcon = new("resm:WonderLab.Assets.Images.Icons.loader_optifine.png".ToBitmap());
+    public static readonly Lazy<Bitmap> LoaderNeoforgeIcon = new("resm:WonderLab.Assets.Images.Icons.loader_neoforge.png".ToBitmap());
     public static readonly Lazy<Bitmap> OldMinecraftIcon = new("resm:WonderLab.Assets.Images.Icons.old_minecraft.png".ToBitmap());
     public static readonly Lazy<Bitmap> LoaderMinecraftIcon = new("resm:WonderLab.Assets.Images.Icons.loader_minecraft.png".ToBitmap());
     public static readonly Lazy<Bitmap> ReleaseMinecraftIcon = new("resm:WonderLab.Assets.Images.Icons.release_minecraft.png".ToBitmap());
@@ -38,14 +44,14 @@ public sealed class ThemeService {
     ];
 
     public IReadOnlyList<ColorInfo> ColorInfos { get; } = [
-        new ColorInfo { Key="Red", Color = Colors.Red, ColorData = Colors.Red.ToUInt32() },
-        new ColorInfo { Key="Orange", Color = Colors.Orange, ColorData = Colors.Orange.ToUInt32() },
-        new ColorInfo { Key="Yellow", Color = Colors.Yellow, ColorData = Colors.Yellow.ToUInt32() },
-        new ColorInfo { Key="Green", Color = Colors.Green, ColorData = Colors.Green.ToUInt32() },
-        new ColorInfo { Key="Cyan", Color = Colors.Cyan, ColorData = Colors.Cyan.ToUInt32() },
-        new ColorInfo { Key="Blue", Color = Colors.Blue, ColorData = Colors.Blue.ToUInt32() },
-        new ColorInfo { Key="Purple", Color = Colors.Purple, ColorData = Colors.Purple.ToUInt32() },
-        new ColorInfo { Key="Pink", Color = Colors.Pink, ColorData = Colors.Pink.ToUInt32() },
+        new ColorInfo { Key= "Red", Color = Colors.Red, ColorData = Colors.Red.ToUInt32() },
+        new ColorInfo { Key= "Orange", Color = Colors.Orange, ColorData = Colors.Orange.ToUInt32() },
+        new ColorInfo { Key= "Yellow", Color = Colors.Yellow, ColorData = Colors.Yellow.ToUInt32() },
+        new ColorInfo { Key= "Green", Color = Colors.Green, ColorData = Colors.Green.ToUInt32() },
+        new ColorInfo { Key= "Cyan", Color = Colors.Cyan, ColorData = Colors.Cyan.ToUInt32() },
+        new ColorInfo { Key= "Blue", Color = Colors.Blue, ColorData = Colors.Blue.ToUInt32() },
+        new ColorInfo { Key= "Purple", Color = Colors.Purple, ColorData = Colors.Purple.ToUInt32() },
+        new ColorInfo { Key= "Pink", Color = Colors.Pink, ColorData = Colors.Pink.ToUInt32() },
     ];
 
     public event EventHandler BackgroundTypeChanged;
@@ -53,6 +59,14 @@ public sealed class ThemeService {
     public ThemeService(SettingService settingService, ILogger<ThemeService> logger) {
         _logger = logger;
         _settingService = settingService;
+    }
+
+    public object GetResource(string key) {
+        if (Application.Current.TryGetResource(key, Application.Current.RequestedThemeVariant, out var result)) {
+            return result;
+        }
+
+        throw new Exception($"无法找到资源：{key}");
     }
 
     public void Initialize(WonderWindow window) {

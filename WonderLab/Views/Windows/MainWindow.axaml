@@ -16,27 +16,40 @@
 			<Button Width="30"
 					Opacity="0"
 					Classes="ripple"
+					Margin="0 0 2 0"
 					Background="Transparent"
 					VerticalAlignment="Stretch"
 					HorizontalAlignment="Center"
 					VerticalContentAlignment="Center"
-					HorizontalContentAlignment="Center"
-					CornerRadius="{DynamicResource WeakCornerRadius}">
+					HorizontalContentAlignment="Center">
 				<Interaction.Behaviors>
 					<wb:MinecraftProcessCardAnimationBehavior IsExited="{Binding IsExited}"/>
 				</Interaction.Behaviors>
 
+				<Button.Styles>
+					<Style Selector="Button.ripple">
+						<Setter Property="CornerRadius" Value="{DynamicResource FullCornerRadius}"/>
+					</Style>
+				</Button.Styles>
+				
 				<Button.Transitions>
 					<Transitions>
 						<DoubleTransition Property="Width"
-										  Duration="0:0:.4"
+										  Duration="0:0:.3"
 										  Easing="CubicEaseOut"/>
 					</Transitions>
 				</Button.Transitions>
 
 				<Button.Flyout>
-					<MenuFlyout Placement="TopEdgeAlignedLeft">
-						<MenuItem Header="{I18n Close}" Command="{Binding CloseCommand}"/>
+					<MenuFlyout VerticalOffset="-16"
+								Placement="TopEdgeAlignedRight">
+						<MenuItem Header="{I18n Close}"
+								  Command="{Binding CloseCommand}"
+								  Icon="{mi:MaterialIconExt DeleteEmptyOutline}"/>
+						
+						<MenuItem Header="查看日志"
+								  Icon="{mi:MaterialIconExt Console}"
+								  Command="{Binding OpenLogWindowCommand}"/>
 					</MenuFlyout>
 				</Button.Flyout>
 				
@@ -45,7 +58,7 @@
 						BorderThickness="1"
 						BorderBrush="White"
 						ClipToBounds="True"
-						CornerRadius="{DynamicResource WeakCornerRadius}">
+						CornerRadius="{DynamicResource FullCornerRadius}">
 					<Border.Background>
 						<ImageBrush Stretch="UniformToFill"
 									Source="resm:WonderLab.Assets.Images.Icons.release_minecraft.png"/>
@@ -61,24 +74,69 @@
 		</EventTriggerBehavior>
 	</Interaction.Behaviors>
 	
-	<Grid RowDefinitions="* auto">
+	<Grid RowDefinitions="auto * auto">
+		<Panel Height="20"
+			   VerticalAlignment="Top"
+			   HorizontalAlignment="Stretch"
+			   Grid.Row="0">
+			<Interaction.Behaviors>
+				<wb:LaunchProgressBarBehavior ActiveTask="{Binding ActiveTask}"
+											  ProgressBar="{Binding ElementName=PART_ProgressBar}"/>
+			</Interaction.Behaviors>
+			
+			<ProgressBar Height="20"
+						 CornerRadius="0"
+						 IsIndeterminate="True"
+						 Name="PART_ProgressBar"/>
+
+			<StackPanel Height="18"
+						Orientation="Horizontal"
+						VerticalAlignment="Center"
+						HorizontalAlignment="Center">
+				<TextBlock Classes="Caption"
+						   Text="{Binding ActiveTask.RunningTimeText}"/>
+
+				<TextBlock Classes="Caption"
+						   Margin="16 0 0 0"
+						   IsVisible="{Binding ActiveTask.IsSupportSpeed, Converter={StaticResource BoolReverseConverter}}">
+					<TextBlock.Text>
+						<I18n Key="Launching_Format">
+							<Binding Path="ActiveTask.JobName"/>
+						</I18n>
+					</TextBlock.Text>
+				</TextBlock>
+
+				<TextBlock Classes="Caption"
+						   Margin="16 0 0 0"
+						   Text="补全游戏文件中"
+						   IsVisible="{Binding ActiveTask.IsSupportSpeed}"/>
+
+				<TextBlock Classes="Caption"
+						   Margin="16 0 0 0"
+						   Text="{Binding ActiveTask.SpeedText}"
+						   IsVisible="{Binding ActiveTask.IsSupportSpeed}"/>
+			</StackPanel>
+		</Panel>
+		
 		<wc:Frame Margin="16 12 0 12"
 				  PageKey="{Binding PageKey}"
-				  PageProvider="{Binding PageProvider}"/>
+				  PageProvider="{Binding PageProvider}"
+				  Grid.Row="1"/>
 
 		<wc:PullPanel Margin="8"
 					  Width="400"
 					  HorizontalAlignment="Right"
 					  VerticalAlignment="Stretch"
 					  IsPanelOpen="{Binding IsTasksPanelOpen}"
-					  Grid.Row="0">
+					  Grid.Row="1">
 			<wc:Frame Margin="16 16 0 16"
 					  PageKey="{Binding TasksPageKey}"
 					  PageProvider="{Binding PageProvider}"/>
 		</wc:PullPanel>
 
 		<WindowNotificationManager Margin="12 6 12 0"
-								   Position="TopCenter">
+								   Position="TopCenter"
+								   Grid.Row="1">
 			<Interaction.Behaviors>
 				<wb:NotificationBehavior/>
 			</Interaction.Behaviors>
@@ -90,7 +148,8 @@
 				   TextAlignment="Right"
 				   IsHitTestVisible="False"
 				   VerticalAlignment="Bottom"
-				   HorizontalAlignment="Right">
+				   HorizontalAlignment="Right"
+				   Grid.Row="1">
 			<TextBlock.Inlines>
 				<Run Text="当前为 UI/UX 评估测试，不代表最终质量"/>
 				<LineBreak/>
@@ -101,7 +160,7 @@
 		<ListBox Classes="bottombar"
 				 SelectedIndex="{Binding ActivePageIndex, Mode=TwoWay}"
 				 CornerRadius="{Binding ActivePageIndex, Converter={StaticResource NavigationBarCornerRadiusConverter}}"
-				 Grid.Row="1">
+				 Grid.Row="2">
 			<Interaction.Behaviors>
 				<EventTriggerBehavior EventName="SelectionChanged">
 					<InvokeCommandAction Command="{Binding ChangeActivePageCommand}"/>
@@ -127,17 +186,26 @@
 								 Command="{Binding LaunchCommand}"
 								 CornerRadius="{StaticResource FullCornerRadius}"
 								 Background="{DynamicResource SecondaryContainerBrush}"
+								 ToolTip.ShowDelay="0"
+								 ToolTip.Placement="Top"
+								 ToolTip.VerticalOffset="-16"
 								 Grid.Row="2">
-						<Grid ColumnSpacing="8"
-							  ColumnDefinitions="auto auto">
+						<Grid ColumnDefinitions="auto auto auto">
 							<mi:MaterialIcon FontSize="16"
 											 Kind="RocketLaunch"/>
 
 							<TextBlock FontSize="14"
+									   Margin="8 0 4 0"
 									   Text="{I18n Launch}"
 									   Grid.Column="1"/>
-						</Grid>
 
+							<TextBlock FontSize="14"
+									   MaxWidth="120"
+									   TextTrimming="CharacterEllipsis"
+									   Text="{Binding ActiveMinecraft.Id}"
+									   Grid.Column="2"/>
+						</Grid>
+						
 						<SplitButton.Flyout>
 							<Flyout Placement="TopEdgeAlignedLeft"
 									VerticalOffset="-12">
@@ -200,19 +268,6 @@
 							</Flyout>
 						</SplitButton.Flyout>
 					</SplitButton>
-					
-					<ItemsControl Background="Transparent"
-								  ItemsSource="{Binding MinecraftProcesses}"
-								  ItemTemplate="{StaticResource MinecraftProcessCardItemTemplate}"
-								  Grid.Column="2">
-						<ItemsControl.ItemsPanel>
-							<ItemsPanelTemplate>
-								<ReversibleStackPanel Spacing="2" 
-													  ReverseOrder="True"
-													  Orientation="Horizontal"/>
-							</ItemsPanelTemplate>
-						</ItemsControl.ItemsPanel>
-					</ItemsControl>
 
 					<Button Height="35"
 							Padding="12 4"
@@ -295,7 +350,19 @@
 							VerticalAlignment="Center"
 							Background="{DynamicResource SurfaceContainerHighestBrush}"
 							Grid.Column="3">
-						<Grid ColumnDefinitions="auto auto">
+						<Grid ColumnDefinitions="auto auto auto">
+							<ItemsControl Background="Transparent"
+										  ItemsSource="{Binding MinecraftProcesses}"
+										  ItemTemplate="{StaticResource MinecraftProcessCardItemTemplate}"
+										  Grid.Column="0">
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<ReversibleStackPanel ReverseOrder="True"
+															  Orientation="Horizontal"/>
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+							</ItemsControl>
+							
 							<ToggleButton Width="25"
 										  Height="25"
 										  Padding="0"
@@ -309,7 +376,7 @@
 										  ToolTip.Placement="Top"
 										  ToolTip.VerticalOffset="-16"
 										  ToolTip.Tip="有可用的更新"
-										  Grid.Column="0"/>
+										  Grid.Column="1"/>
 							
 							<ToggleButton Width="25"
 										  Height="25"
@@ -323,7 +390,7 @@
 										  ToolTip.Placement="Top"
 										  ToolTip.VerticalOffset="-16"
 										  ToolTip.Tip="任务中心"
-										  Grid.Column="1"/>
+										  Grid.Column="2"/>
 						</Grid>
 					</Border>
 				</Grid>

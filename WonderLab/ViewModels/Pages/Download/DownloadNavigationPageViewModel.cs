@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
+using MinecraftLaunch.Base.Models.Network;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ public sealed partial class DownloadNavigationPageViewModel : PageViewModelBase 
             });
         });
 
-        WeakReferenceMessenger.Default.Register<RequestResourcePageMessage>(this, (_, args) => {
+        WeakReferenceMessenger.Default.Register<RequestResourcePageMessage>(this, async (_, args) => {
             Dispatcher.UIThread.Post(() => {
                 if (HeaderItems.Count > 1)
                     HeaderItems.Remove(HeaderItems.Last());
@@ -39,6 +40,10 @@ public sealed partial class DownloadNavigationPageViewModel : PageViewModelBase 
                 HeaderItems.Add(args.ResourceName);
                 ActivePageKey = args.Key;
             });
+
+            await Task.Delay(10);
+            WeakReferenceMessenger.Default.Send(new MinecraftResponseMessage(args.ResourceName,
+                args.Parameter as VersionManifestEntry));
         });
     }
 

@@ -46,12 +46,16 @@
 										   Description="{Binding TaskJob.ProgressText}"
 										   wa:NavigationTileExtensions.Value="{Binding TaskJob.Progress}">
 							<wa:NavigationTileExtensions.Content>
-								<TextBlock Classes="Caption"
-										   TextAlignment="Right">
-									<Run Text="{Binding TaskJob.SpeedText}"/>
-									<Run Text=" "/>
-									<Run Text="{Binding TaskJob.RunningTimeText}"/>
-								</TextBlock>
+								<StackPanel Spacing="8"
+											Orientation="Horizontal"
+											HorizontalAlignment="Right">
+									<TextBlock Classes="Caption"
+											   Text="{Binding TaskJob.SpeedText}"
+											   IsVisible="{Binding TaskJob.IsSupportSpeed}"/>
+
+									<TextBlock Classes="Caption"
+											   Text="{Binding TaskJob.RunningTimeText}"/>
+								</StackPanel>
 							</wa:NavigationTileExtensions.Content>
 							
 							<wc:NavigationTile.Footer>

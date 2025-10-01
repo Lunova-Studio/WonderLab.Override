@@ -39,7 +39,7 @@
 							Icon="{mi:MaterialIconExt FolderRemoveOutline}">
 				<Button Classes="icon"
 						FontSize="18"
-						Content="{mi:MaterialIconExt CloseCircleOutline}"
+						Content="{mi:MaterialIconExt DeleteOutline}"
 						Command="{Binding RemoveFolderCommand}"/>
 			</wc:SettingCard>
 		</wc:SettingCards>
