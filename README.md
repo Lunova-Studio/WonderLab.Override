@@ -20,6 +20,8 @@
 
 </div>
 
+<img src="https://file.lingke.ink/mcda/project.webp" alt="你的浏览器不支持SVG显示，此项目为 MCDA 认证优秀项目，请前往 mcdalliance.cn" height="70">
+
 ## 自我介绍
 
 WonderLab 是一个跨平台 Minecraft 启动器，支持自动更新、Modrinth、Curseforge 资源下载、全格式整合包安装（大概），并支持 Windows，MacOS，Linux 等操作系统，同时兼容 x64、Arm64 架构
