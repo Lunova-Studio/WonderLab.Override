@@ -20,7 +20,9 @@
 
 </div>
 
-<img src="https://file.lingke.ink/mcda/project.webp" alt="你的浏览器不支持SVG显示，此项目为 MCDA 认证优秀项目，请前往 mcdalliance.cn" height="70">
+<div align="center">
+  <img src="https://file.lingke.ink/mcda/project.webp" alt="你的浏览器不支持SVG显示，此项目为 MCDA 认证优秀项目，请前往 mcdalliance.cn" height="70">
+</div>
 
 ## 自我介绍
 
@@ -31,16 +33,6 @@ WonderLab 是一个跨平台 Minecraft 启动器，支持自动更新、Modrinth
 > [!WARNING]
 >
 > 当前分支为 `dev` 开发分支，是一个 更新速率快、不稳定、附带多种未知功能 的版本
-
-## 测试版 UI 展示
-
-> [!WARNING]
->
-> 以下展示的 UI 为 240214-1023 版本。在未来，实际可能会有所差别，请以实际为准
-
-<img src="https://s21.ax1x.com/2024/11/17/pARPOBt.md.png" alt="pARPOBt.png" border="0" />
-
-<img src="https://s21.ax1x.com/2024/11/17/pARPbjA.png" alt="pARPbjA.png" border="0" />
 
 ## 食用文档
 
