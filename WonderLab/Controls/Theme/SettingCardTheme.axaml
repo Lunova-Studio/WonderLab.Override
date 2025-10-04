@@ -13,7 +13,7 @@
 		<Setter Property="Background" Value="{DynamicResource SettingCardsBackgroundBrush}"/>
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Grid RowSpacing="8"
+				<Grid RowSpacing="12"
 					  RowDefinitions="auto *"
 					  ClipToBounds="{TemplateBinding ClipToBounds}">
 					<TextBlock Classes="BodyStrong"

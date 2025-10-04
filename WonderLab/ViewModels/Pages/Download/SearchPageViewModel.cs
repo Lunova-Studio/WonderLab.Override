@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Base.Models.Network;
+using ObservableCollections;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -21,25 +22,26 @@ public sealed partial class SearchPageViewModel : PageViewModelBase {
     [ObservableProperty] private string _category = string.Empty;
     [ObservableProperty] private SearchSourceType _searchSource = SearchSourceType.Modrinth;
     [ObservableProperty] private MinecraftVersionType _minecraftVersionType = MinecraftVersionType.Release;
-    [ObservableProperty] private ReadOnlyObservableCollection<object> _resources;
-    [ObservableProperty] private ReadOnlyObservableCollection<string> _categories;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsCommunityResourcesFilterVisible))]
     private SearchType _searchType = SearchType.Minecraft;
 
+    public INotifyCollectionChangedSynchronizedViewList<object> Resources { get; }
+    public INotifyCollectionChangedSynchronizedViewList<string> Categories { get; }
+
     public bool IsCommunityResourcesFilterVisible => SearchType is not SearchType.Minecraft;
 
     public SearchPageViewModel(SearchService searchService) {
         _searchService = searchService;
+
+        Resources = _searchService.Resources.ToNotifyCollectionChanged();
+        Categories = _searchService.Categories.ToNotifyCollectionChanged();
     }
 
     [RelayCommand]
     private Task OnLoaded() => Task.Run(async () => {
         _searchService.UpdateCategories();
-
-        Resources = new(_searchService.Resources);
-        Categories = new(_searchService.Categories);
 
         Category = _searchService.Category;
         SearchType = _searchService.SearchType;
@@ -49,9 +51,10 @@ public sealed partial class SearchPageViewModel : PageViewModelBase {
         if (SearchType is SearchType.Minecraft)
             await _searchService.InitMinecraftsAsync(default);
 
-        IsLoading = Resources.Count == 0;
+        IsLoading = _searchService.Resources.Count == 0;
+
         PropertyChanged += OnPropertyChanged;
-        _searchService.Resources.CollectionChanged += OnCollectionChanged;
+        Resources.CollectionChanged += OnCollectionChanged;
     });
 
     [RelayCommand]
@@ -93,6 +96,6 @@ public sealed partial class SearchPageViewModel : PageViewModelBase {
     }
 
     private void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e) {
-        IsLoading = Resources.Count == 0;
+        IsLoading = _searchService.Resources.Count == 0;
     }
 }

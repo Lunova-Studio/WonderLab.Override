@@ -84,11 +84,18 @@
 							Command="{Binding InstallCommand}"/>
 				</wc:NavigationTile.Footer>
 			</wc:NavigationTile>
-			
-			<TextBlock Margin="0 24 16 12"
+
+			<wc:SettingCards Margin="0 20 0 0"
+							 Header="安装设置">
+				<wc:SettingCard Header="核心名"
+								Icon="{mi:MaterialIconExt RenameOutline}">
+					<TextBox Text="{Binding MinecraftId}"/>
+				</wc:SettingCard>
+			</wc:SettingCards>
+
+			<TextBlock Margin="0 20 16 12"
 					   Classes="BodyStrong"
 					   Text="附加组件"/>
-
 
 			<ItemsRepeater Margin="0 0 0 8"
 						   ItemsSource="{Binding SelectedLoaders}"

@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using MinecraftLaunch;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Base.Interfaces;
 using MinecraftLaunch.Base.Models.Network;
@@ -19,6 +18,8 @@ using WonderLab.Services.Download;
 namespace WonderLab.ViewModels.Pages.Download;
 
 public sealed partial class DownloadMinecraftPageViewModel : PageViewModelBase {
+    private string _versionId;
+
     private readonly DownloadService _downloadService;
 
     private readonly List<IInstallEntry> _allLoaderDatas = [];
@@ -63,8 +64,8 @@ public sealed partial class DownloadMinecraftPageViewModel : PageViewModelBase {
             if (string.IsNullOrEmpty(args.MinecraftId))
                 return;
 
-            MinecraftId = args.MinecraftId;
             MinecraftData = args.MinecraftData;
+            MinecraftId = _versionId = args.MinecraftId;
         });
 
         IsForgeLoaded = false;
@@ -72,8 +73,10 @@ public sealed partial class DownloadMinecraftPageViewModel : PageViewModelBase {
         Loaders = _loaderDatas.ToNotifyCollectionChangedSlim();
         SelectedLoaders = _selectedLoaderDatas.ToNotifyCollectionChangedSlim();
 
-        SelectedLoaders.CollectionChanged += (_, _) =>
+        SelectedLoaders.CollectionChanged += (_, _) => {
             IsSelectedLoaderVisible = _selectedLoaderDatas.Count > 0;
+            MinecraftId = _versionId + (_selectedLoaderDatas.Count > 0 ? "-" + string.Join("-", _selectedLoaderDatas.Select(x => $"{x.ModLoaderType}_{x.DisplayVersion}")) : "");
+        };
     }
 
     [RelayCommand]
@@ -90,7 +93,7 @@ public sealed partial class DownloadMinecraftPageViewModel : PageViewModelBase {
         };
 
         _loaderDatas?.Clear();
-        _loaderDatas?.AddRange(_allLoaderDatas.Where(x => x.ModLoaderType == loaderType));
+        _loaderDatas?.AddRange(_allLoaderDatas?.Where(x => x.ModLoaderType == loaderType));
         var loader = SelectedLoaders.FirstOrDefault(x => x.ModLoaderType == loaderType);
 
         SelectedLoader = loader;
@@ -114,7 +117,7 @@ public sealed partial class DownloadMinecraftPageViewModel : PageViewModelBase {
     private Task Install() => Task.Run(async () => {
         List<IInstallEntry> entries = [.. _selectedLoaderDatas];
         entries.Add(MinecraftData);
-        await _downloadService.InstallMinecraftTaskAsync(entries, "ForgeMC");
+        await _downloadService.InstallMinecraftTaskAsync(entries, MinecraftId);
     });
 
     private void ChangeOtherLoaderState(IInstallEntry entry) {

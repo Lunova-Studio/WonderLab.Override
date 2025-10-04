@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Base.Models.Network;
+using ObservableCollections;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -25,12 +26,13 @@ public sealed partial class DownloadDashboardPageViewModel : PageViewModelBase {
     [ObservableProperty] private bool _isFeaturedResourcesLoading = true;
     [ObservableProperty] private SearchType _activeSearchType = SearchType.Minecraft;
     [ObservableProperty] private ObservableCollection<FeaturedResourcesItem> _featuredResources;
-    [ObservableProperty] private ReadOnlyObservableCollection<SearchCache> _searchCaches;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsNextButtonVisible))]
     [NotifyPropertyChangedFor(nameof(IsPreviousButtonVisible))]
     private int _featuredResourcesIndex = -1;
+
+    public INotifyCollectionChangedSynchronizedViewList<SearchCache> SearchCaches { get; }
 
     public AvaloniaPageProvider PageProvider => _pageProvider;
     public bool IsPreviousButtonVisible => FeaturedResourcesIndex is not 0 && FeaturedResources?.Count > 1;
@@ -39,6 +41,9 @@ public sealed partial class DownloadDashboardPageViewModel : PageViewModelBase {
     public DownloadDashboardPageViewModel(SearchService searchService, AvaloniaPageProvider pageProvider) {
         _searchService = searchService;
         _pageProvider = pageProvider;
+
+        _searchService.Reset();
+        SearchCaches = _searchService.Caches.ToNotifyCollectionChanged();
 
         WeakReferenceMessenger.Default.Register<RequestSearchMessage>(this, async (_, _) => {
             await SearchCommand.ExecuteAsync(string.Empty);
@@ -68,7 +73,7 @@ public sealed partial class DownloadDashboardPageViewModel : PageViewModelBase {
             return;
 
         IsEnterKeyDown = true;
-        HasSearchCache = SearchCaches.Count > 0;
+        HasSearchCache = _searchService.Caches.Count > 0;
         JumpToSearchPageCommand.Execute(default);
 
         await _searchService.SearchAsync(Keyword, _searchService.SearchType, default);
@@ -85,7 +90,7 @@ public sealed partial class DownloadDashboardPageViewModel : PageViewModelBase {
     [RelayCommand]
     private Task RemoveHistory(SearchCache searchCache) => Task.Run(async () => {
         if (_searchService.Caches.Remove(searchCache)) {
-            HasSearchCache = SearchCaches.Count > 0;
+            HasSearchCache = _searchService.Caches.Count > 0;
             await _searchService.SaveAsync();
         }
     });
@@ -101,7 +106,6 @@ public sealed partial class DownloadDashboardPageViewModel : PageViewModelBase {
     protected override void OnNavigated() => Task.Run(async () => {
         await _searchService.InitSearchCacheContainerAsync();
 
-        SearchCaches = new(_searchService.Caches);
         var featuredResources = await _searchService.GetFeaturedResourcesAsync(CancellationTokenSource.Token);
         FeaturedResources = [.. featuredResources.Select(x => new FeaturedResourcesItem(x,
             x.Screenshots?.FirstOrDefault() ?? x.IconUrl))];
@@ -109,10 +113,8 @@ public sealed partial class DownloadDashboardPageViewModel : PageViewModelBase {
         FeaturedResourcesIndex = 0;
         IsFeaturedResourcesLoading = false;
 
-        HasSearchCache = SearchCaches.Count > 0;
+        HasSearchCache = _searchService.Caches.Count > 0;
         PropertyChanged += OnPropertyChanged;
-
-        _searchService.Reset();
     });
 }
 

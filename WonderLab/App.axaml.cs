@@ -224,7 +224,6 @@ public sealed partial class App : Application {
         PlatformSettings.ColorValuesChanged += OnColorValuesChanged;
 
         SkinUtil.InitCacheFolder();
-        Get<ILogger<App>>().LogInformation("当前版本号：{version}", new Uri("resm:WonderLab.version.txt").ToText());
     }
 
     private void OnColorValuesChanged(object sender, Avalonia.Platform.PlatformColorValues e) {

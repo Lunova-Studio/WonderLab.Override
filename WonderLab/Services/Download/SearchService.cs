@@ -4,6 +4,7 @@ using MinecraftLaunch.Base.Models.Network;
 using MinecraftLaunch.Components.Installer;
 using MinecraftLaunch.Components.Provider;
 using MinecraftLaunch.Extensions;
+using ObservableCollections;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -48,9 +49,9 @@ public sealed class SearchService {
     public SearchSourceType SearchSource { get; set; } = SearchSourceType.Modrinth;
     public MinecraftVersionType MinecraftVersionType { get; set; } = MinecraftVersionType.Release;
 
-    public ObservableCollection<object> Resources { get; private set; } = [];
-    public ObservableCollection<string> Categories { get; private set; } = [];
-    public ObservableCollection<SearchCache> Caches { get; private set; } = [];
+    public ObservableList<object> Resources { get; private set; } = [];
+    public ObservableList<string> Categories { get; private set; } = [];
+    public ObservableList<SearchCache> Caches { get; private set; } = [];
 
     public SearchService(ModrinthProvider modrinthProvider, CurseforgeProvider curseforgeProvider) {
         _modrinthProvider = modrinthProvider;
@@ -82,8 +83,7 @@ public sealed class SearchService {
         var minecrafts = _minecrafts.Where(x => x.Type == GetVersionType(MinecraftVersionType)
             && (string.IsNullOrEmpty(Filter) || x.Id.Contains(Filter)));
 
-        foreach (var item in minecrafts)
-            Resources.Add(item);
+        Resources.AddRange(minecrafts);
     }
 
     public async Task SaveAsync() {
@@ -94,7 +94,7 @@ public sealed class SearchService {
     }
 
     public async Task InitSearchCacheContainerAsync() {
-        Caches = [];
+        Caches.Clear();
 
         if (!_searchCacheFileInfo.Exists)
             await _searchCacheFileInfo.Create().DisposeAsync();
@@ -103,10 +103,12 @@ public sealed class SearchService {
         if (string.IsNullOrEmpty(json))
             await SaveAsync();
         else
-            Caches = [.. json.Deserialize(SearchCacheContext.Default.IEnumerableSearchCache)];
+            Caches.AddRange(json.Deserialize(SearchCacheContext.Default.IEnumerableSearchCache));
     }
 
     public async Task InitMinecraftsAsync(CancellationToken cancellationToken) {
+        Resources.Clear();
+
         if (_minecrafts is { Count: > 0 }) {
             FilterMinecrafts();
             return;
