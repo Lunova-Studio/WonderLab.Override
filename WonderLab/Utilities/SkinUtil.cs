@@ -6,7 +6,6 @@ using MinecraftLaunch.Utilities;
 using SkiaSharp;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -32,9 +31,11 @@ public static class SkinUtil {
 
     public static async Task<SKBitmap> GetSkinDataAsync(Account account, CancellationToken cancellationToken = default) {
         return await Task.Run(async () => {
-            var cachePath = Path.Combine(CacheFolderPath, $"{account.Uuid:N}");
-            if (File.Exists(cachePath))
-                return SKBitmap.Decode(File.OpenRead(cachePath));
+            //var cachePath = Path.Combine(CacheFolderPath, $"{account.Uuid:N}");
+            //if (File.Exists(cachePath)) {
+            //    await using var fileStream = File.OpenRead(cachePath);
+            //    return SKBitmap.Decode(fileStream);
+            //}
 
             var data = account switch {
                 OfflineAccount => "resm:WonderLab.Assets.steve.png".ToStream(),
@@ -44,7 +45,7 @@ public static class SkinUtil {
             };
 
             var skinBitmap = SKBitmap.Decode(data);
-            skinBitmap.Save(cachePath);
+            //skinBitmap.Save(cachePath);
 
             return skinBitmap;
         }, cancellationToken);

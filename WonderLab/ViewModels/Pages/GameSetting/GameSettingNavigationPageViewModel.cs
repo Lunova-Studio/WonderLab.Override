@@ -9,7 +9,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using WonderLab.Classes.Models.Messaging;
 using WonderLab.Extensions.Hosting.UI;
-using WonderLab.Services.Auxiliary;
 using WonderLab.Services.Launch;
 
 namespace WonderLab.ViewModels.Pages.GameSetting;

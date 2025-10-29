@@ -44,12 +44,17 @@
 						CornerRadius="{OnPlatform '0', Linux='10', x:TypeArguments=CornerRadius}">
 					<VisualLayerManager IsHitTestVisible="True"
 										Name="PART_VisualLayerManager">
-						<dialogHost:DialogHost Padding="0"
-											   DialogMargin="0"
-											   Identifier="Host"
-											   Background="{DynamicResource DialogPopupBackgroundBrush}"
-											   dialogHost:DialogHostStyle.CornerRadius="{DynamicResource StrongCornerRadius}">
-							<Panel Name="PART_RootPanel">
+						<VisualLayerManager.ChromeOverlayLayer>
+							<ItemsControl ItemsSource="{Binding OverlayControls, RelativeSource={RelativeSource AncestorType={x:Type wc:WonderWindow}}}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <Panel/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+						</VisualLayerManager.ChromeOverlayLayer>
+
+						<Panel Name="PART_RootPanel">
 								<!--Experimental-->
 								<wcee:SkiaShaderRenderer Focusable="True"
 														 Name="PART_SkiaShaderRenderer"/>
@@ -66,7 +71,6 @@
 										VerticalAlignment="Stretch"
 										HorizontalAlignment="Stretch"
 										Background="{TemplateBinding Background}"/>
-
 								<Border Focusable="True"
 										VerticalAlignment="Stretch"
 										HorizontalAlignment="Stretch"
@@ -82,51 +86,50 @@
 								</Border>
 
 								<DockPanel LastChildFill="True">
-									<Grid Height="28"
-										  Margin="16 12 16 0"
-										  ColumnDefinitions="* Auto"
-										  HorizontalAlignment="Stretch"
-										  DockPanel.Dock="Top">
-										<Border Grid.Column="0"
-												Name="PART_DragLayoutBorder"
-												CornerRadius="{DynamicResource FullCornerRadius}"
-												Background="{DynamicResource ApplicationTitleBarBackgroundBrush}">
+									<Border MinHeight="35"
+											Name="PART_DragLayoutBorder"
+											HorizontalAlignment="Stretch"
+											Background="{DynamicResource OOBEWindowTitleBarBackgroundBrush}"
+											DockPanel.Dock="Top">
+										<Grid ColumnDefinitions="auto * auto auto">
 											<TextBlock Margin="16 0"
-													   Classes="BodyStrong"
+													   FontSize="14"
+													   FontWeight="SemiBold"
 													   Name="TitleTextBlock"
 													   VerticalAlignment="Center"
 													   Text="{TemplateBinding Title}"
-													   Foreground="{DynamicResource OnSurfaceBrush}"/>
-										</Border>
+													   Foreground="{DynamicResource OnSurfaceBrush}"
+													   Grid.Column="0"/>
 
-										<Border Grid.Column="1"
-												Margin="12 0 0 0"
-												CornerRadius="{DynamicResource FullCornerRadius}"
-												Background="{DynamicResource ApplicationTitleBarBackgroundBrush}">
-											<Grid Margin="15 0"
-												  ColumnDefinitions="auto auto">
-												<Button Width="22"
-														Height="22"
-														FontSize="12"
-														Classes="icon"
-														Name="PART_MinimizeButton"
-														Content="{mi:MaterialIconExt Minimize}"
-														Foreground="{TemplateBinding Foreground}"
-														CornerRadius="{DynamicResource FullCornerRadius}"/>
+											<ContentPresenter VerticalAlignment="Stretch"
+															  HorizontalAlignment="Stretch"
+															  VerticalContentAlignment="Stretch"
+															  HorizontalContentAlignment="Stretch"
+															  Content="{TemplateBinding TitleBarContent}"
+															  Grid.Column="1"/>
+											
+											<Button Width="28"
+													Height="28"
+													FontSize="14"
+													Classes="icon"
+													Name="PART_MinimizeButton"
+													Content="{mi:MaterialIconExt Minimize}"
+													Foreground="{TemplateBinding Foreground}"
+													CornerRadius="{DynamicResource FullCornerRadius}"
+													Grid.Column="2"/>
 
-												<Button Width="22"
-														Height="22"
-														FontSize="12"
-														Classes="icon"
-														Margin="5 0 0 0"
-														Name="PART_CloseButton"
-														Content="{mi:MaterialIconExt Close}"
-														Foreground="{TemplateBinding Foreground}"
-														CornerRadius="{DynamicResource FullCornerRadius}"
-														Grid.Column="1"/>
-											</Grid>
-										</Border>
-									</Grid>
+											<Button Width="28"
+													Height="28"
+													FontSize="14"
+													Classes="icon"
+													Margin="4 0 12 0"
+													Name="PART_CloseButton"
+													Content="{mi:MaterialIconExt Close}"
+													Foreground="{TemplateBinding Foreground}"
+													CornerRadius="{DynamicResource FullCornerRadius}"
+													Grid.Column="3"/>
+										</Grid>
+									</Border>
 
 									<ContentPresenter ClipToBounds="True"
 													  IsHitTestVisible="True"
@@ -138,118 +141,9 @@
 													  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
 								</DockPanel>
 							</Panel>
-						</dialogHost:DialogHost>
 					</VisualLayerManager>
 				</Border>
 			</ControlTemplate>
 		</Setter>
-
-		<Style Selector="^.test">
-			<Setter Property="Template">
-				<ControlTemplate>
-					<Border ClipToBounds="True"
-							Margin="{TemplateBinding Margin}"
-							CornerRadius="{OnPlatform '0', Linux='10', x:TypeArguments=CornerRadius}">
-						<VisualLayerManager IsHitTestVisible="True"
-											Name="PART_VisualLayerManager">
-							<dialogHost:DialogHost Padding="0"
-												   DialogMargin="0"
-												   Identifier="Host"
-												   Background="{DynamicResource DialogPopupBackgroundBrush}"
-												   dialogHost:DialogHostStyle.CornerRadius="{DynamicResource StrongCornerRadius}">
-								<Panel Name="PART_RootPanel">
-									<!--Experimental-->
-									<wcee:SkiaShaderRenderer Focusable="True"
-															 Name="PART_SkiaShaderRenderer"/>
-
-									<ExperimentalAcrylicBorder Focusable="True"
-															   IsVisible="False"
-															   Name="PART_AcrylicBlurMask"
-															   Material="{DynamicResource ApplicationAcrylicMaterial}">
-									</ExperimentalAcrylicBorder>
-
-									<Border Margin="0"
-											Focusable="True"
-											Name="PART_Background"
-											VerticalAlignment="Stretch"
-											HorizontalAlignment="Stretch"
-											Background="{TemplateBinding Background}"/>
-
-									<Border Focusable="True"
-											VerticalAlignment="Stretch"
-											HorizontalAlignment="Stretch"
-											Background="{DynamicResource BackgroundMaskBrush}"
-											Opacity="{TemplateBinding ShieldBackgroundOpacity}">
-										<Border.Transitions>
-											<Transitions>
-												<DoubleTransition Easing="CircularEaseOut"
-																  Property="Opacity"
-																  Duration="0:0:.70"/>
-											</Transitions>
-										</Border.Transitions>
-									</Border>
-
-									<DockPanel LastChildFill="True">
-										<Border MinHeight="35"
-												Name="PART_DragLayoutBorder"
-												HorizontalAlignment="Stretch"
-												Background="{DynamicResource OOBEWindowTitleBarBackgroundBrush}"
-												DockPanel.Dock="Top">
-											<Grid ColumnDefinitions="auto * auto auto">
-												<TextBlock Margin="16 0"
-														   FontSize="14"
-														   FontWeight="SemiBold"
-														   Name="TitleTextBlock"
-														   VerticalAlignment="Center"
-														   Text="{TemplateBinding Title}"
-														   Foreground="{DynamicResource OnSurfaceBrush}"
-														   Grid.Column="0"/>
-
-												<ContentPresenter VerticalAlignment="Stretch"
-																  HorizontalAlignment="Stretch"
-																  VerticalContentAlignment="Stretch"
-																  HorizontalContentAlignment="Stretch"
-																  Content="{TemplateBinding TitleBarContent}"
-																  Grid.Column="1"/>
-												
-												<Button Width="28"
-														Height="28"
-														FontSize="14"
-														Classes="icon"
-														Name="PART_MinimizeButton"
-														Content="{mi:MaterialIconExt Minimize}"
-														Foreground="{TemplateBinding Foreground}"
-														CornerRadius="{DynamicResource FullCornerRadius}"
-														Grid.Column="2"/>
-
-												<Button Width="28"
-														Height="28"
-														FontSize="14"
-														Classes="icon"
-														Margin="4 0 12 0"
-														Name="PART_CloseButton"
-														Content="{mi:MaterialIconExt Close}"
-														Foreground="{TemplateBinding Foreground}"
-														CornerRadius="{DynamicResource FullCornerRadius}"
-														Grid.Column="3"/>
-											</Grid>
-										</Border>
-
-										<ContentPresenter ClipToBounds="True"
-														  IsHitTestVisible="True"
-														  Name="PART_ContentPresenter"
-														  Content="{TemplateBinding Content}"
-														  CornerRadius="{DynamicResource StrongCornerRadius}"
-														  ContentTemplate="{TemplateBinding ContentTemplate}"
-														  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-														  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
-									</DockPanel>
-								</Panel>
-							</dialogHost:DialogHost>
-						</VisualLayerManager>
-					</Border>
-				</ControlTemplate>
-			</Setter>
-		</Style>
 	</ControlTheme>
 </ResourceDictionary>

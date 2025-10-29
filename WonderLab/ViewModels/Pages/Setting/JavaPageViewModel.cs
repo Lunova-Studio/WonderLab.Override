@@ -1,8 +1,10 @@
 ﻿using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Controls.Notifications;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Base.Models.Game;
 using MinecraftLaunch.Base.Utilities;
 using MinecraftLaunch.Utilities;
@@ -12,8 +14,6 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Avalonia.Controls.Notifications;
-using CommunityToolkit.Mvvm.Messaging;
 using WonderLab.Classes.Models.Messaging;
 using WonderLab.Services;
 
@@ -22,8 +22,8 @@ namespace WonderLab.ViewModels.Pages.Setting;
 public sealed partial class JavaPageViewModel : ObservableObject {
     private readonly SettingService _settingService;
     private readonly ObservableCollection<JavaEntry> _javas;
-    private readonly string[] JavaFilterPatterns = EnvironmentUtil.IsWindow 
-        ? ["javaw.exe"] 
+    private readonly string[] JavaFilterPatterns = EnvironmentUtil.IsWindow
+        ? ["javaw.exe"]
         : ["java"];
 
     [ObservableProperty] private int _maxMemorySize = 512;
@@ -61,8 +61,7 @@ public sealed partial class JavaPageViewModel : ObservableObject {
                 return;
 
             var path = result[0].Path.LocalPath;
-            if (EnvironmentUtil.IsLinux && !path.EndsWith("java", StringComparison.OrdinalIgnoreCase))
-            {
+            if (EnvironmentUtil.IsLinux && !path.EndsWith("java", StringComparison.OrdinalIgnoreCase)) {
                 WeakReferenceMessenger.Default.Send(new NotificationMessage("Java选择错误，请选择正确的java可执行文件",
                     NotificationType.Error));
                 return;

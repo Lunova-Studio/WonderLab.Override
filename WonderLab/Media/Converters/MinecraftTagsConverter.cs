@@ -15,7 +15,7 @@ public sealed class MinecraftTagsConverter : IValueConverter {
                 minecraft.Version.Type.ToString(),
             ];
 
-            if( minecraft is ModifiedMinecraftEntry modifiedMinecraft) {
+            if (minecraft is ModifiedMinecraftEntry modifiedMinecraft) {
                 var loader = modifiedMinecraft.ModLoaders.FirstOrDefault();
                 tags.Add($"{loader.Type} {loader.Version}");
             }

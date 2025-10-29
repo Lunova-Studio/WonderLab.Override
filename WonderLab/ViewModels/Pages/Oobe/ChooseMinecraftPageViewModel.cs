@@ -42,7 +42,7 @@ public sealed partial class ChooseMinecraftPageViewModel : PageViewModelBase {
     }
 
     private void SendEnabledMessage() {
-        WeakReferenceMessenger.Default.Send(new EnabledChangedMessage(_mcFolders.Count > 0 
+        WeakReferenceMessenger.Default.Send(new EnabledChangedMessage(_mcFolders.Count > 0
             && !string.IsNullOrEmpty(ActiveMinecraftFolder)));
     }
 

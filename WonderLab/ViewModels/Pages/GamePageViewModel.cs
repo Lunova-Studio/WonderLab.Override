@@ -7,7 +7,6 @@ using ObservableCollections;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using WonderLab.Classes.Models.Messaging;
 using WonderLab.Services.Launch;
 

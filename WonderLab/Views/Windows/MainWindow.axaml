@@ -8,7 +8,7 @@
 				 xmlns:wb="using:WonderLab.Media.Behaviors"
 				 xmlns:wt="using:WonderLab.Media.Transitions"
 				 xmlns:mi="using:Material.Icons.Avalonia"
-				 Classes="test"
+				 xmlns:dh="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
 				 ShieldBackgroundOpacity="{Binding ShieldBackgroundOpacity}"
 				 Title="WonderLab">	
 	<wc:WonderWindow.Resources>
@@ -68,6 +68,20 @@
 		</DataTemplate>
 	</wc:WonderWindow.Resources>
 	
+	<wc:WonderWindow.OverlayControls>
+		<dh:DialogHost Padding="0"
+					   DialogMargin="0"
+					   Identifier="Host"
+					   Background="{DynamicResource DialogPopupBackgroundBrush}"
+					   dh:DialogHostStyle.CornerRadius="{DynamicResource StrongCornerRadius}"/>
+
+		<WindowNotificationManager Position="TopCenter">
+			<Interaction.Behaviors>
+				<wb:NotificationBehavior/>
+			</Interaction.Behaviors>
+		</WindowNotificationManager>
+	</wc:WonderWindow.OverlayControls>
+
 	<Interaction.Behaviors>
 		<EventTriggerBehavior EventName="Loaded">
 			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
@@ -133,14 +147,6 @@
 					  PageKey="{Binding TasksPageKey}"
 					  PageProvider="{Binding PageProvider}"/>
 		</wc:PullPanel>
-
-		<WindowNotificationManager Margin="12 6 12 0"
-								   Position="TopCenter"
-								   Grid.Row="1">
-			<Interaction.Behaviors>
-				<wb:NotificationBehavior/>
-			</Interaction.Behaviors>
-		</WindowNotificationManager>
 		
 		<TextBlock Margin="12 4" 
 				   Name="Temp"

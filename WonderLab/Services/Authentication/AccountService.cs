@@ -2,10 +2,8 @@
 using Microsoft.Extensions.Logging;
 using MinecraftLaunch.Base.Models.Authentication;
 using ObservableCollections;
-using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Security.Principal;
 using WonderLab.Classes.Models.Messaging;
 
 namespace WonderLab.Services.Authentication;

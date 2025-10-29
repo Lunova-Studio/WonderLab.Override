@@ -1,15 +1,12 @@
 ﻿using Avalonia.Controls.Notifications;
-using Avalonia.Threading;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.Logging;
 using MinecraftLaunch.Base.Models.Authentication;
 using MinecraftLaunch.Base.Models.Game;
-using MinecraftLaunch.Components.Authenticator;
 using MinecraftLaunch.Components.Downloader;
 using MinecraftLaunch.Extensions;
 using MinecraftLaunch.Launch;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using WonderLab.Classes.Models;
 using WonderLab.Classes.Models.Messaging;

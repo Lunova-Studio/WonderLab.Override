@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using MinecraftLaunch.Base.Models.Authentication;
 using ObservableCollections;
@@ -8,7 +7,6 @@ using System.Threading.Tasks;
 using WonderLab.Classes.Models;
 using WonderLab.Services.Authentication;
 using WonderLab.Services.Auxiliary;
-using WonderLab.Services.Launch;
 
 namespace WonderLab.ViewModels.Pages;
 

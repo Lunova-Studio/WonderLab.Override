@@ -3,6 +3,7 @@ using System;
 using WonderLab.Classes.Enums;
 
 namespace WonderLab.Media.Easings;
+
 public sealed class WonderBackEaseIn : Easing {
     public Amplitude Amplitude { get; set; } = Amplitude.Middle;
 

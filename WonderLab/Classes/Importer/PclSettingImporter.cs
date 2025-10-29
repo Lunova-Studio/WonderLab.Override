@@ -27,7 +27,7 @@ public sealed class PclSettingImporter : ISettingImporter {
         if (string.IsNullOrWhiteSpace(LauncherPath) || !File.Exists(LauncherPath))
             return (null, false);
 
-		try {
+        try {
             var baseDir = Path.GetDirectoryName(LauncherPath);
             var settingsFilePath = Path.Combine(baseDir, "PCL", "Setup.ini");
             if (!File.Exists(settingsFilePath))

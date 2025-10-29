@@ -10,6 +10,7 @@ using WonderLab.Controls;
 using WonderLab.Extensions;
 
 namespace WonderLab.Media.Transitions;
+
 internal class DynamicBarTransition : IPageTransition {
     public BarState OldState { get; set; }
     public BarState NewState { get; set; }

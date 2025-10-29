@@ -20,7 +20,7 @@ public sealed class SettingService {
     public static readonly FileInfo SettingFileInfo = new(Path.Combine(PathUtil.GetDataFolderPath(), "settings.json"));
 #endif
 
-    public bool IsCompletedOOBE { get;set; }
+    public bool IsCompletedOOBE { get; set; }
     public SettingModel Setting { get; set; }
 
     public SettingService(ILogger<SettingService> logger) =>

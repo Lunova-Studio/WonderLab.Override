@@ -7,7 +7,6 @@ using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Extensions;
@@ -26,7 +25,7 @@ public partial class DynamicBar : ContentControl {
 
     private bool _isDragging;
     private bool _canOpenPanel;
-    
+
     private Border _PART_LayoutBorder;
     private Border _PART_ContentLayoutBorder;
 

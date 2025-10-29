@@ -1,4 +1,3 @@
-using Avalonia.Controls;
 using WonderLab.Controls;
 
 namespace WonderLab.Views.Pages.Setting;

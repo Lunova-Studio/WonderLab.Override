@@ -3,7 +3,6 @@ using Avalonia.Threading;
 using Avalonia.Xaml.Interactivity;
 using CommunityToolkit.Mvvm.Messaging;
 using System;
-using System.Threading.Tasks;
 using WonderLab.Classes.Models.Messaging;
 
 namespace WonderLab.Media.Behaviors;

@@ -6,7 +6,6 @@ using MinecraftLaunch.Launch;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WonderLab.Services.Auxiliary;

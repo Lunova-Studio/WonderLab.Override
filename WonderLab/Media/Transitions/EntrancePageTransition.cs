@@ -3,7 +3,6 @@ using Avalonia.Animation;
 using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Rendering.Composition;
-using Avalonia.Threading;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -47,7 +46,7 @@ public sealed class EntrancePageTransition : IPageTransition {
             group.Add(opacityAni);
             toEV.StartAnimationGroup(group);
         }
-        
+
         (to as Control).IsHitTestVisible = true;
         (from as Control).IsHitTestVisible = false;
 

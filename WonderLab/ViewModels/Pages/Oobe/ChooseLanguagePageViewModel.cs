@@ -24,8 +24,8 @@ public sealed partial class ChooseLanguagePageViewModel : PageViewModelBase {
     public ChooseLanguagePageViewModel(SettingService settingService) {
         _settingService = settingService;
 
-        ActiveLanguage = _settingService.Setting.LanguageCode is null 
-            ? GetDefaultLanguage() 
+        ActiveLanguage = _settingService.Setting.LanguageCode is null
+            ? GetDefaultLanguage()
             : Languages.FirstOrDefault(lang => lang.LanguageCode == _settingService.Setting.LanguageCode);
     }
 

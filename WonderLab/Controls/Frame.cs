@@ -87,8 +87,8 @@ public sealed partial class Frame : TemplatedControl {
     protected override async void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change) {
         base.OnPropertyChanged(change);
 
-        if (change.Property == PageKeyProperty 
-            && PageProvider is not null 
+        if (change.Property == PageKeyProperty
+            && PageProvider is not null
             && !string.IsNullOrEmpty(change.GetNewValue<string>())) {
             var page = await Dispatcher.UIThread.InvokeAsync(() => PageProvider.GetPage(change.GetNewValue<string>()), DispatcherPriority.Background);
             RunAnimation(page);

@@ -5,7 +5,6 @@ using Avalonia.Rendering.Composition;
 using Avalonia.Threading;
 using Avalonia.Xaml.Interactivity;
 using System;
-using System.Threading.Tasks;
 using WonderLab.SourceGenerator.Attributes;
 using WonderLab.Utilities;
 

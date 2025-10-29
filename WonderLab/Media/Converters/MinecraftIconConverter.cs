@@ -11,7 +11,7 @@ public sealed class MinecraftIconConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
         if (value is MinecraftEntry minecraft) {
             return minecraft.IsVanilla
-                ? ThemeService.ReleaseMinecraftIcon.Value 
+                ? ThemeService.ReleaseMinecraftIcon.Value
                 : ThemeService.LoaderMinecraftIcon.Value;
         }
 

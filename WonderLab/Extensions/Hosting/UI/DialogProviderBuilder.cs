@@ -28,6 +28,6 @@ public abstract class DialogProviderBuilder<TDialogProvider, TDialogBase> where 
 public class AvaloniaDialogProviderBuilder : DialogProviderBuilder<AvaloniaDialogProvider, UserControl> {
     public new Dictionary<string, DialogDescriptor> RegisteredDialogs => _registeredDialogs;
 
-    public override AvaloniaDialogProvider Build(IServiceProvider serviceProvider) => 
+    public override AvaloniaDialogProvider Build(IServiceProvider serviceProvider) =>
         new(_registeredDialogs, serviceProvider);
 }

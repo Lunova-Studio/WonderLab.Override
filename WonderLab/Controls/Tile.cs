@@ -5,7 +5,6 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
 using Avalonia.Rendering.Composition;
-using Avalonia.Rendering.Composition.Animations;
 using Avalonia.Threading;
 using Avalonia.VisualTree;
 using System;
@@ -59,7 +58,7 @@ public partial class Tile : ListBoxItem {
         var scaleAni = CompositionAnimationUtil.CreateVector3Animation(compositionVisual,
             GetScaleOffset(_index, _totalCount), Vector3.One, TimeSpan.FromSeconds(0.60), new ExponentialEaseOut(), _delay);
 
-        var opacityAni = CompositionAnimationUtil.CreateScalarAnimation(compositionVisual, 0,1,
+        var opacityAni = CompositionAnimationUtil.CreateScalarAnimation(compositionVisual, 0, 1,
             TimeSpan.FromMicroseconds(10 * (_delay.TotalMicroseconds is <= 0 ? 200 : _delay.TotalMicroseconds)),
                 new CubicEaseOut(), _delay);
 

@@ -1,5 +1,4 @@
 ﻿using Avalonia.Controls.Notifications;
-using Avalonia.Controls.Shapes;
 using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Base.Enums;
 using MinecraftLaunch.Base.Interfaces;

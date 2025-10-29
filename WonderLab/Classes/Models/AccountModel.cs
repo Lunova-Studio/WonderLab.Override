@@ -1,13 +1,9 @@
 ﻿using Avalonia.Media.Imaging;
 using CommunityToolkit.Mvvm.ComponentModel;
-using LiteSkinViewer2D;
 using LiteSkinViewer2D.Extensions;
 using Microsoft.Extensions.Logging;
 using MinecraftLaunch.Base.Models.Authentication;
-using SkiaSharp;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using WonderLab.Extensions;
 using WonderLab.Services;
@@ -39,9 +35,9 @@ public sealed partial class AccountModel : ObservableObject {
             }
 
             using var skinBitmap = await SkinUtil.GetSkinDataAsync(Account);
-            using var avatarSK = HeadCapturer.Default.Capture(skinBitmap);
+            //using var avatarSK = HeadCapturer.Default.Capture(skinBitmap);
 
-            Avatar = avatarSK.ToBitmap();
+            Avatar = skinBitmap.ToBitmap();
             SkinUtil.SkinAvatarCaches.TryAdd(Account.Uuid, Avatar);
         } catch (Exception) {
             _logger.LogError("Failed to load avatar for account {account}", Account.Name);

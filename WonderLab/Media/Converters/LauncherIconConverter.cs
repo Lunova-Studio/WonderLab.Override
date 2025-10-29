@@ -7,7 +7,7 @@ namespace WonderLab.Media.Converters;
 
 public sealed class LauncherIconConverter : IValueConverter {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-        if(value is string iconName) {
+        if (value is string iconName) {
             return iconName switch {
                 "PCL" => ThemeService.PCLIcon.Value,
                 "HMCL" => ThemeService.HMCLIcon.Value,

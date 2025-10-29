@@ -1,14 +1,11 @@
 ﻿using Avalonia;
 using Avalonia.Animation.Easings;
 using Avalonia.Controls;
-using Avalonia.Media;
 using Avalonia.Rendering.Composition;
-using Avalonia.Threading;
 using Avalonia.Xaml.Interactivity;
 using System;
 using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
-using WonderLab.Extensions;
 using WonderLab.Media.Easings;
 using WonderLab.SourceGenerator.Attributes;
 using WonderLab.Utilities;

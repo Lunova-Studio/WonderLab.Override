@@ -1,24 +1,15 @@
 ﻿using Avalonia;
-using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Primitives;
-using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml.MarkupExtensions;
 using Avalonia.Media;
 using Avalonia.Media.Imaging;
-using Avalonia.Media.Transformation;
-using Avalonia.Rendering.Composition;
-using Avalonia.Threading;
 using MinecraftLaunch.Base.Utilities;
 using System;
 using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using WonderLab.Classes.Enums;
 using WonderLab.Controls.Experimental.Effect;
-using WonderLab.Extensions;
-using WonderLab.Media.Easings;
 using WonderLab.SourceGenerator.Attributes;
 using WonderLab.Utilities;
 
@@ -27,6 +18,7 @@ namespace WonderLab.Controls;
 [StyledProperty(typeof(string), "ImagePath")]
 [StyledProperty(typeof(object), "TitleBarContent")]
 [StyledProperty(typeof(double), "ShieldBackgroundOpacity")]
+[StyledProperty(typeof(Avalonia.Controls.Controls), "OverlayControls")]
 [StyledProperty(typeof(BackgroundType), "BackgroundType", BackgroundType.SolidColor)]
 [TemplatePart("PART_CloseButton", typeof(Button), IsRequired = true)]
 [TemplatePart("PART_MinimizeButton", typeof(Button), IsRequired = true)]
@@ -37,6 +29,10 @@ public partial class WonderWindow : Window {
 
     protected override Type StyleKeyOverride => typeof(WonderWindow);
 
+    public WonderWindow() {
+        OverlayControls = [];
+    }
+
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e) {
         base.OnApplyTemplate(e);
 
@@ -44,9 +40,9 @@ public partial class WonderWindow : Window {
         var minimizeButton = e.NameScope.Find<Button>("PART_MinimizeButton");
         var dragLayoutBorder = e.NameScope.Find<Border>("PART_DragLayoutBorder");
 
-        _PART_BackgroundBorder = e.NameScope.Find<Border>("PART_Background");
-        _PART_SkiaShaderRenderer = e.NameScope.Find<SkiaShaderRenderer>("PART_SkiaShaderRenderer");
-        _PART_AcrylicBlurMask = e.NameScope.Find<ExperimentalAcrylicBorder>("PART_AcrylicBlurMask");
+        //_PART_BackgroundBorder = e.NameScope.Find<Border>("PART_Background");
+        //_PART_SkiaShaderRenderer = e.NameScope.Find<SkiaShaderRenderer>("PART_SkiaShaderRenderer");
+        //_PART_AcrylicBlurMask = e.NameScope.Find<ExperimentalAcrylicBorder>("PART_AcrylicBlurMask");
 
         closeButton.Click += (_, _) => Close();
         minimizeButton.Click += (_, _) => WindowState = WindowState.Minimized;
@@ -56,11 +52,11 @@ public partial class WonderWindow : Window {
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change) {
         base.OnPropertyChanged(change);
 
-        if (change.Property == ImagePathProperty && BackgroundType is BackgroundType.Bitmap && IsLoaded)
-            UpdateBackground((BackgroundType.None, BackgroundType.Bitmap));
+        //if (change.Property == ImagePathProperty && BackgroundType is BackgroundType.Bitmap && IsLoaded)
+        //    UpdateBackground((BackgroundType.None, BackgroundType.Bitmap));
 
-        if (change.Property == BackgroundTypeProperty && IsLoaded)
-            UpdateBackground(change.GetOldAndNewValue<BackgroundType>());
+        //if (change.Property == BackgroundTypeProperty && IsLoaded)
+        //    UpdateBackground(change.GetOldAndNewValue<BackgroundType>());
     }
 
     private void UpdateBackground((BackgroundType oldValue, BackgroundType newValue) values) {

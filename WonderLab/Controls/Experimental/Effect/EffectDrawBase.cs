@@ -62,7 +62,7 @@ public abstract class EffectDrawBase : CompositionCustomVisualHandler {
     }
 
     public override void OnRender(ImmediateDrawingContext context) {
-        var leaseFeature = context.TryGetFeature<ISkiaSharpApiLeaseFeature>() 
+        var leaseFeature = context.TryGetFeature<ISkiaSharpApiLeaseFeature>()
             ?? throw new InvalidOperationException("Unable to lease Skia API");
 
         using var lease = leaseFeature.Lease();

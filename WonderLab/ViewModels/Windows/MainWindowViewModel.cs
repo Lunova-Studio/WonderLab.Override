@@ -86,8 +86,8 @@ public sealed partial class MainWindowViewModel : ObservableObject {
         await Task.Delay(160);
         ActivePageIndex = 0;
         _gameService.RefreshGames();
-        _accounts.AddRange(_accountService.Accounts
-            .Select(x => new AccountModel(x, default)));
+        //_accounts.AddRange(_accountService.Accounts
+        //    .Select(x => new AccountModel(x, default)));
 
         ActiveMinecraft = _gameService.ActiveGame;
         ActiveAccount = Accounts.FirstOrDefault(x => x.Account.ProfileEquals(_accountService.ActiveAccount))

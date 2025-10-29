@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using MinecraftLaunch.Base.Models.Authentication;
 using ObservableCollections;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using WonderLab.Classes.Models;
 using WonderLab.Services;

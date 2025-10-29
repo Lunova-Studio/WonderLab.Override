@@ -29,6 +29,6 @@ public sealed class DialogService {
         var dialog = await Dispatcher.UIThread
             .InvokeAsync(() => _dialogProvider.GetDialog(key));
 
-        _ =  DialogHost.Show(dialog, MAIN_DIALOG_IDENTIFIER);
+        _ = DialogHost.Show(dialog, MAIN_DIALOG_IDENTIFIER);
     }
 }

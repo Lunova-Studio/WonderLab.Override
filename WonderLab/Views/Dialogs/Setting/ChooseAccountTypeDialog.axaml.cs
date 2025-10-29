@@ -1,13 +1,9 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
 namespace WonderLab;
 
-public partial class ChooseAccountTypeDialog : UserControl
-{
-    public ChooseAccountTypeDialog()
-    {
+public partial class ChooseAccountTypeDialog : UserControl {
+    public ChooseAccountTypeDialog() {
         InitializeComponent();
     }
 }

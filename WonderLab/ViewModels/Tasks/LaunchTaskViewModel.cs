@@ -1,8 +1,6 @@
-﻿using Avalonia.Controls.Notifications;
-using Avalonia.Threading;
+﻿using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using CommunityToolkit.Mvvm.Messaging;
 using MinecraftLaunch.Components.Downloader;
 using System;
 using System.Diagnostics;
@@ -10,7 +8,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using WonderLab.Classes.Interfaces;
 using WonderLab.Classes.Models;
-using WonderLab.Classes.Models.Messaging;
 using Timer = System.Timers.Timer;
 
 namespace WonderLab.ViewModels.Tasks;
