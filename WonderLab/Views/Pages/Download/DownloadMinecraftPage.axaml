@@ -49,41 +49,51 @@
 		<ItemsControl MaxWidth="1000"
 					  Margin="0 0 16 0"
 					  wa:AnimatedScrollExtensions.AnimatedScroll="True">
-			<wc:NavigationTile Classes="content"
-							   IsEnableAnimation="False"
-							   Title="{Binding MinecraftId}">
-				<wc:NavigationTile.Icon>
-					<Border Width="40"
-							Height="40"
+			<wc:SettingCard Classes="image">
+				<wc:SettingCard.Icon>
+					<Border Width="38"
+							Height="38"
 							CornerRadius="{StaticResource WeakCornerRadius}">
 						<Border.Background>
 							<ImageBrush Source="{Binding, Converter={StaticResource MinecraftIconConverter}}"/>
 						</Border.Background>
 					</Border>
-				</wc:NavigationTile.Icon>
+				</wc:SettingCard.Icon>
 
-				<wc:NavigationTile.Description>
+				<wc:SettingCard.Header>
 					<Grid Margin="0 2 0 0"
+						  RowDefinitions="* *"
 						  ColumnDefinitions="auto *">
-						<wc:Tag Text="{Binding VersionType}"/>
+						<TextBlock Classes="Body"
+								   Margin="0 0 0 2"
+								   VerticalAlignment="Center"
+								   HorizontalAlignment="Left"
+								   Text="{Binding MinecraftId}"
+								   Grid.Row="0"
+								   Grid.Column="0"
+								   Grid.ColumnSpan="2"/>	
+						
+						<wc:Tag HorizontalAlignment="Left"
+								Text="{Binding VersionType}"
+								Grid.Row="1"/>
 
 						<TextBlock Margin="8 0 0 0"
 								   Classes="Caption"
 								   VerticalAlignment="Center"
+								   HorizontalAlignment="Left"
 								   TextTrimming="CharacterEllipsis"
 								   Text="{Binding ReleaseTime}"
+								   Grid.Row="1"
 								   Grid.Column="1"/>
 					</Grid>
-				</wc:NavigationTile.Description>
+				</wc:SettingCard.Header>
 
-				<wc:NavigationTile.Footer>
-					<Button Margin="0 0 8 0"
-							Classes="primary"
-							VerticalAlignment="Center"
-							Content="安装"
-							Command="{Binding InstallCommand}"/>
-				</wc:NavigationTile.Footer>
-			</wc:NavigationTile>
+				<Button Margin="0 0 8 0"
+						Classes="primary"
+						VerticalAlignment="Center"
+						Content="安装"
+						Command="{Binding InstallCommand}"/>
+			</wc:SettingCard>
 
 			<wc:SettingCards Margin="0 20 0 0"
 							 Header="安装设置">

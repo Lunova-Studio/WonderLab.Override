@@ -34,7 +34,6 @@ public partial class WonderWindow : Window {
     private Border _PART_BackgroundBorder;
     private SkiaShaderRenderer _PART_SkiaShaderRenderer;
     private ExperimentalAcrylicBorder _PART_AcrylicBlurMask;
-    private CancellationTokenSource _cancellationTokenSource = new();
 
     protected override Type StyleKeyOverride => typeof(WonderWindow);
 

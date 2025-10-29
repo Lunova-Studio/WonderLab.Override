@@ -61,6 +61,10 @@ public sealed partial class App : Application {
         AvaloniaXamlLoader.Load(this);
         Monet = (Styles[1] as MonetColors)!;
         MinecraftParser.DataProcessors.Add(new SpecificSettingProcessor());
+
+#if DEBUG
+        this.AttachDeveloperTools();
+#endif
     }
 
     public override void RegisterServices() {
