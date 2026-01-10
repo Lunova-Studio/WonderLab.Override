@@ -2,8 +2,8 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:we="using:WonderLab.Media.Easings">
 	<Design.PreviewWith>
-		<StackPanel Background="Red" Margin="20" Width="250" Spacing="24">
-			<StackPanel Spacing="12" >
+		<StackPanel Margin="20" Width="250" Spacing="24">
+			<StackPanel Spacing="0">
 				<ToggleSwitch/>
 				
 				<ToggleSwitch IsChecked="True" />
@@ -50,81 +50,66 @@
 									  ContentTemplate="{TemplateBinding ContentTemplate}"
 									  Margin="{DynamicResource ToggleSwitchTopHeaderMargin}"
 									  Grid.Row="0"/>
+					<Border Width="40"
+							Height="20"
+							Name="OuterBorder"
+							BorderThickness="1"
+							Background="Transparent"
+							CornerRadius="{DynamicResource StrongCornerRadius}"
+							BorderBrush="{DynamicResource ToggleSwitchBorderBrush}"
+							Grid.Row="1"/>
 
-					<Grid VerticalAlignment="Top"
-						  HorizontalAlignment="Left"
-						  RowDefinitions="6 auto 6"
-						  ColumnDefinitions="auto"
-						  MinWidth="{DynamicResource ToggleSwitchThemeMinWidth}"
-						  Grid.Row="1">
+					<Border Width="40"
+							Height="20"
+							BorderThickness="0"
+							Name="SwitchKnobBounds"
+							CornerRadius="{DynamicResource StrongCornerRadius}"
+							BorderBrush="{DynamicResource ToggleSwitchCheckedBorderBrush}"
+							Background="{DynamicResource ToggleSwitchCheckedBackgroundBrush}"
+							Grid.Row="1">
+						<Border.Transitions>
+							<Transitions>
+								<DoubleTransition Duration="0:0:.25"
+												  Property="Opacity"
+												  Easing="CubicEaseOut"/>
+							</Transitions>
+						</Border.Transitions>
+					</Border>
 
-						<Grid Margin="0 5"
-							  Name="SwitchAreaGrid"
-							  Grid.RowSpan="3"
-							  Grid.ColumnSpan="3"
-							  TemplatedControl.IsTemplateFocusTarget="True" />
+					<Canvas Width="20"
+							Height="20"
+							Name="PART_SwitchKnob"
+							HorizontalAlignment="Left"
+							Grid.Row="1">
+						<Grid Width="20"
+							  Height="20"
+							  Name="PART_MovingKnobs">
+							<Ellipse Width="10"
+									 Height="10"
+									 Name="SwitchKnobOn"
+									 Fill="{DynamicResource ToggleSwitchCheckedKnobOnFillBrush}">
+								<Ellipse.Transitions>
+									<Transitions>
+										<TransformOperationsTransition Duration="0:0:.15"
+																	   Easing="CubicEaseOut"
+																	   Property="RenderTransform"/>										</Transitions>
+								</Ellipse.Transitions>
+							</Ellipse>
 
-						<Border Width="40"
-								Height="20"
-								Name="OuterBorder"
-								BorderThickness="1"
-								Background="Transparent"
-								CornerRadius="{DynamicResource StrongCornerRadius}"
-								BorderBrush="{DynamicResource ToggleSwitchBorderBrush}"
-								Grid.Row="1"/>
-
-						<Border Width="40"
-								Height="20"
-								BorderThickness="0"
-								Name="SwitchKnobBounds"
-								CornerRadius="{DynamicResource StrongCornerRadius}"
-								BorderBrush="{DynamicResource ToggleSwitchCheckedBorderBrush}"
-								Background="{DynamicResource ToggleSwitchCheckedBackgroundBrush}"
-								Grid.Row="1">
-							<Border.Transitions>
-								<Transitions>
-									<DoubleTransition Duration="0:0:.25"
-													  Property="Opacity"
-													  Easing="CubicEaseOut"/>
-								</Transitions>
-							</Border.Transitions>
-						</Border>
-
-						<Canvas Width="20"
-								Height="20"
-								Name="PART_SwitchKnob"
-								HorizontalAlignment="Left"
-								Grid.Row="1">
-							<Grid Width="20"
-								  Height="20"
-								  Name="PART_MovingKnobs">
-								<Ellipse Width="10"
-										 Height="10"
-										 Name="SwitchKnobOn"
-										 Fill="{DynamicResource ToggleSwitchCheckedKnobOnFillBrush}">
-									<Ellipse.Transitions>
-										<Transitions>
-											<TransformOperationsTransition Duration="0:0:.15"
-																		   Easing="CubicEaseOut"
-																		   Property="RenderTransform"/>										</Transitions>
-									</Ellipse.Transitions>
-								</Ellipse>
-
-								<Ellipse Width="10"
-										 Height="10"
-										 Name="SwitchKnobOff"
-										 Fill="{DynamicResource ToggleSwitchKnobOffFillBrush}">
-									<Ellipse.Transitions>
-										<Transitions>
-											<TransformOperationsTransition Duration="0:0:.15"
-																		   Easing="CubicEaseOut"
-																		   Property="RenderTransform"/>
-										</Transitions>
-									</Ellipse.Transitions>
-								</Ellipse>
-							</Grid>
-						</Canvas>
-					</Grid>
+							<Ellipse Width="10"
+									 Height="10"
+									 Name="SwitchKnobOff"
+									 Fill="{DynamicResource ToggleSwitchKnobOffFillBrush}">
+								<Ellipse.Transitions>
+									<Transitions>
+										<TransformOperationsTransition Duration="0:0:.15"
+																	   Easing="CubicEaseOut"
+																	   Property="RenderTransform"/>
+									</Transitions>
+								</Ellipse.Transitions>
+							</Ellipse>
+						</Grid>
+					</Canvas>
 				</Grid>
 			</ControlTemplate>
 		</Setter>

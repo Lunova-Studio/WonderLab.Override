@@ -61,9 +61,5 @@ public sealed class DefaultPageTransition : IPageTransition {
 
         (from as Control).IsHitTestVisible = false;
         (to as Control).IsHitTestVisible = true;
-
-        try {
-            await Task.Delay(Duration, cancellationToken);
-        } catch { }
     }
 }

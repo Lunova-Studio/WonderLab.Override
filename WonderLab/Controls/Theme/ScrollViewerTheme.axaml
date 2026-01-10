@@ -13,20 +13,6 @@
 			<ControlTemplate>
 				<Panel>
 					<Panel>
-						<Panel.OpacityMask>
-							<MultiBinding Converter="{x:Static wc:ScrollableOpacityMaskConverter.Top}">
-								<Binding ElementName="PART_VerticalScrollBar" Path="Value" />
-								<Binding ElementName="PART_VerticalScrollBar" Path="Minimum" />
-							</MultiBinding>
-						</Panel.OpacityMask>
-						
-						<Panel.Transitions>
-							<Transitions>
-								<BrushTransition Duration="0.15"
-												 Property="OpacityMask"/>
-							</Transitions>
-						</Panel.Transitions>
-						
 						<ScrollContentPresenter Name="PART_ContentPresenter"
                                                 Padding="{TemplateBinding Padding}"
                                                 Background="{TemplateBinding Background}"
@@ -34,20 +20,6 @@
                                                 HorizontalSnapPointsType="{TemplateBinding HorizontalSnapPointsType}"
                                                 VerticalSnapPointsAlignment="{TemplateBinding VerticalSnapPointsAlignment}"
                                                 VerticalSnapPointsType="{TemplateBinding VerticalSnapPointsType}">
-							<ScrollContentPresenter.OpacityMask>
-								<MultiBinding Converter="{x:Static wc:ScrollableOpacityMaskConverter.Bottom}">
-									<Binding ElementName="PART_VerticalScrollBar" Path="Value" />
-									<Binding ElementName="PART_VerticalScrollBar" Path="Maximum" />
-								</MultiBinding>
-							</ScrollContentPresenter.OpacityMask>
-							
-							<ScrollContentPresenter.Transitions>
-								<Transitions>
-									<BrushTransition Duration="0.15"
-													 Property="OpacityMask" />
-								</Transitions>
-							</ScrollContentPresenter.Transitions>
-							
 							<ScrollContentPresenter.GestureRecognizers>
 								<ScrollGestureRecognizer CanVerticallyScroll="{Binding CanVerticallyScroll, ElementName=PART_ContentPresenter}"
 														 CanHorizontallyScroll="{Binding CanHorizontallyScroll, ElementName=PART_ContentPresenter}"
@@ -56,6 +28,11 @@
 						</ScrollContentPresenter>
 					</Panel>
 					
+					<ScrollBar Orientation="Horizontal"
+							   VerticalAlignment="Bottom"
+							   HorizontalAlignment="Stretch"
+							   Name="PART_HorizontalScrollBar"/>
+
 					<ScrollBar Name="PART_VerticalScrollBar"
                                HorizontalAlignment="Right"
                                VerticalAlignment="Stretch"

@@ -1,46 +1,11 @@
-<UserControl xmlns="https://github.com/avaloniaui"
+﻿<UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-			 xmlns:wc="using:WonderLab.Controls"
-			 xmlns:wt="using:WonderLab.Media.Transitions"
-			 xmlns:wce="using:WonderLab.Controls.Experimental.BreadcrumbBar"
              x:Class="WonderLab.Views.Pages.Download.DownloadNavigationPage">
-	<Interaction.Behaviors>
-		<EventTriggerBehavior EventName="Loaded">
-			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
-		</EventTriggerBehavior>
-	</Interaction.Behaviors>
-	
-	<Grid MaxWidth="1000" RowDefinitions="auto *">
-		<wce:BreadcrumbBar Margin="0 12"
-						   VerticalAlignment="Top"
-						   HorizontalAlignment="Left"
-						   ItemsSource="{Binding HeaderItems}"
-						   Grid.Row="0">
-			<wce:BreadcrumbBar.ItemTemplate>
-				<DataTemplate>
-					<wce:BreadcrumbBarItem FontSize="28"
-										   FontWeight="SemiBold"
-										   Content="{I18n {Binding}}"/>
-				</DataTemplate>
-			</wce:BreadcrumbBar.ItemTemplate>
-
-			<Interaction.Behaviors>
-				<EventTriggerBehavior EventName="ItemClicked">
-					<InvokeCommandAction PassEventArgsToCommand="True"
-										 Command="{Binding ItemClickedCommand}"/>
-				</EventTriggerBehavior>
-			</Interaction.Behaviors>
-		</wce:BreadcrumbBar>
-
-		<wc:Frame PageKey="{Binding ActivePageKey}"
-				  PageProvider="{Binding PageProvider}"
-				  Grid.Row="1">
-			<wc:Frame.PageTransition>
-				<wt:EntrancePageTransition/>
-			</wc:Frame.PageTransition>
-		</wc:Frame>
-	</Grid>
+    <TextBlock Classes="DisplayLarge"
+               Text="Fuck Download!"
+               VerticalAlignment="Center" 
+               HorizontalAlignment="Center"/>
 </UserControl>

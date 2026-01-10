@@ -1,12 +1,9 @@
 [submodule "refs/Monet"]
 	path = refs/Monet
 	url = https://github.com/Lunova-Studio/Monet.git
+[submodule "WonderLab.I18n"]
+	path = WonderLab.I18n
+	url = https://github.com/Lunova-Studio/WonderLab.Override.I18n.git
 [submodule "refs/LiteSkinViewer"]
 	path = refs/LiteSkinViewer
 	url = https://github.com/YangSpring429/LiteSkinViewer.git
-[submodule "WonderLab.Override.I18n"]
-	path = WonderLab.Override.I18n
-	url = https://github.com/Lunova-Studio/WonderLab.Override.I18n.git
-[submodule "refs/Wrap.Remastered"]
-	path = refs/Wrap.Remastered
-	url = https://github.com/Lunova-Studio/Wrap.Remastered

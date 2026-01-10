@@ -1,0 +1,175 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="using:WonderLab.ViewModels.Pages"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:wm="using:WonderLab.Models"
+             xmlns:wc="using:WonderLab.Controls"
+             xmlns:wd="using:WonderLab.Media.DataTemplates"
+             xmlns:behaviors="using:WonderLab.Media.Behaviors"
+             x:DataType="pages:MinecraftPageViewModel"
+             x:Class="WonderLab.Views.Pages.MinecraftPage">
+    <UserControl.Styles>
+        <Style Selector="TreeView.NodesEditableDrag">
+            <Style.Resources>
+                <behaviors:TreeViewNodeDropHandler x:Key="TreeViewNodeDropHandler" />
+            </Style.Resources>
+            
+            <Setter Property="(Interaction.Behaviors)">
+                <BehaviorCollectionTemplate>
+                    <BehaviorCollection>
+                        <ContextDropBehavior Handler="{StaticResource TreeViewNodeDropHandler}" />
+                    </BehaviorCollection>
+                </BehaviorCollectionTemplate>
+            </Setter>
+        </Style>
+
+        <Style Selector="TreeView.NodesEditableDrag TreeViewItem">
+            <Setter Property="IsExpanded" Value="True"/>
+
+            <Setter Property="(Interaction.Behaviors)">
+                <BehaviorCollectionTemplate>
+                    <BehaviorCollection>
+                        <ContextDragBehavior/>
+                    </BehaviorCollection>
+                </BehaviorCollectionTemplate>
+            </Setter>
+        </Style>
+    </UserControl.Styles>
+
+    <Grid Margin="0 0 0 0" 
+          UseLayoutRounding="False">
+        <Grid.ColumnDefinitions>
+			<ColumnDefinition MinWidth="260" MaxWidth="400" Width="auto"/>
+            <ColumnDefinition Width="2"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid MaxWidth="400"
+              RowDefinitions="auto * auto auto"
+              Grid.Column="0">
+            
+            <Grid Margin="12 12 9 0"
+                  ColumnDefinitions="* auto auto"
+                  Grid.Row="2">
+                <ComboBox HorizontalAlignment="Stretch"
+                          ItemsSource="{Binding MinecraftFolders}"
+                          SelectedItem="{Binding ActiveMinecraftFolder}"
+                          ToolTip.ShowDelay="0"
+                          ToolTip.Placement="Top"
+                          ToolTip.VerticalOffset="-8"
+                          ToolTip.Tip="{Binding ActiveMinecraftFolder.Path}">
+                    <ComboBox.ItemTemplate>
+						<DataTemplate DataType="wm:MinecraftFolderModel">
+							<TextBlock Classes="LabelLarge"
+                                       TextTrimming="CharacterEllipsis"
+                                       Text="{Binding DisplayText}"/>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+				</ComboBox>
+
+                <Button FontSize="17"
+                        Classes="icon"
+                        Margin="7 0 0 0"
+                        Content="&#xECC8;"
+                        VerticalAlignment="Center"
+                        Grid.Column="1"/>
+                
+                <Button FontSize="18"
+                        Classes="icon"
+                        Content="&#xE8B5;"
+                        VerticalAlignment="Center"
+                        Grid.Column="2"/>
+            </Grid>
+
+            <TextBox Height="30" 
+                     Margin="12 8 12 12"
+                     Classes="underline"
+                     Text=""
+                     Watermark="按名称搜索"
+                     Grid.Row="3">
+                <TextBox.InnerLeftContent>
+					<TextBlock FontSize="15"
+                               Classes="Icon"
+                               Margin="8 0 0 0"
+                               Text="&#xE71E;"/>
+                </TextBox.InnerLeftContent>
+            </TextBox>
+            
+            <Border UseLayoutRounding="False"
+                    BorderThickness="0 0 0 0.2"
+                    VerticalAlignment="Top"
+                    BorderBrush="{DynamicResource OutlineBrush}"
+                    Grid.Row="2"/>
+                        
+            <Border UseLayoutRounding="False"
+                    BorderThickness="0 0 0 0.2"
+                    VerticalAlignment="Bottom"
+                    BorderBrush="{DynamicResource OutlineBrush}"
+                    Grid.Row="0"/>
+
+            <Grid Margin="12 8"
+                  ColumnSpacing="4"
+                  ColumnDefinitions="* auto"
+                  Grid.Row="0">
+                <ToggleButton Height="30"
+                              Padding="12 0"
+                              VerticalContentAlignment="Center"
+                              Content="主页"/>
+                
+                <ToggleButton Height="30"
+                              Padding="8 0"
+                              VerticalContentAlignment="Center"
+                              HorizontalContentAlignment="Center"
+                              Grid.Column="1">
+                    <TextBlock FontSize="15"
+                               Classes="Icon"
+                               Text="&#xE8A9;"/>
+                </ToggleButton>
+            </Grid>
+
+            <TreeView Margin="0 4 0 0"
+                      Classes="NodesEditableDrag"
+                      ItemsSource="{Binding Minecrafts}"
+                      SelectedItem="{Binding ActiveMinecraft}"
+                      Grid.Row="1">
+                <TreeView.ItemTemplate>
+					<TreeDataTemplate ItemsSource="{Binding Favorites}">
+						<Grid ColumnDefinitions="auto *"
+                              VerticalAlignment="Center">
+                            <Border Width="18"
+                                    Height="18"
+                                    Margin="0 0 4 0"
+                                    IsVisible="{Binding IsHasIcon}"
+                                    CornerRadius="{StaticResource WeakCornerRadius}"
+                                    RenderOptions.BitmapInterpolationMode="LowQuality">
+                                <Border.Background>
+									<ImageBrush Source="{Binding Minecraft, Converter={StaticResource MinecraftIconConverter}}"/>
+                                </Border.Background>
+                            </Border>
+
+							<TextBlock Classes="LabelMedium" 
+                                       VerticalAlignment="Center"
+                                       Text="{Binding Title}"
+                                       Grid.Column="1"/>
+                        </Grid>
+                    </TreeDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Grid>
+
+        <GridSplitter Opacity="0.4"
+                      ResizeDirection="Columns"
+                      VerticalAlignment="Stretch"
+                      HorizontalAlignment="Stretch"
+                      Background="{DynamicResource OutlineBrush}"
+                      Grid.Column="1"/>
+
+        <wc:Frame Name="PART_Frame"
+                  DefaultPageKey="Home"
+                  PageKey="{Binding ActivePage}"
+                  Grid.Column="2">
+        </wc:Frame>
+    </Grid>
+</UserControl>

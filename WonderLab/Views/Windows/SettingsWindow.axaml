@@ -1,0 +1,104 @@
+﻿<wc:WonderWindow xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="using:WonderLab.Models"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        xmlns:wc="using:WonderLab.Controls"
+        xmlns:wa="using:WonderLab.Media.Attachments"
+        x:Class="WonderLab.SettingsWindow"
+        Width="850"
+        Height="480"
+        Classes="full"
+        WindowStartupLocation="CenterScreen"
+        ExtendClientAreaChromeHints="NoChrome"
+        ExtendClientAreaTitleBarHeightHint="0"
+        ExtendClientAreaToDecorationsHint="True"
+        Title="Settings">
+    <wc:WonderWindow.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.ThemeDictionaries>
+				<ResourceDictionary x:Key="Light">
+                    <ExperimentalAcrylicMaterial TintOpacity="0.8"
+                                                 TintColor="White"
+                                                 MaterialOpacity="0.6"
+                                                 BackgroundSource="Digger"
+                                                 x:Key="BasicAcrylicMaterial"/>
+                </ResourceDictionary>
+                
+				<ResourceDictionary x:Key="Dark">
+                    <ExperimentalAcrylicMaterial TintOpacity="0.8"
+                                                 TintColor="Black"
+                                                 MaterialOpacity="0.6"
+                                                 BackgroundSource="Digger"
+                                                 x:Key="BasicAcrylicMaterial"/>
+                </ResourceDictionary> 
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </wc:WonderWindow.Resources>
+
+    <Grid ColumnDefinitions="195 *">
+		<ListBox Padding="8 24"
+                 ItemsSource="{Binding ListItems}"
+                 SelectedItem="{Binding ActivePage, Mode=TwoWay}"
+                 ItemContainerTheme="{StaticResource SettingsItemTheme}"
+                 Background="{DynamicResource OOBEWindowTitleBarBackgroundBrush}"
+                 Grid.Column="0">
+            <ListBox.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel Spacing="2"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            
+            <ListBox.ItemTemplate>
+				<DataTemplate DataType="models:ListItemModel">
+                    <StackPanel Spacing="8" Orientation="Horizontal">
+						<TextBlock FontSize="16"
+								   Classes="Icon"
+								   VerticalAlignment="Center"
+								   Text="{Binding Icon}"/>
+
+					    <TextBlock VerticalAlignment="Center"
+                                   Text="{Binding I18nKey}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+<!--
+			<ListBoxItem Tag="&#xE945;"
+                         Content="启动"/>
+            
+			<ListBoxItem Tag="&#xEC32;"
+                         Content="Java 虚拟机"/>
+
+			<ListBoxItem Tag="&#xE790;"
+                         Content="个性化"/>
+            
+			<ListBoxItem Tag="&#xE774;"
+                         Content="网络"/>
+
+			<ListBoxItem Tag="&#xE95B;"
+                         Content="帮助与支持"/>
+
+			<ListBoxItem Tag="&#xE946;"
+                         Content="关于"/>-->
+        </ListBox>
+
+        <Border Background="{DynamicResource ApplicationBackgroundBrush}"
+                Grid.Column="1"/>
+
+        <Grid RowDefinitions="auto *"
+              Grid.Column="1">
+            <TextBlock Margin="16 24 16 0"
+                       Classes="TitleLarge"
+                       Text="{Binding ActivePage.I18nKey}"
+                       Grid.Row="0"/>
+
+            <ScrollViewer Grid.Row="1">
+		        <wc:Frame Padding="8"
+                          PageKey="{Binding ActivePage.PageKey}"
+                          wa:AnimatedScrollExtensions.AnimatedScroll="True"/>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</wc:WonderWindow>

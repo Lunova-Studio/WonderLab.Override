@@ -1,84 +1,123 @@
-<ResourceDictionary xmlns="https://github.com/avaloniaui"
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	<Design.PreviewWith>
+    <Design.PreviewWith>
 		<Border Padding="20">
 			<StackPanel Spacing="8">
-				<TextBlock Text="阿米诺斯 Caption" Classes="Caption"/>
-				<TextBlock Text="阿米诺斯 Body" Classes="Body"/>
-				<TextBlock Text="阿米诺斯 BodyStrong" Classes="BodyStrong"/>
-				<TextBlock Text="阿米诺斯 Subtitle" Classes="Subtitle"/>
-				<TextBlock Text="阿米诺斯 Title" Classes="Title"/>
-				<TextBlock Text="阿米诺斯 TitleLarge" Classes="TitleLarge"/>
-				<TextBlock Text="阿米诺斯 Display" Classes="Display"/>
+                <!-- Display -->
+                <TextBlock Classes="DisplayLarge" Text="欢迎来到 WonderLab" />
+                <TextBlock Classes="DisplayMedium" Text="探索你的创意世界" />
+                <TextBlock Classes="DisplaySmall" Text="开始你的旅程" />
+                
+                <!-- Headline -->
+                <TextBlock Classes="HeadlineLarge" Text="今日推荐" />
+                <TextBlock Classes="HeadlineMedium" Text="热门项目" />
+                <TextBlock Classes="HeadlineSmall" Text="最新动态" />
+                
+                <!-- Title -->
+                <TextBlock Classes="TitleLarge" Text="用户设置" />
+                <TextBlock Classes="TitleMedium" Text="账户信息" />
+                <TextBlock Classes="TitleSmall" Text="修改密码" />
+                
+                <!-- Label -->
+                <TextBlock Classes="LabelLarge" Text="用户名" />
+                <TextBlock Classes="LabelMedium" Text="邮箱地址" />
+                <TextBlock Classes="LabelSmall" Text="验证码" />
+                
+                <!-- Body -->
+                <TextBlock Classes="BodyLarge" Text="欢迎使用本应用，我们致力于提供最佳体验。" TextWrapping="Wrap"/>
+                <TextBlock Classes="BodyMedium" Text="请确保你的信息真实有效。" TextWrapping="Wrap"/>
+                <TextBlock Classes="BodySmall" Text="点击下方按钮继续。" TextWrapping="Wrap"/>
+
+                <TextBlock Text="&#xE711;" Classes="Icon"/>
 			</StackPanel>
 		</Border>
 	</Design.PreviewWith>
 
-	<ControlTheme TargetType="TextBlock" x:Key="{x:Type TextBlock}">
-		<Style Selector="^.Caption">
-			<Setter Property="FontSize" Value="12"/>
-			<Setter Property="FontWeight" Value="Regular"/>
-		</Style>
+    <FontFamily x:Key="IconFontFamily">avares://WonderLab/Assets/Font/SegoeFluentIcons.ttf#Segoe Fluent Icons</FontFamily>
 
-		<Style Selector="^.Body">
-			<Setter Property="FontSize" Value="14"/>
-			<Setter Property="FontWeight" Value="Regular"/>
-		</Style>
+    <ControlTheme TargetType="TextBlock" x:Key="{x:Type TextBlock}">
+        <Style Selector="^.Icon">
+            <Setter Property="FontFamily" Value="{StaticResource IconFontFamily}"/>
+        </Style>
 
-		<Style Selector="^.BodyStrong">
-			<Setter Property="FontSize" Value="14"/>
-			<Setter Property="FontWeight" Value="SemiBold"/>
-		</Style>
+        <!-- Display -->
+        <Style Selector="^.DisplayLarge">
+            <Setter Property="FontSize" Value="57"/>
+            <Setter Property="FontWeight" Value="Light"/>
+        </Style>
+        
+        <Style Selector="^.DisplayMedium">
+            <Setter Property="FontSize" Value="45"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+        </Style>
 
-		<Style Selector="^.Subtitle">
-			<Setter Property="FontSize" Value="20"/>
-			<Setter Property="FontWeight" Value="SemiBold"/>
-		</Style>
+        <Style Selector="^.DisplaySmall">
+            <Setter Property="FontSize" Value="36"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+        </Style>
 
-		<Style Selector="^.Title">
-			<Setter Property="FontSize" Value="28"/>
-			<Setter Property="FontWeight" Value="SemiBold"/>
-		</Style>
+        <!-- Headline -->
+        <Style Selector="^.HeadlineLarge">
+             <Setter Property="FontSize" Value="32"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+        </Style>
 
-		<Style Selector="^.TitleLarge">
-			<Setter Property="FontSize" Value="40"/>
-			<Setter Property="FontWeight" Value="SemiBold"/>
-		</Style>
+        <Style Selector="^.HeadlineMedium">
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+        </Style>
 
-		<Style Selector="^.Display">
-			<Setter Property="FontSize" Value="68"/>
-			<Setter Property="FontWeight" Value="SemiBold"/>
-		</Style>
+        <Style Selector="^.HeadlineSmall">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+        </Style>
 
-		<!-- Title -->
-		<Style Selector="^.MDTitleLarge">
-			<Setter Property="FontSize" Value="22"/>
-			<Setter Property="FontWeight" Value="Medium"/>
-		</Style>
-		
-		<Style Selector="^.MDTitleMedium">
-			<Setter Property="FontSize" Value="16"/>
-			<Setter Property="FontWeight" Value="Medium"/>
-		</Style>
-		
-		<Style Selector="^.MDTitleSmall">
-			<Setter Property="FontSize" Value="14"/>
-			<Setter Property="FontWeight" Value="Medium"/>
-		</Style>
+        <!-- Title -->
+        <Style Selector="^.TitleLarge">
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
 
-		<Style Selector="^.MDBodyLarge">
-			<Setter Property="FontSize" Value="16"/>
-			<Setter Property="FontWeight" Value="Regular"/>
-		</Style>
-		
-		<Style Selector="^.MDBodyMedium">
-			<Setter Property="FontSize" Value="14"/>
-			<Setter Property="FontWeight" Value="Regular"/>
-		</Style>
-		
-		<Style Selector="^.MDBodySmall">
-			<Setter Property="FontSize" Value="12"/>
-			<Setter Property="FontWeight" Value="Regular"/>
-		</Style>
-	</ControlTheme>
+        <Style Selector="^.TitleMedium">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+
+        <Style Selector="^.TitleSmall">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+
+        <!-- Label -->
+        <Style Selector="^.LabelLarge">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+        
+        <Style Selector="^.LabelMedium">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+        
+        <Style Selector="^.LabelSmall">
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="FontWeight" Value="Medium"/>
+        </Style>
+
+        <!-- Body -->
+        <Style Selector="^.BodyLarge">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+        </Style>
+        
+        <Style Selector="^.BodyMedium">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+        </Style>
+        
+        <Style Selector="^.BodySmall">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Regular"/>
+        </Style>
+    </ControlTheme>
 </ResourceDictionary>

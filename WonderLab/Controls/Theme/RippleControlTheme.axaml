@@ -6,22 +6,22 @@
 
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Border ClipToBounds="True"
-						Background="{TemplateBinding Background}"
-						BorderBrush="{TemplateBinding BorderBrush}"
-						CornerRadius="{TemplateBinding CornerRadius}"
-						BorderThickness="{TemplateBinding BorderThickness}">
+				<wc:SmoothBorder ClipToBounds="True"
+								 BorderBrush="{TemplateBinding BorderBrush}"
+								 CornerRadius="{StaticResource NormalCornerRadius}"
+								 BorderThickness="{TemplateBinding BorderThickness}">
 					<Grid>
 						<ContentPresenter Name="Content"
 										  Content="{TemplateBinding Content}"
+										  Background="{TemplateBinding Background}"
 										  ContentTemplate="{TemplateBinding ContentTemplate}"/>
 
 						<Canvas IsHitTestVisible="False"
 								VerticalAlignment="Stretch"
 								HorizontalAlignment="Stretch"
-								x:Name="PART_RippleCanvasRoot"/>
+								Name="PART_RippleCanvasRoot"/>
 					</Grid>
-				</Border>
+				</wc:SmoothBorder>
 			</ControlTemplate>
 		</Setter>
 	</ControlTheme>

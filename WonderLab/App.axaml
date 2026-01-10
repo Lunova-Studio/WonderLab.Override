@@ -1,105 +1,108 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="WonderLab.App"
+             x:Class="WonderLab.Override.App"
              xmlns:monet="using:Monet.Avalonia"
 			 xmlns:wc="using:WonderLab.Media.Converters"
-			 xmlns:dha="using:DialogHostAvalonia"
-			 xmlns:mi="using:Material.Icons.Avalonia"
              RequestedThemeVariant="Default">
     <Application.Styles>
-        <FluentTheme />
 		<monet:MonetColors/>
-		<dha:DialogHostStyles/>
-		<mi:MaterialIconStyles/>
+		
+		<Style Selector="TreeViewItem.TargetHighlight">
+			<Setter Property="AdornerLayer.Adorner">
+				<Template>
+					<Panel IsHitTestVisible="False">
+						<Rectangle RadiusX="4"
+								   RadiusY="4" 
+								   Margin="1 0 0 0"
+						           StrokeThickness="2"
+						           StrokeDashArray="4,2"
+								   Stroke="{DynamicResource PrimaryBrush}"
+								   Fill="{DynamicResource AdornerLayerBackgroundBrush}">
+							<Rectangle.Styles>
+								<Style Selector="Rectangle">
+									<Style.Animations>
+										<Animation Duration="0:0:.5"
+						                           IterationCount="Infinite">
+											<KeyFrame Cue="0%">
+						           			  <Setter Property="StrokeDashOffset" Value="0"/>
+						           		  </KeyFrame>
+						           		  
+						           		  <KeyFrame Cue="100%">
+						           			  <Setter Property="StrokeDashOffset" Value="6"/>
+						           		  </KeyFrame>
+						           	  </Animation>
+									</Style.Animations>
+								</Style>
+							</Rectangle.Styles>
+						</Rectangle>
 
-		<Style Selector="ContentControl.tip">
-			<Setter Property="FontSize" Value="26"/>
-			<Setter Property="VerticalAlignment" Value="Center"/>
-			<Setter Property="HorizontalAlignment" Value="Center"/>
+						<TextBlock Margin="8 4"
+								   Classes="LabelLarge"
+				                   VerticalAlignment="Center"
+				                   HorizontalAlignment="Center" 
+								   Foreground="{DynamicResource OnPrimaryContainerBrush}"
+				                   Text="拖动至此切换分组"/>
+					</Panel>
+				</Template>
+			</Setter>
+		</Style>
 
+		<Style Selector="ItemsControl.card">
+			<Setter Property="ClipToBounds" Value="False"/>
+			<Setter Property="CornerRadius" Value="{DynamicResource StrongCornerRadius}"/>
+			<Setter Property="Background" Value="{DynamicResource SettingCardsBackgroundBrush}"/>
+			
 			<Setter Property="Template">
 				<ControlTemplate>
-					<StackPanel Spacing="8"
-								HorizontalAlignment="Center"
-								IsVisible="{TemplateBinding IsVisible}">
-						<mi:MaterialIcon Kind="InformationCircleOutline"
-										 FontSize="{TemplateBinding FontSize}"/>
-						
-						<TextBlock Classes="BodyStrong"
-								   Text="{TemplateBinding Content}"/>
-					</StackPanel>
+					<Border Padding="{TemplateBinding Padding}"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							ClipToBounds="{TemplateBinding ClipToBounds}"
+							CornerRadius="{TemplateBinding CornerRadius}"
+							BorderThickness="{TemplateBinding BorderThickness}">
+						<ItemsPresenter Name="PART_ItemsPresenter"
+										ItemsPanel="{TemplateBinding ItemsPanel}"/>
+					</Border>
 				</ControlTemplate>
 			</Setter>
 		</Style>
-    </Application.Styles>
-
+	</Application.Styles>
+	
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceInclude Source="/Controls/Theme/TagTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/TileTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ColorTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/FrameTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/SliderTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ButtonTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ToolTipTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ListBoxTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/TextBoxTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/TabStripTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/TreeViewTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ComboBoxTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/CheckBoxTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/MenuItemTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/ScrollBarTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/PullPanelTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/TextBlockTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/PopupRootTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/DynamicBarTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/BlurBorderTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/SplitButtonTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/ContextMenuTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ScrollBarTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/TabControlTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/GalleryViewTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/SettingCardTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ListBoxItemTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/ProgressBarTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/RadioButtonTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/TreeViewItemTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ComboBoxItemTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/GridSplitterTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/ToggleButtonTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ScrollViewerTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/WonderWindowTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/ToggleButtonTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ToggleSwitchTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/ProgressRingTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/NumericUpDownTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/RippleControlTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/DropDownButtonTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/HyperlinkButtonTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/NotificationCardTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/SettingExpandCardTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/MenuFlyoutPresenterTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/DialogOverlayPopupHostTheme.axaml"/>
-				<ResourceInclude Source="/Controls/Theme/Experimental/BreadcrumbBarItemTheme.axaml"/>
 			</ResourceDictionary.MergedDictionaries>
-			
+
+			<wc:MinecraftIconConverter x:Key="MinecraftIconConverter"/>
+
 			<CornerRadius x:Key="WeakCornerRadius">4</CornerRadius>
 			<CornerRadius x:Key="FullCornerRadius">100</CornerRadius>
 			<CornerRadius x:Key="NormalCornerRadius">8</CornerRadius>
 			<CornerRadius x:Key="StrongCornerRadius">12</CornerRadius>
-
-			<wc:TimeTextConverter x:Key="TimeTextConverter"/>
-			<wc:TaskSpeedConverter x:Key="TaskSpeedConverter"/>
-			<wc:LoaderIconConverter x:Key="LoaderIconConverter"/>
-			<wc:ServerIconConverter x:Key="ServerIconConverter"/>
-			<wc:BoolReverseConverter x:Key="BoolReverseConverter"/>
-			<wc:LauncherIconConverter x:Key="LauncherIconConverter"/>
-			<wc:LoaderEnabledConverter x:Key="LoaderEnabledConverter"/>
-			<wc:MinecraftTagsConverter x:Key="MinecraftTagsConverter"/>
-			<wc:MinecraftIconConverter x:Key="MinecraftIconConverter"/>
-			<wc:BackEaseValueConverter x:Key="BackEaseValueConverter"/>
-			<wc:OpactiyReverseConverter x:Key="OpactiyReverseConverter"/>
-			<wc:SolidColorBrushConverter x:Key="SolidColorBrushConverter"/>
-			<wc:MultilineStringConverter x:Key="MultilineStringConverter"/>
-			<wc:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
-			<wc:MinecraftVersionsConverter x:Key="MinecraftVersionsConverter"/>
-			<wc:SettingCardIsVisibleConverter x:Key="SettingCardIsVisibleConverter"/>
-			<wc:NavigationBarCornerRadiusConverter x:Key="NavigationBarCornerRadiusConverter"/>
-			<wc:FitSquarelyWithinAspectRatioConverter x:Key="FitSquarelyWithinAspectRatioConverter"/>
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

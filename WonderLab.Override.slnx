@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/refs/">
+    <Project Path="refs/LiteSkinViewer/LiteSkinViewer.2D/LiteSkinViewer.2D.csproj" />
+    <Project Path="refs/LiteSkinViewer/LiteSkinViewer.Shared/LiteSkinViewer.Shared.csproj" />
+    <Project Path="refs/Monet/Monet.Avalonia/Monet.Avalonia.csproj" />
+    <Project Path="refs/Monet/Monet.Shared/Monet.Shared.csproj" />
+    <Project Path="WonderLab.I18n/WonderLab.Override.I18n/WonderLab.Override.I18n.csproj" />
+  </Folder>
+  <Project Path="WonderLab.SourceGenerator.Shared/WonderLab.SourceGenerator.Shared.csproj" Id="4394e61d-04c6-4efd-807f-237fc7ef44a2" />
+  <Project Path="WonderLab.SourceGenerator/WonderLab.SourceGenerator.csproj" Id="dadd1745-5896-4bb5-836b-ebd89087ab3b" />
+  <Project Path="WonderLab/WonderLab.csproj" />
+</Solution>

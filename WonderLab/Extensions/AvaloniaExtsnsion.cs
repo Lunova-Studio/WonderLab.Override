@@ -1,27 +1,25 @@
-﻿using Avalonia.Media.Imaging;
+using Avalonia.Media.Imaging;
 using Avalonia.Platform;
 using System;
 using System.IO;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace WonderLab.Extensions;
 
 public static class AvaloniaExtsnsion {
     public static Bitmap ToBitmap(this string uri) {
-        var memoryStream = new MemoryStream();
         using var stream = AssetLoader.Open(new Uri(uri));
-        stream!.CopyTo(memoryStream);
-        memoryStream.Position = 0;
-
-        return new Bitmap(memoryStream);
+        return new Bitmap(stream);
     }
 
-    public static string ToText(this Uri uri) {
-        var memoryStream = new MemoryStream();
-        using var stream = AssetLoader.Open(uri);
-        stream!.CopyTo(memoryStream);
-        memoryStream.Position = 0;
+    public static async Task<string> ToTextAsync(this Uri uri, CancellationToken cancellationToken = default) {
+        ArgumentNullException.ThrowIfNull(uri);
 
-        using var reader = new StreamReader(memoryStream);
-        return reader.ReadToEnd();
+        using var stream = AssetLoader.Open(uri) ?? throw new InvalidOperationException($"Asset not found: {uri}");
+        using var reader = new StreamReader(stream, Encoding.UTF8, true, 81920);
+        return await reader.ReadToEndAsync(cancellationToken)
+            .WaitAsync(cancellationToken);
     }
 }

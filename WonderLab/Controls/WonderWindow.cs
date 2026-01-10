@@ -1,37 +1,13 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Controls.Metadata;
+﻿using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
-using Avalonia.Markup.Xaml.MarkupExtensions;
-using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using MinecraftLaunch.Base.Utilities;
 using System;
-using System.IO;
-using WonderLab.Classes.Enums;
-using WonderLab.Controls.Experimental.Effect;
-using WonderLab.SourceGenerator.Attributes;
-using WonderLab.Utilities;
 
 namespace WonderLab.Controls;
 
-[StyledProperty(typeof(string), "ImagePath")]
 [StyledProperty(typeof(object), "TitleBarContent")]
-[StyledProperty(typeof(double), "ShieldBackgroundOpacity")]
 [StyledProperty(typeof(Avalonia.Controls.Controls), "OverlayControls")]
-[StyledProperty(typeof(BackgroundType), "BackgroundType", BackgroundType.SolidColor)]
-[TemplatePart("PART_CloseButton", typeof(Button), IsRequired = true)]
-[TemplatePart("PART_MinimizeButton", typeof(Button), IsRequired = true)]
 public partial class WonderWindow : Window {
-    private Border _PART_BackgroundBorder;
-    private SkiaShaderRenderer _PART_SkiaShaderRenderer;
-    private ExperimentalAcrylicBorder _PART_AcrylicBlurMask;
-
     protected override Type StyleKeyOverride => typeof(WonderWindow);
-
-    public WonderWindow() {
-        OverlayControls = [];
-    }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e) {
         base.OnApplyTemplate(e);
@@ -47,63 +23,5 @@ public partial class WonderWindow : Window {
         closeButton.Click += (_, _) => Close();
         minimizeButton.Click += (_, _) => WindowState = WindowState.Minimized;
         dragLayoutBorder.PointerPressed += (_, arg) => BeginMoveDrag(arg);
-    }
-
-    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change) {
-        base.OnPropertyChanged(change);
-
-        //if (change.Property == ImagePathProperty && BackgroundType is BackgroundType.Bitmap && IsLoaded)
-        //    UpdateBackground((BackgroundType.None, BackgroundType.Bitmap));
-
-        //if (change.Property == BackgroundTypeProperty && IsLoaded)
-        //    UpdateBackground(change.GetOldAndNewValue<BackgroundType>());
-    }
-
-    private void UpdateBackground((BackgroundType oldValue, BackgroundType newValue) values) {
-        if (values.oldValue == values.newValue)
-            return;
-
-        _PART_SkiaShaderRenderer.Stop();
-        _PART_AcrylicBlurMask.IsVisible = !EnvironmentUtil.IsWindow && values.newValue is BackgroundType.Acrylic;
-
-        _PART_BackgroundBorder.IsVisible =
-            values.newValue is BackgroundType.SolidColor or BackgroundType.Bitmap;
-
-        if (EnvironmentUtil.IsWindow &&
-                values.newValue is BackgroundType.Acrylic or BackgroundType.Mica) {
-
-            Win32InteropUtil.SetWindowEffect(TryGetPlatformHandle().Handle,
-                values.newValue is BackgroundType.Acrylic ? 3 : 4);
-            return;
-        }
-
-        switch (values.newValue) {
-            case BackgroundType.SolidColor:
-                Bind(BackgroundProperty,
-                    new DynamicResourceExtension("ApplicationBackgroundBrush"));
-                break;
-            case BackgroundType.Bitmap:
-                RenderOptions.SetBitmapInterpolationMode(_PART_BackgroundBorder, BitmapInterpolationMode.LowQuality);
-                if (File.Exists(ImagePath))
-                    Background = new ImageBrush {
-                        Source = new Bitmap(ImagePath),
-                        Stretch = Stretch.UniformToFill,
-                    };
-                break;
-            case BackgroundType.Acrylic:
-                TransparencyLevelHint = [WindowTransparencyLevel.AcrylicBlur, WindowTransparencyLevel.None];
-                break;
-            case BackgroundType.Voronoi:
-                _PART_SkiaShaderRenderer.SetEffect(SkiaEffect.FromEmbeddedResource("voronoi.sksl"));
-                _PART_SkiaShaderRenderer.Start();
-                break;
-            case BackgroundType.Bubble:
-                _PART_SkiaShaderRenderer.SetEffect(SkiaEffect.FromEmbeddedResource("bubble.sksl", BackgroundType.Bubble));
-                _PART_SkiaShaderRenderer.Start();
-                break;
-            case BackgroundType.Mica:
-                TransparencyLevelHint = [WindowTransparencyLevel.Mica, WindowTransparencyLevel.None];
-                break;
-        }
     }
 }

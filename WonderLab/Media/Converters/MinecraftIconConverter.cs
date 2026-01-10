@@ -1,9 +1,10 @@
-﻿using Avalonia.Data.Converters;
+using Avalonia.Data.Converters;
+using Avalonia.Media;
 using MinecraftLaunch.Base.Models.Game;
 using MinecraftLaunch.Base.Models.Network;
 using System;
 using System.Globalization;
-using WonderLab.Services;
+using WonderLab.Services.UI;
 
 namespace WonderLab.Media.Converters;
 
@@ -14,7 +15,7 @@ public sealed class MinecraftIconConverter : IValueConverter {
                 ? ThemeService.ReleaseMinecraftIcon.Value
                 : ThemeService.LoaderMinecraftIcon.Value;
         }
-
+        
         if (value is VersionManifestEntry versionManifest) {
             return versionManifest.Type switch {
                 "old_beta" => ThemeService.OldMinecraftIcon.Value,

@@ -1,0 +1,97 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wc="using:WonderLab.Controls"
+					xmlns:wa="using:WonderLab.Media.Attachments">
+    <Design.PreviewWith>
+		<Border Padding="20">
+			<wc:GalleryView>
+<!--				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>
+				<ListBoxItem Content="21"/>-->
+			</wc:GalleryView>
+		</Border>
+	</Design.PreviewWith>
+
+    <ControlTheme TargetType="wc:GalleryView" x:Key="{x:Type wc:GalleryView}">
+		<Setter Property="Padding" Value="0"/>
+		<Setter Property="MinWidth" Value="200"/>
+		<Setter Property="MinHeight" Value="100"/>
+		<Setter Property="CornerRadius" Value="{StaticResource NormalCornerRadius}"/>
+		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden"/>
+		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+
+		<Setter Property="ItemsPanel">
+			<ItemsPanelTemplate>
+				<VirtualizingStackPanel Orientation="Horizontal"/>
+			</ItemsPanelTemplate>
+		</Setter>
+
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Border Padding="{TemplateBinding Padding}"
+						Background="{TemplateBinding Background}"
+						CornerRadius="{TemplateBinding CornerRadius}">
+					<Grid RowDefinitions="auto *">
+						<TextBlock Margin="0 0 0 4"
+								   Classes="TitleMedium"
+								   VerticalAlignment="Center"
+				                   Text="{TemplateBinding Title}"
+								   Grid.Column="0"/>
+
+						<StackPanel Spacing="4"
+									IsVisible="False"
+									IsHitTestVisible="False" 
+									VerticalAlignment="Top"
+									HorizontalAlignment="Center"
+									Name="PART_EmptyTipScrollPanel"
+									Grid.Row="1">
+							<TextBlock FontSize="28"
+									   Classes="Icon"
+									   HorizontalAlignment="Center"
+									   Text="&#xF133;"/>
+
+							<TextBlock Classes="TitleMedium"
+									   TextAlignment="Center"
+									   HorizontalAlignment="Center"
+									   Text="{TemplateBinding EmptyTip}"/>
+						</StackPanel>
+
+						<ScrollViewer Name="PART_ScrollViewer"
+									  AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+									  VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}"
+									  IsScrollInertiaEnabled="{TemplateBinding (ScrollViewer.IsScrollInertiaEnabled)}"
+									  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+									  HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}"
+									  IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
+									  BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+									  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+									  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+									  Grid.Row="1">
+							<ItemsPresenter Name="PART_ItemsPresenter"
+											ItemsPanel="{TemplateBinding ItemsPanel}"
+											wa:AnimatedScrollExtensions.AnimatedScroll="True"/>
+						</ScrollViewer>
+					</Grid>
+				</Border>
+			</ControlTemplate>
+		</Setter>
+    </ControlTheme>
+</ResourceDictionary>

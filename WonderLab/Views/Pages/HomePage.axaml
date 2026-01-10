@@ -3,22 +3,214 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-			 xmlns:wa="using:WonderLab.Media.Attachments"
-			 xmlns:wb="using:WonderLab.Media.Behaviors"
-			 xmlns:mi="using:Material.Icons.Avalonia"
+             xmlns:wc="using:WonderLab.Controls"
+             xmlns:wa="using:WonderLab.Media.Attachments"
              x:Class="WonderLab.Views.Pages.HomePage">
-	<Button Margin="0 16"
-			Padding="16 8"
-			Classes="ripple"
-			VerticalAlignment="Top"
-			HorizontalAlignment="Left"
-			Background="{DynamicResource SettingCardsBackgroundBrush}">
-		<StackPanel Spacing="2">
-			<TextBlock Classes="MDTitleMedium"
-					   Text="{I18n {Binding TimeSlot}}"/>
+    <ScrollViewer>
+		<StackPanel Margin="16 12"
+                    wa:AnimatedScrollExtensions.AnimatedScroll="True">
+			<wc:GalleryView Title="新情报速递"
+                            ItemsSource="{Binding News}">
+                <wc:GalleryView.ItemTemplate>
+					<DataTemplate>
+						<Grid MinHeight="100"
+                              MaxWidth="280" 
+                              Margin="0 0 8 4"
+                              RowDefinitions="auto *">
+							<TextBlock Margin="0 0 0 4"
+                                       Opacity="0.6"
+                                       Classes="LabelMedium"
+                                       Text="{Binding}"/>
 
-			<TextBlock Classes="MDBodySmall"
-					   Text="{Binding OneSentence}"/>
-		</StackPanel>
-	</Button>
+                            <HyperlinkButton Classes="news" Grid.Row="1">
+								<Grid RowDefinitions="20 *" 
+                                      ColumnDefinitions="auto *">
+                                    <Border Width="18"
+                                            Height="18"
+                                            Margin="0 0 4 0"
+                                            VerticalAlignment="Center"
+                                            CornerRadius="{StaticResource WeakCornerRadius}"
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            RenderOptions.BitmapInterpolationMode="LowQuality">
+                                        <Border.Background>
+                                            <ImageBrush Source="avares://WonderLab/Assets/Images/Icons/loader_fabric.png"/>
+                                        </Border.Background>
+                                    </Border>
+
+                                    <TextBlock Margin="4 0 0 0"
+                                               Opacity="0.6"
+                                               Classes="LabelLarge"
+                                               VerticalAlignment="Center"
+                                               Text="News"
+                                               Grid.Row="0"
+                                               Grid.Column="1"/>
+
+                                    <TextBlock Width="260"
+                                               MaxLines="2"
+                                               Opacity="0.9"
+                                               Margin="0 2 0 0"
+                                               Classes="TitleMedium"
+                                               TextWrapping="WrapWithOverflow"
+                                               Text="New on Java Realms: Interview with a mob" 
+                                               Grid.Row="1"
+                                               Grid.Column="0"
+                                               Grid.ColumnSpan="2"/>
+                                </Grid>
+                            </HyperlinkButton>
+                        </Grid>
+                    </DataTemplate>
+                </wc:GalleryView.ItemTemplate>
+            </wc:GalleryView>
+            
+            <TextBlock Margin="0 16 0 8"
+                       Classes="TitleMedium"
+                       VerticalAlignment="Center"
+                       Text="数据统计"/>
+
+            <Grid ColumnSpacing="8"
+                  HorizontalAlignment="Stretch"
+                  ColumnDefinitions="* * * *">
+                <Button Height="95"
+                        Classes="card"
+                        Grid.Column="0">
+					<Grid RowDefinitions="auto auto auto">
+						<TextBlock FontSize="24"
+                                   Classes="Icon"
+                                   Text="&#xE7FC;"
+                                   HorizontalAlignment="Center"/>
+                        
+                        <TextBlock Margin="0 4"
+                                   Classes="TitleMedium" 
+                                   HorizontalAlignment="Center"
+                                   Text="{Binding TotalMinecraftCount}"
+                                   Grid.Row="1"/>
+
+                        <TextBlock Opacity="0.6"
+                                   Classes="LabelMedium"
+                                   HorizontalAlignment="Center"
+                                   Text="本地游戏数"
+                                   Grid.Row="2"/>
+                    </Grid>
+                </Button>
+
+                <Button Height="95"
+                        Classes="card"
+                        Grid.Column="1">
+					<Grid RowDefinitions="auto auto auto">
+						<TextBlock FontSize="22"
+                                   Classes="Icon"
+                                   Text="&#xE823;"
+                                   HorizontalAlignment="Center"/>
+                        
+                        <TextBlock Margin="0 4"
+                                   Classes="TitleMedium"
+                                   HorizontalAlignment="Center"
+                                   Text="{Binding TotalPlayTime}"
+                                   Grid.Row="1"/>
+
+                        <TextBlock Opacity="0.6"
+                                   Classes="LabelMedium"
+                                   HorizontalAlignment="Center"
+                                   Text="总游戏时长"
+                                   Grid.Row="2"/>
+                    </Grid>
+                </Button>
+
+                <Button Height="95"
+                        Classes="card"
+                        Grid.Column="2">
+					<Grid RowDefinitions="auto auto auto">
+						<TextBlock FontSize="22"
+                                   Classes="Icon"
+                                   Text="&#xE787;"
+                                   HorizontalAlignment="Center"/>
+                        
+                        <TextBlock Margin="0 4"
+                                   Classes="TitleMedium"
+                                   HorizontalAlignment="Center"
+                                   Text="{Binding WeekPlayTime}"
+                                   Grid.Row="1"/>
+
+                        <TextBlock Opacity="0.6"
+                                   Classes="LabelMedium"
+                                   HorizontalAlignment="Center"
+                                   Text="本周游戏时长"
+                                   Grid.Row="2"/>
+                    </Grid>
+                </Button>
+                
+                <Button Height="95"
+                        Classes="card"
+                        Grid.Column="3">
+					<Grid RowDefinitions="auto auto auto">
+						<TextBlock FontSize="22"
+                                   Classes="Icon"
+                                   Text="&#xE8BF;"
+                                   HorizontalAlignment="Center"/>
+                        
+                        <TextBlock Margin="0 4"
+                                   Classes="TitleMedium"
+                                   HorizontalAlignment="Center"
+                                   Text="{Binding TodayPlayTime}"
+                                   Grid.Row="1"/>
+
+                        <TextBlock Opacity="0.6"
+                                   Classes="LabelMedium"
+                                   HorizontalAlignment="Center"
+                                   Text="今日游戏时长"
+                                   Grid.Row="2"/>
+                    </Grid>
+                </Button>
+            </Grid>
+
+            <TextBlock Margin="0 16 0 8"
+                       Classes="TitleMedium"
+                       VerticalAlignment="Center"
+                       Text="最近游戏"/>
+
+			<ItemsRepeater ItemsSource="{Binding News}">
+				<ItemsRepeater.Layout>
+					<StackLayout Spacing="8" Orientation="Vertical" DisableVirtualization="False"/>
+                </ItemsRepeater.Layout>
+
+                <ItemsRepeater.ItemTemplate>
+					<DataTemplate>
+                        <Button Classes="ripple"
+                                HorizontalContentAlignment="Stretch"
+                                Background="{DynamicResource SurfaceContainerHighBrush}">	
+                            <Grid Margin="12 8"
+                                  RowDefinitions="* *"
+                                  ColumnDefinitions="auto *">
+                                <Border Width="30"
+                                        Height="30"
+                                        Margin="0 0 8 0"
+                                        VerticalAlignment="Center"
+                                        CornerRadius="{StaticResource WeakCornerRadius}"
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Grid.RowSpan="2"
+                                        RenderOptions.BitmapInterpolationMode="LowQuality">
+                                    <Border.Background>
+                                        <ImageBrush Source="avares://WonderLab/Assets/Images/Icons/loader_fabric.png"/>
+                                    </Border.Background>
+                                </Border>
+
+                                <TextBlock Classes="LabelLarge"
+                                           Text="游戏名"
+                                           Grid.Row="0"
+                                           Grid.Column="1"/>
+
+                                <TextBlock Opacity="0.6"
+                                           Classes="LabelMedium"
+                                           Text="最后游玩：今天"
+                                           Grid.Row="1"
+                                           Grid.Column="1"/>
+                            </Grid>
+                        </Button>
+                    </DataTemplate>
+                </ItemsRepeater.ItemTemplate>
+            </ItemsRepeater>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

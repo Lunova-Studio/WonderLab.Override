@@ -1,8 +1,8 @@
-using WonderLab.Controls;
+﻿using Avalonia.Controls;
 
 namespace WonderLab.Views.Pages.Download;
 
-public partial class DownloadNavigationPage : Page {
+public partial class DownloadNavigationPage : UserControl {
     public DownloadNavigationPage() {
         InitializeComponent();
     }

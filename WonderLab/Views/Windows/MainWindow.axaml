@@ -1,446 +1,102 @@
 <wc:WonderWindow xmlns="https://github.com/avaloniaui"
-				 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-				 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-				 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-				 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-				 x:Class="WonderLab.Views.Windows.MainWindow" MinWidth="100"
-				 xmlns:wc="using:WonderLab.Controls"
-				 xmlns:wb="using:WonderLab.Media.Behaviors"
-				 xmlns:wt="using:WonderLab.Media.Transitions"
-				 xmlns:mi="using:Material.Icons.Avalonia"
-				 xmlns:dh="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
-				 ShieldBackgroundOpacity="{Binding ShieldBackgroundOpacity}"
-				 Title="WonderLab">	
-	<wc:WonderWindow.Resources>
-		<DataTemplate x:Key="MinecraftProcessCardItemTemplate">
-			<Button Width="30"
-					Opacity="0"
-					Classes="ripple"
-					Margin="0 0 2 0"
-					Background="Transparent"
-					VerticalAlignment="Stretch"
-					HorizontalAlignment="Center"
-					VerticalContentAlignment="Center"
-					HorizontalContentAlignment="Center">
-				<Interaction.Behaviors>
-					<wb:MinecraftProcessCardAnimationBehavior IsExited="{Binding IsExited}"/>
-				</Interaction.Behaviors>
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                 xmlns:wc="using:WonderLab.Controls"
+                 xmlns:models="using:WonderLab.Models"
+                 xmlns:vmw="using:WonderLab.ViewModels.Windows"
+                 x:Class="WonderLab.Views.Windows.MainWindow"
+                 x:DataType="vmw:MainWindowViewModel"
+                 Title="WonderLab">
+    <wc:WonderWindow.TitleBarContent>
+        <Grid ColumnDefinitions="auto auto * auto">
+			<Button Classes="icon"
+                    Margin="10 0 0 0"
+                    Content="&#xE72B;"
+                    Name="PART_BackButton"
+                    Click="OnBackButtonClick"
+                    Grid.Column="0"/>
 
-				<Button.Styles>
-					<Style Selector="Button.ripple">
-						<Setter Property="CornerRadius" Value="{DynamicResource FullCornerRadius}"/>
-					</Style>
-				</Button.Styles>
-				
-				<Button.Transitions>
-					<Transitions>
-						<DoubleTransition Property="Width"
-										  Duration="0:0:.3"
-										  Easing="CubicEaseOut"/>
-					</Transitions>
-				</Button.Transitions>
+			<Button Classes="icon"
+                    Content="&#xE72A;"
+                    Name="PART_ForwardButton"
+                    Click="OnForwardButtonClick"
+                    Grid.Column="1"/>
+            
+            <ListBox Name="PART_ListBox"
+                     SelectionChanged="OnSelectionChanged"
+                     ItemsSource="{Binding TabItems}"
+                     SelectedItem="{Binding CurrentTab}"
+                     ItemContainerTheme="{StaticResource TopBarItemTheme}"
+                     Grid.Column="2">
+                <ListBox.ItemsPanel>
+					<ItemsPanelTemplate>
+						<VirtualizingStackPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
 
-				<Button.Flyout>
-					<MenuFlyout VerticalOffset="-16"
-								Placement="TopEdgeAlignedRight">
-						<MenuItem Header="{I18n Close}"
-								  Command="{Binding CloseCommand}"
-								  Icon="{mi:MaterialIconExt DeleteEmptyOutline}"/>
-						
-						<MenuItem Header="查看日志"
-								  Icon="{mi:MaterialIconExt Console}"
-								  Command="{Binding OpenLogWindowCommand}"/>
-					</MenuFlyout>
-				</Button.Flyout>
-				
-				<Border Width="20"
-						Height="20"
-						BorderThickness="1"
-						BorderBrush="White"
-						ClipToBounds="True"
-						CornerRadius="{DynamicResource FullCornerRadius}">
-					<Border.Background>
-						<ImageBrush Stretch="UniformToFill"
-									Source="resm:WonderLab.Assets.Images.Icons.release_minecraft.png"/>
-					</Border.Background>
-				</Border>
-			</Button>
-		</DataTemplate>
-	</wc:WonderWindow.Resources>
-	
-	<wc:WonderWindow.OverlayControls>
-		<dh:DialogHost Padding="0"
-					   DialogMargin="0"
-					   Identifier="Host"
-					   Background="{DynamicResource DialogPopupBackgroundBrush}"
-					   dh:DialogHostStyle.CornerRadius="{DynamicResource StrongCornerRadius}"/>
+                <ListBox.ItemTemplate>
+					<DataTemplate DataType="models:TabItemModel">
+                        <!--WIP: I18N-->
+						<TextBlock FontSize="18"
+                                   FontWeight="Medium"
+                                   Text="{Binding I18nKey}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
-		<WindowNotificationManager Position="TopCenter">
-			<Interaction.Behaviors>
-				<wb:NotificationBehavior/>
-			</Interaction.Behaviors>
-		</WindowNotificationManager>
-	</wc:WonderWindow.OverlayControls>
+            <Button Padding="8 0"
+                    Margin="8 0 10 0"
+                    Classes="ripple"
+                    Background="transparent"
+                    Grid.Column="4">
+                <StackPanel Spacing="8"
+                            Orientation="Horizontal">
+                    <TextBlock Classes="LabelLarge"
+                               VerticalAlignment="Center"
+                               Text="yangSpring114"/>
 
-	<Interaction.Behaviors>
-		<EventTriggerBehavior EventName="Loaded">
-			<InvokeCommandAction Command="{Binding LoadedCommand}"/>
-		</EventTriggerBehavior>
-	</Interaction.Behaviors>
-	
-	<Grid RowDefinitions="auto * auto">
-		<Panel Height="20"
-			   VerticalAlignment="Top"
-			   HorizontalAlignment="Stretch"
-			   Grid.Row="0">
-			<Interaction.Behaviors>
-				<wb:LaunchProgressBarBehavior ActiveTask="{Binding ActiveTask}"
-											  ProgressBar="{Binding ElementName=PART_ProgressBar}"/>
-			</Interaction.Behaviors>
-			
-			<ProgressBar Height="20"
-						 CornerRadius="0"
-						 IsIndeterminate="True"
-						 Name="PART_ProgressBar"/>
+					<TextBlock FontSize="16"
+                               Classes="Icon"
+                               Text="&#xE77B;"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </wc:WonderWindow.TitleBarContent>
 
-			<StackPanel Height="18"
-						Orientation="Horizontal"
-						VerticalAlignment="Center"
-						HorizontalAlignment="Center">
-				<TextBlock Classes="Caption"
-						   Text="{Binding ActiveTask.RunningTimeText}"/>
+    <Grid RowDefinitions="auto * auto">
+        <Border Opacity="0.35"
+                Grid.RowSpan="3">
+			<Border.Background>
+                <ImageBrush Stretch="Uniform" Source="C:\Users\wxysd\Desktop\总整包\素材库\图片素材\杂项\Hachiroku_Stand02.png"/>
+            </Border.Background>
+        </Border>
 
-				<TextBlock Classes="Caption"
-						   Margin="16 0 0 0"
-						   IsVisible="{Binding ActiveTask.IsSupportSpeed, Converter={StaticResource BoolReverseConverter}}">
-					<TextBlock.Text>
-						<I18n Key="Launching_Format">
-							<Binding Path="ActiveTask.JobName"/>
-						</I18n>
-					</TextBlock.Text>
-				</TextBlock>
+        <Border Height="25"
+                Name="PART_TestTipBanner"
+                UseLayoutRounding="False"
+                BorderThickness="0 0 0 0.2"
+                Background="{DynamicResource SecondaryContainerBrush}"
+                BorderBrush="{DynamicResource OnSecondaryContainerBrush}">
+			<StackPanel Spacing="8"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
+				<TextBlock FontSize="16"
+                           Classes="Icon"
+                           Text="&#xE7BA;"
+                           Foreground="{DynamicResource OnSecondaryContainerBrush}"/>
 
-				<TextBlock Classes="Caption"
-						   Margin="16 0 0 0"
-						   Text="补全游戏文件中"
-						   IsVisible="{Binding ActiveTask.IsSupportSpeed}"/>
+                <TextBlock Foreground="{DynamicResource OnSecondaryContainerBrush}"
+                           Text="当前版本为内测版本，不代表最终品质"/>
+            </StackPanel>
+        </Border>
 
-				<TextBlock Classes="Caption"
-						   Margin="16 0 0 0"
-						   Text="{Binding ActiveTask.SpeedText}"
-						   IsVisible="{Binding ActiveTask.IsSupportSpeed}"/>
-			</StackPanel>
-		</Panel>
-		
-		<wc:Frame Margin="16 12 0 12"
-				  PageKey="{Binding PageKey}"
-				  PageProvider="{Binding PageProvider}"
-				  Grid.Row="1"/>
-
-		<wc:PullPanel Margin="8"
-					  Width="400"
-					  HorizontalAlignment="Right"
-					  VerticalAlignment="Stretch"
-					  IsPanelOpen="{Binding IsTasksPanelOpen}"
-					  Grid.Row="1">
-			<wc:Frame Margin="16 16 0 16"
-					  PageKey="{Binding TasksPageKey}"
-					  PageProvider="{Binding PageProvider}"/>
-		</wc:PullPanel>
-		
-		<TextBlock Margin="12 4" 
-				   Name="Temp"
-				   Classes="Caption"
-				   TextAlignment="Right"
-				   IsHitTestVisible="False"
-				   VerticalAlignment="Bottom"
-				   HorizontalAlignment="Right"
-				   Grid.Row="1">
-			<TextBlock.Inlines>
-				<Run Text="当前为 UI/UX 评估测试，不代表最终质量"/>
-				<LineBreak/>
-				<Run Text="WonderLab 内部开发版本 Pre-Alpha-2.0.0"/>
-			</TextBlock.Inlines>
-		</TextBlock>
-		
-		<ListBox Classes="bottombar"
-				 SelectedIndex="{Binding ActivePageIndex, Mode=TwoWay}"
-				 CornerRadius="{Binding ActivePageIndex, Converter={StaticResource NavigationBarCornerRadiusConverter}}"
-				 Grid.Row="2">
-			<Interaction.Behaviors>
-				<EventTriggerBehavior EventName="SelectionChanged">
-					<InvokeCommandAction Command="{Binding ChangeActivePageCommand}"/>
-				</EventTriggerBehavior>
-			</Interaction.Behaviors>
-
-			<ListBox.Transitions>
-				<Transitions>
-					<CornerRadiusTransition Duration="0:0:.25"
-											Property="CornerRadius"
-											Easing="CubicEaseOut"/>
-				</Transitions>
-			</ListBox.Transitions>
-			
-			<ListBox.Tag>
-				<Grid ColumnDefinitions="auto * auto auto">
-					<SplitButton Height="35"
-								 Padding="24 4"
-								 Margin="8 0 0 0"
-								 Classes="reverse-top"
-								 HorizontalAlignment="Left"
-								 VerticalAlignment="Center"
-								 Command="{Binding LaunchCommand}"
-								 CornerRadius="{StaticResource FullCornerRadius}"
-								 Background="{DynamicResource SecondaryContainerBrush}"
-								 ToolTip.ShowDelay="0"
-								 ToolTip.Placement="Top"
-								 ToolTip.VerticalOffset="-16"
-								 Grid.Row="2">
-						<Grid ColumnDefinitions="auto auto auto">
-							<mi:MaterialIcon FontSize="16"
-											 Kind="RocketLaunch"/>
-
-							<TextBlock FontSize="14"
-									   Margin="8 0 4 0"
-									   Text="{I18n Launch}"
-									   Grid.Column="1"/>
-
-							<TextBlock FontSize="14"
-									   MaxWidth="120"
-									   TextTrimming="CharacterEllipsis"
-									   Text="{Binding ActiveMinecraft.Id}"
-									   Grid.Column="2"/>
-						</Grid>
-						
-						<SplitButton.Flyout>
-							<Flyout Placement="TopEdgeAlignedLeft"
-									VerticalOffset="-12">
-								<Flyout.FlyoutPresenterTheme>
-									<ControlTheme TargetType="FlyoutPresenter"/>
-								</Flyout.FlyoutPresenterTheme>
-								
-								<ListBox Padding="6"
-										 MinWidth="250"
-										 MaxWidth="600"
-										 MaxHeight="350"
-										 ItemsSource="{Binding Minecrafts}"
-										 SelectedItem="{Binding ActiveMinecraft}"
-										 CornerRadius="{DynamicResource NormalCornerRadius}"
-										 Background="{DynamicResource FlyoutBackgroundBrush}">
-									<ListBox.ItemsPanel>
-										<ItemsPanelTemplate>
-											<StackPanel Spacing="4"/>
-										</ItemsPanelTemplate>
-									</ListBox.ItemsPanel>
-									
-									<ListBox.ItemTemplate>
-										<DataTemplate>
-											<Grid ColumnSpacing="8"
-												  RowDefinitions="* *"
-												  ColumnDefinitions="auto *">
-												<Border Width="30"
-														Height="30"
-														CornerRadius="6"
-														Grid.Row="0"
-														Grid.Column="0"
-														Grid.RowSpan="2">
-													<Border.Background>
-														<ImageBrush Source="{Binding Converter={StaticResource MinecraftIconConverter}}"/>
-													</Border.Background>
-												</Border>
-												
-												<TextBlock Classes="MDTitleSmall"
-														   Text="{Binding Id}"
-														   Grid.Row="0"
-														   Grid.Column="1"/>
-
-												<Grid ColumnSpacing="4"
-													  ColumnDefinitions="auto auto"
-													  Grid.Row="1"
-													  Grid.Column="1">
-													<TextBlock Classes="MDBodySmall"
-															   Text="{Binding Version.VersionId}"
-															   Foreground="{DynamicResource OutlineBrush}"/>
-													
-													<TextBlock Classes="MDBodySmall"
-															   Text="{Binding Version.Type}"
-															   Foreground="{DynamicResource OutlineBrush}"
-															   Grid.Column="1"/>
-												</Grid>
-											</Grid>
-										</DataTemplate>
-									</ListBox.ItemTemplate>
-								</ListBox>
-							</Flyout>
-						</SplitButton.Flyout>
-					</SplitButton>
-
-					<Button Height="35"
-							Padding="12 4"
-							Classes="ripple"
-							CornerRadius="20 6 6 20"
-							VerticalAlignment="Center"
-							VerticalContentAlignment="Center"
-							Command="{Binding OpenGamesPanelCommand}"
-							Background="{DynamicResource SurfaceContainerHighestBrush}"
-							Grid.Column="2">
-						<Grid ColumnSpacing="8"
-							  ColumnDefinitions="auto auto">
-							<mi:MaterialIcon FontSize="16"
-											 Kind="AccountCircleOutline"/>
-
-							<TextBlock FontSize="14"
-									   Text="{Binding ActiveAccount.Account.Name}"
-									   Grid.Column="1"/>
-						</Grid>
-
-						<Button.Flyout>
-							<Flyout VerticalOffset="-12"
-									Placement="TopEdgeAlignedRight">
-								<Flyout.FlyoutPresenterTheme>
-									<ControlTheme TargetType="FlyoutPresenter"/>
-								</Flyout.FlyoutPresenterTheme>
-
-								<ListBox Padding="6"
-										 MinWidth="250"
-										 MaxWidth="600"
-										 MaxHeight="350"
-										 ItemsSource="{Binding Accounts}"
-										 SelectedItem="{Binding ActiveAccount}"
-										 CornerRadius="{DynamicResource NormalCornerRadius}"
-										 Background="{DynamicResource FlyoutBackgroundBrush}">
-									<ListBox.ItemsPanel>
-										<ItemsPanelTemplate>
-											<StackPanel Spacing="4"/>
-										</ItemsPanelTemplate>
-									</ListBox.ItemsPanel>
-
-									<ListBox.ItemTemplate>
-										<DataTemplate>
-											<Grid ColumnSpacing="8"
-												  RowDefinitions="* *"
-												  ColumnDefinitions="auto *">
-												<Border Width="30"
-														Height="30"
-														CornerRadius="6"
-														Grid.Row="0"
-														Grid.Column="0"
-														Grid.RowSpan="2">
-													<Border.Background>
-														<ImageBrush Source="{Binding Avatar}"/>
-													</Border.Background>
-												</Border>
-
-												<TextBlock Classes="MDTitleSmall"
-														   Text="{Binding Account.Name}"
-														   Grid.Row="0"
-														   Grid.Column="1"/>
-
-												<TextBlock Classes="MDBodySmall"
-														   Text="{Binding Account.Type}"
-														   Foreground="{DynamicResource OutlineBrush}"
-														   Grid.Row="1"
-														   Grid.Column="1"/>
-											</Grid>
-										</DataTemplate>
-									</ListBox.ItemTemplate>
-								</ListBox>
-							</Flyout>
-						</Button.Flyout>
-					</Button>
-
-					<Border Height="35"
-							Padding="8 4"
-							Margin="4 0 8 0"
-							CornerRadius="6 20 20 6"
-							VerticalAlignment="Center"
-							Background="{DynamicResource SurfaceContainerHighestBrush}"
-							Grid.Column="3">
-						<Grid ColumnDefinitions="auto auto auto">
-							<ItemsControl Background="Transparent"
-										  ItemsSource="{Binding MinecraftProcesses}"
-										  ItemTemplate="{StaticResource MinecraftProcessCardItemTemplate}"
-										  Grid.Column="0">
-								<ItemsControl.ItemsPanel>
-									<ItemsPanelTemplate>
-										<ReversibleStackPanel ReverseOrder="True"
-															  Orientation="Horizontal"/>
-									</ItemsPanelTemplate>
-								</ItemsControl.ItemsPanel>
-							</ItemsControl>
-							
-							<ToggleButton Width="25"
-										  Height="25"
-										  Padding="0"
-										  FontSize="14"
-										  Margin="0 0 4 0"
-										  Classes="highest"
-										  IsVisible="False"
-										  Content="{mi:MaterialIconExt ArrowUpBoldCircle}"
-										  Command="{Binding ShowTaskCenterCommand}"
-										  ToolTip.ShowDelay="0"
-										  ToolTip.Placement="Top"
-										  ToolTip.VerticalOffset="-16"
-										  ToolTip.Tip="有可用的更新"
-										  Grid.Column="1"/>
-							
-							<ToggleButton Width="25"
-										  Height="25"
-										  Padding="0"
-										  FontSize="14"
-										  Classes="highest"
-										  IsChecked="{Binding IsTasksPanelOpen}"
-										  Command="{Binding OpenTasksPanelCommand}"
-										  Content="{mi:MaterialIconExt CollapseAll}"
-										  ToolTip.ShowDelay="0"
-										  ToolTip.Placement="Top"
-										  ToolTip.VerticalOffset="-16"
-										  ToolTip.Tip="任务中心"
-										  Grid.Column="2"/>
-						</Grid>
-					</Border>
-				</Grid>
-			</ListBox.Tag>
-			
-			<ListBoxItem Tag="{mi:MaterialIconExt Home}"
-						 Foreground="{DynamicResource PrimaryBrush}"
-						 Content="{I18n Home}">
-				<Interaction.Behaviors>
-					<wb:ListBoxAnimationBehavior/>
-				</Interaction.Behaviors>
-			</ListBoxItem>
-
-			<ListBoxItem Tag="{mi:MaterialIconExt AtomVariant}"
-						 Foreground="{DynamicResource PrimaryBrush}"
-						 Content="{I18n GameManager}">
-				<Interaction.Behaviors>
-					<wb:ListBoxAnimationBehavior/>
-				</Interaction.Behaviors>
-			</ListBoxItem>
-
-			<ListBoxItem Tag="{mi:MaterialIconExt TrayDownload}"
-						 Foreground="{DynamicResource PrimaryBrush}"
-						 Content="{I18n Download}">
-				<Interaction.Behaviors>
-					<wb:ListBoxAnimationBehavior/>
-				</Interaction.Behaviors>
-			</ListBoxItem>
-
-			<ListBoxItem Tag="{mi:MaterialIconExt Lan}"
-						 Foreground="{DynamicResource PrimaryBrush}"
-						 Content="{I18n Multiplayer}">
-				<Interaction.Behaviors>
-					<wb:ListBoxAnimationBehavior/>
-				</Interaction.Behaviors>
-			</ListBoxItem>
-
-			<ListBoxItem Tag="{mi:MaterialIconExt CogOutline}"
-						 Foreground="{DynamicResource PrimaryBrush}"
-						 Content="{I18n Settings}">
-				<Interaction.Behaviors>
-					<wb:ListBoxAnimationBehavior/>
-				</Interaction.Behaviors>
-			</ListBoxItem>
-		</ListBox>
-	</Grid>
+        <wc:Frame Name="PART_HostFrame"
+                  DefaultPageKey="Minecraft"
+                  Navigated="OnNavigated"
+                  Grid.Row="1"/>
+    </Grid>
 </wc:WonderWindow>

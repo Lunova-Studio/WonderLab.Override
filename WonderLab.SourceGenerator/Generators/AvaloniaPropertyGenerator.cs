@@ -8,7 +8,7 @@ using WonderLab.SourceGenerator.Models;
 namespace WonderLab.SourceGenerator.Generators;
 
 internal abstract class AvaloniaPropertyGenerator {
-    private const string _attrName = "WonderLab.SourceGenerator.Attributes.StyledPropertyAttribute";
+    private const string _attrName = "WonderLab.StyledPropertyAttribute";
 
     protected static IncrementalValuesProvider<AvaloniaPropertyInfo> GetPropertiesFromGeneratorContext
         (IncrementalGeneratorInitializationContext context, string attributeName) {

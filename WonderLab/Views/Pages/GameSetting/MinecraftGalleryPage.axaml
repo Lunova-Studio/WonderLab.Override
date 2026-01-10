@@ -1,0 +1,164 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:wc="using:WonderLab.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" 
+             x:Class="WonderLab.Views.Pages.GameSetting.MinecraftGalleryPage">
+    <ScrollViewer>
+        <StackPanel Spacing="12"
+                    Margin="16 12">
+            <wc:SmoothBorder Height="250"
+                             CornerRadius="{StaticResource StrongCornerRadius}">
+                <wc:SmoothBorder.Background>
+					<ImageBrush Stretch="UniformToFill" Source="C:\Users\wxysd\Desktop\总整包\素材库\图片素材\桌面背景\cyvmml3.jpeg"/>
+                </wc:SmoothBorder.Background>
+
+                <Panel>
+                    <Border CornerRadius="{StaticResource StrongCornerRadius}">
+						<Border.Background>
+							<LinearGradientBrush StartPoint="50%,0%" EndPoint="50%,100%">
+                                <GradientStop Color="Transparent" Offset="0.0"/>
+                                <GradientStop Color="#80000000" Offset="0.75"/>
+                                <GradientStop Color="black" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                    </Border>
+
+                    <TextBlock Margin="16 0 12 12"
+                               Classes="DisplayLarge"
+                               VerticalAlignment="Bottom" 
+                               HorizontalAlignment="Left"
+                               TextTrimming="CharacterEllipsis"
+                               Text="{Binding Title}"/>
+
+                    <Button Padding="4"
+                            Margin="12"
+                            FontSize="12"
+                            CornerRadius="6"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Right"
+                            Content="Homo"/>
+                </Panel>
+            </wc:SmoothBorder>
+
+            <wc:SmoothBorder Padding="10"
+                             ClipContent="False"
+                             CornerRadius="{StaticResource StrongCornerRadius}"
+                             Background="{DynamicResource SurfaceContainerHighBrush}"
+                             Grid.Row="1">
+				<Grid ColumnDefinitions="auto auto auto *">
+					<Button Height="40"
+                            Padding="30 0"
+                            Classes="primary"
+                            HorizontalAlignment="Left"
+                            Grid.Row="0">
+                        <StackPanel Spacing="8"
+                                    Orientation="Horizontal">
+							<TextBlock Classes="Icon"
+                                       Text="&#xE768;"
+                                       FontSize="18"
+                                       VerticalAlignment="Center"/>
+
+							<TextBlock Classes="TitleMedium"
+                                       VerticalAlignment="Center"
+                                       Text="Launch"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Grid Margin="24 0"
+                          RowDefinitions="auto auto"
+                          VerticalAlignment="Center"
+                          Grid.Column="1">
+						<TextBlock Classes="LabelLarge"
+                                   Text="最后运行日期"
+                                   Grid.Row="0"/>
+
+						<TextBlock Opacity="0.6"
+                                   Classes="LabelMedium"
+                                   Text="12月12日"
+                                   Grid.Row="1"/>
+                    </Grid>
+                    
+                    <Grid VerticalAlignment="Center"
+                          RowDefinitions="auto auto"
+                          ColumnDefinitions="auto auto"
+                          Grid.Column="2">
+                        <TextBlock Classes="Icon"
+                                   FontSize="22"
+                                   Text="&#xE916;"
+                                   Margin="0 0 8 0"
+                                   VerticalAlignment="Center"
+                                   Grid.Row="0"
+                                   Grid.RowSpan="2"/>
+
+						<TextBlock Classes="LabelLarge"
+                                   Text="游戏时间"
+                                   Grid.Row="0"
+                                   Grid.Column="1"/>
+
+						<TextBlock Opacity="0.6"
+                                   Classes="LabelMedium"
+                                   Text="114 小时"
+                                   Grid.Row="1"
+                                   Grid.Column="1"/>
+                    </Grid>
+                    
+                    <ToggleButton Padding="8"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Right"
+                                  VerticalContentAlignment="Center"
+                                  HorizontalContentAlignment="Center"
+                                  Grid.Column="3">
+                    <TextBlock FontSize="15"
+                               Classes="Icon"
+                               Text="&#xEB51;"/>
+                    </ToggleButton>               
+                </Grid>
+            </wc:SmoothBorder>
+
+            <wc:SmoothBorder Padding="10 8"
+                             ClipContent="False"
+                             CornerRadius="{StaticResource StrongCornerRadius}"
+                             Background="{DynamicResource SurfaceContainerHighBrush}"
+                             Grid.Row="2">
+                <TabControl SelectedIndex="0">
+                    <TabControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Spacing="28" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </TabControl.ItemsPanel>
+
+					<TabItem Classes="full"
+                             Header="设置"/>
+
+					<TabItem Classes="full"
+                             Header="模组"/>
+                    
+					<TabItem Classes="full"
+                             Header="资源包"/>
+
+					<TabItem Classes="full"
+                             Header="光影包"/>
+
+					<TabItem Classes="full"
+                             Header="世界"/>
+                </TabControl>
+            </wc:SmoothBorder>
+
+            <StackPanel Spacing="12" IsVisible="False"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Grid.Row="3">
+				<TextBlock Classes="Icon" FontSize="36" Text="&#xE822;"/>
+				<TextBlock Classes="HeadlineSmall" VerticalAlignment="Center" Text="页面施工中..."/>
+            </StackPanel>
+
+            <wc:Frame DefaultPageKey="GameSetting/Setting"
+                      Grid.Row="3">
+				
+            </wc:Frame>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

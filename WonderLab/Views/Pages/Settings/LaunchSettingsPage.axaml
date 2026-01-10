@@ -1,0 +1,67 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:wc="using:WonderLab.Controls"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="WonderLab.LaunchSettingsPage">
+    <StackPanel Margin="8 16 8 24">
+        <TextBlock Margin="0 0 0 12"
+                   Classes="TitleMedium"
+                   Text="基础设置"/>
+        
+        <ItemsControl Classes="card">
+            <wc:SettingCard Icon="&#xE7C4;"
+                            Header="版本隔离">
+                <ToggleSwitch/>
+            </wc:SettingCard>
+    
+            <Separator Margin="16 0"/>
+            
+            <wc:SettingCard Icon="&#xE740;"
+                            Header="是否全屏">
+                <ToggleSwitch />
+            </wc:SettingCard>
+    
+            <Separator Margin="16 0"/>
+            
+            <wc:SettingCard Icon="&#xE743;"
+                            Header="游戏窗口大小调整">
+                <StackPanel Orientation="Horizontal" Spacing="8">
+    	    		<TextBox Text="{Binding Width, Mode=TwoWay}"/>
+    
+    	    		<TextBlock FontSize="18"
+                               Classes="Icon"
+                               Text="&#xE711;"
+                               VerticalAlignment="Center"/>
+    
+    	    		<TextBox Text="{Binding Height, Mode=TwoWay}"/>
+    	    	</StackPanel>
+            </wc:SettingCard>
+            
+            <Separator Margin="16 0"/>
+    
+            <wc:SettingCard Icon="&#xE953;"
+                            Header="服务器地址">
+                <TextBox Text="{Binding ServerAddress, Mode=TwoWay}"/>
+            </wc:SettingCard>
+                   
+            <Separator Margin="16 0"/>
+    
+            <wc:SettingCard Icon="&#xE967;"
+                            Header="Jvm 参数">
+                <TextBox Text="{Binding JvmArgument, Mode=TwoWay}"/>
+            </wc:SettingCard>
+        </ItemsControl>
+        
+        <TextBlock Margin="0 24 0 12"
+                   Classes="TitleMedium"
+                   Text="启动器行为"/>
+
+        <wc:SettingCard Icon="&#xECE9;"
+                        Header="游戏启动后启动器行为"
+                        Background="{DynamicResource SettingCardsBackgroundBrush}">
+                <ComboBox MinWidth="100"/>
+        </wc:SettingCard>
+    </StackPanel>
+</UserControl>

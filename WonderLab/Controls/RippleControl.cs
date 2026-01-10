@@ -9,7 +9,6 @@ using Avalonia.Layout;
 using Avalonia.Media;
 using System;
 using System.Threading.Tasks;
-using WonderLab.SourceGenerator.Attributes;
 
 namespace WonderLab.Controls;
 
@@ -76,15 +75,15 @@ public sealed partial class RippleControl : ContentControl {
     private Ripple CreateRipple(PointerPressedEventArgs e, bool center) {
         double width = Bounds.Width;
         double height = Bounds.Height;
-        Ripple ripple = new Ripple(width, height) {
+        Ripple ripple = new(width, height) {
             Fill = RippleFill
         };
 
-        if (center) {
+        if (center)
             ripple.Margin = new Thickness(width / 2.0, height / 2.0, 0.0, 0.0);
-        } else {
+        else
             ripple.SetupInitialValues(e, this);
-        }
+
         return ripple;
     }
 }

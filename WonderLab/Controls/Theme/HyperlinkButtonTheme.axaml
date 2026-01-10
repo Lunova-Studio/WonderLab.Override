@@ -3,9 +3,10 @@
 					xmlns:wb="using:WonderLab.Media.Behaviors"
 					xmlns:wc="using:WonderLab.Controls">
 	<Design.PreviewWith>
-		<Border Padding="20">
+		<Border Width="400" Padding="20">
 			<HyperlinkButton Content="dddd"
-							 NavigateUri="x"/>
+							 NavigateUri="x"
+							 Classes="recentgame"/>
 		</Border>
 	</Design.PreviewWith>
 
@@ -27,6 +28,7 @@
 								  Easing="ExponentialEaseOut"/>
 			</Transitions>
 		</Setter>
+
 		<Setter Property="Template">
 			<ControlTemplate>
 				<wc:RippleControl Width="{TemplateBinding Width}"
@@ -56,9 +58,118 @@
 			</ControlTemplate>
 		</Setter>
 
-
-		<Style Selector="^.ripple:pointerover /template/ Border#PART_PointerOverBorder">
+		<Style Selector="^:pointerover /template/ Border#PART_PointerOverBorder">
 			<Setter Property="Background" Value="{DynamicResource ButtonPointerOverBackgroundBrush}"/>
+		</Style>
+
+		<Style Selector="^.news">
+			<Setter Property="Padding" Value="12 10"/>
+			<Setter Property="VerticalContentAlignment" Value="Stretch"/>
+			<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}"/>
+			<Setter Property="Background" Value="{DynamicResource SurfaceContainerHighBrush}"/>
+			
+			<Setter Property="Transitions">
+				<Transitions>
+					<TransformOperationsTransition Duration="0:0:0.1"
+												   Property="RenderTransform"
+												   Easing="ExponentialEaseOut"/>
+				</Transitions>
+			</Setter>
+			<Setter Property="Template">
+				<ControlTemplate>
+					<wc:RippleControl Width="{TemplateBinding Width}"
+									  Height="{TemplateBinding Height}"
+									  Background="{TemplateBinding Background}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  RippleFill="{DynamicResource RippleEffectFillBrush}"
+									  ToolTip.Tip="{TemplateBinding NavigateUri}">
+						<Panel>
+							<Border Name="PART_PointerOverBorder"
+									Background="Transparent"
+									VerticalAlignment="Stretch"
+									HorizontalAlignment="Stretch"/>
+
+							<ContentPresenter RecognizesAccessKey="True"
+											  Name="PART_ContentPresenter"
+											  Padding="{TemplateBinding Padding}"
+											  Content="{TemplateBinding Content}"
+											  Transitions="{TemplateBinding Transitions}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+											  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+						</Panel>
+					</wc:RippleControl>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+		
+		<Style Selector="^.news:pointerover">
+			<Setter Property="RenderTransform" Value="translateY(-4px)"/>
+		</Style>
+
+				
+		<Style Selector="^.news:pressed">
+			<Setter Property="RenderTransform" Value="translateY(4px)"/>
+		</Style>
+		
+		<Style Selector="^.recentgame">
+			<Setter Property="Width" Value="150"/>
+			<Setter Property="Height" Value="220"/>
+			<Setter Property="Padding" Value="12 10"/>
+			<Setter Property="VerticalContentAlignment" Value="Stretch"/>
+			<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+			<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}"/>
+			<Setter Property="Background" Value="{DynamicResource SurfaceContainerHighestBrush}"/>
+			
+			<Setter Property="Transitions">
+				<Transitions>
+					<DoubleTransition Duration="0:0:.06"
+									  Property="Opacity"/>
+
+					<TransformOperationsTransition Duration="0:0:.2"
+												   Property="RenderTransform"
+												   Easing="ExponentialEaseOut"/>
+				</Transitions>
+			</Setter>
+
+			<Setter Property="Template">
+				<ControlTemplate>
+					<wc:RippleControl Width="{TemplateBinding Width}"
+									  Height="{TemplateBinding Height}"
+									  Background="{TemplateBinding Background}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  RippleFill="{DynamicResource RippleEffectFillBrush}"
+									  ToolTip.Tip="{TemplateBinding NavigateUri}">
+						<Panel>
+							<Border Name="PART_PointerOverBorder"
+									Background="Transparent"
+									VerticalAlignment="Stretch"
+									HorizontalAlignment="Stretch"/>
+
+							<ContentPresenter Opacity="0"
+											  RecognizesAccessKey="True"
+											  RenderTransform="scaleY(0.5)"
+											  Name="PART_ContentPresenter"
+											  RenderTransformOrigin="100% 100%"
+											  Content="{TemplateBinding Content}"
+											  Padding="{TemplateBinding Padding}"
+											  Transitions="{TemplateBinding Transitions}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+											  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+						</Panel>
+					</wc:RippleControl>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+		
+		<Style Selector="^.recentgame:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Opacity" Value="1"/>
+			<Setter Property="RenderTransform" Value="scaleY(1)"/>
 		</Style>
 	</ControlTheme>
 </ResourceDictionary>

@@ -16,10 +16,10 @@
 		<Setter Property="Padding" Value="8 6"/>
 		<Setter Property="Margin" Value="4 0"/>
 		<Setter Property="MinHeight" Value="20" />
-		<Setter Property="CornerRadius" Value="{DynamicResource WeakCornerRadius}" />
 		<Setter Property="HorizontalAlignment" Value="Stretch" />
 		<Setter Property="VerticalContentAlignment" Value="Center" />
 		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+		<Setter Property="CornerRadius" Value="{DynamicResource WeakCornerRadius}" />
 		<Setter Property="Template">
 			<ControlTemplate>
 				<wc:RippleControl Name="PART_RippleControl"

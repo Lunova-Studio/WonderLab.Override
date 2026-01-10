@@ -42,6 +42,7 @@
 	<SolidColorBrush x:Key="ApplicationSubtitleForegroundBrush" Color="{DynamicResource OutlineColor}"/>
 
 	<SolidColorBrush x:Key="FlyoutBorderBrush" Color="{DynamicResource OutlineColor}"/>
+	<SolidColorBrush x:Key="FlyoutForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
 	<SolidColorBrush x:Key="FlyoutBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
 
 	<SolidColorBrush x:Key="DropDownButtonGlyphForegroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
@@ -124,7 +125,6 @@
 	<SolidColorBrush x:Key="CheckBoxCheckedFillBrush" Color="{DynamicResource OnPrimaryColor}"/>
 	<SolidColorBrush x:Key="CheckBoxCheckedBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
 
-
 	<SolidColorBrush x:Key="NotificationCardBorderBrush" Color="{DynamicResource OutlineColor}"/>
 	<SolidColorBrush x:Key="NotificationCardBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
 	<SolidColorBrush x:Key="NotificationCardIconBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
@@ -137,10 +137,10 @@
 	<SolidColorBrush x:Key="SliderBackgroundBrush" Color="{DynamicResource OutlineColor}"/>
 	<SolidColorBrush x:Key="SliderIconForegroundBrush" Color="{DynamicResource OnErrorColor}"/>
 
-	<SolidColorBrush x:Key="TabStripBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
-	<SolidColorBrush x:Key="TabStripItemForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
-	<SolidColorBrush x:Key="TabStripItemSelectedBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
-	<SolidColorBrush x:Key="TabStripItemSelectedForegroundBrush" Color="{DynamicResource OnPrimaryColor}"/>
+	<SolidColorBrush x:Key="TabBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
+	<SolidColorBrush x:Key="TabItemForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+	<SolidColorBrush x:Key="TabItemSelectedBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="TabItemSelectedForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
 
 	<SolidColorBrush x:Key="ScrollBarThumbBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
 
@@ -170,4 +170,12 @@
 	<SolidColorBrush x:Key="ErrorSourceRunBrush" Color="{DynamicResource ErrorColor}"/>
 	<SolidColorBrush x:Key="InfoSourceRunBrush" Color="{DynamicResource PrimaryColor}"/>
 	<SolidColorBrush x:Key="UnknownSourceRunBrush" Color="{DynamicResource PrimaryColor}"/>
+
+	<SolidColorBrush x:Key="TreeViewItemSelectedBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
+	<SolidColorBrush x:Key="TreeViewItemLevel1PointoverBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}" Opacity="0.6"/>
+	<SolidColorBrush x:Key="TreeViewItemLevel0BackgroundBrush" Color="{DynamicResource SecondaryContainerColor}" Opacity="0.4"/>
+
+	<SolidColorBrush x:Key="AdornerLayerBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}" Opacity="0.6"/>
+
+	<SolidColorBrush x:Key="GalleryViewBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
 </ResourceDictionary>

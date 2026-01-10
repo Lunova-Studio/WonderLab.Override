@@ -1,0 +1,157 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wc="using:WonderLab.Controls">
+    <Design.PreviewWith>
+        <Border Width="400">
+            <TabControl>
+                <TabItem Header="Arch"
+                         Classes="full">
+                </TabItem>
+            
+                <TabItem Header="Leaf"
+                         Classes="full">
+                </TabItem>
+              
+                <TabItem Header="Disabled"
+                         Classes="full"/>
+            </TabControl>
+        </Border>
+    </Design.PreviewWith>
+    
+    <Thickness x:Key="TabControlTopPlacementItemMargin">0 0 0 2</Thickness>
+    
+    <ControlTheme x:Key="{x:Type TabControl}" TargetType="TabControl">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border BorderBrush="{TemplateBinding BorderBrush}"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                        HorizontalAlignment="{TemplateBinding HorizontalAlignment}">
+                    <DockPanel>
+                        <ItemsPresenter Name="PART_ItemsPresenter"
+                                        ItemsPanel="{TemplateBinding ItemsPanel}"
+                                        DockPanel.Dock="{TemplateBinding TabStripPlacement}" />
+        
+                        <ContentPresenter Name="PART_SelectedContentHost"
+                                          Margin="{TemplateBinding Padding}"
+                                          Content="{TemplateBinding SelectedContent}"
+                                          ContentTemplate="{TemplateBinding SelectedContentTemplate}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                    </DockPanel>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+    
+	<ControlTheme x:Key="{x:Type TabItem}" TargetType="TabItem">
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="Padding" Value="8 6" />
+		<Setter Property="MinWidth" Value="60"/>
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="Foreground" Value="{DynamicResource TabItemForegroundBrush}"/>
+		<Setter Property="Transitions">
+			<Transitions>
+				<BrushTransition Duration="0:0:.15"
+								 Property="Background"/>
+			</Transitions>
+		</Setter>
+		
+		<Setter Property="Template">
+			<ControlTemplate>
+				<wc:RippleControl Background="{TemplateBinding Background}"
+								  CornerRadius="{DynamicResource NormalCornerRadius}"
+								  RippleFill="{DynamicResource RippleEffectFillBrush}">
+                    <Panel>
+                        <ContentPresenter Background="Transparent"
+										  Name="PART_ContentPresenter"
+										  Content="{TemplateBinding Header}"
+										  Padding="{TemplateBinding Padding}"
+										  FontSize="{TemplateBinding FontSize}"
+										  FontWeight="{TemplateBinding FontWeight}"
+										  BorderBrush="{TemplateBinding BorderBrush}"
+										  Transitions="{TemplateBinding Transitions}"
+										  CornerRadius="{TemplateBinding CornerRadius}"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  BorderThickness="{TemplateBinding BorderThickness}"
+										  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+										  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+
+                        <Border Height="3"
+                                Opacity="0"
+                                CornerRadius="8"
+                                Name="PART_Indicator"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Stretch"
+                                RenderTransform="scale(0, 1)"
+                                Background="{DynamicResource TabItemSelectedForegroundBrush}">
+                            <Border.Transitions>
+								<Transitions>
+                                    <DoubleTransition Duration="0:0:.1"
+                                                      Property="Opacity"/>
+
+									<TransformOperationsTransition Duration="0:0:.22"
+                                                                   Easing="BackEaseInOut"
+                                                                   Property="RenderTransform"/>
+                                </Transitions>
+                            </Border.Transitions>
+                        </Border>
+                    </Panel>
+				</wc:RippleControl>
+			</ControlTemplate>
+		</Setter>
+		
+		<Style Selector="^:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Background" Value="{DynamicResource ListBoxItemPointeroverBackgroundBrush}"/>
+		</Style>
+		
+		<Style Selector="^:selected">
+			<Style Selector="^ /template/ Border#PART_Indicator">
+                <Setter Property="Opacity" Value="1"/>
+				<Setter Property="RenderTransform" Value="scale(0.4, 1)" />
+			</Style>
+
+			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Foreground" Value="{DynamicResource TabItemSelectedForegroundBrush}" />
+			</Style>
+		</Style>
+
+        <Style Selector="^.full">
+            <Setter Property="Template">
+                <ControlTemplate>
+				    <wc:RippleControl Background="{TemplateBinding Background}"
+				    				  CornerRadius="{DynamicResource NormalCornerRadius}"
+				    				  RippleFill="{DynamicResource RippleEffectFillBrush}">
+                            <ContentPresenter Background="Transparent"
+				    						  Name="PART_ContentPresenter"
+				    						  Content="{TemplateBinding Header}"
+				    						  Padding="{TemplateBinding Padding}"
+				    						  FontSize="{TemplateBinding FontSize}"
+				    						  FontWeight="{TemplateBinding FontWeight}"
+				    						  BorderBrush="{TemplateBinding BorderBrush}"
+				    						  Transitions="{TemplateBinding Transitions}"
+				    						  CornerRadius="{TemplateBinding CornerRadius}"
+				    						  ContentTemplate="{TemplateBinding ContentTemplate}"
+				    						  BorderThickness="{TemplateBinding BorderThickness}"
+				    						  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+				    						  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+				    </wc:RippleControl>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+        		
+		<Style Selector="^.full:selected">
+			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+				<Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
+				<Setter Property="Background" Value="{DynamicResource SecondaryContainerColor}" />
+			</Style>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

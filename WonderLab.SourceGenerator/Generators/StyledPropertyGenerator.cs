@@ -12,7 +12,7 @@ namespace WonderLab.SourceGenerator.Generators;
 
 [Generator]
 internal class StyledPropertyGenerator : AvaloniaPropertyGenerator, IIncrementalGenerator {
-    private const string _attrName = "WonderLab.SourceGenerator.Attributes.StyledPropertyAttribute";
+    private const string _attrName = "WonderLab.StyledPropertyAttribute";
 
     public void Initialize(IncrementalGeneratorInitializationContext context) {
         var propertyInfo = GetPropertiesFromGeneratorContext(context, _attrName);

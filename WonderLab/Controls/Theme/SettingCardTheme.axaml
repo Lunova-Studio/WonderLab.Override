@@ -7,35 +7,28 @@
 		</Border>
 	</Design.PreviewWith>
 
-	<ControlTheme x:Key="{x:Type wc:SettingCards}" TargetType="wc:SettingCards">
-		<Setter Property="ClipToBounds" Value="False"/>
-		<Setter Property="CornerRadius" Value="{DynamicResource StrongCornerRadius}"/>
-		<Setter Property="Background" Value="{DynamicResource SettingCardsBackgroundBrush}"/>
+	<ControlTheme TargetType="Separator" x:Key="{x:Type Separator}">
+		<Setter Property="Height" Value="1"/>
+		<Setter Property="Margin" Value="0"/>
+		<Setter Property="Focusable" Value="False"/>
+		<Setter Property="UseLayoutRounding" Value="False"/>
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="Background" Value="{DynamicResource OutlineVariantBrush}"/>
+
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Grid RowSpacing="12"
-					  RowDefinitions="auto *"
-					  ClipToBounds="{TemplateBinding ClipToBounds}">
-					<TextBlock Classes="BodyStrong"
-							   HorizontalAlignment="Left"
-							   Text="{TemplateBinding Header}"
-							   Grid.Row="0"/>
-					
-					<Border Padding="{TemplateBinding Padding}"
-							Background="{TemplateBinding Background}"
-							BorderBrush="{TemplateBinding BorderBrush}"
-							ClipToBounds="{TemplateBinding ClipToBounds}"
-							CornerRadius="{TemplateBinding CornerRadius}"
-							BorderThickness="{TemplateBinding BorderThickness}"
-							Grid.Row="1">
-						<ItemsPresenter Name="PART_ItemsPresenter"
-										ItemsPanel="{TemplateBinding ItemsPanel}"/>
-					</Border>
-				</Grid>
+				<Border Height="{TemplateBinding Height}"
+						Padding="{TemplateBinding Margin}"
+						Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
+						CornerRadius="{TemplateBinding CornerRadius}"
+						BorderThickness="{TemplateBinding BorderThickness}"
+						VerticalAlignment="{TemplateBinding VerticalAlignment}"
+						HorizontalAlignment="{TemplateBinding HorizontalAlignment}"/>
 			</ControlTemplate>
 		</Setter>
 	</ControlTheme>
-	
+
 	<ControlTheme TargetType="wc:SettingCard" x:Key="{x:Type wc:SettingCard}">
 		<Setter Property="MinWidth" Value="100"/>
 		<Setter Property="Padding" Value="16 12"/>
@@ -67,14 +60,15 @@
 							</Transitions>
 						</Grid.Transitions>
 						
-						<ContentPresenter FontSize="20"
-										  VerticalAlignment="Center"
-										  Content="{TemplateBinding Icon}"
-										  Foreground="{TemplateBinding Foreground}"
-										  Grid.Column="0"/>
+						<TextBlock FontSize="18"
+								   Classes="Icon"
+								   VerticalAlignment="Center"
+								   Text="{TemplateBinding Icon}"
+								   Foreground="{TemplateBinding Foreground}"
+								   Grid.Column="0"/>
 
-						<TextBlock Classes="Body"
-								   Margin="12 0 0 0"
+						<TextBlock Margin="12 0 0 0"
+								   Classes="LabelLarge"
 								   VerticalAlignment="Center"
 								   HorizontalAlignment="Left"
 								   Text="{TemplateBinding Header}"

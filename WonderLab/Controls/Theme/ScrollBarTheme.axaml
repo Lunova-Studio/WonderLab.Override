@@ -6,9 +6,9 @@
 	<Design.PreviewWith>
 		<Border Padding="50">
 			<Panel Width="125" Height="170">
-				<ScrollBar Orientation="Vertical" HorizontalAlignment="Right" AllowAutoHide="False" Margin="0 0 0 20" />
+				<ScrollBar Orientation="Vertical" HorizontalAlignment="Right" Margin="0 0 0 20" />
 
-				<ScrollBar IsEnabled="True" Orientation="Horizontal" VerticalAlignment="Bottom" AllowAutoHide="False" />
+				<ScrollBar IsEnabled="True" Orientation="Horizontal" VerticalAlignment="Bottom"/>
 			</Panel>
 		</Border>
 	</Design.PreviewWith>
@@ -51,10 +51,50 @@
 		</Style>
 	</ControlTheme>
 
+	
+	<ControlTheme x:Key="HorizontalScrollBarThumb" TargetType="Thumb">
+		<Setter Property="Opacity" Value="0.5" />
+		<Setter Property="VerticalAlignment" Value="Bottom" />
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}" />
+		<Setter Property="Transitions">
+			<Transitions>
+				<BrushTransition Duration="0:0:.15"
+								 Property="Background"/>
+
+				<DoubleTransition Duration="0:0:.15"
+								  Property="Opacity"/>
+			</Transitions>
+		</Setter>
+		
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Panel Height="16"
+						   Background="Transparent">
+						<Border Height="4"
+								Name="ThumbBarVertical"
+								Opacity="{TemplateBinding Opacity}"
+								Transitions="{TemplateBinding Transitions}"
+								CornerRadius="{TemplateBinding CornerRadius}"
+								VerticalAlignment="{TemplateBinding VerticalAlignment}"
+								HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+								Background="{DynamicResource ScrollBarThumbBackgroundBrush}">
+						</Border>
+					</Panel>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+
+		<Style Selector="^:pointerover /template/ Border#ThumbBarVertical">
+			<Setter Property="Opacity" Value="0.9" />
+		</Style>
+	</ControlTheme>
+
 	<ControlTheme x:Key="{x:Type ScrollBar}" TargetType="ScrollBar">
 		<Setter Property="MinWidth" Value="{DynamicResource ScrollBarSize}" />
 		<Setter Property="MinHeight" Value="{DynamicResource ScrollBarSize}" />
-		<Setter Property="CornerRadius" Value="{DynamicResource ScrollBarCornerRadius}" />
+		<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}" />
 
 		<Style Selector="^:vertical">
 			<Setter Property="AllowAutoHide" Value="False" />
@@ -92,5 +132,41 @@
 				</ControlTemplate>
 			</Setter>
 		</Style>
+
+		
+    <Style Selector="^:horizontal">
+        <Setter Property="AllowAutoHide" Value="False"></Setter>
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Background="Transparent" UseLayoutRounding="False">
+					<Track IsDirectionReversed="False"
+                           Maximum="{TemplateBinding Maximum}"
+                           Minimum="{TemplateBinding Minimum}"
+                           Orientation="{TemplateBinding Orientation}"
+                           ViewportSize="{TemplateBinding ViewportSize}"
+                           Value="{TemplateBinding Value, Mode=TwoWay}">
+						<Track.DecreaseButton>
+							<RepeatButton
+								Background="Transparent"
+								Classes="repeattrack"
+								Focusable="False"
+								Name="PART_PageUpButton" />
+						</Track.DecreaseButton>
+							
+						<Track.IncreaseButton>
+							<RepeatButton
+								Background="Transparent"
+								Classes="repeattrack"
+								Focusable="False"
+								Name="PART_PageDownButton" />
+						</Track.IncreaseButton>
+						
+						<Thumb Name="thumb"
+							   Theme="{StaticResource HorizontalScrollBarThumb}"/>
+					</Track>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </Style>
 	</ControlTheme>
 </ResourceDictionary>

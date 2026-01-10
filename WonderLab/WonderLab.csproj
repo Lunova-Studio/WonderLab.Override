@@ -2,128 +2,67 @@
 	<PropertyGroup>
 		<Nullable>disable</Nullable>
 		<OutputType>WinExe</OutputType>
-		<LangVersion>latest</LangVersion>
 		<TargetFramework>net8.0</TargetFramework>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
+
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<BuiltInComInteropSupport>false</BuiltInComInteropSupport>
 		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
 		<AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
-		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    </PropertyGroup>
-
-	<PropertyGroup>
-		<PackageIcon>Assets\Images\Icons\Icon.png</PackageIcon>
-		<PackageReadmeFile>README.md</PackageReadmeFile>
-		<RepositoryUrl>https://github.com/Lunova-Studio/WonderLab.Override</RepositoryUrl>
-		<PackageProjectUrl>https://github.com/Lunova-Studio/WonderLab.Override</PackageProjectUrl>
-		<RepositoryType>git</RepositoryType>
-		<PackageTags>WonderLab</PackageTags>
-		<PackageReleaseNotes>WonderLab</PackageReleaseNotes>
-		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-		<CFBundleName>WonderLab</CFBundleName>
-		<CFBundleDisplayName>WonderLab</CFBundleDisplayName>
-		<CFBundleIdentifier>studio.lunova.wonderlab</CFBundleIdentifier>
-		<CFBundleVersion>2.0.0</CFBundleVersion>
-		<CFBundlePackageType>AAPL</CFBundlePackageType>
-		<CFBundleSignature>WonderLab</CFBundleSignature>
-		<CFBundleExecutable>WonderLab</CFBundleExecutable>
-		<CFBundleIconFile>Icon-Border.icns</CFBundleIconFile>
-		<CFBundleShortVersionString>2.0</CFBundleShortVersionString>
-		<NSPrincipalClass>NSApplication</NSPrincipalClass>
-		<NSHighResolutionCapable>true</NSHighResolutionCapable>
 		<ApplicationIcon>Assets\Images\Icons\Icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(RuntimeIdentifier)' == 'win-x64'">
-		<DefineConstants>WINDOWS</DefineConstants>
-	</PropertyGroup>
-	
-    <ItemGroup>
-        <AvaloniaResource Include="Assets\**" />
-        <AvaloniaXaml Remove="logs\**" />
-        <Compile Remove="logs\**" />
-        <EmbeddedResource Remove="logs\**" />
-        <None Remove="logs\**" />
-        <AvaloniaResource Remove="Assets\Font\MinecraftTen.ttf" />
-        <AvaloniaResource Remove="Assets\Images\doro_loading.jpg" />
-        <AvaloniaResource Remove="Assets\Images\Icons\Icon.1024.png" />
-        <AvaloniaResource Remove="Assets\Images\Icons\Icon.icns" />
-        <AvaloniaResource Remove="Assets\Images\Icons\launcher_HMCL.ico" />
-        <AvaloniaResource Remove="Assets\Images\Icons\launcher_PCL2.png" />
-        <AvaloniaResource Remove="Assets\Images\Icons\loader_fabric.png" />
-        <AvaloniaResource Remove="Assets\Images\Icons\loader_forge.png" />
-        <AvaloniaResource Remove="Assets\Images\Icons\loader_minecraft.png" />
-        <AvaloniaResource Remove="Assets\Images\Icons\loader_neoforge.png" />
-        <AvaloniaResource Remove="Assets\Images\Icons\loader_optifine.png" />
-        <AvaloniaResource Remove="Assets\Images\Icons\loader_quilt.png" />
-        <AvaloniaResource Remove="Assets\Images\Icons\old_minecraft.png" />
-        <AvaloniaResource Remove="Assets\Images\Icons\release_minecraft.png" />
-        <AvaloniaResource Remove="Assets\Images\Icons\snapshot_minecraft.png" />
-        <AvaloniaResource Remove="Assets\Lotties\OOBE_Confetti.json" />
-        <AvaloniaResource Remove="Assets\Lotties\OOBE_Hello.json" />
-        <AvaloniaResource Remove="Assets\Shaders\bubble.sksl" />
-        <AvaloniaResource Remove="Assets\Shaders\voronoi.sksl" />
-        <AvaloniaResource Remove="Assets\steve.png" />
-        <AvaloniaResource Remove="Assets\Text\Default.isl" />
-        <None Remove="version.txt" />
-        <EmbeddedResource Include="Assets\Images\Icons\Icon.ico" />
-        <EmbeddedResource Include="Assets\Font\MinecraftTen.ttf" />
-        <EmbeddedResource Include="Assets\Images\doro_loading.jpg" />
-        <EmbeddedResource Include="Assets\Images\Icons\Icon.1024.png" />
-        <EmbeddedResource Include="Assets\Images\Icons\Icon.icns" />
-        <EmbeddedResource Include="Assets\Images\Icons\launcher_HMCL.ico" />
-        <EmbeddedResource Include="Assets\Images\Icons\launcher_PCL2.png" />
-        <EmbeddedResource Include="Assets\Images\Icons\loader_fabric.png" />
-        <EmbeddedResource Include="Assets\Images\Icons\loader_forge.png" />
-        <EmbeddedResource Include="Assets\Images\Icons\loader_minecraft.png" />
-        <EmbeddedResource Include="Assets\Images\Icons\loader_neoforge.png" />
-        <EmbeddedResource Include="Assets\Images\Icons\loader_optifine.png" />
-        <EmbeddedResource Include="Assets\Images\Icons\loader_quilt.png" />
-        <EmbeddedResource Include="Assets\Images\Icons\old_minecraft.png" />
-        <EmbeddedResource Include="Assets\Images\Icons\release_minecraft.png" />
-        <EmbeddedResource Include="Assets\Images\Icons\snapshot_minecraft.png" />
-        <EmbeddedResource Include="Assets\Lotties\OOBE_Confetti.json" />
-        <EmbeddedResource Include="Assets\Lotties\OOBE_Hello.json" />
-        <EmbeddedResource Include="Assets\Shaders\bubble.sksl" />
-        <EmbeddedResource Include="Assets\Shaders\voronoi.sksl" />
-        <EmbeddedResource Include="Assets\steve.png" />
-        <EmbeddedResource Include="Assets\Text\Default.isl" />
-        <EmbeddedResource Include="version.txt" />
-    </ItemGroup>
+	<ItemGroup>
+		<AvaloniaResource Include="Assets\**" />
+	</ItemGroup>
 
-    <ItemGroup>
-		<PackageReference Include="Material.Icons.Avalonia" Version="3.0.0-preview3.1" />
-		<PackageReference Include="System.Linq.Async" Version="6.0.3" />
-        <PackageReference Include="AsyncImageLoader.Avalonia" Version="3.4.3" />
-        <PackageReference Include="Avalonia" Version="11.3.8" />
-        <PackageReference Include="Avalonia.Controls.ColorPicker" Version="11.3.8" />
-        <PackageReference Include="Avalonia.Controls.ItemsRepeater" Version="11.1.5" />
-        <PackageReference Include="Avalonia.Desktop" Version="11.3.8" />
-        <PackageReference Include="Avalonia.Labs.Lottie" Version="11.3.1" />
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.8" />
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-        <PackageReference Include="DialogHost.Avalonia" Version="0.9.3" />
-        <PackageReference Include="DotNet.Bundle" Version="0.9.13" />
-        <PackageReference Include="ObservableCollections" Version="3.3.4" />
-        <PackageReference Include="Tomlyn" Version="0.19.0" />
-        <PackageReference Include="Xaml.Behaviors.Avalonia" Version="11.3.6.6" />
-        <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0-rc.1.25451.107" />
-        <PackageReference Include="MinecraftLaunch" Version="4.0.6-preview08" />
-        <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.1" />
-        <PackageReference Include="Serilog.Sinks.Console" Version="6.0.1-dev-00953" />
-        <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
-		<PackageReference Include="SkiaSharp" Version="2.88.9" />
+	<ItemGroup>
+	  <AvaloniaXaml Remove="logs\**" />
+	  <Compile Remove="logs\**" />
+	  <EmbeddedResource Remove="logs\**" />
+	  <None Remove="logs\**" />
+	</ItemGroup>
 
-		<PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.1.0" >
+	<ItemGroup>
+	  <Content Include="Assets\Images\Icons\Icon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="11.3.10" />
+		<PackageReference Include="Avalonia.Desktop" Version="11.3.10" />
+		<PackageReference Include="DialogHost.Avalonia" Version="0.10.2" />
+
+		<PackageReference Include="AsyncImageLoader.Avalonia" Version="3.4.3" />
+		<!--<PackageReference Include="Avalonia.Controls.ColorPicker" Version="11.3.8" />-->
+		<PackageReference Include="Avalonia.Controls.ItemsRepeater" Version="11.1.5" />
+		<PackageReference Include="Xaml.Behaviors.Avalonia" Version="11.3.9" />
+		
+		<PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
+		<PackageReference Include="Serilog.Extensions.Hosting" Version="10.0.0" />
+		<PackageReference Include="Serilog.Extensions.Logging" Version="10.0.0" />
+
+		<PackageReference Include="MinecraftLaunch" Version="4.0.6-preview15" />
+
+		<!--<PackageReference Include="System.Linq.Async" Version="6.0.3" />-->
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
+
+		<PackageReference Include="Tomlyn" Version="0.19.0" />
+		<PackageReference Include="ObservableCollections" Version="3.3.4" />
+
+		<PackageReference Include="DotNet.Bundle" Version="0.9.13" />
+
+		<PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.1.1">
 			<IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
 			<PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
 		</PackageReference>
-    </ItemGroup>
+	</ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\refs\LiteSkinViewer\LiteSkinViewer.2D\LiteSkinViewer.2D.csproj" />
-        <ProjectReference Include="..\refs\Monet\Monet.Avalonia\Monet.Avalonia.csproj" />
-        <ProjectReference Include="..\WonderLab.Override.I18n\WonderLab.Override.I18n\WonderLab.Override.I18n.csproj" />
-        <ProjectReference Include="..\WonderLab.SourceGenerator.Attributes\WonderLab.SourceGenerator.Attributes.csproj" />
+	<ItemGroup>
+		<ProjectReference Include="..\refs\Monet\Monet.Avalonia\Monet.Avalonia.csproj" />
+		<ProjectReference Include="..\refs\LiteSkinViewer\LiteSkinViewer.2D\LiteSkinViewer.2D.csproj" />
+		<ProjectReference Include="..\WonderLab.I18n\WonderLab.Override.I18n\WonderLab.Override.I18n.csproj" />
+		<ProjectReference Include="..\WonderLab.SourceGenerator.Shared\WonderLab.SourceGenerator.Shared.csproj" />
 		<ProjectReference Include="..\WonderLab.SourceGenerator\WonderLab.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    </ItemGroup>
+	</ItemGroup>
 </Project>

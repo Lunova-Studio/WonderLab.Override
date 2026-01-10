@@ -5,15 +5,11 @@
 		<Setter Property="ClipToBounds" Value="False"/>
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Panel>
-					<ContentPresenter Name="PART_LeftContentPresenter"
+				<Border Background="{TemplateBinding Background}">
+					<ContentPresenter Name="PART_ContentPresenter"
 									  Padding="{TemplateBinding Padding}"
 									  ClipToBounds="{TemplateBinding ClipToBounds}"/>
-					
-					<ContentPresenter Name="PART_RightContentPresenter"
-									  Padding="{TemplateBinding Padding}"
-									  ClipToBounds="{TemplateBinding ClipToBounds}"/>
-				</Panel>
+				</Border>
 			</ControlTemplate>
 		</Setter>
 	</ControlTheme>
