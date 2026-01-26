@@ -94,7 +94,7 @@ AboutSetupMenuItem=關於安裝程式(&A)...
 AboutSetupTitle=關於安裝程式
 AboutSetupMessage=%1 版本 %2%n%3%n%n%1 官方網站：%n%4
 AboutSetupNote=
-TranslatorNote=翻譯：楊正瀚
+TranslatorNote=翻譯：PandamanAF
 
 ; *** 按鈕
 ButtonBack=< 上一步(&B)
