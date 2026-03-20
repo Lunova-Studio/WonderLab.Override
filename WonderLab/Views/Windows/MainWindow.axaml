@@ -75,6 +75,7 @@
         </Border>
 
         <Border Height="25"
+                IsVisible="False"
                 Name="PART_TestTipBanner"
                 UseLayoutRounding="False"
                 BorderThickness="0 0 0 0.2"
@@ -90,7 +91,7 @@
                            Foreground="{DynamicResource OnSecondaryContainerBrush}"/>
 
                 <TextBlock Foreground="{DynamicResource OnSecondaryContainerBrush}"
-                           Text="当前版本为内测版本，不代表最终品质"/>
+                           Text="当前版本为测试版本，不代表最终品质"/>
             </StackPanel>
         </Border>
 

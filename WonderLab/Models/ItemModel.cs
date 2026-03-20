@@ -1,4 +1,6 @@
-﻿namespace WonderLab.Models;
+﻿using Material.Icons;
+
+namespace WonderLab.Models;
 
 public abstract record ItemModel {
     public string PageKey { get; set; }
@@ -8,5 +10,5 @@ public abstract record ItemModel {
 public record TabItemModel : ItemModel;
 
 public record ListItemModel : ItemModel {
-    public string Icon { get; set; }
+    public MaterialIconKind Icon { get; set; }
 }

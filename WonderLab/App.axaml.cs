@@ -15,6 +15,7 @@ using Serilog;
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using WonderLab.Classes.Processors;
 using WonderLab.Controls;
 using WonderLab.Extensions.Hosting;
@@ -31,9 +32,8 @@ using WonderLab.ViewModels.Windows;
 using WonderLab.Views.Pages;
 using WonderLab.Views.Pages.Download;
 using WonderLab.Views.Pages.GameSetting;
-using WonderLab.Views.Windows;
 
-namespace WonderLab.Override;
+namespace WonderLab;
 
 public partial class App : Application {
     private const string LOG_OUTPUT_TEMPLATE = "[{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz}] ({SourceContext}): {Message:lj}{NewLine}{Exception}";
@@ -61,9 +61,13 @@ public partial class App : Application {
     }
 
     public override void OnFrameworkInitializationCompleted() {
+        DisableAvaloniaDataAnnotationValidation();
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
-            DisableAvaloniaDataAnnotationValidation();
-            desktop.MainWindow = new MainWindow {
+            //desktop.MainWindow = new MainWindow {
+            //    DataContext = new MainWindowViewModel()
+            //};
+
+            desktop.MainWindow = new TestWindow {
                 DataContext = new MainWindowViewModel()
             };
 
@@ -100,7 +104,12 @@ public partial class App : Application {
         pageProvider.AddPage<MinecraftPage, MinecraftPageViewModel>("Minecraft");
 
         //Settings
+        pageProvider.AddPage<HelpPage>("Settings/Help");
+        pageProvider.AddPage<AboutPage, AboutPageViewModel>("Settings/About");
+        pageProvider.AddPage<NetworkPage, NetworkPageViewModel>("Settings/Network");
         pageProvider.AddPage<JavaSettingsPage, JavaSettingsPageViewModel>("Settings/Java");
+        pageProvider.AddPage<NavigationPage, NavigationPageViewModel>("Settings/Navigation");
+        pageProvider.AddPage<AppearancePage, AppearancePageViewModel>("Settings/Appearance");
         pageProvider.AddPage<LaunchSettingsPage, LaunchSettingsPageViewModel>("Settings/Launch");
 
         //Download
@@ -119,19 +128,12 @@ public partial class App : Application {
         return host = builder.Build();
     }
 
-    private static void DisableAvaloniaDataAnnotationValidation() {
-        var dataValidationPluginsToRemove = BindingPlugins.DataValidators
-            .OfType<DataAnnotationsValidationPlugin>()
-            .ToList();
-
-        foreach (var plugin in dataValidationPluginsToRemove)
-            BindingPlugins.DataValidators.Remove(plugin);
-    }
-
-    private void OnUnhandledException(object sender, UnhandledExceptionEventArgs e) {
+    private void OnUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e) {
         var logger = ServiceProvider.GetRequiredService<ILogger<Application>>();
-        if (e.ExceptionObject is Exception ex)
-            logger.LogError(ex, "Unhandled exception occurred: {Message}", ex.Message);
+        if (e.Exception is Exception ex)
+            logger.LogError(ex, "An unhandled UI thread exception occurred: {Message}", ex.Message);
+
+        e.Handled = true;
     }
 
     private async void OnExit(object sender, ControlledApplicationLifetimeExitEventArgs e) {
@@ -145,13 +147,7 @@ public partial class App : Application {
     private void OnStartup(object sender, ControlledApplicationLifetimeStartupEventArgs e) {
         ActualThemeVariantChanged += OnActualThemeVariantChanged;
         PlatformSettings.ColorValuesChanged += OnColorValuesChanged;
-
-        Dispatcher.UIThread.UnhandledException += (_, arg) => {
-#if DEBUG
-            System.Diagnostics.Debug.WriteLine(arg.Exception);
-#endif
-            arg.Handled = true;
-        };
+        Dispatcher.UIThread.UnhandledException += OnUnhandledException;
     }
 
     private void OnColorValuesChanged(object sender, Avalonia.Platform.PlatformColorValues e) {
@@ -166,4 +162,15 @@ public partial class App : Application {
     }
 
     #endregion
+
+
+    private static void DisableAvaloniaDataAnnotationValidation() {
+        // Get an array of plugins to remove
+        var dataValidationPluginsToRemove =
+            BindingPlugins.DataValidators.OfType<DataAnnotationsValidationPlugin>().ToArray();
+
+        // remove each entry found
+        foreach (var plugin in dataValidationPluginsToRemove)
+            BindingPlugins.DataValidators.Remove(plugin);
+    }
 }

@@ -1,12 +1,15 @@
 <Application xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             x:Class="WonderLab.Override.App"
+             x:Class="WonderLab.App"
              xmlns:monet="using:Monet.Avalonia"
+             xmlns:controls="using:WonderLab.Controls"
 			 xmlns:wc="using:WonderLab.Media.Converters"
-             RequestedThemeVariant="Default">
+			 xmlns:mi="using:Material.Icons.Avalonia" 
+             RequestedThemeVariant="Dark">
     <Application.Styles>
 		<monet:MonetColors/>
-		
+		<mi:MaterialIconStyles/>
+
 		<Style Selector="TreeViewItem.TargetHighlight">
 			<Setter Property="AdornerLayer.Adorner">
 				<Template>
@@ -46,23 +49,22 @@
 				</Template>
 			</Setter>
 		</Style>
-
+		
 		<Style Selector="ItemsControl.card">
 			<Setter Property="ClipToBounds" Value="False"/>
-			<Setter Property="CornerRadius" Value="{DynamicResource StrongCornerRadius}"/>
-			<Setter Property="Background" Value="{DynamicResource SettingCardsBackgroundBrush}"/>
-			
+			<Setter Property="CornerRadius" Value="18"/>
+
 			<Setter Property="Template">
 				<ControlTemplate>
-					<Border Padding="{TemplateBinding Padding}"
-							Background="{TemplateBinding Background}"
-							BorderBrush="{TemplateBinding BorderBrush}"
-							ClipToBounds="{TemplateBinding ClipToBounds}"
-							CornerRadius="{TemplateBinding CornerRadius}"
-							BorderThickness="{TemplateBinding BorderThickness}">
+					<controls:SmoothBorder Padding="{TemplateBinding Padding}"
+										   Background="{TemplateBinding Background}"
+										   BorderBrush="{TemplateBinding BorderBrush}"
+										   ClipToBounds="{TemplateBinding ClipToBounds}"
+										   CornerRadius="{TemplateBinding CornerRadius}"
+										   BorderThickness="{TemplateBinding BorderThickness}">
 						<ItemsPresenter Name="PART_ItemsPresenter"
 										ItemsPanel="{TemplateBinding ItemsPanel}"/>
-					</Border>
+					</controls:SmoothBorder>
 				</ControlTemplate>
 			</Setter>
 		</Style>
@@ -76,6 +78,7 @@
 				<ResourceInclude Source="/Controls/Theme/ButtonTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ToolTipTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ListBoxTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/TaskBarTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/TextBoxTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/TreeViewTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ComboBoxTheme.axaml"/>
@@ -86,6 +89,7 @@
 				<ResourceInclude Source="/Controls/Theme/GalleryViewTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/SettingCardTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ListBoxItemTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/RadioButtonTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/TreeViewItemTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ComboBoxItemTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/GridSplitterTheme.axaml"/>
@@ -94,10 +98,13 @@
 				<ResourceInclude Source="/Controls/Theme/WonderWindowTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/ToggleSwitchTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/RippleControlTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/NavigationItemTheme.axaml"/>
+				<ResourceInclude Source="/Controls/Theme/NavigationRailTheme.axaml"/>
 				<ResourceInclude Source="/Controls/Theme/HyperlinkButtonTheme.axaml"/>
 			</ResourceDictionary.MergedDictionaries>
 
 			<wc:MinecraftIconConverter x:Key="MinecraftIconConverter"/>
+			<wc:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
 
 			<CornerRadius x:Key="WeakCornerRadius">4</CornerRadius>
 			<CornerRadius x:Key="FullCornerRadius">100</CornerRadius>

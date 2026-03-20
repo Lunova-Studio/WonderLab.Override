@@ -1,0 +1,99 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:wc="using:WonderLab.Controls"
+             xmlns:mi="using:Material.Icons.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="WonderLab.AppearancePage">
+    <StackPanel Margin="8 8 8 36">
+        <Border Padding="6"
+                CornerRadius="{StaticResource FullCornerRadius}"
+                Background="{DynamicResource SettingCardsBackgroundBrush}">
+			<Grid ColumnDefinitions="* * *">
+				<RadioButton Classes="ripple"
+                             HorizontalContentAlignment="Center"
+                             Grid.Column="0">
+                    <StackPanel Spacing="8"
+                                Orientation="Horizontal">
+                        
+					    <mi:MaterialIcon FontSize="16"
+                                         Kind="CreationOutline"
+					    				 VerticalAlignment="Center"/>
+
+                        <TextBlock Classes="LabelLarge"
+                                   VerticalAlignment="Center"
+                                   Text="自动"/>
+                    </StackPanel>
+                </RadioButton>
+
+				<RadioButton Classes="ripple"
+                             HorizontalContentAlignment="Center"
+                             Grid.Column="1">
+                    <StackPanel Spacing="8"
+                                Orientation="Horizontal">                        
+					    <mi:MaterialIcon FontSize="16"
+                                         Kind="WeatherSunny"
+					    				 VerticalAlignment="Center"/>
+
+                        <TextBlock Classes="LabelLarge"
+                                   VerticalAlignment="Center"
+                                   Text="浅色"/>
+                    </StackPanel>
+                </RadioButton>
+                
+				<RadioButton Classes="ripple"
+                             HorizontalContentAlignment="Center"
+                             Grid.Column="2">
+                    <StackPanel Spacing="8"
+                                Orientation="Horizontal">                        
+					    <mi:MaterialIcon FontSize="16"
+                                         Kind="WeatherNight"
+					    				 VerticalAlignment="Center"/>
+
+                        <TextBlock Classes="LabelLarge"
+                                   VerticalAlignment="Center"
+                                   Text="深色"/>
+                    </StackPanel>
+                </RadioButton>
+            </Grid>
+        </Border>
+
+        <TextBlock Margin="0 24 0 12"
+                   Classes="TitleMedium"
+                   Text="主题设置"/>
+     
+        <ItemsControl Classes="card">   
+			<wc:SettingCard Icon="{mi:MaterialIconExt PaletteOutline}"
+                            Header="选择主题色彩">
+                <ComboBox/>
+			</wc:SettingCard>
+               
+			<wc:SettingCard Icon="{mi:MaterialIconExt Resize}"
+                            Header="使用系统颜色">
+                <ToggleSwitch/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="{mi:MaterialIconExt AutoFix}"
+                            Header="选择主题色彩方案">
+                <ComboBox/>
+			</wc:SettingCard>
+            
+			<wc:SettingCard Icon="{mi:MaterialIconExt ImageSizeSelectSmall}"
+                            Header="选择背景类型">
+                <ComboBox/>
+			</wc:SettingCard>
+        </ItemsControl>
+        
+        <TextBlock Margin="0 24 0 12"
+                   Classes="TitleMedium"
+                   Text="语言"/>
+     
+        <ItemsControl Classes="card">            
+			<wc:SettingCard Icon="{mi:MaterialIconExt Translate}"
+                            Header="选择语言">
+                <ComboBox/>
+			</wc:SettingCard>
+        </ItemsControl>
+    </StackPanel>
+</UserControl>

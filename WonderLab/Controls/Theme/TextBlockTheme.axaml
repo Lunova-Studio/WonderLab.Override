@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Design.PreviewWith>
 		<Border Padding="20">
@@ -27,19 +27,13 @@
                 <TextBlock Classes="BodyLarge" Text="欢迎使用本应用，我们致力于提供最佳体验。" TextWrapping="Wrap"/>
                 <TextBlock Classes="BodyMedium" Text="请确保你的信息真实有效。" TextWrapping="Wrap"/>
                 <TextBlock Classes="BodySmall" Text="点击下方按钮继续。" TextWrapping="Wrap"/>
-
-                <TextBlock Text="&#xE711;" Classes="Icon"/>
 			</StackPanel>
 		</Border>
 	</Design.PreviewWith>
 
-    <FontFamily x:Key="IconFontFamily">avares://WonderLab/Assets/Font/SegoeFluentIcons.ttf#Segoe Fluent Icons</FontFamily>
+    <!--<FontFamily x:Key="IconFontFamily">avares://WonderLab/Assets/Font/SegoeFluentIcons.ttf#Segoe Fluent Icons</FontFamily>-->
 
     <ControlTheme TargetType="TextBlock" x:Key="{x:Type TextBlock}">
-        <Style Selector="^.Icon">
-            <Setter Property="FontFamily" Value="{StaticResource IconFontFamily}"/>
-        </Style>
-
         <!-- Display -->
         <Style Selector="^.DisplayLarge">
             <Setter Property="FontSize" Value="57"/>

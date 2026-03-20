@@ -27,6 +27,15 @@
 						</sys:Exception>
 					</DataValidationErrors.Error>
 				</ComboBox>
+
+				<ComboBox Width="600"
+						  SelectedIndex="0"
+						  PlaceholderText="Error"
+						  Tag="{mi:MaterialIconTextExt HeartPulse}"
+						  Theme="{DynamicResource SettingsCardComboBoxTheme}">
+					<ComboBoxItem>Item 1</ComboBoxItem>
+					<ComboBoxItem>Item 2</ComboBoxItem>
+				</ComboBox>
 			</StackPanel>
 		</Border>
 	</Design.PreviewWith>
@@ -115,26 +124,25 @@
 								HorizontalAlignment="Right"
 								Grid.Column="1"/>
 
-						<TextBlock FontSize="10"
-								   Classes="Icon"
-								   Text="&#xE70D;"
-								   Margin="0 0 10 0"
-								   RenderTransform="none"
-								   IsHitTestVisible="False"
-								   Name="PART_IconTextBlock"
-								   UseLayoutRounding="False"
-								   VerticalAlignment="Center"
-								   HorizontalAlignment="Right"
-								   Foreground="{TemplateBinding Foreground}"
-								   Grid.Column="1">
-							<TextBlock.Transitions>
+						<mi:MaterialIcon FontSize="10"
+										 Kind="MenuDown"
+										 Margin="0 0 10 0"
+										 RenderTransform="none"
+										 IsHitTestVisible="False"
+										 Name="PART_MaterialIcon"
+										 UseLayoutRounding="False"
+										 VerticalAlignment="Center"
+										 HorizontalAlignment="Right"
+										 Foreground="{TemplateBinding Foreground}"
+										 Grid.Column="1">
+							<mi:MaterialIcon.Transitions>
 								<Transitions>
 									<TransformOperationsTransition Duration="0:0:.35"
 																   Property="RenderTransform"
 																   Easing="ExponentialEaseOut"/>
 								</Transitions>
-							</TextBlock.Transitions>
-						</TextBlock>
+							</mi:MaterialIcon.Transitions>
+						</mi:MaterialIcon>
 
 						<Popup Name="PART_Popup"
 							   InheritsTransform="True"
@@ -171,12 +179,12 @@
 				<Setter Property="BorderBrush" Value="{DynamicResource ComboBoxPointerPressedBorderBrush}" />
 			</Style>
 
-			<Style Selector="^ /template/ TextBlock#PART_IconTextBlock">
+			<Style Selector="^ /template/ mi|MaterialIcon#PART_MaterialIcon">
 				<Setter Property="RenderTransform" Value="translateY(3px)"/>
 			</Style>
 		</Style>
 
-		<Style Selector="^:dropdownopen /template/ TextBlock#PART_IconTextBlock">
+		<Style Selector="^:dropdownopen /template/ mi|MaterialIcon#PART_MaterialIcon">
 			<Setter Property="RenderTransform" Value="rotate(180deg)"/>
 		</Style>
 		
@@ -210,6 +218,111 @@
 			<Style Selector="^ /template/ TextBlock#PART_IconTextBlock">
 				<Setter Property="Foreground" Value="{DynamicResource ComboBoxDropDownGlyphForegroundDisabled}" />
 			</Style>
+		</Style>
+	</ControlTheme>
+
+	
+	<ControlTheme x:Key="SettingsCardComboBoxTheme" TargetType="ComboBox">
+		<Setter Property="Height" Value="46"/>
+		<Setter Property="Padding" Value="16 12"/>
+		<Setter Property="Margin" Value="0 0 0 2"/>
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="MaxDropDownHeight" Value="250"/>
+		<Setter Property="VerticalAlignment" Value="Top"/>
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="HorizontalContentAlignment" Value="Right"/>
+		<Setter Property="CornerRadius" Value="{DynamicResource WeakCornerRadius}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource ComboBoxBorderBrush}"/>
+		<Setter Property="Background" Value="{DynamicResource ComboBoxBackgroundBrush}"/>
+		<Setter Property="Foreground" Value="{DynamicResource ComboBoxForegroundBrush}"/>
+		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Border Background="{TemplateBinding Background}"
+						CornerRadius="{TemplateBinding CornerRadius}">
+					<Panel>
+						<Border Background="Transparent"
+								VerticalAlignment="Stretch"
+								HorizontalAlignment="Stretch"
+								Name="PART_PointerOverBorder"
+								CornerRadius="{TemplateBinding CornerRadius}"/>
+
+						<Grid Margin="{TemplateBinding Padding}"
+							  ColumnDefinitions="auto auto * 24">
+							<ContentPresenter FontSize="18"
+											  Padding="0 0 12 0"
+											  Content="{TemplateBinding Tag}"
+											  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+											  IsVisible="{TemplateBinding Tag, Converter={x:Static ObjectConverters.IsNotNull}}"
+											  Grid.Column="0"/>
+
+							<TextBlock Name="PlaceholderTextBlock"
+									   Classes="LabelLarge"
+									   Text="{TemplateBinding PlaceholderText}"
+									   Foreground="{TemplateBinding Foreground}"
+									   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+									   Grid.Column="1"/>
+
+													
+							<ContentControl FontSize="14"
+											FontWeight="Medium"
+											Name="ContentPresenter"
+											Content="{TemplateBinding SelectionBoxItem}"
+											ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+											VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+											HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+											Grid.Column="2"/>
+
+							<mi:MaterialIcon FontSize="14"
+											 VerticalAlignment="Center"
+											 HorizontalAlignment="Right"
+											 Kind="UnfoldMoreHorizontal"
+											 Grid.Column="3"/> 
+
+							<Popup Name="PART_Popup"
+								   InheritsTransform="True"
+								   IsLightDismissEnabled="True"
+								   WindowManagerAddShadowHint="False"
+								   MaxHeight="{TemplateBinding MaxDropDownHeight}"
+								   IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}">
+								<Border Margin="12"
+										Padding="0"
+										Name="PopupBorder"
+										ClipToBounds="True"
+										UseLayoutRounding="False"
+										HorizontalAlignment="Stretch"
+										CornerRadius="{DynamicResource WeakCornerRadius}"
+										Background="{DynamicResource SurfaceContainerBrush}"
+										BorderBrush="{DynamicResource ComboBoxDropDownBorderBrush}"
+										BorderThickness="{DynamicResource ComboBoxDropdownBorderThickness}"
+										MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}">
+									<Border.Effect>
+										<DropShadowEffect OffsetX="0"
+										                  OffsetY="4"
+										                  Opacity="0.3"
+										                  BlurRadius="12"
+										                  Color="{DynamicResource ShadowColor}"/>
+									</Border.Effect>
+									
+									<ScrollViewer IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
+												  VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+												  HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}">
+										<ItemsPresenter Name="PART_ItemsPresenter"
+														ItemsPanel="{TemplateBinding ItemsPanel}"/>
+									</ScrollViewer>
+								</Border>
+							</Popup>
+						</Grid>
+					</Panel>
+				</Border>
+			</ControlTemplate>
+		</Setter>
+
+		<Style Selector="^:pointerover /template/ Border#PART_PointerOverBorder">
+			<Setter Property="Background" Value="{DynamicResource ButtonPointerOverBackgroundBrush}"/>
 		</Style>
 	</ControlTheme>
 </ResourceDictionary>

@@ -6,7 +6,8 @@
              xmlns:wc="using:WonderLab.Controls"
              xmlns:wa="using:WonderLab.Media.Attachments"
              x:Class="WonderLab.Views.Pages.HomePage">
-    <ScrollViewer>
+    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="hello"/>
+    <!--<ScrollViewer>
 		<StackPanel Margin="16 12"
                     wa:AnimatedScrollExtensions.AnimatedScroll="True">
 			<wc:GalleryView Title="新情报速递"
@@ -212,5 +213,5 @@
                 </ItemsRepeater.ItemTemplate>
             </ItemsRepeater>
         </StackPanel>
-    </ScrollViewer>
+    </ScrollViewer>-->
 </UserControl>

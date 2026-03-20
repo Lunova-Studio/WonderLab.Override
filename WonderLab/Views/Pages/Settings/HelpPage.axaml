@@ -1,0 +1,62 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:wc="using:WonderLab.Controls"
+             xmlns:mi="using:Material.Icons.Avalonia"
+             x:Class="WonderLab.HelpPage">
+    <StackPanel Margin="8 8 8 36">           
+        <TextBlock Margin="0 0 0 12"
+                   Classes="TitleMedium"
+                   Text="帮助"/>
+
+        <ItemsControl Classes="card">            
+			<wc:SettingCard Padding="16 8"
+                            Icon="{mi:MaterialIconExt FileDocumentOutline}"
+                            Header="查看 WonderLab 帮助文档">
+                <HyperlinkButton Classes="icon" 
+                                 Content="{mi:MaterialIconExt OpenInNew}"
+                                 NavigateUri="https://docs.lunova.studio/"/> 
+			</wc:SettingCard>
+        </ItemsControl>
+        
+        <TextBlock Margin="0 24 0 12"
+                   Classes="TitleMedium"
+                   Text="启动器"/>
+        
+        <ItemsControl Classes="card">            
+			<wc:SettingCard Padding="16 8"
+                            Icon="{mi:MaterialIconExt TrayArrowDown}"
+                            Header="游戏下载指南">
+                <HyperlinkButton Classes="icon" 
+                                 Content="{mi:MaterialIconExt OpenInNew}"
+                                 NavigateUri="https://docs.lunova.studio/"/> 
+			</wc:SettingCard>
+                   
+			<wc:SettingCard Padding="16 8"
+                            Icon="{mi:MaterialIconExt CubeOutline}"
+                            Header="版本管理指南">
+                <HyperlinkButton Classes="icon" 
+                                 Content="{mi:MaterialIconExt OpenInNew}"
+                                 NavigateUri="https://docs.lunova.studio/"/> 
+			</wc:SettingCard>
+            
+			<wc:SettingCard Padding="16 8"
+                            Icon="{mi:MaterialIconExt ServerOutline}"
+                            Header="社区服务器使用指南">
+                <HyperlinkButton Classes="icon" 
+                                 Content="{mi:MaterialIconExt OpenInNew}"
+                                 NavigateUri="https://docs.lunova.studio/"/> 
+			</wc:SettingCard>
+            
+			<wc:SettingCard Padding="16 8"
+                            Icon="{mi:MaterialIconExt ApplicationSettingsOutline}"
+                            Header="界面功能介绍">
+                <HyperlinkButton Classes="icon" 
+                                 Content="{mi:MaterialIconExt OpenInNew}"
+                                 NavigateUri="https://docs.lunova.studio/"/> 
+			</wc:SettingCard>
+        </ItemsControl>
+    </StackPanel>
+</UserControl>

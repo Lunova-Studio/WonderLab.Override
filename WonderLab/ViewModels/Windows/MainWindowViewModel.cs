@@ -3,27 +3,30 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using ObservableCollections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WonderLab.Classes.Enums;
 using WonderLab.Models;
 
 namespace WonderLab.ViewModels.Windows;
 
 public sealed partial class MainWindowViewModel : ViewModelBase {
-    private readonly ObservableList<TabItemModel> _tabItems = [];
-    private readonly List<TabItemModel> _mainTabItems = [
-        new TabItemModel() { I18nKey="Game", PageKey = "Minecraft"},
-        new TabItemModel() { I18nKey="Download", PageKey = "Download/Navigation" },
-        new TabItemModel() { I18nKey="Community", PageKey = "Minecraft" },
-        new TabItemModel() { I18nKey="Settings", PageKey = "Setting/Navigation" },
-    ];
+    [ObservableProperty] private NavigationPageType _selectedPage;
 
-    [ObservableProperty] private TabItemModel _currentTab;
+    //private readonly ObservableList<TabItemModel> _tabItems = [];
+    //private readonly List<TabItemModel> _mainTabItems = [
+    //    new TabItemModel() { I18nKey="Game", PageKey = "Minecraft"},
+    //    new TabItemModel() { I18nKey="Download", PageKey = "Download/Navigation" },
+    //    new TabItemModel() { I18nKey="Community", PageKey = "Minecraft" },
+    //    new TabItemModel() { I18nKey="Settings", PageKey = "Settings/Navigation" },
+    //];
 
-    public INotifyCollectionChangedSynchronizedViewList<TabItemModel> TabItems { get; }
+    //[ObservableProperty] private TabItemModel _currentTab;
 
-    public MainWindowViewModel() {
-        TabItems = _tabItems.ToNotifyCollectionChangedSlim();
+    //public INotifyCollectionChangedSynchronizedViewList<TabItemModel> TabItems { get; }
 
-        _tabItems.AddRange(_mainTabItems);
-        CurrentTab = _tabItems[0];
-    }
+    //public MainWindowViewModel() {
+    //    TabItems = _tabItems.ToNotifyCollectionChangedSlim();
+
+    //    _tabItems.AddRange(_mainTabItems);
+    //    CurrentTab = _tabItems[0];
+    //}
 }

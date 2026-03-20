@@ -171,5 +171,50 @@
 			<Setter Property="Opacity" Value="1"/>
 			<Setter Property="RenderTransform" Value="scaleY(1)"/>
 		</Style>
+
+		
+		<Style Selector="^.icon">
+			<Setter Property="Width" Value="28"/>
+			<Setter Property="Height" Value="28"/>
+			<Setter Property="FontSize" Value="16"/>
+			<Setter Property="ClipToBounds" Value="True"/>
+			<Setter Property="Background" Value="Transparent"/>
+			<Setter Property="CornerRadius" Value="{DynamicResource FullCornerRadius}"/>
+			<Setter Property="Template">
+				<ControlTemplate>
+					<wc:RippleControl ClipToBounds="False"
+									  Name="PART_RippleControl"
+									  Width="{TemplateBinding Width}"
+									  Height="{TemplateBinding Height}"
+									  FontSize="{TemplateBinding FontSize}"
+									  Background="{TemplateBinding Background}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  RippleFill="{DynamicResource RippleEffectFillBrush}">
+						<wc:RippleControl.Transitions>
+							<Transitions>
+								<BrushTransition Duration="0:0:0.35"
+												 Property="Background"
+												 Easing="CubicEaseOut"/>
+							</Transitions>
+						</wc:RippleControl.Transitions>
+
+						<ContentPresenter VerticalAlignment="Center"
+										  HorizontalAlignment="Center"
+										  Name="PART_ContentPresenter"
+										  Content="{TemplateBinding Content}"
+										  FontSize="{TemplateBinding FontSize}"
+										  Foreground="{TemplateBinding Foreground}"/>
+					</wc:RippleControl>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="^.icon:pointerover /template/ wc|RippleControl#PART_RippleControl">
+			<Setter Property="Background" Value="#26000000"/>
+		</Style>
+		
+		<Style Selector="^.icon:disabled /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Opacity" Value="0.5"/>
+		</Style>
 	</ControlTheme>
 </ResourceDictionary>

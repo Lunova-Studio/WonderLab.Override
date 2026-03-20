@@ -2,7 +2,99 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:wc="using:WonderLab.Controls"
+             xmlns:mi="using:Material.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="WonderLab.JavaSettingsPage">
-  Welcome to Avalonia!
+    <StackPanel Margin="8 8 8 36">           
+        <TextBlock Margin="0 0 0 12"
+                   Classes="TitleMedium"
+                   Text="Java 管理"/>
+     
+        <ItemsControl Classes="card">            
+			<wc:SettingCard Icon="{mi:MaterialIconExt Magnify}"
+                            Header="搜索 Java">
+				<StackPanel Spacing="8"
+							Orientation="Horizontal">
+					<Button Classes="icon"
+							Content="{mi:MaterialIconExt Magnify}"
+							
+                            ToolTip.ShowDelay="0"
+                            ToolTip.Tip="手动添加"/>
+                    <!--Command="{Binding BrowserJavaCommand}"-->
+					<Button Classes="icon"
+							Command="{Binding AutoSearchJavaCommand}"
+							Content="{mi:MaterialIconExt RefreshAuto}"
+                            ToolTip.ShowDelay="0"
+                            ToolTip.Tip="自动搜索"/>
+				</StackPanel>
+			</wc:SettingCard>
+            
+			<wc:SettingCard Icon="{mi:MaterialIconExt AutoMode}"
+                            Header="是否自动选择 Java 运行时">
+				<ToggleSwitch IsChecked="{Binding IsAutoSelectJava}"/>
+			</wc:SettingCard>
+
+
+			<wc:SettingCard Icon="{mi:MaterialIconExt Memory}"
+                            Header="配置游戏内存"
+                            IsVisible="False">
+				<NumericUpDown Minimum="512"
+							   Increment="16"
+							   Value="{Binding MaxMemorySize}"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="{mi:MaterialIconExt AutoMode}"
+                            Header="是否自动配置游戏内存">
+				<ToggleSwitch IsChecked="True"/>
+			</wc:SettingCard>
+        </ItemsControl>
+
+        <TextBlock Margin="0 24 0 12"
+                   Classes="TitleMedium"
+                   Text="Java 列表"/>
+
+        <ListBox Padding="0"
+                 Name="PART_ListBox"
+                 ItemsSource="{Binding Javas}"
+                 CornerRadius="{StaticResource StrongCornerRadius}"
+                 ItemContainerTheme="{StaticResource SettingsCardItemTheme}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Spacing="2"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate>
+				<DataTemplate>
+					<Grid RowDefinitions="* *"
+                          ColumnDefinitions="* 16 auto">
+                        <TextBlock Classes="TitleMedium"
+                                   Text="Java"
+                                   TextTrimming="CharacterEllipsis"
+                                   Grid.Row="0"/>
+
+                        <TextBlock Classes="LabelMedium"
+                                   Text="C:\114514\javaw.exe"
+                                   TextTrimming="CharacterEllipsis"
+                                   Grid.Row="1"/>
+
+                        <StackPanel Spacing="8"
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right"
+                                    Grid.Row="0"
+                                    Grid.Column="2"
+                                    Grid.RowSpan="2">
+                            <Button Classes="icon"
+                                    Content="{mi:MaterialIconExt DeleteOutline}"/>
+                            
+                            <Button Classes="icon"
+                                    Content="{mi:MaterialIconExt FolderOpenOutline}"/>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </StackPanel>
 </UserControl>

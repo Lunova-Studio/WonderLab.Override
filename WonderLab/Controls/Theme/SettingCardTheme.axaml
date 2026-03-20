@@ -3,7 +3,7 @@
 					xmlns:wc="using:WonderLab.Controls">
 	<Design.PreviewWith>
 		<Border Width="400" Padding="20">
-			<wc:SettingCard IsEnabled="False" Background="Red" Foreground="White" Header="Title" Icon="&#xE700;"/>
+			<wc:SettingCard IsEnabled="False" Background="Red" Foreground="White" Header="Title"/>
 		</Border>
 	</Design.PreviewWith>
 
@@ -30,13 +30,16 @@
 	</ControlTheme>
 
 	<ControlTheme TargetType="wc:SettingCard" x:Key="{x:Type wc:SettingCard}">
+		<Setter Property="Height" Value="46"/>
 		<Setter Property="MinWidth" Value="100"/>
-		<Setter Property="Padding" Value="16 12"/>
+		<Setter Property="Padding" Value="16 0"/>
+		<Setter Property="Margin" Value="0 0 0 2"/>
 		<Setter Property="HorizontalAlignment" Value="Stretch"/>
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
 		<Setter Property="HorizontalContentAlignment" Value="Right"/>
-		<Setter Property="CornerRadius" Value="{DynamicResource StrongCornerRadius}"/>
+		<Setter Property="CornerRadius" Value="{DynamicResource WeakCornerRadius}"/>
 		<Setter Property="Foreground" Value="{DynamicResource SettingCardForegroundBrush}"/>
+		<Setter Property="Background" Value="{DynamicResource SettingCardsBackgroundBrush}"/>
 		<Setter Property="Transitions">
 			<Transitions>
 				<DoubleTransition Property="Opacity"
@@ -47,12 +50,13 @@
 		
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Border Padding="{TemplateBinding Padding}"
-						Background="{TemplateBinding Background}"
-						CornerRadius="{TemplateBinding CornerRadius}">
+				<wc:SmoothBorder Background="{TemplateBinding Background}"
+								 CornerRadius="{TemplateBinding CornerRadius}">
 					<Grid Name="PART_LayoutGrid"
 						  RowDefinitions="auto auto"
-						  ColumnDefinitions="auto auto *">
+						  ColumnDefinitions="auto auto *"
+						  Margin="{TemplateBinding Padding}"
+						  VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
 						<Grid.Transitions>
 							<Transitions>
 								<DoubleTransition Duration="0:0:.015"
@@ -60,12 +64,12 @@
 							</Transitions>
 						</Grid.Transitions>
 						
-						<TextBlock FontSize="18"
-								   Classes="Icon"
-								   VerticalAlignment="Center"
-								   Text="{TemplateBinding Icon}"
-								   Foreground="{TemplateBinding Foreground}"
-								   Grid.Column="0"/>
+						<ContentPresenter FontSize="18"
+										  Content="{TemplateBinding Icon}"
+										  Foreground="{TemplateBinding Foreground}"
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  Grid.Column="0"/>
 
 						<TextBlock Margin="12 0 0 0"
 								   Classes="LabelLarge"
@@ -81,7 +85,7 @@
 										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
 										  Grid.Column="2"/>
 					</Grid>
-				</Border>
+				</wc:SmoothBorder>
 			</ControlTemplate>
 		</Setter>
 

@@ -1,14 +1,33 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:wc="using:WonderLab.Controls">
+					xmlns:wc="using:WonderLab.Controls"
+                    xmlns:mi="using:Material.Icons.Avalonia">
 	<Design.PreviewWith>
-		<Border Padding="20">
-			<ListBox Classes="bottombar" Height="200" Width="100">
-				<ListBoxItem Tag="&#xE946;" Content="Item 1" Theme="{DynamicResource SettingsItemTheme}"/>
-				<ListBoxItem Tag="&#xE946;" Content="Item 1" Theme="{DynamicResource SettingsItemTheme}"/>
-				<ListBoxItem Tag="&#xE946;" Content="Item 1" Theme="{DynamicResource SettingsItemTheme}"/>
+		<StackPanel Spacing="24" Width="250" Margin="20 0 20 20">
+			<ListBox Margin="0 20 0 0" Background="Gray">
+				<ListBoxItem Content="SettingsCardItemTheme Item 1"/>
+				<ListBoxItem Content="SettingsCardItemTheme Item 2"/>
+				<ListBoxItem Content="SettingsCardItemTheme Item 3"/>
 			</ListBox>
-		</Border>
+			
+			<ListBox Background="Gray">
+				<ListBoxItem Content="SettingsCardItemTheme Item 1" Theme="{DynamicResource TopBarItemTheme}"/>
+				<ListBoxItem Content="SettingsCardItemTheme Item 2" Theme="{DynamicResource TopBarItemTheme}"/>
+				<ListBoxItem Content="SettingsCardItemTheme Item 3" Theme="{DynamicResource TopBarItemTheme}"/>
+			</ListBox>
+			
+			<ListBox Background="Gray">
+				<ListBoxItem Content="SettingsCardItemTheme Item 1" Theme="{DynamicResource SettingsItemTheme}"/>
+				<ListBoxItem Content="SettingsCardItemTheme Item 2" Theme="{DynamicResource SettingsItemTheme}"/>
+				<ListBoxItem Content="SettingsCardItemTheme Item 3" Theme="{DynamicResource SettingsItemTheme}"/>
+			</ListBox>
+						
+			<ListBox Background="Gray">
+				<ListBoxItem Content="SettingsCardItemTheme Item 1" Theme="{DynamicResource MaxSettingsItemTheme}"/>
+				<ListBoxItem Content="SettingsCardItemTheme Item 2" Theme="{DynamicResource MaxSettingsItemTheme}"/>
+				<ListBoxItem Content="SettingsCardItemTheme Item 3" Theme="{DynamicResource MaxSettingsItemTheme}"/>
+			</ListBox>
+		</StackPanel>
 	</Design.PreviewWith>
 
 	<ControlTheme x:Key="{x:Type ListBoxItem}" TargetType="ListBoxItem">
@@ -127,7 +146,8 @@
 
                         <Border Height="3"
                                 Opacity="0"
-                                CornerRadius="8"
+								Margin="16 0"
+                                CornerRadius="8 8 4 4"
                                 Name="PART_Indicator"
                                 VerticalAlignment="Bottom"
                                 HorizontalAlignment="Stretch"
@@ -156,7 +176,7 @@
 		<Style Selector="^:selected">
 			<Style Selector="^ /template/ Border#PART_Indicator">
                 <Setter Property="Opacity" Value="1"/>
-				<Setter Property="RenderTransform" Value="scale(0.4, 1)" />
+				<Setter Property="RenderTransform" Value="scale(1, 1)" />
 			</Style>
 
 			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
@@ -168,7 +188,7 @@
 	<ControlTheme x:Key="SettingsItemTheme" TargetType="ListBoxItem">
 		<Setter Property="MinWidth" Value="60"/>
 		<Setter Property="FontSize" Value="14" />
-		<Setter Property="Padding" Value="8 6" />
+		<Setter Property="Padding" Value="16 12" />
 		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
 		<Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -177,7 +197,7 @@
 		<Setter Property="Template">
 			<ControlTemplate>
 				<wc:RippleControl Background="{TemplateBinding Background}"
-								  CornerRadius="{DynamicResource NormalCornerRadius}"
+								  CornerRadius="{DynamicResource FullCornerRadius}"
 								  RippleFill="{DynamicResource RippleEffectFillBrush}">
 					<Grid Margin="{TemplateBinding Padding}">
                         <ContentPresenter Background="Transparent" 
@@ -203,9 +223,108 @@
 			<Setter Property="Background" Value="{DynamicResource ListBoxItemPointeroverBackgroundBrush}"/>
 		</Style>
 		
-		<Style Selector="^:selected">			
-			<Setter Property="Foreground" Value="{DynamicResource PrimaryColor}" />
-			<Setter Property="Background" Value="{DynamicResource SecondaryContainerColor}" />
+		<Style Selector="^:selected">
+			<Setter Property="Background" Value="{DynamicResource SecondaryContainerBrush}"/>
+			<Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainerBrush}"/>
+		</Style>
+	</ControlTheme>
+
+	<ControlTheme x:Key="SettingsCardItemTheme" TargetType="ListBoxItem">
+		<Setter Property="MinWidth" Value="60"/>
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="Padding" Value="8 6" />
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+		<Setter Property="CornerRadius" Value="{DynamicResource WeakCornerRadius}" />
+		<Setter Property="Foreground" Value="{DynamicResource TabItemForegroundBrush}"/>
+		<Setter Property="Background" Value="{DynamicResource SettingCardsBackgroundBrush}"/>
+		
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Panel>
+					<RadioButton Classes="selector"
+								 Padding="12 0 0 0"
+								 Background="{TemplateBinding Background}"
+								 CornerRadius="{TemplateBinding CornerRadius}"
+							     IsChecked="{TemplateBinding IsSelected, Mode=TwoWay}">
+						<ContentPresenter Background="Transparent" 
+										  Name="PART_ContentPresenter"
+										  Content="{TemplateBinding Content}"
+										  FontSize="{TemplateBinding FontSize}"
+										  FontWeight="{TemplateBinding FontWeight}"
+										  BorderBrush="{TemplateBinding BorderBrush}"
+										  Transitions="{TemplateBinding Transitions}"
+										  CornerRadius="{TemplateBinding CornerRadius}"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  BorderThickness="{TemplateBinding BorderThickness}"
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+										  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+					</RadioButton>
+
+					<Border IsVisible="False" 
+							IsHitTestVisible="False"
+							Name="PART_PointerOverBorder"
+							CornerRadius="{TemplateBinding CornerRadius}"
+							Background="{DynamicResource ListBoxItemPointeroverBackgroundBrush}"/>
+				</Panel>
+			</ControlTemplate>
+		</Setter>
+		
+		<Style Selector="^:pointerover /template/ Border#PART_PointerOverBorder">
+			<Setter Property="IsVisible" Value="True"/>
+		</Style>
+		
+		<Style Selector="^:selected">
+			<Setter Property="Background" Value="{DynamicResource SecondaryContainerBrush}"/>
+			<Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainerBrush}"/>
+		</Style>
+	</ControlTheme>
+
+	
+	<ControlTheme x:Key="MaxSettingsItemTheme" TargetType="ListBoxItem">
+		<Setter Property="MinWidth" Value="60"/>
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="Padding" Value="16 12"/>
+		<Setter Property="Margin" Value="0 0 0 2"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+		<Setter Property="CornerRadius" Value="{DynamicResource WeakCornerRadius}" />
+		<Setter Property="Foreground" Value="{DynamicResource SettingCardForegroundBrush}"/>
+		<Setter Property="Background" Value="{DynamicResource SettingCardsBackgroundBrush}"/>
+		
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Panel>
+					<ContentPresenter Name="PART_ContentPresenter"
+									  Padding="{TemplateBinding Padding}"
+									  Content="{TemplateBinding Content}"
+									  FontSize="{TemplateBinding FontSize}"
+									  Foreground="{TemplateBinding Foreground}"
+									  Background="{TemplateBinding Background}"
+									  FontWeight="{TemplateBinding FontWeight}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  Transitions="{TemplateBinding Transitions}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  ContentTemplate="{TemplateBinding ContentTemplate}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+									  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+
+					<Border IsVisible="False" 
+							IsHitTestVisible="False"
+							Name="PART_PointerOverBorder"
+							CornerRadius="{TemplateBinding CornerRadius}"
+							Background="{DynamicResource ListBoxItemPointeroverBackgroundBrush}"/>
+				</Panel>
+			</ControlTemplate>
+		</Setter>
+		
+		<Style Selector="^:pointerover /template/ Border#PART_PointerOverBorder">
+			<Setter Property="IsVisible" Value="True"/>
 		</Style>
 	</ControlTheme>
 </ResourceDictionary>

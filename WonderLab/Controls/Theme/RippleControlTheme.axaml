@@ -1,14 +1,25 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:wc="using:WonderLab.Controls">
+	<Design.PreviewWith>
+		<Border Padding="20" Width="100" Height="200">
+			<Border ClipToBounds="True" Background="red" CornerRadius="120">
+				<StackPanel>
+					<wc:RippleControl  Height="35" Background="Blue"/>
+				</StackPanel>
+			</Border>
+		</Border>
+	</Design.PreviewWith>
+
 	<ControlTheme TargetType="wc:RippleControl" x:Key="{x:Type wc:RippleControl}">
 		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="CornerRadius" Value="{DynamicResource NormalCornerRadius}"/>
 
 		<Setter Property="Template">
 			<ControlTemplate>
-				<wc:SmoothBorder ClipToBounds="True"
-								 BorderBrush="{TemplateBinding BorderBrush}"
-								 CornerRadius="{StaticResource NormalCornerRadius}"
+				<wc:SmoothBorder BorderBrush="{TemplateBinding BorderBrush}"
+								 ClipToBounds="{TemplateBinding ClipToBounds}"
+								 CornerRadius="{TemplateBinding CornerRadius}"
 								 BorderThickness="{TemplateBinding BorderThickness}">
 					<Grid>
 						<ContentPresenter Name="Content"
@@ -24,5 +35,30 @@
 				</wc:SmoothBorder>
 			</ControlTemplate>
 		</Setter>
+
+		<Style Selector="^.nosmooth">
+			<Setter Property="CornerRadius" Value="{DynamicResource FullCornerRadius}"/>
+
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							ClipToBounds="{TemplateBinding ClipToBounds}"
+							CornerRadius="{TemplateBinding CornerRadius}"
+							BorderThickness="{TemplateBinding BorderThickness}">
+						<Grid>
+							<ContentPresenter Name="Content"
+											  Content="{TemplateBinding Content}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"/>
+	
+							<Canvas IsHitTestVisible="False"
+									VerticalAlignment="Stretch"
+									HorizontalAlignment="Stretch"
+									Name="PART_RippleCanvasRoot"/>
+						</Grid>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
 	</ControlTheme>
 </ResourceDictionary>

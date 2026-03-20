@@ -7,7 +7,7 @@
 			<SolidColorBrush x:Key="BottomBarItemPointerOverBackgroundBrush" Color="#20000000"/>
 			
 			<SolidColorBrush x:Key="ListBoxItemSelectedBackgroundBrush" Color="#25000000"/>
-			<SolidColorBrush x:Key="ListBoxItemPointeroverBackgroundBrush" Color="#20000000"/>
+			<SolidColorBrush x:Key="ListBoxItemPointeroverBackgroundBrush" Color="#10000000"/>
 			<SolidColorBrush x:Key="ListBoxItemPointerPressedBackgroundBrush" Color="#30000000"/>
 			<SolidColorBrush x:Key="ListBoxItemSelectedPointeroverBackgroundBrush" Color="#35000000"/>
 			<SolidColorBrush x:Key="ListBoxItemSelectedPointerPressedBackgroundBrush" Color="#40000000"/>
@@ -23,7 +23,7 @@
 			<SolidColorBrush x:Key="BottomBarItemPointerOverBackgroundBrush" Color="#20FFFFFF"/>
 			
 			<SolidColorBrush x:Key="ListBoxItemSelectedBackgroundBrush" Color="#25FFFFFF"/>
-			<SolidColorBrush x:Key="ListBoxItemPointeroverBackgroundBrush" Color="#20FFFFFF"/>
+			<SolidColorBrush x:Key="ListBoxItemPointeroverBackgroundBrush" Color="#10FFFFFF"/>
 			<SolidColorBrush x:Key="ListBoxItemPointerPressedBackgroundBrush" Color="#30FFFFFF"/>
 			<SolidColorBrush x:Key="ListBoxItemSelectedPointeroverBackgroundBrush" Color="#35FFFFFF"/>
 			<SolidColorBrush x:Key="ListBoxItemSelectedPointerPressedBackgroundBrush" Color="#40FFFFFF"/>
@@ -37,8 +37,8 @@
 	</ResourceDictionary.ThemeDictionaries>
 	
 	<SolidColorBrush x:Key="ApplicationBackgroundBrush" Color="{DynamicResource BackgroundColor}"/>
-	<SolidColorBrush x:Key="ApplicationTitleBarForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
-	<SolidColorBrush x:Key="ApplicationTitleBarBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
+	<SolidColorBrush x:Key="ApplicationTitleBarForegroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
+	<SolidColorBrush x:Key="ApplicationTitleBarBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
 	<SolidColorBrush x:Key="ApplicationSubtitleForegroundBrush" Color="{DynamicResource OutlineColor}"/>
 
 	<SolidColorBrush x:Key="FlyoutBorderBrush" Color="{DynamicResource OutlineColor}"/>
@@ -66,6 +66,9 @@
 	<SolidColorBrush x:Key="ProgressButtonHighlightForegroundBrush" Color="{DynamicResource OnPrimaryColor}"/>
 	<SolidColorBrush x:Key="ProgressButtonIndicatorForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
 	<SolidColorBrush x:Key="ProgressButtonBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
+	<SolidColorBrush x:Key="FAButtonBackgroundBrush" Color="{DynamicResource PrimaryContainerColor}"/>
+	<SolidColorBrush x:Key="FAButtonForegroundBrush" Color="{DynamicResource OnPrimaryContainerColor}"/>
+	<SolidColorBrush x:Key="FAButtonPointerOverBackgroundBrush" Color="{DynamicResource ShadowColor}" Opacity="0.1"/>
 	
 	<SolidColorBrush x:Key="SettingsButtonBorderBrush" Color="{DynamicResource OutlineColor}"/>
 	<SolidColorBrush x:Key="SettingsButtonForegroundBrush" Color="{DynamicResource OnSecondaryColor}"/>
@@ -112,7 +115,11 @@
 	<SolidColorBrush x:Key="ComboBoxForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
 	<SolidColorBrush x:Key="ComboBoxFocusedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
 	<SolidColorBrush x:Key="ComboBoxPointerPressedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
-	<SolidColorBrush x:Key="ComboBoxBackgroundBrush" Color="{DynamicResource SurfaceContainerHighestColor}"/>
+	<SolidColorBrush x:Key="ComboBoxBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
+
+	<SolidColorBrush x:Key="ComboBoxItemForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+	<SolidColorBrush x:Key="ComboBoxItemSelectedBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
+	<SolidColorBrush x:Key="ComboBoxItemSelectedForegroundBrush" Color="{DynamicResource OnSecondaryContainerColor}"/>
 
 	<SolidColorBrush x:Key="ToggleSwitchBorderBrush" Color="{DynamicResource OutlineColor}"/>
 	<SolidColorBrush x:Key="ToggleSwitchKnobOffFillBrush" Color="{DynamicResource OutlineColor}"/>
@@ -156,6 +163,7 @@
 	<SolidColorBrush x:Key="PullPanelBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
 
 	<SolidColorBrush x:Key="OOBEWindowFontIconForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
+	<SolidColorBrush x:Key="OOBEWindowTitleBarForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
 	<SolidColorBrush x:Key="OOBEWindowBottomBarBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
 	<SolidColorBrush x:Key="OOBEWindowTitleBarBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
 	
@@ -178,4 +186,16 @@
 	<SolidColorBrush x:Key="AdornerLayerBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}" Opacity="0.6"/>
 
 	<SolidColorBrush x:Key="GalleryViewBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
+
+	<SolidColorBrush x:Key="RadioButtonCheckedFillBrush" Color="{DynamicResource OnPrimaryColor}"/>
+	<SolidColorBrush x:Key="RadioButtonCheckedBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
+
+	<SolidColorBrush x:Key="RippleRadioButtonForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+	<SolidColorBrush x:Key="RippleRadioButtonBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
+	<SolidColorBrush x:Key="RippleRadioButtonCheckedBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
+	<SolidColorBrush x:Key="RippleRadioButtonCheckedForegroundBrush" Color="{DynamicResource OnSecondaryContainerColor}"/>
+
+	<SolidColorBrush x:Key="NavigationRailBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
 </ResourceDictionary>
+
+<!--NavigationRail-->

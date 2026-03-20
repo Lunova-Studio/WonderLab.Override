@@ -10,7 +10,6 @@ using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -61,33 +60,37 @@ public sealed partial class Frame : TemplatedControl {
         }
     }
 
-    private async void RunAnimation(object newPage) {
+    private async void RunAnimation(UserControl? newPage) {
+        if (newPage is null)
+            return;
+
+        // Cancel and dispose previous token source, replace with a new one
         try {
-            using (_cancellationTokenSource) {
-                _cancellationTokenSource.Cancel();
-                _cancellationTokenSource = new();
-            }
+            _cancellationTokenSource.Cancel();
+            _cancellationTokenSource.Dispose();
+        } catch { }
 
-            if ((newPage as UserControl).DataContext is ObservableRecipient recipient)
-                recipient.IsActive = true;
+        _cancellationTokenSource = new CancellationTokenSource();
 
-            if (FrameTransition is null) {
-                _PART_ContentPresenter.Content = newPage;
-            } else {
-                if(_PART_ContentPresenter.Content is not null)
-                    await FrameTransition.Animate(_PART_ContentPresenter, true, _cancellationTokenSource.Token);
-                _PART_ContentPresenter.Content = newPage;
-                await FrameTransition.Animate(_PART_ContentPresenter, false, _cancellationTokenSource.Token);
-            }
-        } finally {
+        if (newPage.DataContext is ObservableRecipient recipient)
+            recipient.IsActive = true;
+
+        if (FrameTransition is null) {
+            _PART_ContentPresenter.Content = newPage;
+        } else {
+            if (_PART_ContentPresenter.Content is not null)
+                await FrameTransition.Animate(_PART_ContentPresenter, true, _cancellationTokenSource.Token);
+            _PART_ContentPresenter.Content = newPage;
+            await FrameTransition.Animate(_PART_ContentPresenter, false, _cancellationTokenSource.Token);
         }
     }
 
-    protected override async void OnLoaded(RoutedEventArgs e) {
+    protected override void OnLoaded(RoutedEventArgs e) {
         base.OnLoaded(e);
         FrameTransition ??= new DefaultFrameTransition(TimeSpan.FromMilliseconds(500));
-        await Task.Delay(50);
-        PageKey = DefaultPageKey;
+
+        // Post setting the default page to the UI thread after load instead of awaiting a delay.
+        Dispatcher.UIThread.Post(() => PageKey = DefaultPageKey);
     }
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e) {
@@ -102,7 +105,7 @@ public sealed partial class Frame : TemplatedControl {
         if (change.Property == PageKeyProperty
             && PageProvider is not null
             && !string.IsNullOrEmpty(change.GetNewValue<string>())) {
-            var page = await Dispatcher.UIThread.InvokeAsync(() => PageProvider.GetPage(change.GetNewValue<string>()), DispatcherPriority.Background);
+            var page = await Dispatcher.UIThread.InvokeAsync(() => PageProvider.GetPage(change.GetNewValue<string>()) as UserControl);
             RunAnimation(page);
             Navigated?.Invoke();
         }
@@ -127,7 +130,7 @@ public sealed class DefaultFrameTransition : IFrameTransition {
     public async Task ClearVisualTree(TimeSpan startTime, Action action, CancellationToken cancellationToken) {
         try {
             await Task.Delay(startTime, cancellationToken);
-        } catch (Exception) {}
+        } catch (Exception) { }
 
         action();
     }
@@ -161,9 +164,8 @@ public sealed class DefaultFrameTransition : IFrameTransition {
             group.Add(scaleAni);
             group.Add(opacityAni);
         }
-
+        
         tasks.Add(Dispatcher.UIThread.InvokeAsync(async () => controlEV.StartAnimationGroup(group)));
-
         await Task.WhenAll(tasks);
     }
 }

@@ -4,16 +4,13 @@
     <Design.PreviewWith>
         <Border Width="400">
             <TabControl>
-                <TabItem Header="Arch"
-                         Classes="full">
+                <TabItem Header="Arch">
                 </TabItem>
             
-                <TabItem Header="Leaf"
-                         Classes="full">
+                <TabItem Header="Leaf">
                 </TabItem>
               
-                <TabItem Header="Disabled"
-                         Classes="full"/>
+                <TabItem Header="Disabled"/>
             </TabControl>
         </Border>
     </Design.PreviewWith>
@@ -26,8 +23,8 @@
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Template">
             <ControlTemplate>
-                <Border BorderBrush="{TemplateBinding BorderBrush}"
-                        Background="{TemplateBinding Background}"
+                <Border Background="{TemplateBinding Background}"
+						BorderBrush="{TemplateBinding BorderBrush}"
                         CornerRadius="{TemplateBinding CornerRadius}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         VerticalAlignment="{TemplateBinding VerticalAlignment}"
@@ -86,7 +83,8 @@
 
                         <Border Height="3"
                                 Opacity="0"
-                                CornerRadius="8"
+								Margin="12 2"
+								CornerRadius="300"
                                 Name="PART_Indicator"
                                 VerticalAlignment="Bottom"
                                 HorizontalAlignment="Stretch"
@@ -115,7 +113,7 @@
 		<Style Selector="^:selected">
 			<Style Selector="^ /template/ Border#PART_Indicator">
                 <Setter Property="Opacity" Value="1"/>
-				<Setter Property="RenderTransform" Value="scale(0.4, 1)" />
+				<Setter Property="RenderTransform" Value="scale(1, 1)" />
 			</Style>
 
 			<Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">

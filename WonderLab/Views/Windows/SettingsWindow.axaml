@@ -1,20 +1,20 @@
 ﻿<wc:WonderWindow xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:models="using:WonderLab.Models"
-        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-        xmlns:wc="using:WonderLab.Controls"
-        xmlns:wa="using:WonderLab.Media.Attachments"
-        x:Class="WonderLab.SettingsWindow"
-        Width="850"
-        Height="480"
-        Classes="full"
-        WindowStartupLocation="CenterScreen"
-        ExtendClientAreaChromeHints="NoChrome"
-        ExtendClientAreaTitleBarHeightHint="0"
-        ExtendClientAreaToDecorationsHint="True"
-        Title="Settings">
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:models="using:WonderLab.Models"
+                 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                 xmlns:wc="using:WonderLab.Controls"
+                 xmlns:wa="using:WonderLab.Media.Attachments"
+                 x:Class="WonderLab.SettingsWindow"
+                 Width="850"
+                 Height="480"
+                 Classes="full"
+                 WindowStartupLocation="CenterScreen"
+                 ExtendClientAreaChromeHints="NoChrome"
+                 ExtendClientAreaTitleBarHeightHint="0"
+                 ExtendClientAreaToDecorationsHint="True"
+                 Title="Settings">
     <wc:WonderWindow.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.ThemeDictionaries>
@@ -64,24 +64,6 @@
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
-<!--
-			<ListBoxItem Tag="&#xE945;"
-                         Content="启动"/>
-            
-			<ListBoxItem Tag="&#xEC32;"
-                         Content="Java 虚拟机"/>
-
-			<ListBoxItem Tag="&#xE790;"
-                         Content="个性化"/>
-            
-			<ListBoxItem Tag="&#xE774;"
-                         Content="网络"/>
-
-			<ListBoxItem Tag="&#xE95B;"
-                         Content="帮助与支持"/>
-
-			<ListBoxItem Tag="&#xE946;"
-                         Content="关于"/>-->
         </ListBox>
 
         <Border Background="{DynamicResource ApplicationBackgroundBrush}"

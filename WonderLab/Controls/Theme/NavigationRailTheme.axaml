@@ -1,0 +1,78 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wc="using:WonderLab.Controls"
+                    xmlns:mi="using:Material.Icons.Avalonia">
+    <Design.PreviewWith>
+		<Border Padding="20">
+			<wc:NavigationRail/>
+        </Border>
+    </Design.PreviewWith>
+
+	<Thickness x:Key="NavigationRailItemPadding">0 4 0 6</Thickness>
+
+	<ControlTheme TargetType="wc:NavigationItem"
+				  BasedOn="{StaticResource NavigationItemVerticalTheme}"
+				  x:Key="NavigationRailItemTheme">
+		<Setter Property="Padding" Value="{DynamicResource NavigationRailItemPadding}"/>
+	</ControlTheme>
+
+    <ControlTheme TargetType="wc:NavigationRail" x:Key="{x:Type wc:NavigationRail}">
+		<Setter Property="MinWidth" Value="96"/>
+		<Setter Property="VerticalAlignment" Value="Stretch"/>
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="Background" Value="{DynamicResource NavigationRailBackgroundBrush}"/>
+		<Setter Property="ItemContainerTheme" Value="{StaticResource NavigationRailItemTheme}"/>
+		<Setter Property="ItemsPanel">
+			<ItemsPanelTemplate>
+				<StackPanel Spacing="4" Orientation="Vertical"/>
+			</ItemsPanelTemplate>
+		</Setter>
+
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Grid ColumnDefinitions="auto *">
+					<Border Name="PART_RootBorder"
+							HorizontalAlignment="Left"
+							Width="{TemplateBinding MinWidth}"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							CornerRadius="{TemplateBinding CornerRadius}"
+							ClipToBounds="{TemplateBinding ClipToBounds}"
+							BorderThickness="{TemplateBinding BorderThickness}">
+						<Grid RowDefinitions="auto *">
+							<Button Classes="FAB"
+							        FontSize="14"
+									Margin="0 16"
+							        VerticalAlignment="Top"
+							        Name="PART_LaunchButton"
+							        HorizontalAlignment="Center"
+									Command="{TemplateBinding FABCommand}"
+							        Content="{mi:MaterialIconTextExt Play}"
+									Grid.Row="0"/>
+
+							<ScrollViewer Name="PART_ScrollViewer"
+										  AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+										  VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}"
+										  IsScrollInertiaEnabled="{TemplateBinding (ScrollViewer.IsScrollInertiaEnabled)}"
+										  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+										  HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}"
+										  IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
+										  BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+										  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+										  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}"
+										  Grid.Row="1">
+								<ItemsPresenter Name="PART_ItemsPresenter"
+												Margin="{TemplateBinding Padding}"
+												ItemsPanel="{TemplateBinding ItemsPanel}"/>
+							</ScrollViewer>
+						</Grid>
+					</Border>
+
+					<!--Margin="0 40 0 0"--> 
+					<wc:Frame Name="PART_Frame"
+							  Grid.Column="1"/>
+				</Grid>
+			</ControlTemplate>
+		</Setter>
+    </ControlTheme>
+</ResourceDictionary>

@@ -1,0 +1,146 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:wc="using:WonderLab.Controls"
+             xmlns:models="using:WonderLab.Models"
+             xmlns:wb="using:WonderLab.Media.Behaviors"
+             xmlns:wa="using:WonderLab.Media.Attachments"
+             xmlns:mi="using:Material.Icons.Avalonia"
+             x:Class="WonderLab.NavigationPage">
+    <UserControl.Styles>
+		<Style Selector="ListBox.max">
+            <Setter Property="ZIndex" Value="0"/>
+            <Setter Property="Opacity" Value="0"/>
+            <Setter Property="Width" Value="NaN"/>
+            <Setter Property="MaxWidth" Value="1000"/>
+            <Setter Property="Padding" Value="20 12"/>
+            <Setter Property="CornerRadius" Value="18"/>
+            <Setter Property="ItemContainerTheme" Value="{StaticResource MaxSettingsItemTheme}"/>
+
+            <Setter Property="Template">
+				<ControlTemplate>
+				    <Border Background="{TemplateBinding Background}"
+				    		BorderBrush="{TemplateBinding BorderBrush}"
+				    		CornerRadius="{TemplateBinding CornerRadius}"
+				    		ClipToBounds="{TemplateBinding ClipToBounds}"
+				    		BorderThickness="{TemplateBinding BorderThickness}">
+                        <ScrollViewer Name="PART_ScrollViewer"
+				    				  AllowAutoHide="{TemplateBinding (ScrollViewer.AllowAutoHide)}"
+				    				  VerticalSnapPointsType="{TemplateBinding (ScrollViewer.VerticalSnapPointsType)}"
+				    				  IsScrollInertiaEnabled="{TemplateBinding (ScrollViewer.IsScrollInertiaEnabled)}"
+				    				  IsScrollChainingEnabled="{TemplateBinding (ScrollViewer.IsScrollChainingEnabled)}"
+				    				  HorizontalSnapPointsType="{TemplateBinding (ScrollViewer.HorizontalSnapPointsType)}"
+				    				  IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
+				    				  BringIntoViewOnFocusChange="{TemplateBinding (ScrollViewer.BringIntoViewOnFocusChange)}"
+				    				  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+				    				  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}">
+                            <StackPanel Spacing="16"
+                                        Margin="{TemplateBinding Padding}">
+                                <TextBlock Classes="TitleLarge"
+                                           VerticalAlignment="Center"
+                                           Text="设置"/>
+
+                                <Border ClipToBounds="True"
+                                        CornerRadius="{TemplateBinding CornerRadius}">
+                                    <ItemsPresenter Name="PART_ItemsPresenter"
+                                                    ItemsPanel="{TemplateBinding ItemsPanel}"/>	
+                                </Border>
+                            </StackPanel>
+                        </ScrollViewer>
+				    </Border>
+                </ControlTemplate>
+            </Setter>
+        </Style>
+
+		<Style Selector="ListBox.normal">
+            <Setter Property="ZIndex" Value="1"/>
+            <Setter Property="Width" Value="195"/>
+            <Setter Property="Padding" Value="8 16"/>
+            <Setter Property="CornerRadius" Value="0 16 16 0"/>
+            <Setter Property="BorderThickness" Value="1 0 0 0"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource OutlineVariantBrush}"/>
+            <Setter Property="Background" Value="{DynamicResource SurfaceContainerBrush}"/>
+            <Setter Property="ItemContainerTheme" Value="{StaticResource SettingsItemTheme}"/>
+            <Setter Property="Transitions">
+				<Transitions>
+					<EffectTransition Property="Effect"
+                                      Duration="0:0:.3"
+                                      Easing="CubicEaseOut"/>
+                </Transitions>
+            </Setter>
+        </Style>
+<!--
+        <Style Selector="ListBox.normal:pointerover">
+			<Setter Property="Effect">
+                <DropShadowEffect OffsetX="0"
+                                  OffsetY="0"
+                                  Opacity="0.3"
+                                  BlurRadius="6"
+                                  Color="{DynamicResource ShadowColor}"/>
+            </Setter>
+        </Style>-->
+    </UserControl.Styles>
+
+    <Grid ColumnDefinitions="195 *">
+		<ListBox Name="PART_ListBox"
+                 Classes="normal"
+                 SelectionChanged="OnSelectionChanged"
+                 ItemsSource="{Binding ListItems}"
+                 Grid.Row="0"
+                 Grid.Column="0"
+                 Grid.RowSpan="2">            
+            <ListBox.ItemTemplate>
+				<DataTemplate DataType="models:ListItemModel">
+                    <StackPanel Spacing="8" Orientation="Horizontal">
+                        <mi:MaterialIcon FontSize="16"
+                                         VerticalAlignment="Center"
+                                         Kind="{Binding Icon}"/>
+
+					    <TextBlock VerticalAlignment="Center"
+                                   Text="{Binding I18nKey}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <!--Background="{DynamicResource ApplicationTitleBarBackgroundBrush}"-->
+        <!--<Border Height="54"
+                Opacity="0"
+                Padding="20 0"
+                IsVisible="False"
+                Name="PART_BackwardRoot"
+                Grid.Row="0"
+                Grid.Column="1">
+			<StackPanel Spacing="16"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Left">
+				<Button FontSize="18"
+						Classes="icon"
+						Name="PART_BackwardButton"
+                        VerticalAlignment="Center"
+						Content="{mi:MaterialIconTextExt ArrowLeft}"
+						CornerRadius="{DynamicResource FullCornerRadius}"/>
+
+                <TextBlock Classes="TitleLarge"
+                           VerticalAlignment="Center" 
+                           Text="设置标题"/>
+            </StackPanel>
+        </Border>-->
+
+        <ScrollViewer ZIndex="1"
+                      Grid.Row="1"
+                      Grid.Column="1">
+            <!--<Interaction.Behaviors>
+                <wb:SettingsNavigationBarBehavior NavigationControl="{Binding ElementName=PART_ListBox}"
+                                                  BackwardControl="{Binding ElementName=PART_BackwardRoot}"/>
+            </Interaction.Behaviors>-->
+
+		    <wc:Frame MaxWidth="1000"
+                      Name="PART_Frame"
+                      Padding="12 8 12 44"
+                      wa:AnimatedScrollExtensions.AnimatedScroll="True"/>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

@@ -2,8 +2,8 @@ using Avalonia.Controls;
 
 namespace WonderLab;
 
-public partial class JavaSettingsPage : UserControl {
-    public JavaSettingsPage() {
+public partial class AppearancePage : UserControl {
+    public AppearancePage() {
         InitializeComponent();
     }
 }

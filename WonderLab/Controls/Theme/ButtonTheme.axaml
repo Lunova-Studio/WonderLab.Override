@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:wc="using:WonderLab.Controls"
+					xmlns:mi="using:Material.Icons.Avalonia"
 					xmlns:wa="using:WonderLab.Media.Attachments">
 	<Design.PreviewWith>
 		<Border Padding="20">
@@ -9,6 +10,9 @@
 				<Button Content="Click Me" Classes="process" Background="red"/>
 				<Button Content="Click Me" Classes="primary"/>
 				<Button Content="Click Me" Classes="card"/>
+
+				<Button Content="{mi:MaterialIconExt Play}" Classes="FAB" 
+						HorizontalAlignment="Center"/>
 			</StackPanel>
 		</Border>
 	</Design.PreviewWith>
@@ -70,12 +74,20 @@
 							</Transitions>
 						</wc:RippleControl.Transitions>
 
-						<TextBlock Classes="Icon"
-								   Name="PART_TextBlock"
-								   VerticalAlignment="Center"
-								   HorizontalAlignment="Center"
-								   Text="{TemplateBinding Content}"
-								   FontSize="{TemplateBinding FontSize}"/>
+						
+						<ContentPresenter RecognizesAccessKey="True"
+										  Name="PART_ContentPresenter"
+										  Content="{TemplateBinding Content}"
+										  Padding="{TemplateBinding Padding}"
+										  Background="{TemplateBinding Background}"
+										  Foreground="{TemplateBinding Foreground}"
+										  Transitions="{TemplateBinding Transitions}"
+										  BorderBrush="{TemplateBinding BorderBrush}"
+										  CornerRadius="{TemplateBinding CornerRadius}"
+										  BorderThickness="{TemplateBinding BorderThickness}"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+										  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
 					</wc:RippleControl>
 				</ControlTemplate>
 			</Setter>
@@ -232,6 +244,51 @@
 				
 		<Style Selector="^.card:pressed">
 			<Setter Property="RenderTransform" Value="translateY(4px)"/>
+		</Style>
+
+		<Style Selector="^.FAB">
+			<Setter Property="Width" Value="56"/>
+			<Setter Property="Height" Value="56"/>
+			<Setter Property="CornerRadius" Value="15"/>
+			<Setter Property="Background" Value="{DynamicResource FAButtonBackgroundBrush}"/>
+			<Setter Property="Foreground" Value="{DynamicResource FAButtonForegroundBrush}"/>
+
+			<Setter Property="Template">
+				<ControlTemplate>
+					<wc:RippleControl Name="PART_RippleControl" ClipToBounds="False"
+									  Padding="{TemplateBinding Padding}"
+									  Foreground="{TemplateBinding Foreground}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  Background="{TemplateBinding Background}"
+									  Transitions="{TemplateBinding Transitions}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  ContentTemplate="{TemplateBinding ContentTemplate}"
+									  RippleFill="{DynamicResource RippleEffectFillBrush}"
+									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
+						<Panel>
+							<Border Background="Transparent"
+									VerticalAlignment="Stretch"
+									HorizontalAlignment="Stretch"
+									Name="PART_PointerOverBorder"/>
+							
+							<ContentPresenter RecognizesAccessKey="True"
+											  Content="{TemplateBinding Content}"
+											  Padding="{TemplateBinding Padding}"
+											  Transitions="{TemplateBinding Transitions}"
+											  CornerRadius="{TemplateBinding CornerRadius}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+											  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+						</Panel>
+					</wc:RippleControl>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+		
+		<Style Selector="^.FAB:pointerover /template/ Border#PART_PointerOverBorder">
+			<Setter Property="Background" Value="{DynamicResource FAButtonPointerOverBackgroundBrush}"/>
 		</Style>
 	</ControlTheme>
 </ResourceDictionary>

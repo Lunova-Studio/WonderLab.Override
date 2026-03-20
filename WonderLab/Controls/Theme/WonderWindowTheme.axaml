@@ -1,26 +1,39 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:wc="using:WonderLab.Controls">
+                    xmlns:wc="using:WonderLab.Controls"
+					xmlns:mi="using:Material.Icons.Avalonia">
+	<Design.PreviewWith>
+		<Border Width="100" 
+				Height="100"
+				Margin="100"
+				CornerRadius="10 10 0 0"
+				Background="{DynamicResource ApplicationBackgroundBrush}"
+				BorderBrush="{DynamicResource PrimaryBrush}"/>
+	</Design.PreviewWith>
+
     <ControlTheme TargetType="wc:WonderWindow" x:Key="{x:Type wc:WonderWindow}">
 		<Setter Property="Margin" Value="0" />
 		<Setter Property="Width" Value="995"/>
 		<Setter Property="Height" Value="560"/>
-		<Setter Property="MinWidth" Value="995"/>
+		<Setter Property="MinWidth" Value="400"/>
 		<Setter Property="MinHeight" Value="560"/>
 		<Setter Property="WindowStartupLocation" Value="CenterScreen"/>
 		<Setter Property="ExtendClientAreaChromeHints" Value="NoChrome" />
 		<Setter Property="ExtendClientAreaTitleBarHeightHint" Value="0" />
 		<Setter Property="ExtendClientAreaToDecorationsHint" Value="True" />
-		<Setter Property="Background" Value="{DynamicResource OOBEWindowTitleBarBackgroundBrush}"/>
+		<Setter Property="Background" Value="{DynamicResource ApplicationBackgroundBrush}"/>
 		<Setter Property="TextElement.Foreground" Value="{DynamicResource ApplicationTitleBarForegroundBrush}" />
 		<Setter Property="SystemDecorations" Value="{OnPlatform Full, Linux=None, x:TypeArguments=SystemDecorations}"/>
 
 		<Setter Property="Template">
 			<ControlTemplate>
 				<Border ClipToBounds="True" 
+						UseLayoutRounding="False"
 						Margin="{TemplateBinding Margin}"
 						Background="{TemplateBinding Background}"
-						CornerRadius="{OnPlatform '0', Linux='10', x:TypeArguments=CornerRadius}">
+						BorderBrush="{DynamicResource OutlineBrush}"
+						CornerRadius="{OnPlatform '0', Linux='8'}"
+						BorderThickness="{OnPlatform '0', Linux='1.5'}">
 					<VisualLayerManager IsHitTestVisible="True"
 										Name="PART_VisualLayerManager">
 						<VisualLayerManager.ChromeOverlayLayer>
@@ -34,26 +47,25 @@
 						</VisualLayerManager.ChromeOverlayLayer>
 
 						<Panel Name="PART_RootPanel">
-								<!--Experimental-->
 								<DockPanel LastChildFill="True">
 									<Border MinHeight="35"
 											Focusable="True"
 											Padding="0 8 0 0"
-											BorderThickness="0 0 0 0.2"
+											CornerRadius="8 8 0 0"
 											UseLayoutRounding="False"
 											Name="PART_DragLayoutBorder"
 											HorizontalAlignment="Stretch"
 											BorderBrush="{DynamicResource OutlineBrush}"
-											Background="{DynamicResource ApplicationBackgroundBrush}"
+											Background="{DynamicResource ApplicationTitleBarBackgroundBrush}"
 											DockPanel.Dock="Top">
-										<Grid RowDefinitions="auto auto"
+										<Grid RowDefinitions="auto auto auto"
 											  ColumnDefinitions="auto * auto auto">
 											<TextBlock Margin="16 0"
 													   Classes="BodySmall"
 													   Name="TitleTextBlock"
 													   VerticalAlignment="Center"
 													   Text="{TemplateBinding Title}"
-													   Foreground="{DynamicResource OnSurfaceBrush}"
+													   Foreground="{TemplateBinding Foreground}"
 													   Grid.Column="0"/>
 											
 											<Button Width="28"
@@ -80,12 +92,18 @@
 											<ContentPresenter ClipToBounds="True"
 															  IsHitTestVisible="True"
 															  VerticalAlignment="Bottom"
+															  Foreground="{TemplateBinding Foreground}"
 															  Content="{TemplateBinding TitleBarContent}"
 															  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
 															  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
 															  Grid.Row="1"
 															  Grid.Column="0"
 															  Grid.ColumnSpan="4"/>
+											
+											<Separator Margin="0"
+													   Grid.Row="2"
+													   Grid.Column="0"
+													   Grid.ColumnSpan="4"/>
 										</Grid>
 									</Border>
 
@@ -154,6 +172,67 @@
 												Margin="4 0 12 0"
 												Content="&#xF78A;"
 												Name="PART_CloseButton"
+												Foreground="{TemplateBinding Foreground}"
+												CornerRadius="{DynamicResource FullCornerRadius}"
+												Grid.Column="2"/>
+									</Grid>
+								</Border>
+							</Panel>
+						</VisualLayerManager>
+					</Border>
+				</ControlTemplate>
+			</Setter>
+		</Style>
+
+		<Style Selector="^.test">
+			<Setter Property="MinWidth" Value="850"/>
+			<Setter Property="MinHeight" Value="500"/>
+
+			<Setter Property="Template">
+				<ControlTemplate>
+					<Border ClipToBounds="True" 
+							Margin="{TemplateBinding Margin}"
+							Background="{TemplateBinding Background}"
+							CornerRadius="{OnPlatform '0', Linux='10', x:TypeArguments=CornerRadius}">
+						<VisualLayerManager IsHitTestVisible="True"
+											Name="PART_VisualLayerManager">
+							<Panel Name="PART_RootPanel">
+								<ContentPresenter ClipToBounds="True"
+												  IsHitTestVisible="True"
+												  Name="PART_ContentPresenter"
+												  Content="{TemplateBinding Content}"
+												  CornerRadius="{DynamicResource StrongCornerRadius}"
+												  ContentTemplate="{TemplateBinding ContentTemplate}"
+												  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+												  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+								
+								<!--Background="{DynamicResource ApplicationTitleBarBackgroundBrush}"-->
+								<Border MinHeight="35"
+										Focusable="True"
+										Padding="0 6 0 6"
+										VerticalAlignment="Top"
+										UseLayoutRounding="False"
+										Name="PART_DragLayoutBorder"
+										HorizontalAlignment="Stretch"
+										Background="{DynamicResource ApplicationTitleBarBackgroundBrush}">
+									<Grid ColumnDefinitions="* auto auto">
+										<Button Width="28"
+												Height="28"
+												FontSize="10"
+												Classes="icon"
+												Name="PART_MinimizeButton"
+												Content="{mi:MaterialIconTextExt Minus}"
+												Foreground="{TemplateBinding Foreground}"
+												CornerRadius="{DynamicResource FullCornerRadius}"
+												Grid.Column="1"/>
+
+										<Button Width="28"
+												Height="28"
+												FontSize="10"
+												Classes="icon"
+												Margin="4 0 12 0"
+												Name="PART_CloseButton"
+												Content="{mi:MaterialIconTextExt Close}"
 												Foreground="{TemplateBinding Foreground}"
 												CornerRadius="{DynamicResource FullCornerRadius}"
 												Grid.Column="2"/>

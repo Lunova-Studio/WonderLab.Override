@@ -1,39 +1,55 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mi="using:Material.Icons.Avalonia"
 					xmlns:wc="using:WonderLab.Controls">
 	<Design.PreviewWith>
-		<Border Width="100" Height="200">
-			<StackPanel Spacing="4">
-				<ComboBoxItem Content="1"/>
-				<ComboBoxItem Content="1"/>
-				<ComboBoxItem Focusable="True" IsSelected="True" Content="1"/>
-			</StackPanel>
+		<Border Padding="20" Width="100" Height="200">
+			<Border Background="red" CornerRadius="12">
+				<StackPanel>
+					<ComboBoxItem IsSelected="True" Content="1"/>
+					<ComboBoxItem Content="1"/>
+					<ComboBoxItem Focusable="True" IsSelected="True" Content="1"/>
+				</StackPanel>
+			</Border>
 		</Border>
 	</Design.PreviewWith>
 	
 	<ControlTheme x:Key="{x:Type ComboBoxItem}" TargetType="ComboBoxItem">
-		<Setter Property="Background" Value="Transparent" />
-		<Setter Property="Padding" Value="8 6"/>
-		<Setter Property="Margin" Value="4 0"/>
+		<Setter Property="Height" Value="48"/>
+		<Setter Property="FontSize" Value="16" />
+		<Setter Property="Padding" Value="12 0"/>
 		<Setter Property="MinHeight" Value="20" />
+		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="HorizontalAlignment" Value="Stretch" />
 		<Setter Property="VerticalContentAlignment" Value="Center" />
 		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-		<Setter Property="CornerRadius" Value="{DynamicResource WeakCornerRadius}" />
+		<Setter Property="Foreground" Value="{DynamicResource ComboBoxItemForegroundBrush}"/>
 		<Setter Property="Template">
 			<ControlTemplate>
 				<wc:RippleControl Name="PART_RippleControl"
 								  CornerRadius="{TemplateBinding CornerRadius}"
 								  RippleFill="{DynamicResource RippleEffectFillBrush}">
-					<ContentPresenter Name="PART_ContentPresenter"
-									  Margin="{TemplateBinding Padding}"
-									  Content="{TemplateBinding Content}"
-									  BorderBrush="{TemplateBinding BorderBrush}"
-									  CornerRadius="{TemplateBinding CornerRadius}"
-									  ContentTemplate="{TemplateBinding ContentTemplate}"
-									  BorderThickness="{TemplateBinding BorderThickness}"
-									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+					<Grid ColumnDefinitions="auto *"
+						  Margin="{TemplateBinding Padding}">
+						<mi:MaterialIcon Kind="Check"
+										 IsVisible="False"
+										 Name="PART_Indicator"
+										 FontSize="{TemplateBinding FontSize}"
+										 Foreground="{TemplateBinding Foreground}"/>
+
+						<ContentPresenter Margin="12 0 0 0"
+										  Name="PART_ContentPresenter"
+										  Content="{TemplateBinding Content}"
+										  FontSize="{TemplateBinding FontSize}"
+										  Foreground="{TemplateBinding Foreground}"
+										  BorderBrush="{TemplateBinding BorderBrush}"
+										  CornerRadius="{TemplateBinding CornerRadius}"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  BorderThickness="{TemplateBinding BorderThickness}"
+										  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+										  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  Grid.Column="1"/>
+					</Grid>
 				</wc:RippleControl>
 			</ControlTemplate>
 		</Setter>
@@ -42,12 +58,16 @@
 			<Setter Property="Background" Value="{DynamicResource ListBoxItemPointeroverBackgroundBrush}" />
 		</Style>
 		
-		<Style Selector="^:selected /template/ wc|RippleControl#PART_RippleControl">
-			<Setter Property="Background" Value="{DynamicResource ListBoxItemSelectedBackgroundBrush}" />
-		</Style>
-		
-		<Style Selector="^:selected:pointerover /template/ wc|RippleControl#PART_RippleControl">
-			<Setter Property="Background" Value="{DynamicResource ListBoxItemSelectedPointeroverBackgroundBrush}" />
+		<Style Selector="^:selected">
+			<Setter Property="Foreground" Value="{DynamicResource ComboBoxItemSelectedForegroundBrush}" />
+
+			<Style Selector="^ /template/ mi|MaterialIcon#PART_Indicator">
+				<Setter Property="IsVisible" Value="True" />
+			</Style>
+
+			<Style Selector="^ /template/ wc|RippleControl#PART_RippleControl">
+				<Setter Property="Background" Value="{DynamicResource ComboBoxItemSelectedBackgroundBrush}" />
+			</Style>
 		</Style>
 	</ControlTheme>
 </ResourceDictionary>

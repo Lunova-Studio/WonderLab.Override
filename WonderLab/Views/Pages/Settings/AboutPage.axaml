@@ -1,0 +1,112 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:wc="using:WonderLab.Controls"
+			 xmlns:mi="using:Material.Icons.Avalonia"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="WonderLab.AboutPage">
+        <StackPanel Margin="8 8 8 36">           
+        <TextBlock Margin="0 0 0 12"
+                   Classes="TitleMedium"
+                   Text="关于"/>
+     
+        <ItemsControl Classes="card">            
+			<wc:SettingCard Header="启动器版本"
+							Icon="{mi:MaterialIconExt InformationOutline}">
+				<HyperlinkButton Content="2.0.0"
+								 NavigateUri="https://github.com/Lunova-Studio/WonderLab.Override"/>
+			</wc:SettingCard>
+        </ItemsControl>
+
+        <TextBlock Margin="0 24 0 12"
+                   Classes="TitleMedium"
+                   Text="鸣谢"/>
+                 
+        <ItemsControl Classes="card">            
+			<wc:SettingCard Icon="{mi:MaterialIconExt AccountCowboyHatOutline}"
+                            Header="技术帮助">
+                <StackPanel Spacing="8"
+							Orientation="Horizontal">
+					<HyperlinkButton Content="Natsurainko"
+									 NavigateUri="https://github.com/natsurainko"/>
+
+					<HyperlinkButton Content="llr下一你了亲并"
+									 NavigateUri="https://github.com/laolarou726"/>
+				</StackPanel>
+			</wc:SettingCard>
+                        
+			<wc:SettingCard Icon="{mi:MaterialIconExt AccountCowboyHatOutline}"
+                            Header="部分图标引用自">
+				<HyperlinkButton Content="pdimu"
+								 NavigateUri="https://github.com/pdimu"/>
+			</wc:SettingCard>
+        </ItemsControl>
+            
+        <TextBlock Margin="0 24 0 12"
+                   Classes="TitleMedium"
+                   Text="使用的开源项目"/>
+                             
+        <ItemsControl Classes="card">                                    
+			<wc:SettingCard Icon="{mi:MaterialIconExt PackageVariantClosed}"
+                            Header="Avalonia">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/AvaloniaUI/Avalonia"/>
+			</wc:SettingCard>
+                                                
+			<wc:SettingCard Icon="{mi:MaterialIconExt PackageVariantClosed}"
+                            Header="AsyncImageLoader.Avalonia">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/AvaloniaUtils/AsyncImageLoader.Avalonia"/>
+			</wc:SettingCard>
+            
+			<wc:SettingCard Icon="{mi:MaterialIconExt PackageVariantClosed}"
+                            Header="Xaml.Behaviors.Avalonia">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/wieslawsoltes/Avalonia.Xaml.Behaviors"/>
+			</wc:SettingCard>
+            
+			<wc:SettingCard Icon="{mi:MaterialIconExt PackageVariantClosed}"
+                            Header="DialogHost.Avalonia">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/AvaloniaUtils/DialogHost.Avalonia"/>
+			</wc:SettingCard>
+			
+			<wc:SettingCard Icon="{mi:MaterialIconExt PackageVariantClosed}"
+                            Header="CommunityToolkit.Mvvm">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/CommunityToolkit/dotnet"/>
+			</wc:SettingCard>
+			
+			<wc:SettingCard Icon="{mi:MaterialIconExt PackageVariantClosed}"
+                            Header="MinecraftLaunch">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/Lunova-Studio/MinecraftLaunch"/>
+			</wc:SettingCard>
+						
+			<wc:SettingCard Icon="{mi:MaterialIconExt PackageVariantClosed}"
+                            Header="Monet">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/Lunova-Studio/Monet"/>
+			</wc:SettingCard>
+									
+			<wc:SettingCard Icon="{mi:MaterialIconExt PackageVariantClosed}"
+                            Header="Serilog">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/serilog/serilog"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="{mi:MaterialIconExt PackageVariantClosed}"
+                            Header="ObservableCollections">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/Cysharp/ObservableCollections"/>
+			</wc:SettingCard>
+
+			<wc:SettingCard Icon="{mi:MaterialIconExt PackageVariantClosed}"
+                            Header="Tomlyn">
+				<HyperlinkButton Content="Github"
+								 NavigateUri="https://github.com/xoofx/Tomlyn"/>
+			</wc:SettingCard>
+        </ItemsControl>
+    </StackPanel>
+</UserControl>

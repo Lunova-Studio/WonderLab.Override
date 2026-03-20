@@ -24,8 +24,8 @@ public partial class MainWindow : WonderWindow {
 
     private void SyncTabSelection() {
         _isSync = true;
-        PART_ListBox.SelectedItem = _vm.TabItems
-            .FirstOrDefault(x => x.PageKey == PART_HostFrame.PageKey);
+        //PART_ListBox.SelectedItem = _vm.TabItems
+        //    .FirstOrDefault(x => x.PageKey == PART_HostFrame.PageKey);
 
         OnNavigated();
         _isSync = false;
@@ -46,15 +46,7 @@ public partial class MainWindow : WonderWindow {
             return;
 
         if (e.AddedItems.Count > 0 && e.AddedItems[0] is TabItemModel tabItem) {
-            if (tabItem.PageKey.Contains("Setting", StringComparison.InvariantCultureIgnoreCase)) {
-                PART_ListBox.SelectedIndex = 0;
-
-                _ = new SettingsWindow() {
-                    DataContext = App.Get<SettingsWindowViewModel>()
-                }.ShowDialog(this);
-            } else {
-                PART_HostFrame.Navigate(tabItem.PageKey);
-            }
+            PART_HostFrame.Navigate(tabItem.PageKey);
         }
 
         OnNavigated();
@@ -64,8 +56,8 @@ public partial class MainWindow : WonderWindow {
         base.OnLoaded(e);
 
         _vm = DataContext as MainWindowViewModel;
-#if DEBUG
-        PART_TestTipBanner.IsVisible = false;
+#if !DEBUG
+        PART_TestTipBanner.IsVisible = true;
 #endif
     }
 }

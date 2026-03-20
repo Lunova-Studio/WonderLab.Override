@@ -1,0 +1,95 @@
+<wc:WonderWindow xmlns="https://github.com/avaloniaui"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:models="using:WonderLab.Models"
+                 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+                 xmlns:wc="using:WonderLab.Controls"
+                 xmlns:wa="using:WonderLab.Media.Attachments"
+                 xmlns:mi="using:Material.Icons.Avalonia"
+                 x:Class="WonderLab.TestWindow"
+                 Width="850"
+                 Height="480"
+                 Classes="test"
+                 Title="Settings">
+    <Grid>
+        <!--<wc:Frame Margin="0 40 0 0" Name="PART_Frame"/>-->
+
+        <wc:NavigationRail Name="PART_NavigationRail" Margin="0 40 0 0">
+            <wc:NavigationItem IconSize="20"
+                               Tag="Home"
+                               Kind="HomeOutline"
+                               SelectedKind="Home"
+                               Content="Home"
+                               IsCheckedChanged="OnNavigationItemChecked"
+                               IsChecked="{Binding SelectedPage, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Home, Mode=TwoWay}"/>
+
+            <wc:NavigationItem IconSize="20"
+                               Kind="DownloadOutline"
+                               Tag="Download/Navigation"
+                               SelectedKind="Download"
+                               Content="Download"
+                               IsCheckedChanged="OnNavigationItemChecked"
+                               IsChecked="{Binding SelectedPage, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Download, Mode=TwoWay}"/>
+
+            <wc:NavigationItem IconSize="26"
+                               Tag="Home"
+                               Kind="AccountGroupOutline" 
+                               SelectedKind="AccountGroup"
+                               Content="Community"
+                               IsCheckedChanged="OnNavigationItemChecked"
+                               IsChecked="{Binding SelectedPage, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Community, Mode=TwoWay}"/>
+
+            <wc:NavigationItem IconSize="20"
+                               Kind="SettingsOutline"
+                               Tag="Settings/Navigation"
+                               SelectedKind="Settings"
+                               Content="Settings"
+                               IsCheckedChanged="OnNavigationItemChecked"
+                               IsChecked="{Binding SelectedPage, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Settings, Mode=TwoWay}"/>
+        </wc:NavigationRail>
+
+        <wc:TaskBar Name="PART_TaskBar">
+            <wc:TaskBar.ExpandContent>
+                <Grid Margin="0 14 0 14" 
+                      ColumnDefinitions="* * * *">
+                    <wc:NavigationItem IconSize="20"
+                                       Tag="Home"
+                                       Kind="HomeOutline"
+                                       SelectedKind="Home"
+                                       Content="Home"
+                                       IsCheckedChanged="OnNavigationItemChecked"
+                                       IsChecked="{Binding SelectedPage, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Home, Mode=TwoWay}"
+                                       Grid.Column="0"/>
+
+                    <wc:NavigationItem IconSize="20"
+                                       Tag="Download/Navigation"
+                                       Kind="DownloadOutline"
+                                       SelectedKind="Download"
+                                       Content="Download"
+                                       IsCheckedChanged="OnNavigationItemChecked"
+                                       IsChecked="{Binding SelectedPage, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Download, Mode=TwoWay}"
+                                       Grid.Column="1"/>
+
+                    <wc:NavigationItem IconSize="26"
+                                       Tag="Home"
+                                       Kind="AccountGroupOutline" 
+                                       SelectedKind="AccountGroup"
+                                       Content="Community"
+                                       IsCheckedChanged="OnNavigationItemChecked"
+                                       IsChecked="{Binding SelectedPage, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Community, Mode=TwoWay}"
+                                       Grid.Column="2"/>
+
+                    <wc:NavigationItem IconSize="20"
+                                       Tag="Settings/Navigation"
+                                       Kind="SettingsOutline"
+                                       SelectedKind="Settings"
+                                       Content="Settings"
+                                       IsCheckedChanged="OnNavigationItemChecked"
+                                       IsChecked="{Binding SelectedPage, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Settings, Mode=TwoWay}"
+                                       Grid.Column="3"/>
+                </Grid>
+            </wc:TaskBar.ExpandContent>
+        </wc:TaskBar>
+    </Grid>
+</wc:WonderWindow>

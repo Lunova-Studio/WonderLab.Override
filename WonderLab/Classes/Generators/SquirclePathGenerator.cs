@@ -56,6 +56,9 @@ public static class SquirclePathGenerator {
     }
 
     private static Geometry GetGeometry(double width, double height, double radius, double smoothPercent) {
+        if (width == 0 || height == 0)
+            width = height = 8;
+
         if (radius < 0)
             radius = 0;
 

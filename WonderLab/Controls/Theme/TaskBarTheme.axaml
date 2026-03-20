@@ -1,0 +1,60 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wc="using:WonderLab.Controls"
+                    xmlns:mi="using:Material.Icons.Avalonia">
+    <Design.PreviewWith>
+		<Border Width="800" Height="450">
+            <wc:TaskBar Classes="rail"/>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme TargetType="wc:TaskBar" x:Key="{x:Type wc:TaskBar}">
+        <Setter Property="Background" Value="{DynamicResource BottomBarBackgroundBrush}"/>
+
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Grid RowDefinitions="* auto">
+                    <Border Height="85"
+                            Margin="0 0 0 -5"
+                            Name="PART_ExpandRoot"
+                            VerticalAlignment="Bottom"
+                            RenderTransformOrigin="100% 100%"
+                            Background="{TemplateBinding Background}"
+                            Grid.Row="1">
+                        <ContentPresenter RecognizesAccessKey="True"
+				    				      Name="PART_ExpandContentPresenter"
+                                          VerticalContentAlignment="Stretch"
+                                          HorizontalContentAlignment="Stretch"
+				    				      Padding="{TemplateBinding Padding}"
+                                          Content="{TemplateBinding ExpandContent}"
+				    				      Background="{TemplateBinding Background}"
+				    				      Foreground="{TemplateBinding Foreground}"
+				    				      Transitions="{TemplateBinding Transitions}"
+				    				      BorderBrush="{TemplateBinding BorderBrush}"
+				    				      CornerRadius="{TemplateBinding CornerRadius}"
+				    				      BorderThickness="{TemplateBinding BorderThickness}"/>
+                    </Border>
+
+                    <!--Margin="18 0 18 95"-->
+                    <Button Classes="FAB"
+                            Margin="16"
+                            FontSize="14"
+                            Padding="0 0 0 0"
+                            Name="PART_FAButton"
+                            VerticalAlignment="Bottom"
+                            HorizontalAlignment="Right"
+                            Content="{mi:MaterialIconTextExt Play}"
+                            Grid.Row="0">
+                        <Button.Effect>
+                            <DropShadowEffect OffsetX="0"
+                                              OffsetY="4"
+                                              Opacity="0.25"
+                                              BlurRadius="12"
+                                              Color="{DynamicResource ShadowColor}"/>
+                        </Button.Effect>
+                    </Button>
+                </Grid>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>
