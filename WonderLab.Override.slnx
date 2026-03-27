@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/refs/">
+    <Project Path="refs/Material.Icons.Avalonia/Material.Icons.Avalonia.csproj" />
+  </Folder>
+  <Folder Name="/SourceGenerator/">
+    <Project Path="WonderLab.SourceGenerator.Shared/WonderLab.SourceGenerator.Shared.csproj" />
+    <Project Path="WonderLab.SourceGenerator/WonderLab.SourceGenerator.csproj" Id="8aae1bb8-f494-4561-b8d3-ad549c4bcb4b" />
+  </Folder>
+  <Project Path="WonderLab/WonderLab.csproj" />
+</Solution>

@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<Nullable>disable</Nullable>
+		<OutputType>WinExe</OutputType>
+		<RootNamespace>WonderLab</RootNamespace>
+		<TargetFramework>net10.0</TargetFramework>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<!--<PublishAot>true</PublishAot>
+		<PublishTrimmed>true</PublishTrimmed>-->
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<Folder Include="Models\" />
+		<AvaloniaResource Include="Assets\**" />
+		<Folder Include="Enums\" />
+		<Folder Include="UI\Controls\" />
+		<Folder Include="UI\Converters\" />
+		<Folder Include="UI\Attachments\" />
+		<Folder Include="UI\Behaviors\" />
+		<Folder Include="UI\Transitions\" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="12.0.0-rc1" />
+		<PackageReference Include="Avalonia.Desktop" Version="12.0.0-rc1" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.0-rc1" />
+
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.1" />
+
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
+		
+		<PackageReference Include="ZLogger" Version="2.5.10" />
+
+		<PackageReference Include="MinecraftLaunch" Version="4.0.6-preview17" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\refs\Material.Icons.Avalonia\Material.Icons.Avalonia.csproj" />
+		<ProjectReference Include="..\WonderLab.SourceGenerator.Shared\WonderLab.SourceGenerator.Shared.csproj" />
+		<ProjectReference Include="..\WonderLab.SourceGenerator\WonderLab.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	</ItemGroup>
+</Project>
