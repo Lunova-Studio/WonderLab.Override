@@ -8,6 +8,10 @@
         ExtendClientAreaTitleBarHeightHint="35"
         ExtendClientAreaToDecorationsHint="True"
         Title="WonderLab">
-    <NavigationPage IsBackButtonVisible="True" Name="RootNav" BarHeight="35">
-    </NavigationPage>
+    <Panel>
+        <NavigationPage IsBackButtonVisible="True" Name="RootNav" BarHeight="35"/>
+
+        <Button Content="Click me!" VerticalAlignment="Center"
+                HorizontalAlignment="Center"/>
+    </Panel>
 </Window>

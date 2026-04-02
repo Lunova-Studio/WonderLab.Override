@@ -1,12 +1,30 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--FontSize-->
+    <x:Double x:Key="AppDefaultFontSize">12</x:Double>
+
+    <!--Padding-->
+    <Thickness x:Key="ButtonDefaultPadding">8 5 8 6</Thickness>
+
+    <!--CornerRadius-->
+    <CornerRadius x:Key="NoneCornerRadius">0</CornerRadius>
+    <CornerRadius x:Key="SmallCornerRadius">4</CornerRadius>
+    <CornerRadius x:Key="MediumCornerRadius">8</CornerRadius>
+    <CornerRadius x:Key="MaxCornerRadius">16</CornerRadius>
+    <CornerRadius x:Key="FullCornerRadius">100</CornerRadius>
+
     <!--Brush-->
+    <SolidColorBrush x:Key="RippleEffectFillBrush" Color="{DynamicResource InverseSurfaceColor}" Opacity="0.2"/>
+
     <SolidColorBrush x:Key="AppForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
-    <SolidColorBrush x:Key="AppBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
+    <SolidColorBrush x:Key="AppBackgroundBrush" Color="{DynamicResource BackgroundColor}"/>
 
     <SolidColorBrush x:Key="AppTitleBarForegroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
     <SolidColorBrush x:Key="AppTitleBarBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
 
-    <!--FontSize-->
-    <x:Double x:Key="AppDefaultFontSize">12</x:Double>
+    <SolidColorBrush x:Key="ButtonDefaultBorderBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
+    <SolidColorBrush x:Key="ButtonDefaultForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+	<SolidColorBrush x:Key="ButtonDefaultBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
+    <SolidColorBrush x:Key="ButtonDefaultPointerOverBackgroundBrush" Color="{DynamicResource InverseSurfaceColor}" Opacity="0.1"/>
+
 </ResourceDictionary>

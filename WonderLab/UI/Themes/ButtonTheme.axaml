@@ -1,6 +1,60 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-    <ControlTheme TargetType="Button" x:Key="{x:Type Button}">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wc="using:WonderLab.Controls">
+	<ControlTheme TargetType="Button" x:Key="{x:Type Button}">
+		<Setter Property="RenderTransform" Value="none"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="Padding" Value="{DynamicResource ButtonDefaultPadding}"/>
+		<Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource ButtonDefaultBorderBrush}"/>
+		<Setter Property="Foreground" Value="{DynamicResource ButtonDefaultForegroundBrush}"/>
+		<Setter Property="Background" Value="{DynamicResource ButtonDefaultBackgroundBrush}"/>
 		
-    </ControlTheme>
+		<Setter Property="Template">
+			<ControlTemplate>
+					<wc:RippleControl Width="{TemplateBinding Width}"
+									  Height="{TemplateBinding Height}"
+									  Background="{TemplateBinding Background}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  RippleFill="{DynamicResource RippleEffectFillBrush}"
+									  RenderTransform="{TemplateBinding RenderTransform}"
+									  RenderTransformOrigin="{TemplateBinding RenderTransformOrigin}">
+						<Panel>
+							<Border Opacity="0"
+									VerticalAlignment="Stretch"
+									HorizontalAlignment="Stretch"
+									Name="PART_PointerOverBorder"
+									Background="{DynamicResource ButtonDefaultPointerOverBackgroundBrush}">
+								<Border.Transitions>
+									<Transitions>
+										<DoubleTransition Property="Opacity"
+														  Duration="0:0:.1"/>
+									</Transitions>
+								</Border.Transitions>
+							</Border>
+							
+							<ContentPresenter RecognizesAccessKey="True"
+											  Name="PART_ContentPresenter"
+											  Padding="{TemplateBinding Padding}"
+											  Content="{TemplateBinding Content}"
+											  Transitions="{TemplateBinding Transitions}"
+											  ContentTemplate="{TemplateBinding ContentTemplate}"
+											  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+											  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+						</Panel>
+				</wc:RippleControl>
+			</ControlTemplate>
+		</Setter>
+
+		<Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Opacity" Value="0.4"/>
+		</Style>
+		
+		<Style Selector="^:pointerover /template/ Border#PART_PointerOverBorder">
+			<Setter Property="Opacity" Value="1"/>
+		</Style>
+	</ControlTheme>
 </ResourceDictionary>

@@ -3,6 +3,7 @@
 					xmlns:wc="using:WonderLab.Controls">
 	<ControlTheme TargetType="wc:RippleControl" x:Key="{x:Type wc:RippleControl}">
 		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="RippleFill" Value="{DynamicResource RippleEffectFillBrush}"/>
 
 		<Setter Property="Template">
 			<ControlTemplate>
