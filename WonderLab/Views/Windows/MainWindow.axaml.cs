@@ -9,7 +9,6 @@ public partial class MainWindow : Window {
         InitializeComponent();
 
         nav.Attach(RootNav);
-
         nav.NavigateToAsync<HomePageViewModel>();
     }
 }

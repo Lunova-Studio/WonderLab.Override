@@ -1,9 +1,12 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using Avalonia.Media;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Monet.Avalonia;
+using Monet.Shared.Enums;
 using System;
 using System.IO;
 using WonderLab.Override.Utilities;
@@ -16,10 +19,14 @@ using ZLogger;
 namespace WonderLab;
 
 public partial class App : Application {
+    public static MonetColors Monet { get; private set; }
     public static IServiceProvider ServiceProvider { get; private set; }
 
     public override void Initialize() {
         AvaloniaXamlLoader.Load(this);
+
+        Monet = (Styles[0] as MonetColors)!;
+        Monet.BuildScheme(Variant.TonalSpot, Colors.Blue);
     }
 
     public override void RegisterServices() {

@@ -1,12 +1,9 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ControlTheme x:Key="{x:Type Window}" TargetType="Window">
-        <Setter Property="Background" Value="{DynamicResource SystemRegionBrush}"/>
-        <Setter Property="FontSize" Value="{DynamicResource ControlContentThemeFontSize}"/>
-        <Setter Property="FontFamily" Value="{DynamicResource ContentControlThemeFontFamily}"/>
-        <Setter Property="Foreground" Value="{DynamicResource SystemControlForegroundBaseHighBrush}"/>
-        <Setter Property="TransparencyBackgroundFallback" Value="{DynamicResource SystemControlBackgroundAltHighBrush}"/>
-        <Setter Property="TopLevel.SystemBarColor" Value="{DynamicResource SystemControlBackgroundAltHighBrush}"/>
+        <Setter Property="FontSize" Value="{DynamicResource AppDefaultFontSize}"/>
+        <Setter Property="Background" Value="{DynamicResource AppBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource AppForegroundBrush}"/>
 
         <Setter Property="Template">
             <ControlTemplate>
@@ -15,7 +12,7 @@
                     
                     <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
                     
-                    <Panel Background="Transparent" Margin="{TemplateBinding WindowDecorationMargin}" />
+                    <Panel Background="Transparent" Margin="0"/>
 
                     <VisualLayerManager Name="PART_VisualLayerManager">
                         <ContentPresenter Name="PART_ContentPresenter"

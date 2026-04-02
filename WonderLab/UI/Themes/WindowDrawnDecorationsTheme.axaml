@@ -13,7 +13,6 @@
                             <Border Name="PART_WindowBorder"
                                     IsHitTestVisible="False"
                                     BorderThickness="{TemplateBinding FrameThickness}"
-                                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
                                     BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
                             
                             <Panel Name="PART_TitleBar" 
@@ -26,16 +25,17 @@
                     </WindowDrawnDecorationsContent.Underlay>
                     
                     <WindowDrawnDecorationsContent.Overlay>
-                        <Panel x:Name="PART_OverlayWrapper">
+                        <Panel Name="PART_OverlayWrapper">
                             <Panel VerticalAlignment="Top" 
                                    IsHitTestVisible="False"
-                                   Name="PART_TitleTextPanel" Background="Red"
+                                   Name="PART_TitleTextPanel"
                                    Height="{TemplateBinding TitleBarHeight}"
-                                   IsVisible="{TemplateBinding HasTitleBar}">
-                                <TextBlock FontSize="12"
-                                           Margin="12 0 0 0"
+                                   IsVisible="{TemplateBinding HasTitleBar}"
+                                   Background="{DynamicResource AppTitleBarBackgroundBrush}">
+                                <TextBlock Margin="12 0 0 0"
                                            VerticalAlignment="Center"
-                                           Text="{TemplateBinding Title}"/>
+                                           FontSize="{StaticResource AppDefaultFontSize}"
+                                           Foreground="{DynamicResource AppTitleBarForegroundBrush}"/>
                             </Panel>
 
                             <StackPanel Spacing="2"
@@ -46,20 +46,8 @@
                                         Height="{TemplateBinding TitleBarHeight}"
                                         IsVisible="{TemplateBinding HasTitleBar}"
                                         TextElement.FontSize="10">
-                                
-                                <Button Name="PART_FullScreenButton"
-                                        Theme="{StaticResource FluentDrawnCaptionButton}"
-                                        WindowDecorationProperties.ElementRole="FullScreenButton">  
-                                    <Viewbox Width="11" Margin="2">
-                                        <Path Name="FullScreenButtonPath"
-                                              Stretch="UniformToFill"
-                                              Fill="{DynamicResource CaptionButtonForeground}"
-                                              Data="M2048 2048v-819h-205v469l-1493 -1493h469v-205h-819v819h205v-469l1493 1493h-469v205h819z" />
-                                    </Viewbox>
-                                </Button>
 
                                 <Button Name="PART_MinimizeButton"
-                                        Theme="{StaticResource FluentDrawnCaptionButton}"
                                         WindowDecorationProperties.ElementRole="MinimizeButton">
                                     <Viewbox Width="11" Margin="2">
                                         <Path Stretch="UniformToFill"
@@ -67,25 +55,10 @@
                                               Fill="{DynamicResource CaptionButtonForeground}"/>
                                     </Viewbox>
                                 </Button>
-
-                                <Button Name="PART_MaximizeButton" Margin="0 0 100 0"
-                                        Theme="{StaticResource FluentDrawnCaptionButton}"
-                                        WindowDecorationProperties.ElementRole="MaximizeButton">
-                                    <Viewbox Width="11" Margin="2">
-                                        <Viewbox.RenderTransform>
-                                            <RotateTransform Angle="-90" />
-                                        </Viewbox.RenderTransform>
-                                        <Path Name="RestoreButtonPath"
-                                              Stretch="UniformToFill"
-                                              Fill="{DynamicResource CaptionButtonForeground}"
-                                              Data="M2048 2048v-2048h-2048v2048h2048zM1843 1843h-1638v-1638h1638v1638z"/>
-                                    </Viewbox>
-                                </Button>
                                 
                                 <Button Name="PART_CloseButton"
                                         Background="#ffe81123"
                                         BorderBrush="#fff1707a"
-                                        Theme="{StaticResource FluentDrawnCaptionButton}"
                                         WindowDecorationProperties.ElementRole="CloseButton">
                                     <Viewbox Width="11" Margin="2">
                                         <Path Stretch="UniformToFill"
@@ -96,43 +69,6 @@
                             </StackPanel>
                         </Panel>
                     </WindowDrawnDecorationsContent.Overlay>
-                    
-                    <WindowDrawnDecorationsContent.FullscreenPopover>
-                        <Panel Height="{TemplateBinding DefaultTitleBarHeight}"
-                               VerticalAlignment="Top"
-                               Background="{DynamicResource SystemControlBackgroundChromeMediumLowBrush}"
-                               WindowDecorationProperties.ElementRole="TitleBar">
-                          <TextBlock Text="{TemplateBinding Title}"
-                                     VerticalAlignment="Center"
-                                     Margin="12,0,0,0"
-                                     FontSize="12" />
-                          <StackPanel HorizontalAlignment="Right"
-                                      Orientation="Horizontal"
-                                      Spacing="2"
-                                      TextElement.FontSize="10">
-                            <Button x:Name="PART_PopoverFullScreenButton"
-                                    Theme="{StaticResource FluentDrawnCaptionButton}"
-                                    WindowDecorationProperties.ElementRole="FullScreenButton">
-                              <Viewbox Width="11" Margin="2">
-                                <Path Stretch="UniformToFill"
-                                      Fill="{DynamicResource CaptionButtonForeground}"
-                                      Data="M205 1024h819v-819h-205v469l-674 -674l-145 145l674 674h-469v205zM1374 1229h469v-205h-819v819h205v-469l674 674l145 -145z" />
-                              </Viewbox>
-                            </Button>
-                            <Button x:Name="PART_PopoverCloseButton"
-                                    Background="#ffe81123"
-                                    BorderBrush="#fff1707a"
-                                    Theme="{StaticResource FluentDrawnCaptionButton}"
-                                    WindowDecorationProperties.ElementRole="CloseButton">
-                              <Viewbox Width="11" Margin="2">
-                                <Path Stretch="UniformToFill"
-                                      Fill="{DynamicResource CaptionButtonForeground}"
-                                      Data="M1169 1024l879 -879l-145 -145l-879 879l-879 -879l-145 145l879 879l-879 879l145 145l879 -879l879 879l145 -145z" />
-                              </Viewbox>
-                            </Button>
-                          </StackPanel>
-                        </Panel>
-                    </WindowDrawnDecorationsContent.FullscreenPopover>
                 </WindowDrawnDecorationsContent>
             </WindowDrawnDecorationsTemplate>
         </Setter>

@@ -41,8 +41,8 @@ public sealed class NavigationService : INavigationService {
 
     public Task GoBackAsync() => _nav!.PopAsync();
 
-    //大抵是官方这么设计的，ContentPage 在 Xaml 定义获取后无法正常显示内容
-    private ContentPage BuildPage(object page) {
+    //大抵是这么设计的，ContentPage 在 Xaml 定义获取后无法正常显示内容
+    private static ContentPage BuildPage(object page) {
         return new ContentPage {
             Content = page
         };

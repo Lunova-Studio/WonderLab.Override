@@ -1,0 +1,12 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--Brush-->
+    <SolidColorBrush x:Key="AppForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+    <SolidColorBrush x:Key="AppBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
+
+    <SolidColorBrush x:Key="AppTitleBarForegroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
+    <SolidColorBrush x:Key="AppTitleBarBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
+
+    <!--FontSize-->
+    <x:Double x:Key="AppDefaultFontSize">12</x:Double>
+</ResourceDictionary>
