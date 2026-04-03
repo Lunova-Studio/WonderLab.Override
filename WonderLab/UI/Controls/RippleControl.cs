@@ -10,7 +10,7 @@ using Avalonia.Media;
 using System;
 using System.Threading.Tasks;
 
-namespace WonderLab.Controls;
+namespace WonderLab.UI.Controls;
 
 /// <summary>
 /// 涟漪特效控件
@@ -26,7 +26,7 @@ public sealed partial class RippleControl : ContentControl {
     public RippleControl() {
         AddHandler(PointerReleasedEvent, PointerReleasedHandler);
         AddHandler(PointerPressedEvent, PointerPressedHandler);
-        AddHandler(PointerCaptureLostEvent, PointerCaptureLostHandler);
+        AddHandler(PointerExitedEvent, PointerExitedHandler);
     }
 
     private void PointerPressedHandler(object sender, PointerPressedEventArgs e) {
@@ -43,7 +43,7 @@ public sealed partial class RippleControl : ContentControl {
         RemoveLastRipple();
     }
 
-    private void PointerCaptureLostHandler(object sender, PointerCaptureLostEventArgs e) {
+    private void PointerExitedHandler(object sender, PointerEventArgs e) {
         RemoveLastRipple();
     }
 

@@ -2,16 +2,47 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="using:WonderLab.ViewModels"
+        xmlns:wc="using:WonderLab.UI.Controls"
+        xmlns:wt="using:WonderLab.UI.Transitions"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="WonderLab.Views.Windows.MainWindow"
-        xmlns:vm="using:WonderLab.ViewModels"
         ExtendClientAreaTitleBarHeightHint="35"
         ExtendClientAreaToDecorationsHint="True"
         Title="WonderLab">
-    <Panel>
-        <NavigationPage IsBackButtonVisible="True" Name="RootNav" BarHeight="35"/>
+    <Grid Margin="0 35 0 0" ColumnDefinitions="72 *">
+        <ItemsControl Grid.Column="0">
+            <wc:NavigationItem IconSize="20"
+                               Tag="Home"
+                               Kind="HomeOutline"
+                               SelectedKind="Home"
+                               Content="Home"/>
 
-        <Button Content="Click me!" VerticalAlignment="Center"
-                HorizontalAlignment="Center"/>
-    </Panel>
+            <wc:NavigationItem IconSize="20"
+                               Kind="DownloadOutline"
+                               Tag="Download/Navigation"
+                               SelectedKind="Download"
+                               Content="Download"/>
+
+            <wc:NavigationItem IconSize="26"
+                               Tag="Home"
+                               Kind="AccountGroupOutline" 
+                               SelectedKind="AccountGroup"
+                               Content="Community"/>
+
+            <wc:NavigationItem IconSize="20"
+                               Kind="SettingsOutline"
+                               Tag="Settings/Navigation"
+                               SelectedKind="Settings"
+                               Content="Settings"/>
+        </ItemsControl>
+
+        <NavigationPage Name="RootNav"
+                        BarHeight="35"
+                        Grid.Column="1">
+            <NavigationPage.PageTransition>
+                <wt:DefaultPageTransition/>
+            </NavigationPage.PageTransition>
+        </NavigationPage>
+    </Grid>
 </Window>

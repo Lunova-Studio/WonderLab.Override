@@ -24,8 +24,8 @@ public partial class App : Application {
 
     public override void Initialize() {
         AvaloniaXamlLoader.Load(this);
-
-        Monet = (Styles[0] as MonetColors)!;
+        
+        Monet = (Styles[1] as MonetColors)!;
         Monet.BuildScheme(Variant.TonalSpot, Colors.Blue);
     }
 
@@ -71,6 +71,7 @@ public partial class App : Application {
 
         var pages = builder.PageProvider;
         pages.Register<HomePage, HomePageViewModel>();
+        pages.Register<MinecraftPage>();
 
         var appHost = builder.Build();
         ServiceProvider = appHost.Services;

@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mi="using:Material.Icons.Avalonia">
     <ControlTheme x:Key="{x:Type WindowDrawnDecorations}" TargetType="WindowDrawnDecorations">
         <Setter Property="DefaultTitleBarHeight" Value="30"/>
         <Setter Property="DefaultFrameThickness" Value="1"/>
@@ -13,7 +14,7 @@
                             <Border Name="PART_WindowBorder"
                                     IsHitTestVisible="False"
                                     BorderThickness="{TemplateBinding FrameThickness}"
-                                    BorderBrush="{DynamicResource SystemControlForegroundBaseMediumBrush}"/>
+                                    BorderBrush="{DynamicResource ButtonDefaultBorderBrush}"/>
                             
                             <Panel Name="PART_TitleBar" 
                                    VerticalAlignment="Top"
@@ -48,24 +49,15 @@
                                         TextElement.FontSize="10">
 
                                 <Button Name="PART_MinimizeButton"
-                                        WindowDecorationProperties.ElementRole="MinimizeButton">
-                                    <Viewbox Width="11" Margin="2">
-                                        <Path Stretch="UniformToFill"
-                                              Data="M2048 1229v-205h-2048v205h2048z"
-                                              Fill="{DynamicResource CaptionButtonForeground}"/>
-                                    </Viewbox>
-                                </Button>
+                                        Content="{mi:MaterialIconTextExt Minus}"
+                                        Theme="{StaticResource CaptionButtonTheme}"
+                                        WindowDecorationProperties.ElementRole="MinimizeButton"/>
                                 
                                 <Button Name="PART_CloseButton"
-                                        Background="#ffe81123"
-                                        BorderBrush="#fff1707a"
-                                        WindowDecorationProperties.ElementRole="CloseButton">
-                                    <Viewbox Width="11" Margin="2">
-                                        <Path Stretch="UniformToFill"
-                                              Fill="{DynamicResource CaptionButtonForeground}"
-                                              Data="M1169 1024l879 -879l-145 -145l-879 879l-879 -879l-145 145l879 879l-879 879l145 145l879 -879l879 879l145 -145z" />
-                                    </Viewbox>
-                                </Button>
+                                        Margin="4 0 8 0"
+                                        Content="{mi:MaterialIconTextExt Close}"
+                                        Theme="{StaticResource CaptionButtonTheme}"
+                                        WindowDecorationProperties.ElementRole="CloseButton"/>
                             </StackPanel>
                         </Panel>
                     </WindowDrawnDecorationsContent.Overlay>

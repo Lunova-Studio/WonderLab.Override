@@ -8,4 +8,6 @@ public interface INavigationService {
 
     Task GoBackAsync();
     Task NavigateToAsync<TViewModel>() where TViewModel : class;
+    Task NavigateToPageAsync<TPage>() where TPage : UserControl;
+    
 }

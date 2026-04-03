@@ -1,6 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:wc="using:WonderLab.Controls">
+					xmlns:wc="using:WonderLab.UI.Controls">
 	<ControlTheme TargetType="wc:RippleControl" x:Key="{x:Type wc:RippleControl}">
 		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="RippleFill" Value="{DynamicResource RippleEffectFillBrush}"/>

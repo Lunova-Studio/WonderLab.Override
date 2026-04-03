@@ -29,7 +29,7 @@ public sealed class NavigationService : INavigationService {
         await _nav.PushAsync(BuildPage(content));
     }
 
-    public async Task NavigateToPageAsync<TPage>() where TPage : ContentPage {
+    public async Task NavigateToPageAsync<TPage>() where TPage : UserControl {
         if (_nav is null)
             throw new InvalidOperationException("NavigationPage not attached.");
 
@@ -44,7 +44,9 @@ public sealed class NavigationService : INavigationService {
     //大抵是这么设计的，ContentPage 在 Xaml 定义获取后无法正常显示内容
     private static ContentPage BuildPage(object page) {
         return new ContentPage {
-            Content = page
+            Content = page,
+            SafeAreaPadding = new(0, 35, 0, 0),
+            AutomaticallyApplySafeAreaPadding = true
         };
     }
 }

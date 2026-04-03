@@ -17,11 +17,14 @@
 	<ItemGroup>
 		<Folder Include="Models\" />
 		<AvaloniaResource Include="Assets\**" />
+		<AvaloniaXaml Remove="logs\**" />
+		<Compile Remove="logs\**" />
+		<EmbeddedResource Remove="logs\**" />
+		<None Remove="logs\**" />
 		<Folder Include="Enums\" />
 		<Folder Include="UI\Converters\" />
 		<Folder Include="UI\Attachments\" />
 		<Folder Include="UI\Behaviors\" />
-		<Folder Include="UI\Transitions\" />
 	</ItemGroup>
 
 	<ItemGroup>

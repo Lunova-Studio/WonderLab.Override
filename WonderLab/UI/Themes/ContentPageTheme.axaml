@@ -1,0 +1,35 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme x:Key="{x:Type ContentPage}" TargetType="ContentPage">
+        <Setter Property="Foreground" Value="{DynamicResource AppForegroundBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource AppBackgroundBrush}"/>
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel>
+                    <!-- Visibility managed in code-behind -->
+                    <ContentPresenter IsVisible="False"
+                                      Name="PART_TopCommandBar"
+                                      HorizontalContentAlignment="Stretch"
+                                      DockPanel.Dock="Top"/>
+
+                    <!-- Visibility managed in code-behind -->
+                    <ContentPresenter IsVisible="False"
+                                      Name="PART_BottomCommandBar"
+                                      HorizontalContentAlignment="Stretch"
+                                      DockPanel.Dock="Bottom"/>
+
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                      Content="{TemplateBinding Content}"
+                                      Background="{TemplateBinding Background}"
+                                      BorderBrush="{TemplateBinding BorderBrush}"
+                                      CornerRadius="{TemplateBinding CornerRadius}"
+                                      BorderThickness="{TemplateBinding BorderThickness}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+            </DockPanel>
+          </ControlTemplate>
+        </Setter>
+  </ControlTheme>
+</ResourceDictionary>

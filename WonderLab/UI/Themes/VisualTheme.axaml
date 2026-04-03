@@ -3,9 +3,6 @@
     <!--FontSize-->
     <x:Double x:Key="AppDefaultFontSize">12</x:Double>
 
-    <!--Padding-->
-    <Thickness x:Key="ButtonDefaultPadding">8 5 8 6</Thickness>
-
     <!--CornerRadius-->
     <CornerRadius x:Key="NoneCornerRadius">0</CornerRadius>
     <CornerRadius x:Key="SmallCornerRadius">4</CornerRadius>
@@ -21,6 +18,9 @@
 
     <SolidColorBrush x:Key="AppTitleBarForegroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
     <SolidColorBrush x:Key="AppTitleBarBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
+
+    <SolidColorBrush x:Key="NavigationBarForegroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
+    <SolidColorBrush x:Key="NavigationBarBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
 
     <SolidColorBrush x:Key="ButtonDefaultBorderBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
     <SolidColorBrush x:Key="ButtonDefaultForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>

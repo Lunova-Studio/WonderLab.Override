@@ -1,0 +1,116 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTheme x:Key="{x:Type NavigationPage}" TargetType="NavigationPage">
+        <Setter Property="Background" Value="Transparent" />
+
+        <Setter Property="Template">
+          <ControlTemplate>
+              <Panel ClipToBounds="True">
+                  <DockPanel>
+                      <Border IsVisible="False"
+                              Name="PART_NavBarSpacer"
+                              Height="{TemplateBinding EffectiveBarHeight}"
+                              DockPanel.Dock="Top"/>
+                      
+                      <ContentPresenter Name="PART_BottomCommandBar"
+                                        HorizontalContentAlignment="Stretch"
+                                        Background="{TemplateBinding Background}"
+                                        Content="{Binding CurrentPage?.(NavigationPage.BottomCommandBar), RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}"
+                                        DockPanel.Dock="Bottom"/>
+                      
+                      <Grid ClipToBounds="True"
+                            Name="PART_ContentHost"
+                            Background="{TemplateBinding Background}">
+                          <ContentPresenter VerticalAlignment="Stretch"
+                                            Name="PART_PageBackPresenter"
+                                            HorizontalAlignment="Stretch"/>
+
+                          <ContentPresenter Name="PART_PagePresenter"
+                                            VerticalAlignment="Stretch"
+                                            HorizontalAlignment="Stretch"/>
+                      </Grid>
+                  </DockPanel>
+
+                  <!-- Navigation bar floats above content (ZIndex=1). -->
+                  <Border ZIndex="1"
+                          ClipToBounds="True"
+                          VerticalAlignment="Top"
+                          Name="PART_NavigationBar"
+                          Height="{TemplateBinding EffectiveBarHeight}">
+                      <Grid Margin="12 0 0 0"
+                            ColumnDefinitions="auto * auto">
+                          <Button Name="PART_BackButton"
+                                  Background="blue" Width="35"
+                                  VerticalAlignment="Stretch"
+                                  Foreground="{DynamicResource NavigationBarForegroundBrush}"
+                                  IsVisible="{TemplateBinding IsBackButtonEffectivelyVisible}"
+                                  ToolTip.Tip="{x:Null}"
+                                  Grid.Column="0">
+                          </Button>
+                  
+                          <ContentPresenter FontSize="20"
+                                            Margin="0 0 12 0"
+                                            Name="PART_Header"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Stretch"
+                                            HorizontalContentAlignment="Stretch"
+                                            Foreground="{DynamicResource NavigationBarForegroundBrush}"
+                                            Content="{Binding CurrentPage?.Header, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}"
+                                            ContentTemplate="{Binding CurrentPage?.HeaderTemplate, RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}"
+                                            Grid.Column="1"/>
+                          
+                          <ContentPresenter Name="PART_TopCommandBar"
+                                            HorizontalAlignment="Right"
+                                            VerticalContentAlignment="Stretch"
+                                            Foreground="{DynamicResource NavigationBarForegroundBrush}"
+                                            Content="{Binding CurrentPage?.(NavigationPage.TopCommandBar), RelativeSource={RelativeSource TemplatedParent}, FallbackValue={x:Null}}"
+                                            Grid.Column="2">
+                          </ContentPresenter>
+                      </Grid>
+                  </Border>
+                  
+                  <!-- Nav-bar shadow gradient. Margin.Top is set from code to match EffectiveBarHeight. -->
+                  <Border Height="4"
+                          ZIndex="1"
+                          IsVisible="False"
+                          VerticalAlignment="Top"
+                          Name="PART_NavBarShadow"
+                          IsHitTestVisible="False">
+                      <Border.Background>
+                          <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+                              <GradientStop Color="#0C000000" Offset="0" />
+                              <GradientStop Color="#00000000" Offset="1" />
+                          </LinearGradientBrush>
+                      </Border.Background>
+                  </Border>
+                  
+                  <!-- Modal overlay: ZIndex=99 holds the static layer during transitions; ZIndex=100 is the animating modal. -->
+                  <ContentPresenter Name="PART_ModalBackPresenter"
+                                    ZIndex="99"
+                                    IsVisible="False"
+                                    Background="{TemplateBinding Background}"/>
+                  
+                  <ContentPresenter Name="PART_ModalPresenter"
+                                    ZIndex="100"
+                                    IsVisible="False"
+                                    Background="{TemplateBinding Background}"/>
+              </Panel>
+          </ControlTemplate>
+        </Setter>
+
+        <!-- Default nav bar background, overridable via a more-specific style selector -->
+        <Style Selector="^ /template/ Border#PART_NavigationBar">
+          <Setter Property="Background" Value="{DynamicResource NavigationBarBackgroundBrush}"/>
+        </Style>
+
+        <!-- :nav-bar-inset: spacer reserves nav-bar height so content is pushed below -->
+        <Style Selector="^:nav-bar-inset /template/ Border#PART_NavBarSpacer">
+          <Setter Property="IsVisible" Value="True"/>
+        </Style>
+
+        <!-- :nav-bar-compact: collapse CommandBar labels when bar is too short -->
+        <Style Selector="^:nav-bar-compact /template/ ContentPresenter#PART_TopCommandBar CommandBar">
+          <Setter Property="DefaultLabelPosition" Value="Collapsed"/>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

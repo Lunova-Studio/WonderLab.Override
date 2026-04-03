@@ -9,7 +9,7 @@
         <StackPanel Margin="20">
 	    	<TextBlock Text="Title"/>
             
-	    	<Button Content="{mi:MaterialIconTextExt AccountLock}" FontSize="24"/>
+	    	<Button Click="Button_Click" Content="{mi:MaterialIconTextExt AccountLock}" FontSize="24"/>
         </StackPanel>
     </Panel>
 </UserControl>
