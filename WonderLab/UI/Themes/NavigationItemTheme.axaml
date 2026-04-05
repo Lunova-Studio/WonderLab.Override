@@ -2,30 +2,120 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:wc="using:WonderLab.UI.Controls"
                     xmlns:mi="using:Material.Icons.Avalonia">
-	<Thickness x:Key="VerticalNavigationItemPadding">0 4 0 0</Thickness>
+<!--    <Design.PreviewWith>
+		<Border Background="white" Width="600" Padding="20">
+			<StackPanel Spacing="20" HorizontalAlignment="Center">
+				--><!--Horizontal--><!--
+				<StackPanel Orientation="Horizontal" Spacing="1">
+					<wc:NavigationItem IsChecked="true" Content="Horizontal Item 1" Theme="{DynamicResource NavigationItemHorizontalTheme}"/>
+					<wc:NavigationItem Content="Horizontal Item 2" Theme="{DynamicResource NavigationItemHorizontalTheme}"/>
+					<wc:NavigationItem Content="Horizontal Item 3" Theme="{DynamicResource NavigationItemHorizontalTheme}"/>
+				</StackPanel>
+				
+				<Separator/>
 
-	<x:Double x:Key="VerticalNavigationItemWidth">56</x:Double>
-	<x:Double x:Key="VerticalNavigationItemHeight">32</x:Double>
-	<x:Double x:Key="VerticalNavigationItemIconWidth">24</x:Double>
-	<x:Double x:Key="VerticalNavigationItemIconHeight">24</x:Double>
+				--><!--Vertical--><!--
+				<StackPanel Orientation="Vertical" Spacing="1">
+					<wc:NavigationItem IsChecked="true" Content="Vertical Item 1" Theme="{DynamicResource NavigationItemVerticalTheme}"/>
+					<wc:NavigationItem Content="Vertical Item 2" Theme="{DynamicResource NavigationItemVerticalTheme}"/>
+					<wc:NavigationItem Content="Vertical Item 3" Theme="{DynamicResource NavigationItemVerticalTheme}"/>
+				</StackPanel>
+			</StackPanel>
+        </Border>
+    </Design.PreviewWith>-->
 
-	<x:Double x:Key="BaselineNavigationItemWidth">64</x:Double>
-	<x:Double x:Key="BaselineNavigationItemHeight">32</x:Double>
+	<x:Double x:Key="HorizontalNavigationRailItemIndicatorWidth">56</x:Double>
 
-	<x:Double x:Key="NavigationItemLabelMaxWidth">72</x:Double>
+	<x:Double x:Key="VerticalNavigationRailItemIndicatorWidth">56</x:Double>
+	<x:Double x:Key="VerticalNavigationRailItemIndicatorHeight">32</x:Double>
+	
+	<x:Double x:Key="VerticalNavigationRailItemIconSize">24</x:Double>
 
-	<ControlTheme TargetType="wc:NavigationItem" 
-				  BasedOn="{StaticResource BaselineNavigationItemTheme}" x:Key="{x:Type wc:NavigationItem}"/>
-    
-	<ControlTheme TargetType="wc:NavigationItem" 
-				  BasedOn="{StaticResource NavigationItemVerticalTheme}" x:Key="BaselineNavigationItemTheme">
-		<Style Selector="^ /template/ wc|RippleControl#PART_RippleControl">
-			<Setter Property="Width" Value="{DynamicResource BaselineNavigationItemWidth}"/>
+	
+	<ControlTheme TargetType="wc:NavigationItem" BasedOn="{StaticResource NavigationItemVerticalTheme}" x:Key="{x:Type wc:NavigationItem}"/>
+
+	<ControlTheme TargetType="wc:NavigationItem" x:Key="NavigationItemVerticalTheme">
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="Foreground" Value="{DynamicResource NavigationItemDefaultForegroundBrush}"/>
+
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Border Padding="0 4 0 6" 
+						Name="PART_LayoutBorder"
+						Background="Transparent">
+					<Grid RowDefinitions="* 4 *">
+						<Border Width="0"
+								Opacity="0"
+								Name="PART_Indicator"
+								CornerRadius="{DynamicResource FullCornerRadius}"
+								Height="{DynamicResource VerticalNavigationRailItemIndicatorHeight}"
+								Background="{DynamicResource NavigationItemSelectedBackgroundBrush}"
+								Grid.Row="0">
+						    <Border.Transitions>
+								<Transitions>
+						            <DoubleTransition Duration="0:0:.15"
+						                              Property="Opacity"
+						                              Easing="CubicEaseOut"/>
+									
+						            <DoubleTransition Duration="0:0:.3"
+						                              Property="Width"
+						                              Easing="CubicEaseOut"/>
+						        </Transitions>
+						    </Border.Transitions>
+						</Border>
+
+						<wc:RippleControl Name="PART_RippleControl"
+										  CornerRadius="{DynamicResource FullCornerRadius}"
+										  Width="{DynamicResource VerticalNavigationRailItemIndicatorWidth}"
+										  Height="{DynamicResource VerticalNavigationRailItemIndicatorHeight}"
+										  Grid.Row="0">
+							<mi:MaterialIcon Name="PART_MaterialIcon"
+											 VerticalAlignment="Center"
+											 HorizontalAlignment="Center"
+											 Kind="{TemplateBinding Kind}"
+											 IconSize="{TemplateBinding IconSize}"
+											 Foreground="{TemplateBinding Foreground}"
+											 Width="{DynamicResource VerticalNavigationRailItemIconSize}"
+											 Height="{DynamicResource VerticalNavigationRailItemIconSize}"/>
+						</wc:RippleControl>
+						
+						<ContentPresenter Background="Transparent"
+										  Name="PART_ContentPresenter"
+										  Content="{TemplateBinding Content}"
+										  FontSize="{TemplateBinding FontSize}"
+										  FontWeight="{TemplateBinding FontWeight}"
+										  Foreground="{TemplateBinding Foreground}"
+										  BorderBrush="{TemplateBinding BorderBrush}"
+										  Transitions="{TemplateBinding Transitions}"
+										  CornerRadius="{TemplateBinding CornerRadius}"
+										  ContentTemplate="{TemplateBinding ContentTemplate}"
+										  BorderThickness="{TemplateBinding BorderThickness}"
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+										  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  Grid.Row="2"/>
+					</Grid>
+				</Border>
+			</ControlTemplate>
+		</Setter>
+
+		<Style Selector="^:not(:checked):pointerover /template/ wc|RippleControl#PART_RippleControl">
+			<Setter Property="Background" Value="{DynamicResource NavigationItemPointerOverBackgroundBrush}"/>
 		</Style>
+				
+		<Style Selector="^:checked">
+			<Style Selector="^ /template/ Border#PART_Indicator">
+                <Setter Property="Opacity" Value="1"/>
+				<Setter Property="Width" Value="{DynamicResource VerticalNavigationRailItemIndicatorWidth}" />
+			</Style>
 
-		<Style Selector="^:checked /template/ Border#PART_Indicator">
-			<Setter Property="Opacity" Value="1"/>
-			<Setter Property="Width" Value="{DynamicResource BaselineNavigationItemWidth}"/>
+			<Style Selector="^:pointerover /template/ wc|RippleControl#PART_RippleControl">
+				<Setter Property="Background" Value="{DynamicResource NavigationItemSelectedPointerOverBackgroundBrush}"/>
+			</Style>
+
+			<Setter Property="Foreground" Value="{DynamicResource NavigationItemSelectedForegroundBrush}"/>
 		</Style>
 	</ControlTheme>
 
@@ -51,7 +141,7 @@
 								Name="PART_Indicator"
 								RenderTransform="scale(0, 1)"
 								CornerRadius="{TemplateBinding CornerRadius}"
-								Background="{DynamicResource SecondaryContainerBrush}">
+								Background="{DynamicResource NavigationItemSelectedBackgroundBrush}">
                             <Border.Transitions>
 								<Transitions>
                                     <DoubleTransition Duration="0:0:.15"
@@ -99,7 +189,7 @@
 		</Setter>
 		
 		<Style Selector="^:not(:checked):pointerover">
-			<Setter Property="Background" Value="{DynamicResource ListBoxItemPointeroverBackgroundBrush}"/>
+			<Setter Property="Background" Value="{DynamicResource NavigationItemPointerOverBackgroundBrush}"/>
 		</Style>
 		
 		<Style Selector="^:checked">
@@ -108,98 +198,7 @@
 				<Setter Property="RenderTransform" Value="scale(1, 1)" />
 			</Style>
 
-			<Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainerBrush}"/>
-		</Style>
-	</ControlTheme>
-
-	<ControlTheme x:Key="NavigationItemVerticalTheme" TargetType="wc:NavigationItem">
-		<Setter Property="FontSize" Value="12" />
-		<Setter Property="Kind" Value="PlayOutline"/>
-		<Setter Property="SelectedKind" Value="Play"/>
-		<Setter Property="Background" Value="Transparent"/>
-		<Setter Property="BorderBrush" Value="Transparent"/>
-		<Setter Property="VerticalContentAlignment" Value="Center"/>
-		<Setter Property="HorizontalContentAlignment" Value="Center"/>
-		<Setter Property="CornerRadius" Value="{DynamicResource FullCornerRadius}"/>
-		<Setter Property="Foreground" Value="{DynamicResource OnSurfaceVariantBrush}"/>
-		<Setter Property="Padding" Value="{DynamicResource VerticalNavigationItemPadding}"/>
-		
-		<Setter Property="Template">
-			<ControlTemplate>
-				<Grid RowDefinitions="auto auto"
-					  Background="{TemplateBinding BorderBrush}">
-					<Border Width="0"
-							Opacity="0"
-							Name="PART_Indicator"
-							CornerRadius="{TemplateBinding CornerRadius}"
-							Background="{DynamicResource SecondaryContainerBrush}"
-							Height="{DynamicResource VerticalNavigationItemHeight}"
-							Grid.Row="0">
-                        <Border.Transitions>
-							<Transitions>
-                                <DoubleTransition Duration="0:0:.15"
-                                                  Property="Opacity"
-                                                  Easing="CubicEaseOut"/>
-								
-                                <DoubleTransition Duration="0:0:.3"
-                                                  Property="Width"
-                                                  Easing="CubicEaseOut"/>
-                            </Transitions>
-                        </Border.Transitions>
-					</Border>
-
-					<wc:RippleControl Name="PART_RippleControl"
-									  VerticalAlignment="Center"
-									  Background="{TemplateBinding Background}"
-									  CornerRadius="{TemplateBinding CornerRadius}"
-									  RippleFill="{DynamicResource RippleEffectFillBrush}"
-									  Width="{DynamicResource VerticalNavigationItemWidth}"
-									  Height="{DynamicResource VerticalNavigationItemHeight}"
-									  Grid.Row="0">
-							<mi:MaterialIcon Name="PART_MaterialIcon"
-											 VerticalAlignment="Center"
-											 HorizontalAlignment="Center"
-											 Kind="{TemplateBinding Kind}"
-											 IconSize="{TemplateBinding IconSize}"
-											 Width="{DynamicResource VerticalNavigationItemIconWidth}"
-											 Height="{DynamicResource VerticalNavigationItemIconHeight}"/>
-					</wc:RippleControl>
-					
-					<ContentPresenter TextAlignment="Center"
-									  Background="Transparent"
-									  Name="PART_ContentPresenter"
-									  TextWrapping="WrapWithOverflow"
-									  Margin="{TemplateBinding Padding}"
-									  Content="{TemplateBinding Content}"
-									  FontSize="{TemplateBinding FontSize}"
-									  FontWeight="{TemplateBinding FontWeight}"
-									  BorderBrush="{TemplateBinding BorderBrush}"
-									  Transitions="{TemplateBinding Transitions}"
-									  CornerRadius="{TemplateBinding CornerRadius}"
-									  ContentTemplate="{TemplateBinding ContentTemplate}"
-									  BorderThickness="{TemplateBinding BorderThickness}"
-									  Foreground="{DynamicResource OnSurfaceVariantBrush}"
-									  MaxWidth="{DynamicResource NavigationItemLabelMaxWidth}" 
-									  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-									  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-									  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-									  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-									  Grid.Row="1"/>
-				</Grid>
-			</ControlTemplate>
-		</Setter>
-		
-		<Style Selector="^:not(:checked):pointerover">
-			<Setter Property="Background" Value="{DynamicResource ListBoxItemPointeroverBackgroundBrush}"/>
-		</Style>
-		
-		<Style Selector="^:checked">
-			<Style Selector="^ /template/ Border#PART_Indicator">
-                <Setter Property="Opacity" Value="1"/>
-				<Setter Property="Width" Value="{DynamicResource VerticalNavigationItemWidth}" />
-			</Style>
-
-			<Setter Property="Foreground" Value="{DynamicResource OnSecondaryContainerBrush}"/>
+			<Setter Property="Foreground" Value="{DynamicResource NavigationItemSelectedForegroundBrush}"/>
 		</Style>
 	</ControlTheme>
 </ResourceDictionary>

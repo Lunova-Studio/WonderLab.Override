@@ -10,8 +10,8 @@
         ExtendClientAreaTitleBarHeightHint="35"
         ExtendClientAreaToDecorationsHint="True"
         Title="WonderLab">
-    <Grid Margin="0 35 0 0" ColumnDefinitions="72 *">
-        <ItemsControl Grid.Column="0">
+    <Grid Margin="0 35 0 0" ColumnDefinitions="96 *">
+        <StackPanel Grid.Column="0">
             <wc:NavigationItem IconSize="20"
                                Tag="Home"
                                Kind="HomeOutline"
@@ -35,7 +35,7 @@
                                Tag="Settings/Navigation"
                                SelectedKind="Settings"
                                Content="Settings"/>
-        </ItemsControl>
+        </StackPanel>
 
         <NavigationPage Name="RootNav"
                         BarHeight="35"
@@ -44,5 +44,11 @@
                 <wt:DefaultPageTransition/>
             </NavigationPage.PageTransition>
         </NavigationPage>
+
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">
+            <RadioButton Content="Click me" />
+            <RadioButton Content="Click me" />
+            <RadioButton Content="Click me" />
+        </StackPanel>
     </Grid>
 </Window>

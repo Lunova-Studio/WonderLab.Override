@@ -4,6 +4,7 @@ using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
 using Material.Icons;
 using Material.Icons.Avalonia;
+using System;
 
 namespace WonderLab.UI.Controls;
 
@@ -12,6 +13,8 @@ namespace WonderLab.UI.Controls;
 [StyledProperty(typeof(MaterialIconKind), "SelectedKind")]
 public sealed partial class NavigationItem : RadioButton {
     private MaterialIcon _PART_MaterialIcon;
+
+    protected override Type StyleKeyOverride => typeof(NavigationItem);
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e) {
         base.OnApplyTemplate(e);
@@ -22,7 +25,7 @@ public sealed partial class NavigationItem : RadioButton {
     protected override void OnLoaded(RoutedEventArgs e) {
         base.OnLoaded(e);
 
-        _PART_MaterialIcon.Kind = IsChecked.Value
+        _PART_MaterialIcon?.Kind = IsChecked.Value
             ? SelectedKind
             : Kind;
     }
@@ -34,29 +37,8 @@ public sealed partial class NavigationItem : RadioButton {
             return;
 
         if (change.Property == IsCheckedProperty)
-            _PART_MaterialIcon.Kind = change.GetNewValue<bool?>().Value
+            _PART_MaterialIcon?.Kind = change.GetNewValue<bool?>().Value
                 ? SelectedKind
                 : Kind;
     }
-
-    //protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e) {
-    //    base.OnAttachedToVisualTree(e);
-    //    Parent.PropertyChanged += OnParentPropertyChanged;
-    //}
-
-    //protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e) {
-    //    base.OnDetachedFromVisualTree(e);
-    //    Parent.PropertyChanged -= OnParentPropertyChanged;
-    //}
-
-
-    //private void OnParentPropertyChanged(object sender, AvaloniaPropertyChangedEventArgs e) {
-    //    if (e.Property == BoundsProperty) {
-    //        var width = e.GetNewValue<Rect>().Width;
-
-    //        if(width is > 600 and < 839) {
-
-    //        }
-    //    }
-    //}
 }

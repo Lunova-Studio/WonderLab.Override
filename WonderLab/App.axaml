@@ -7,7 +7,7 @@
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
   
     <Application.Styles>
-        <FluentTheme />
+        <!--<FluentTheme />-->
         <ma:MonetColors/>
         <mi:MaterialIconStyles/>
     </Application.Styles>
@@ -19,6 +19,7 @@
                 <ResourceInclude Source="/UI/Themes/VisualTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/ButtonTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/WindowTheme.axaml"/>
+                <ResourceInclude Source="/UI/Themes/RadioButtonTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/ContentPageTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/RippleControlTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/NavigationPageTheme.axaml"/>

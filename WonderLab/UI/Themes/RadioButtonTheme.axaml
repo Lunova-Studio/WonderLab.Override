@@ -1,0 +1,73 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wc="using:WonderLab.UI.Controls">
+    <x:Double x:Key="RadioButtonIconSize">20</x:Double>
+    <x:Double x:Key="RadioButtonDefaultFontSize">14</x:Double>
+
+    <ControlTheme TargetType="RadioButton" x:Key="{x:Type RadioButton}">
+        <Setter Property="MinHeight" Value="40"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="CornerRadius" Value="{DynamicResource FullCornerRadius}"/>
+        <Setter Property="FontSize" Value="{DynamicResource RadioButtonDefaultFontSize}"/>
+        <Setter Property="Background" Value="{DynamicResource RadioButtonDefaultFillBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource RadioButtonDefaultForegroundBrush}"/>
+
+        <Setter Property="Template">
+			<ControlTemplate>
+                <Border Name="PART_LayoutBorder">
+					<Grid ColumnDefinitions="40 *">
+						<wc:RippleControl Padding="0"
+                                Name="PART_CheckRippleControl"
+                                Background="Transparent"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                CornerRadius="{TemplateBinding CornerRadius}">
+							<Panel>
+								<Ellipse StrokeThickness="2"
+                                         Stroke="{TemplateBinding Background}"
+                                         Width="{DynamicResource RadioButtonIconSize}"
+                                         Height="{DynamicResource RadioButtonIconSize}"/>
+                                
+								<Ellipse Stroke="Transparent"
+                                         StrokeThickness="10.5"
+                                         RenderTransform="scale(0)"
+                                         Name="PART_CheckedIndicator"
+                                         Fill="{TemplateBinding Background}"
+                                         Width="{DynamicResource RadioButtonIconSize}"
+                                         Height="{DynamicResource RadioButtonIconSize}">
+                                    <Ellipse.Transitions>
+										<Transitions>
+											<TransformOperationsTransition Duration="0:0:.2"
+                                                                           Property="RenderTransform"
+                                                                           Easing="ExponentialEaseOut">												
+                                            </TransformOperationsTransition>
+                                        </Transitions>
+                                    </Ellipse.Transitions>
+                                </Ellipse>
+                            </Panel>
+                        </wc:RippleControl>
+                        
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          Margin="{TemplateBinding Padding}"
+                                          Content="{TemplateBinding Content}"
+                                          FontSize="{TemplateBinding FontSize}"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Grid.Column="1"/>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:checked">
+			<Setter Property="Background" Value="{DynamicResource RadioButtonCheckedDefaultFillBrush}"/>
+        </Style>
+
+        <Style Selector="^:checked /template/ Ellipse#PART_CheckedIndicator">
+			<Setter Property="RenderTransform" Value="scale(1)"/>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>
