@@ -1,27 +1,19 @@
-﻿using Avalonia;
-using Avalonia.Animation.Easings;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
+using Avalonia.Controls.Metadata;
+using Avalonia.Controls.Presenters;
 using Avalonia.Controls.Primitives;
-using Avalonia.Threading;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace WonderLab.UI.Controls;
 
 [StyledProperty(typeof(ICommand), "FABCommand")]
-public sealed partial class NavigationRail : ItemsControl {
-    private bool _isHidden = false;
-    private Border _PART_RootBorder;
+[TemplatePart("PART_ScrollViewer", typeof(IScrollable))]
+public sealed partial class NavigationRail : ListBox {
+    protected override Control CreateContainerForItemOverride(object item, int index, object recycleKey) {
+        return new NavigationItem();
+    }
 
-    private CancellationTokenSource _cancellationTokenSource = new();
-
-    protected override void OnApplyTemplate(TemplateAppliedEventArgs e) {
-        base.OnApplyTemplate(e);
-
-        _PART_RootBorder = e.NameScope.Find<Border>("PART_RootBorder");
+    protected override bool NeedsContainerOverride(object item, int index, out object recycleKey) {
+        return NeedsContainer<NavigationItem>(item, out recycleKey);
     }
 }

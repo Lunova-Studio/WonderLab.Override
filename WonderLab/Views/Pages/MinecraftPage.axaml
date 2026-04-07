@@ -1,11 +1,36 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:controls="using:WonderLab.UI.Controls"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" Background="Blue"
+             xmlns:wc="using:WonderLab.UI.Controls"
              x:Class="WonderLab.MinecraftPage">
-    <Panel>
-		<controls:NavigationItem/>
+    <Panel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Border Width="600" Height="600">
+            <Border.Transitions>
+				<Transitions>
+					<BoxShadowsTransition Duration="0:0:.35"
+                                          Property="BoxShadow"
+                                          Easing="ExponentialEaseOut"/>
+                </Transitions>
+            </Border.Transitions>
+
+			<Border.Styles>
+				<Style Selector="Border">
+					<Setter Property="Background" Value="Green"/>
+                    <Setter Property="BoxShadow" Value="0 0 0 0 #90000000"/>
+                </Style>
+
+				<Style Selector="Border:pointerover">
+					<Setter Property="Background" Value="red"/>
+                    <Setter Property="BoxShadow" Value="0 10 20 0 #90000000"/>
+                </Style>
+            </Border.Styles>
+        </Border>
+
+        <Border Background="blue"
+                Height="30"
+                Width="30"
+                BoxShadow="0 4 4 2 #40000000"/>
     </Panel>
 </UserControl>

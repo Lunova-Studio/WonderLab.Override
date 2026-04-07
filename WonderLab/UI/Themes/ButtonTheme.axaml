@@ -3,7 +3,9 @@
                     xmlns:wc="using:WonderLab.UI.Controls">
 	<Thickness x:Key="ButtonDefaultPadding">8 5 8 6</Thickness>
 	
-	<ControlTheme TargetType="Button" x:Key="{x:Type Button}">
+	<ControlTheme TargetType="Button" BasedOn="{StaticResource DefaultButtonTheme}" x:Key="{x:Type Button}"/>
+
+	<ControlTheme TargetType="Button" x:Key="DefaultButtonTheme">
 		<Setter Property="RenderTransform" Value="none"/>
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
 		<Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -62,7 +64,23 @@
 		</Style>
 	</ControlTheme>
 
-	<ControlTheme TargetType="Button" BasedOn="{StaticResource {x:Type Button}}" x:Key="CaptionButtonTheme">
+	<ControlTheme TargetType="Button" BasedOn="{StaticResource DefaultButtonTheme}" x:Key="FAButtonTheme">
+		<Setter Property="Width" Value="56"/>
+		<Setter Property="Height" Value="56"/>
+		<Setter Property="CornerRadius" Value="15"/>
+		<Setter Property="Background" Value="{DynamicResource ButtonFABBackgroundBrush}"/>
+		<Setter Property="Foreground" Value="{DynamicResource ButtonFABForegroundBrush}"/>
+	</ControlTheme>
+	
+	<ControlTheme TargetType="Button" BasedOn="{StaticResource DefaultButtonTheme}" x:Key="IconButtonTheme">
+		<Setter Property="Padding" Value="8"/>
+		<Setter Property="FontSize" Value="14"/>
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="CornerRadius" Value="{StaticResource FullCornerRadius}"/>
+		<Setter Property="Foreground" Value="{DynamicResource AppForegroundBrush}"/>
+	</ControlTheme>
+
+	<ControlTheme TargetType="Button" BasedOn="{StaticResource DefaultButtonTheme}" x:Key="CaptionButtonTheme">
 		<Setter Property="Width" Value="28"/>
 		<Setter Property="Height" Value="28"/>
 		<Setter Property="Padding" Value="0"/>

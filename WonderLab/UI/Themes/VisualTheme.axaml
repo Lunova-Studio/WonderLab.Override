@@ -22,14 +22,18 @@
     <SolidColorBrush x:Key="NavigationBarForegroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
     <SolidColorBrush x:Key="NavigationBarBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
 
+	<SolidColorBrush x:Key="ButtonFABBackgroundBrush" Color="{DynamicResource PrimaryContainerColor}"/>
+    <SolidColorBrush x:Key="ButtonFABForegroundBrush" Color="{DynamicResource OnPrimaryContainerColor}"/>
     <SolidColorBrush x:Key="ButtonDefaultBorderBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
     <SolidColorBrush x:Key="ButtonDefaultForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
 	<SolidColorBrush x:Key="ButtonDefaultBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
     <SolidColorBrush x:Key="ButtonDefaultPointerOverBackgroundBrush" Color="{DynamicResource InverseSurfaceColor}" Opacity="0.1"/>
-    
+
 	<SolidColorBrush x:Key="RadioButtonDefaultFillBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
 	<SolidColorBrush x:Key="RadioButtonDefaultForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
 	<SolidColorBrush x:Key="RadioButtonCheckedDefaultFillBrush" Color="{DynamicResource PrimaryColor}"/>
+
+    <SolidColorBrush x:Key="NavigationRailDefaultBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
 
     <SolidColorBrush x:Key="NavigationItemDefaultForegroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
     <SolidColorBrush x:Key="NavigationItemSelectedForegroundBrush" Color="{DynamicResource OnSecondaryContainerColor}"/>

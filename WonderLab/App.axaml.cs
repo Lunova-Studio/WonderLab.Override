@@ -62,7 +62,7 @@ public partial class App : Application {
                 });
             });
 
-            configure.SetMinimumLevel(LogLevel.Information);
+            configure.SetMinimumLevel(LogLevel.Debug);
         });
 
         //View
@@ -71,7 +71,7 @@ public partial class App : Application {
 
         var pages = builder.PageProvider;
         pages.Register<HomePage, HomePageViewModel>();
-        pages.Register<MinecraftPage>();
+        pages.Register<MinecraftPage, MinecraftPageViewModel>();
 
         var appHost = builder.Build();
         ServiceProvider = appHost.Services;

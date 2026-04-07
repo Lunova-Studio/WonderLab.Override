@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using WonderLab.Interfaces.Navigation;
 using WonderLab.ViewModels.Pages;
 
@@ -11,4 +12,11 @@ public partial class MainWindow : Window {
         nav.Attach(RootNav);
         nav.NavigateToAsync<HomePageViewModel>();
     }
+
+#if !DEBUG
+    protected override void OnLoaded(RoutedEventArgs e) {
+        base.OnLoaded(e);
+        TestTipBorder.IsVisible = true;
+    }
+#endif
 }

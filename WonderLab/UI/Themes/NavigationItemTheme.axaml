@@ -101,11 +101,11 @@
 			</ControlTemplate>
 		</Setter>
 
-		<Style Selector="^:not(:checked):pointerover /template/ wc|RippleControl#PART_RippleControl">
+		<Style Selector="^:not(:selected):pointerover /template/ wc|RippleControl#PART_RippleControl">
 			<Setter Property="Background" Value="{DynamicResource NavigationItemPointerOverBackgroundBrush}"/>
 		</Style>
 				
-		<Style Selector="^:checked">
+		<Style Selector="^:selected">
 			<Style Selector="^ /template/ Border#PART_Indicator">
                 <Setter Property="Opacity" Value="1"/>
 				<Setter Property="Width" Value="{DynamicResource VerticalNavigationRailItemIndicatorWidth}" />
@@ -188,11 +188,11 @@
 			</ControlTemplate>
 		</Setter>
 		
-		<Style Selector="^:not(:checked):pointerover">
+		<Style Selector="^:not(:selected):pointerover">
 			<Setter Property="Background" Value="{DynamicResource NavigationItemPointerOverBackgroundBrush}"/>
 		</Style>
 		
-		<Style Selector="^:checked">
+		<Style Selector="^:selected">
 			<Style Selector="^ /template/ Border#PART_Indicator">
                 <Setter Property="Opacity" Value="1"/>
 				<Setter Property="RenderTransform" Value="scale(1, 1)" />

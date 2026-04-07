@@ -12,6 +12,7 @@ namespace WonderLab.Services.Navigation;
 public sealed class NavigationService : INavigationService {
     private readonly AvaloniaPageProvider _provider;
     private NavigationPage _nav;
+    private string _lastPageKey;
 
     public NavigationService(AvaloniaPageProvider provider) {
         _provider = provider;
@@ -24,6 +25,10 @@ public sealed class NavigationService : INavigationService {
             throw new InvalidOperationException("NavigationPage not attached.");
 
         var key = typeof(TViewModel).FullName!;
+        if (key.Equals(_lastPageKey))
+            return;
+
+        _lastPageKey = key;
         var content = _provider.GetPage(key);
 
         await _nav.PushAsync(BuildPage(content));
@@ -34,6 +39,10 @@ public sealed class NavigationService : INavigationService {
             throw new InvalidOperationException("NavigationPage not attached.");
 
         var key = typeof(TPage).FullName!;
+        if (key.Equals(_lastPageKey))
+            return;
+
+        _lastPageKey = key;
         var content = _provider.GetPage(key);
 
         await _nav.PushAsync(BuildPage(content));
@@ -45,8 +54,6 @@ public sealed class NavigationService : INavigationService {
     private static ContentPage BuildPage(object page) {
         return new ContentPage {
             Content = page,
-            SafeAreaPadding = new(0, 35, 0, 0),
-            AutomaticallyApplySafeAreaPadding = true
         };
     }
 }

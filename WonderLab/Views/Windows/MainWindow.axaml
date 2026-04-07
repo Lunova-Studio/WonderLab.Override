@@ -2,18 +2,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:vm="using:WonderLab.ViewModels"
+        xmlns:vm="using:WonderLab.ViewModels.Windows"
         xmlns:wc="using:WonderLab.UI.Controls"
         xmlns:wt="using:WonderLab.UI.Transitions"
+        xmlns:mi="using:Material.Icons.Avalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="WonderLab.Views.Windows.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
         ExtendClientAreaTitleBarHeightHint="35"
         ExtendClientAreaToDecorationsHint="True"
         Title="WonderLab">
-    <Grid Margin="0 35 0 0" ColumnDefinitions="96 *">
-        <StackPanel Grid.Column="0">
+    <Grid Margin="0 0 0 0" ColumnDefinitions="auto *">
+        <wc:NavigationRail Margin="0 35 0 0"
+                           SelectedIndex="{Binding CurrentPageIndex}"
+                           Grid.Column="0">
             <wc:NavigationItem IconSize="20"
-                               Tag="Home"
                                Kind="HomeOutline"
                                SelectedKind="Home"
                                Content="Home"/>
@@ -35,7 +38,7 @@
                                Tag="Settings/Navigation"
                                SelectedKind="Settings"
                                Content="Settings"/>
-        </StackPanel>
+        </wc:NavigationRail>
 
         <NavigationPage Name="RootNav"
                         BarHeight="35"
@@ -45,10 +48,32 @@
             </NavigationPage.PageTransition>
         </NavigationPage>
 
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">
-            <RadioButton Content="Click me" />
-            <RadioButton Content="Click me" />
-            <RadioButton Content="Click me" />
-        </StackPanel>
+        <Border Margin="20"
+                Padding="12 8" 
+                IsVisible="False"
+                Name="TestTipBorder"
+                BoxShadow="0 2 4 2 #20000000"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Stretch"
+                CornerRadius="{StaticResource MediumCornerRadius}"
+                Background="{DynamicResource PrimaryContainerBrush}"
+                Grid.Column="0"
+                Grid.ColumnSpan="2">
+
+			<Grid ColumnDefinitions="auto 12 * auto">
+				<mi:MaterialIcon Kind="Info"
+                                 IconSize="16"
+                                 VerticalAlignment="Center"
+                                 Grid.Column="0"/>
+
+                <TextBlock Text="此版本为测试版本，不代表最终品质。"
+                           VerticalAlignment="Center"
+                           Grid.Column="2"/>
+
+                <Button Content="{mi:MaterialIconTextExt Close}"
+                        Theme="{StaticResource IconButtonTheme}"
+                        Grid.Column="3"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

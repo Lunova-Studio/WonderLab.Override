@@ -33,9 +33,11 @@
                                    Height="{TemplateBinding TitleBarHeight}"
                                    IsVisible="{TemplateBinding HasTitleBar}"
                                    Background="{DynamicResource AppTitleBarBackgroundBrush}">
-                                <TextBlock Margin="12 0 0 0"
+                                <TextBlock Margin="20 0 0 0"
                                            VerticalAlignment="Center"
-                                           FontSize="{StaticResource AppDefaultFontSize}"
+                                           Text="{TemplateBinding Title}"
+                                           FontSize="14"
+                                           FontWeight="Medium" 
                                            Foreground="{DynamicResource AppTitleBarForegroundBrush}"/>
                             </Panel>
 

@@ -7,21 +7,23 @@
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
   
     <Application.Styles>
-        <!--<FluentTheme />-->
         <ma:MonetColors/>
+        <FluentTheme />
         <mi:MaterialIconStyles/>
     </Application.Styles>
 
     <Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-                <ResourceInclude Source="/UI/Themes/NavigationItemTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/VisualTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/ButtonTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/WindowTheme.axaml"/>
+                <ResourceInclude Source="/UI/Themes/ListBoxTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/RadioButtonTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/ContentPageTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/RippleControlTheme.axaml"/>
+                <ResourceInclude Source="/UI/Themes/NavigationItemTheme.axaml"/>
+                <ResourceInclude Source="/UI/Themes/NavigationRailTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/NavigationPageTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/WindowDrawnDecorationsTheme.axaml"/>
             </ResourceDictionary.MergedDictionaries>
