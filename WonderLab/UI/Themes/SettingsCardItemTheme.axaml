@@ -1,0 +1,75 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wc="using:WonderLab.UI.Controls"
+                    xmlns:mi="using:Material.Icons.Avalonia">
+    <Design.PreviewWith>
+        <Border CornerRadius="16" ClipToBounds="True" Margin="20" Width="600">
+            <StackPanel Spacing="2.5">
+                <wc:SettingsCardItem Header="Header 1" IconKind="Phone">
+                    <RadioButton/>
+                </wc:SettingsCardItem>
+                
+                <wc:SettingsCardItem Header="Header 2" IconKind="People">
+                    <RadioButton/>
+                </wc:SettingsCardItem>
+                                
+                <wc:SettingsCardItem Header="Header 3" IconKind="Phone">
+                    <RadioButton/>
+                </wc:SettingsCardItem>
+
+                <wc:SettingsCardItem Header="Header 4" IconKind="Phone">
+                    <RadioButton/>
+                </wc:SettingsCardItem>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+    
+	<x:Double x:Key="SettingsCardItemIconSize">24</x:Double>
+
+    <ControlTheme TargetType="wc:SettingsCardItem" BasedOn="{StaticResource DefaultSettingsCardItemsTheme}" 
+                  x:Key="{x:Type wc:SettingsCardItem}"/>
+
+    <ControlTheme TargetType="wc:SettingsCardItem" x:Key="DefaultSettingsCardItemsTheme">
+        <Setter Property="Padding" Value="12"/>
+        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}"/>
+        <Setter Property="Foreground" Value="{DynamicResource SettingsCardItemDefaultForegroundBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource SettingsCardItemDefaultBackgroundBrush}"/>
+
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Border Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <Grid ColumnSpacing="12"
+                          ColumnDefinitions="auto * auto">
+                        <Border Padding="4"
+                                VerticalAlignment="Center"
+                                Background="{TemplateBinding BorderBrush}"
+                                CornerRadius="{DynamicResource FullCornerRadius}">
+							<mi:MaterialIcon IconSize="15" 
+                                             Kind="{TemplateBinding IconKind}"
+                                             Foreground="{TemplateBinding Foreground}"
+                                             Width="{DynamicResource SettingsCardItemIconSize}"
+                                             Height="{DynamicResource SettingsCardItemIconSize}"/>
+                        </Border>
+
+                        <TextBlock Classes="TitleSmall"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Text="{TemplateBinding Header}"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   Grid.Column="1"/>
+
+
+						<ContentPresenter Name="PART_ContentPresenter"
+										  Content="{TemplateBinding Content}"
+                                          Foreground="{TemplateBinding Foreground}"
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  Grid.Column="2"/>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

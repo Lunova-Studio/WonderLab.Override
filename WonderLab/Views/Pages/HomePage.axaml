@@ -6,11 +6,11 @@
              xmlns:mi="using:Material.Icons.Avalonia"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="WonderLab.HomePage">
-    <Panel>        
-        <StackPanel Margin="20">
-	    	<TextBlock Text="Title"/>
-            
-	    	<Button Click="Button_Click" Content="{mi:MaterialIconTextExt AccountLock}" FontSize="24"/>
-        </StackPanel>
+    <Panel>
+        <Label Content="这是一个主界面"
+               FontSize="36"
+               FontWeight="Medium"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"/>
     </Panel>
 </UserControl>

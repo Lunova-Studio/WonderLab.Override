@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using WonderLab.Interfaces.Navigation;
 using WonderLab.ViewModels.Pages;
+using WonderLab.ViewModels.Pages.Settings;
 using ZLogger;
 
 namespace WonderLab.ViewModels.Windows;
@@ -24,6 +25,9 @@ public partial class MainWindowViewModel : ViewModelBase {
         switch (index) {
             case 0:
                 _navigationService.NavigateToAsync<HomePageViewModel>();
+                break;
+            case 4:
+                _navigationService.NavigateToAsync<NavigationPageViewModel>();
                 break;
             default:
                 break;

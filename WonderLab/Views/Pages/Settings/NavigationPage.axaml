@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:wc="using:WonderLab.UI.Controls"
+             x:Class="WonderLab.Views.Pages.Settings.NavigationPage">
+    <Border Margin="0 16"
+            ClipToBounds="True"
+            VerticalAlignment="Top"
+            CornerRadius="{StaticResource MaxCornerRadius}">
+        <StackPanel Spacing="2.5">
+		    <wc:SettingsCardItem Header="3333"/>
+		    <wc:SettingsCardItem Header="3333"/>
+		    <wc:SettingsCardItem Header="3333"/>
+		    <wc:SettingsCardItem Header="3333"/>
+        </StackPanel>
+    </Border>
+</UserControl>

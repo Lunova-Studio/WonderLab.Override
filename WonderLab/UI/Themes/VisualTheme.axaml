@@ -41,4 +41,7 @@
     <SolidColorBrush x:Key="NavigationItemPointerOverBackgroundBrush" Color="{DynamicResource InverseSurfaceColor}" Opacity="0.1"/>
     <SolidColorBrush x:Key="NavigationItemSelectedPointerOverBackgroundBrush" Color="{DynamicResource OnSecondaryContainerColor}" Opacity="0.08"/>
 
+    <SolidColorBrush x:Key="SettingsCardItemDefaultForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+    <SolidColorBrush x:Key="SettingsCardItemDefaultBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
+
 </ResourceDictionary>

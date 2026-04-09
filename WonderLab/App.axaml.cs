@@ -12,7 +12,9 @@ using System.IO;
 using WonderLab.Override.Utilities;
 using WonderLab.Services.Navigation;
 using WonderLab.ViewModels.Pages;
+using WonderLab.ViewModels.Pages.Settings;
 using WonderLab.ViewModels.Windows;
+using WonderLab.Views.Pages.Settings;
 using WonderLab.Views.Windows;
 using ZLogger;
 
@@ -72,6 +74,7 @@ public partial class App : Application {
         var pages = builder.PageProvider;
         pages.Register<HomePage, HomePageViewModel>();
         pages.Register<MinecraftPage, MinecraftPageViewModel>();
+        pages.Register<NavigationPage, NavigationPageViewModel>();
 
         var appHost = builder.Build();
         ServiceProvider = appHost.Services;

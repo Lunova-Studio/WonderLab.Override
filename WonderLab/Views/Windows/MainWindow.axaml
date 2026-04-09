@@ -20,6 +20,12 @@
                                Kind="HomeOutline"
                                SelectedKind="Home"
                                Content="Home"/>
+            
+            <wc:NavigationItem IconSize="20"
+                               Kind="MicrosoftMinecraft"
+                               Tag="Download/Navigation"
+                               SelectedKind="Minecraft"
+                               Content="Download"/>
 
             <wc:NavigationItem IconSize="20"
                                Kind="DownloadOutline"
@@ -42,6 +48,7 @@
 
         <NavigationPage Name="RootNav"
                         BarHeight="35"
+                        Padding="16 0"
                         Grid.Column="1">
             <NavigationPage.PageTransition>
                 <wt:DefaultPageTransition/>
@@ -72,6 +79,7 @@
 
                 <Button Content="{mi:MaterialIconTextExt Close}"
                         Theme="{StaticResource IconButtonTheme}"
+                        Click="Button_Click"
                         Grid.Column="3"/>
             </Grid>
         </Border>
