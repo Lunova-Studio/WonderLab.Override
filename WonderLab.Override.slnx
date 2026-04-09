@@ -1,6 +1,5 @@
 <Solution>
   <Folder Name="/refs/">
-    <Project Path="refs/Material.Icons.Avalonia/Material.Icons.Avalonia.csproj" />
     <Project Path="refs/Monet/Monet.Avalonia/Monet.Avalonia.csproj" />
     <Project Path="refs/Monet/Monet.Shared/Monet.Shared.csproj" />
   </Folder>

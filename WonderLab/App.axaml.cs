@@ -52,7 +52,7 @@ public partial class App : Application {
     private static IHost ConfigureIoC() {
         var builder = new AvaloniaHostBuilder();
         var services = builder.Services;
-
+        
         //Logger
         services.AddLogging(configure => {
             configure.AddZLoggerConsole();

@@ -24,11 +24,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Avalonia" Version="12.0.0-rc2" />
-		<PackageReference Include="Avalonia.Desktop" Version="12.0.0-rc2" />
-		<PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.0-rc2" />
+		<PackageReference Include="Avalonia" Version="12.0.0" />
+		<PackageReference Include="Avalonia.Desktop" Version="12.0.0" />
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="12.0.0" />
+		<PackageReference Include="Avalonia.Controls.ItemsRepeater" Version="12.0.0" />
 
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+
+		<PackageReference Include="Material.Icons.Avalonia" Version="3.0.1" />
 
 		<PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
 		
@@ -38,7 +41,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\refs\Material.Icons.Avalonia\Material.Icons.Avalonia.csproj" />
 		<ProjectReference Include="..\refs\Monet\Monet.Avalonia\Monet.Avalonia.csproj" />
 		<ProjectReference Include="..\refs\Monet\Monet.Shared\Monet.Shared.csproj" />
 		<ProjectReference Include="..\WonderLab.SourceGenerator.Shared\WonderLab.SourceGenerator.Shared.csproj" />

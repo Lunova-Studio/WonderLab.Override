@@ -54,7 +54,7 @@
                 <wt:DefaultPageTransition/>
             </NavigationPage.PageTransition>
         </NavigationPage>
-
+        
         <Border Margin="20"
                 Padding="12 8" 
                 IsVisible="False"
