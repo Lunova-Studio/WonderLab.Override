@@ -1,20 +1,21 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using Avalonia.Layout;
-using Avalonia.Media;
+﻿using Avalonia.Controls;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 using WonderLab.Interfaces.Navigation;
-using WonderLab.ViewModels.Pages;
+using ZLogger;
 
 namespace WonderLab.Services.Navigation;
 
 public sealed class NavigationService : INavigationService {
     private readonly AvaloniaPageProvider _provider;
+    private readonly ILogger<NavigationService> _logger;
+
     private NavigationPage _nav;
     private string _lastPageKey;
 
-    public NavigationService(AvaloniaPageProvider provider) {
+    public NavigationService(AvaloniaPageProvider provider, ILogger<NavigationService> logger) {
+        _logger = logger;
         _provider = provider;
     }
 
@@ -25,6 +26,8 @@ public sealed class NavigationService : INavigationService {
             throw new InvalidOperationException("NavigationPage not attached.");
 
         var key = typeof(TViewModel).FullName!;
+
+        _logger.ZLogDebug($"old:{_lastPageKey} - new:{key}");
         if (key.Equals(_lastPageKey))
             return;
 

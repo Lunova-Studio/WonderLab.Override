@@ -26,6 +26,9 @@ public partial class MainWindowViewModel : ViewModelBase {
             case 0:
                 _navigationService.NavigateToAsync<HomePageViewModel>();
                 break;
+            case 1:
+                _navigationService.NavigateToAsync<MinecraftPageViewModel>();
+                break;
             case 4:
                 _navigationService.NavigateToAsync<NavigationPageViewModel>();
                 break;
