@@ -1,8 +1,8 @@
-﻿using MinecraftLaunch.Base.Utilities;
+using MinecraftLaunch.Base.Utilities;
 using System;
 using System.IO;
 
-namespace WonderLab.Override.Utilities;
+namespace WonderLab.Utilities;
 
 public static class PathUtil {
     public static string GetDataFolderPath() => EnvironmentUtil.GetPlatformName() switch {
