@@ -13,46 +13,43 @@
         ExtendClientAreaToDecorationsHint="True"
         Title="WonderLab">
     <Grid Margin="0 0 0 0" ColumnDefinitions="auto *">
-        <wc:NavigationRail Margin="0 35 0 0"
+        <wc:NavigationRail Padding="0 35 0 0"
                            SelectedIndex="{Binding CurrentPageIndex}"
                            Grid.Column="0">
-            <wc:NavigationItem IconSize="20"
+            <wc:NavigationItem IconSize="24"
                                Kind="HomeOutline"
                                SelectedKind="Home"
                                Content="Home"/>
             
-            <wc:NavigationItem IconSize="20"
+            <wc:NavigationItem IconSize="24"
                                Kind="MicrosoftMinecraft"
-                               Tag="Download/Navigation"
                                SelectedKind="Minecraft"
                                Content="Download"/>
 
-            <wc:NavigationItem IconSize="20"
+            <wc:NavigationItem IconSize="24"
                                Kind="DownloadOutline"
-                               Tag="Download/Navigation"
                                SelectedKind="Download"
                                Content="Download"/>
 
-            <wc:NavigationItem IconSize="26"
-                               Tag="Home"
+            <wc:NavigationItem IconSize="24"
                                Kind="AccountGroupOutline" 
                                SelectedKind="AccountGroup"
                                Content="Community"/>
 
-            <wc:NavigationItem IconSize="20"
+            <wc:NavigationItem IconSize="24"
                                Kind="SettingsOutline"
-                               Tag="Settings/Navigation"
                                SelectedKind="Settings"
                                Content="Settings"/>
         </wc:NavigationRail>
 
+        <!--孩子们这动画点快了会导致切换失败-->
         <NavigationPage Name="RootNav"
                         BarHeight="35"
                         Padding="16 0"
                         Grid.Column="1">
-            <NavigationPage.PageTransition>
-                <wt:DefaultPageTransition/>
-            </NavigationPage.PageTransition>
+<!--            <NavigationPage.PageTransition>
+				<wt:ParallaxSlideTransition/>
+            </NavigationPage.PageTransition>-->
         </NavigationPage>
         
         <Border Margin="20"

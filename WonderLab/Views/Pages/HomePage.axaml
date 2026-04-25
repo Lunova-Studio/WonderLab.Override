@@ -3,11 +3,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:wc="using:WonderLab.UI.Controls"
-             xmlns:mi="using:Material.Icons.Avalonia"
+             xmlns:vm="using:WonderLab.ViewModels.Pages"
+             xmlns:mi="using:Material.Icons.Avalonia" Classes="ss"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:HomePageViewModel"
              x:Class="WonderLab.HomePage">
     <Panel>
-        <Label Content="这是一个主界面"
+        <Label Content="{Binding Info}"
                FontSize="36"
                FontWeight="Medium"
                VerticalAlignment="Center"

@@ -28,7 +28,7 @@ public partial class App : Application {
         AvaloniaXamlLoader.Load(this);
         
         Monet = (Styles[0] as MonetColors)!;
-        Monet.BuildScheme(Variant.TonalSpot, Colors.Blue);
+        Monet.BuildScheme(Variant.Content, Colors.Green);
     }
 
     public override void RegisterServices() {

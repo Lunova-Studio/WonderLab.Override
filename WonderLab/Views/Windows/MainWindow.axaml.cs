@@ -1,3 +1,4 @@
+
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using WonderLab.Interfaces.Navigation;

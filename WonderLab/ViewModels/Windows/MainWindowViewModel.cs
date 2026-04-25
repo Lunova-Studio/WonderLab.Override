@@ -1,4 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.Logging;
 using WonderLab.Interfaces.Navigation;
@@ -24,10 +24,13 @@ public partial class MainWindowViewModel : ViewModelBase {
 
         switch (index) {
             case 0:
-                _navigationService.NavigateToAsync<HomePageViewModel>();
+                _ = _navigationService.NavigateToAsync<HomePageViewModel>();
+                break;
+            case 1:
+                _ =_navigationService.NavigateToAsync<MinecraftPageViewModel>();
                 break;
             case 4:
-                _navigationService.NavigateToAsync<NavigationPageViewModel>();
+                _ = _navigationService.NavigateToAsync<NavigationPageViewModel>();
                 break;
             default:
                 break;

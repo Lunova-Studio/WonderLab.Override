@@ -49,13 +49,15 @@
                                         IsVisible="{TemplateBinding HasTitleBar}"
                                         TextElement.FontSize="10">
 
-                                <Button Name="PART_MinimizeButton"
+                                <Button FontSize="22"
+                                        Name="PART_MinimizeButton"
                                         Content="{mi:MaterialIconTextExt Minus}"
                                         Theme="{StaticResource CaptionButtonTheme}"
                                         WindowDecorationProperties.ElementRole="MinimizeButton"/>
                                 
-                                <Button Name="PART_CloseButton"
+                                <Button FontSize="22"
                                         Margin="4 0 8 0"
+                                        Name="PART_CloseButton"
                                         Content="{mi:MaterialIconTextExt Close}"
                                         Theme="{StaticResource CaptionButtonTheme}"
                                         WindowDecorationProperties.ElementRole="CloseButton"/>

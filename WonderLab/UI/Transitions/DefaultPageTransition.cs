@@ -1,15 +1,18 @@
-﻿using Avalonia;
+using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Animation.Easings;
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.Rendering.Composition;
 using Avalonia.Styling;
+using Avalonia.Threading;
 using Avalonia.VisualTree;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using WonderLab.Utilities;
 
 namespace WonderLab.UI.Transitions;
 
@@ -25,149 +28,47 @@ public sealed class DefaultPageTransition : IPageTransition {
     }
 
     public async Task Start(Visual from, Visual to, bool forward, CancellationToken cancellationToken) {
-        if (cancellationToken.IsCancellationRequested) {
-            return;
-        }
-
-        #region ElementComposition
-
-        //if (from is not null) {
-        //    var fromEV = ElementComposition.GetElementVisual(from);
-        //    var opacityAni = CompositionAnimationUtil.CreateScalarAnimation(fromEV, 1, 0, Duration, OpacityEasing);
-        //    fromEV.StartAnimation(CompositionAnimationUtil.PROPERTY_OPACITY, opacityAni);
-        //}
-
-        //if (to is not null) {
-        //    var toEV = ElementComposition.GetElementVisual(to);
-        //    var group = toEV.Compositor.CreateAnimationGroup();
-
-        //    var xPoint = (float)toEV.Offset.X;
-        //    var yPoint = (float)toEV.Offset.Y;
-        //    var opacityAni = CompositionAnimationUtil.CreateScalarAnimation(toEV, 0, 1, Duration, new CubicEaseOut());
-        //    var offsetAni = CompositionAnimationUtil.CreateVector3Animation(toEV,
-        //        new(xPoint, yPoint + 150, 0),
-        //            new(xPoint, yPoint, 0), Duration, Easing);
-
-        //    offsetAni.Target = CompositionAnimationUtil.PROPERTY_OFFSET;
-        //    opacityAni.Target = CompositionAnimationUtil.PROPERTY_OPACITY;
-
-        //    group.Add(offsetAni);
-        //    group.Add(opacityAni);
-        //    toEV.StartAnimationGroup(group);
-        //}
-
-        //(to as Control).IsHitTestVisible = true;
-        //(from as Control).IsHitTestVisible = false;
-
-        //try {
-        //    await Task.Delay(Duration, cancellationToken);
-        //} catch { }
-
-        #endregion
-
-        #region KeyFrame
-
-        var tasks = new List<Task>();
-
         if (from is not null) {
-            var animation = new Animation {
-                Easing = Easing,
-                Duration = Duration,
-                FillMode = FillMode.Forward,
-                Children = {
-                    new KeyFrame {
-                        Cue = new(0d),
-                        Setters = {
-                            new Setter {
-                                Value = 1d,
-                                Property = Visual.OpacityProperty
-                            },
-                            new Setter {
-                                Value = 1d,
-                                Property = ScaleTransform.ScaleYProperty
-                            },
-                            new Setter {
-                                Value = 1d,
-                                Property = ScaleTransform.ScaleXProperty
-                            },
-                        }
-                    },
+            var fromEV = ElementComposition.GetElementVisual(from);
+            var size = fromEV!.Size;
 
-                    new KeyFrame {
-                        Cue= new(1d),
-                        Setters = {
-                            new Setter {
-                                Value = 0d,
-                                Property = Visual.OpacityProperty
-                            },
-                            new Setter {
-                                Value = 0.9d,
-                                Property = ScaleTransform.ScaleYProperty
-                            },
-                            new Setter {
-                                Value = 0.9d,
-                                Property = ScaleTransform.ScaleXProperty
-                            },
-                        }
-                    }
-                }
-            };
+            var opacityAni = CompositionAnimationUtil.CreateScalarAnimation(fromEV, 1, 0, TimeSpan.FromMilliseconds(400), Easing);
+            var scaleAni = CompositionAnimationUtil.CreateVector3Animation(fromEV, new(1), new(0.9f), Duration, Easing);
 
-            tasks.Add(animation.RunAsync(from, cancellationToken));
+            scaleAni.Target = CompositionAnimationUtil.PROPERTY_SCALE;
+            opacityAni.Target = CompositionAnimationUtil.PROPERTY_OPACITY;
+
+            var group = fromEV.Compositor.CreateAnimationGroup();
+            group.Add(scaleAni);
+            group.Add(opacityAni);
+
+            fromEV!.CenterPoint = new Vector3((float)size.X / 2, (float)size.Y / 2, (float)fromEV.CenterPoint.Z);
+            await Dispatcher.UIThread.InvokeAsync(() => fromEV.StartAnimationGroup(group));
         }
 
         if (to is not null) {
-            var animation = new Animation {
-                Easing = Easing,
-                Duration = Duration,
-                FillMode = FillMode.Forward,
-                Children = {
-                    new KeyFrame {
-                        Cue = new(0d),
-                        Setters = {
-                            new Setter {
-                                Value = 0d,
-                                Property = Visual.OpacityProperty
-                            },
-                            new Setter {
-                                Value = 0.9d,
-                                Property = ScaleTransform.ScaleYProperty
-                            },
-                            new Setter {
-                                Value = 0.9d,
-                                Property = ScaleTransform.ScaleXProperty
-                            },
-                        }
-                    },
+            var toEV = ElementComposition.GetElementVisual(to);
+            var size = toEV!.Size;
 
-                    new KeyFrame {
-                        Cue= new(1d),
-                        Setters = {
-                            new Setter {
-                                Value = 1d,
-                                Property = Visual.OpacityProperty
-                            },
-                            new Setter {
-                                Value = 1d,
-                                Property = ScaleTransform.ScaleYProperty
-                            },
-                            new Setter {
-                                Value = 1d,
-                                Property = ScaleTransform.ScaleXProperty
-                            },
-                        }
-                    }
-                }
-            };
+            var opacityAni = CompositionAnimationUtil.CreateScalarAnimation(toEV, 0, 1, Duration, Easing);
+            var scaleAni = CompositionAnimationUtil.CreateVector3Animation(toEV, new(1.2f), new(1), Duration, Easing);
 
-            tasks.Add(animation.RunAsync(to, cancellationToken));
+            scaleAni.Target = CompositionAnimationUtil.PROPERTY_SCALE;
+            opacityAni.Target = CompositionAnimationUtil.PROPERTY_OPACITY;
+
+            var group = toEV.Compositor.CreateAnimationGroup();
+            group.Add(scaleAni);
+            group.Add(opacityAni);
+
+            toEV!.CenterPoint = new Vector3((float)size.X / 2, (float)size.Y / 2, (float)toEV.CenterPoint.Z);
+            await Dispatcher.UIThread.InvokeAsync(() => toEV.StartAnimationGroup(group));
         }
-
-        await Task.WhenAll(tasks);
 
         (from as Control).IsHitTestVisible = false;
         (to as Control).IsHitTestVisible = true;
 
-        #endregion
+        try {
+            await Task.Delay(Duration, cancellationToken);
+        } catch { }
     }
 }

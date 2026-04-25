@@ -6,30 +6,69 @@
 
         <Setter Property="Template">
             <ControlTemplate>
-                <DockPanel>
-                    <!-- Visibility managed in code-behind -->
-                    <ContentPresenter IsVisible="False"
-                                      Name="PART_TopCommandBar"
-                                      HorizontalContentAlignment="Stretch"
-                                      DockPanel.Dock="Top"/>
+                <Border>
+                    <DockPanel>
+                        <!-- Visibility managed in code-behind -->
+                        <ContentPresenter IsVisible="False"
+                                          Name="PART_TopCommandBar"
+                                          HorizontalContentAlignment="Stretch"
+                                          DockPanel.Dock="Top"/>
 
-                    <!-- Visibility managed in code-behind -->
-                    <ContentPresenter IsVisible="False"
-                                      Name="PART_BottomCommandBar"
-                                      HorizontalContentAlignment="Stretch"
-                                      DockPanel.Dock="Bottom"/>
+                        <!-- Visibility managed in code-behind -->
+                        <ContentPresenter IsVisible="False"
+                                          Name="PART_BottomCommandBar"
+                                          HorizontalContentAlignment="Stretch"
+                                          DockPanel.Dock="Bottom"/>
 
-                    <ContentPresenter Name="PART_ContentPresenter"
-                                      Content="{TemplateBinding Content}"
-                                      Background="{TemplateBinding Background}"
-                                      BorderBrush="{TemplateBinding BorderBrush}"
-                                      CornerRadius="{TemplateBinding CornerRadius}"
-                                      BorderThickness="{TemplateBinding BorderThickness}"
-                                      ContentTemplate="{TemplateBinding ContentTemplate}"
-                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
-            </DockPanel>
-          </ControlTemplate>
+                        <ContentPresenter Name="PART_ContentPresenter"
+                                          Effect="{TemplateBinding Effect}"
+                                          Content="{TemplateBinding Content}"
+                                          Background="{TemplateBinding Background}"
+                                          BorderBrush="{TemplateBinding BorderBrush}"
+                                          CornerRadius="{TemplateBinding CornerRadius}"
+                                          BorderThickness="{TemplateBinding BorderThickness}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                    </DockPanel>
+                </Border>
+            </ControlTemplate>
         </Setter>
-  </ControlTheme>
+
+        <Style Selector="^">
+            <Style.Animations>
+                <Animation Duration="0:0:.3"
+                           FillMode="Forward"
+                           Easing="CubicEaseOut">
+					<KeyFrame Cue="0%">
+						<Setter Property="Opacity" Value="0.0"/>
+                    </KeyFrame>
+
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Opacity" Value="1.0"/>
+                    </KeyFrame>
+                </Animation>
+
+                <Animation Duration="0:0:.15"
+                           FillMode="Forward"
+                           Easing="CubicEaseOut">
+					<KeyFrame Cue="0%">                        
+                        <Setter Property="Effect">
+                            <BlurEffect Radius="16"/>
+                        </Setter>
+                    </KeyFrame>
+
+                    <KeyFrame Cue="100%">
+                        <Setter Property="Effect">
+                            <BlurEffect Radius="0"/>
+                        </Setter>
+                    </KeyFrame>
+                </Animation>
+            </Style.Animations>
+            
+            <Setter Property="Effect">
+				<BlurEffect Radius="16"/>
+            </Setter>
+        </Style>
+    </ControlTheme>
 </ResourceDictionary>

@@ -8,8 +8,18 @@
   
     <Application.Styles>
         <ma:MonetColors/>
-        <!--<FluentTheme />-->
+        <FluentTheme />
         <mi:MaterialIconStyles/>
+
+        <Style Selector="UserControl.ss">
+			<Setter Property="Interaction.Behaviors">
+                <BehaviorCollection>
+                    <LoadedTrigger>
+                        <WindowAction ActionType="Minimize"/>
+                    </LoadedTrigger>
+                </BehaviorCollection>
+            </Setter>
+        </Style>
     </Application.Styles>
 
     <Application.Resources>
