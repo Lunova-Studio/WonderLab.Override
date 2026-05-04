@@ -1,0 +1,76 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:wc="using:WonderLab.UI.Controls"
+             xmlns:mi="using:Material.Icons.Avalonia"
+             xmlns:vm="using:WonderLab.ViewModels.Pages.Settings"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:LaunchSettingsPageViewModel"
+             x:Class="WonderLab.Views.Pages.Settings.LaunchSettingsPage">
+    <Grid Margin="0 16 0 13"
+          RowDefinitions="auto *"
+          ColumnDefinitions="auto *">
+		<Button Width="36"
+                Height="36"
+                FontSize="22"
+                Margin="24 0 0 0"
+                Command="{Binding GobackCommand}"
+                Theme="{StaticResource CaptionButtonTheme}"
+                Content="{mi:MaterialIconTextExt ArrowLeft}"
+                Background="{DynamicResource ButtonGoBackBackgroundBrush}"
+                Grid.Row="0"
+                Grid.Column="0"/>
+        
+        <TextBlock Margin="16 0 0 0"
+                   Classes="TitleLarge"
+                   VerticalAlignment="Center"
+                   Text="Launch" Foreground="{DynamicResource AppTitleBarForegroundBrush}"
+                   Grid.Row="0"
+                   Grid.Column="1"/>
+        
+        <ScrollViewer Margin="0 16 0 0"
+                      Padding="24 0 24 0"
+                      Grid.Row="1"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="2">
+            <StackPanel>
+                <TextBlock Margin="8 0 0 8"
+                           Classes="TitleSmall" Foreground="{DynamicResource AppTitleBarForegroundBrush}"
+                           Text="Launch settings"/>
+
+                <Border ClipToBounds="True"
+                        VerticalAlignment="Top"
+                        CornerRadius="{StaticResource MaxCornerRadius}">
+                    <StackPanel Spacing="3">
+                        <wc:SettingsCardItem Header="Header">
+                            <ToggleSwitch OffContent="WIP"/>
+                        </wc:SettingsCardItem>
+                        
+                        <wc:SettingsCardItem Header="Header">
+                            <ToggleSwitch OffContent="WIP"/>
+                        </wc:SettingsCardItem>
+                    </StackPanel>
+                </Border>
+                
+                <TextBlock Margin="8 024 0 8"
+                           Classes="TitleSmall" Foreground="{DynamicResource AppTitleBarForegroundBrush}"
+                           Text="Launcher behavior"/>
+
+                <Border ClipToBounds="True"
+                        VerticalAlignment="Top"
+                        CornerRadius="{StaticResource MaxCornerRadius}">
+                    <StackPanel Spacing="3">
+                        <wc:SettingsCardItem Header="Header">
+                            <ToggleSwitch OffContent="WIP"/>
+                        </wc:SettingsCardItem>
+                        
+                        <wc:SettingsCardItem Header="Header">
+                            <ToggleSwitch IsEnabled="False"/>
+                        </wc:SettingsCardItem>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

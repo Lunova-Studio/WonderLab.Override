@@ -1,0 +1,197 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:wue="using:WonderLab.UI.Easings">
+	<Design.PreviewWith>
+		<StackPanel Margin="20" Width="250" Spacing="24">
+			<StackPanel Spacing="10">
+				<ToggleSwitch/>
+				
+				<ToggleSwitch IsChecked="True" />
+				
+				<ToggleSwitch IsChecked="True" IsEnabled="False"/>
+				
+				<ToggleSwitch IsEnabled="False" />
+			</StackPanel>
+		</StackPanel>
+	</Design.PreviewWith>
+
+	<Thickness x:Key="ToggleSwitchTrackOutlineWidth">2</Thickness>
+	
+	<x:Double x:Key="ToggleSwitchTrackWidth">52</x:Double>
+	<x:Double x:Key="ToggleSwitchTrackHeight">32</x:Double>
+
+	<x:Double x:Key="ToggleSwitchDefaultHandleSize">16</x:Double>
+	<x:Double x:Key="ToggleSwitchPressedHandleSize">28</x:Double>
+	<x:Double x:Key="ToggleSwitchSelectedHandleSize">24</x:Double>
+
+	<x:Double x:Key="ToggleSwitchDefaultStateLayerSize">40</x:Double>
+
+	<ControlTheme x:Key="{x:Type ToggleSwitch}" TargetType="ToggleSwitch">
+		<Setter Property="ClipToBounds" Value="False"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="CornerRadius" Value="{DynamicResource FullCornerRadius}"/>
+
+		<Setter Property="Template">
+			<ControlTemplate>
+				<!--Track-->
+				<Border Name="PART_SwitchTrack"
+						CornerRadius="{TemplateBinding CornerRadius}"
+						Width="{DynamicResource ToggleSwitchTrackWidth}"
+						Height="{DynamicResource ToggleSwitchTrackHeight}"
+						BorderThickness="{DynamicResource ToggleSwitchTrackOutlineWidth}"
+						BorderBrush="{DynamicResource ToggleSwitchTrackDefaultBorderBrush}"
+						Background="{DynamicResource ToggleSwitchTrackDefaultBackgroundBrush}">
+					<Border.Transitions>
+						<Transitions>
+							<BrushTransition Duration="0:0:.3"
+											 Easing="CubicEaseOut"
+											 Property="Background"/>
+							
+							<BrushTransition Duration="0:0:.3"
+											 Easing="CubicEaseOut"
+											 Property="BorderBrush"/>
+						</Transitions>
+					</Border.Transitions>
+
+					<Grid Name="PART_MovingKnobs"
+						  HorizontalAlignment="Left">
+						<Panel Name="PART_SwitchKnob"/>
+
+						<!--Statelayer-->
+					    <Ellipse Opacity="0"
+					  			 Name="PART_Statelayer"
+								 RenderTransform="translate(-6px, 0px)" 
+					  			 Width="{DynamicResource ToggleSwitchDefaultStateLayerSize}"
+					  			 Height="{DynamicResource ToggleSwitchDefaultStateLayerSize}"
+					  			 Fill="{DynamicResource ToggleSwitchStatelayerDefaultBackgroundBrush}">
+							<Ellipse.Transitions>
+								<Transitions>
+									<DoubleTransition Duration="0:0:.2"
+													  Property="Opacity"
+													  Easing="CubicEaseOut"/>
+									
+									<ThicknessTransition Property="Margin"
+													     Duration="0:0:.1"
+													     Easing="CubicEaseOut"/>
+
+									<TransformOperationsTransition Duration="0:0:.2"
+																   Property="RenderTransform">
+										<TransformOperationsTransition.Easing>
+											<wue:MaterialBackEaseOut Amplitude="Max"/>
+										</TransformOperationsTransition.Easing>
+									</TransformOperationsTransition>
+								</Transitions>
+							</Ellipse.Transitions>
+						</Ellipse>
+						
+						<!--Handle-->
+						<Ellipse Name="PART_SwitchHandle"
+								 RenderTransform="translate(-6px, 0px)"
+								 Width="{DynamicResource ToggleSwitchDefaultHandleSize}"
+								 Height="{DynamicResource ToggleSwitchDefaultHandleSize}"
+								 Fill="{DynamicResource ToggleSwitchHandleDefaultBackgroundBrush}">
+							<Ellipse.Transitions>
+								<Transitions>
+									<DoubleTransition Property="Width"
+													  Duration="0:0:.1"
+													  Easing="CubicEaseOut"/>
+
+									<DoubleTransition Property="Height"
+													  Duration="0:0:.1"
+													  Easing="CubicEaseOut"/>
+									
+									<BrushTransition Property="Fill"
+													 Duration="0:0:.35"
+													 Easing="CubicEaseOut"/>
+
+									<TransformOperationsTransition Duration="0:0:.2"
+																   Property="RenderTransform">
+										<TransformOperationsTransition.Easing>
+											<wue:MaterialBackEaseOut Amplitude="Max"/>
+										</TransformOperationsTransition.Easing>
+									</TransformOperationsTransition>
+								</Transitions>
+							</Ellipse.Transitions>
+						</Ellipse>
+					</Grid>
+				</Border>
+			</ControlTemplate>
+		</Setter>
+
+		<!--PointerOver-->
+		<Style Selector="^:pointerover">
+			<!--Statelayer-->
+			<Style Selector="^ /template/ Ellipse#PART_Statelayer">
+				<Setter Property="Opacity" Value="1"/>
+			</Style>
+
+			<!--Handle-->
+			<Style Selector="^ /template/ Ellipse#PART_SwitchHandle">
+				<Setter Property="Fill" Value="{DynamicResource ToggleSwitchHandlePointerOverBackgroundBrush}"/>
+			</Style>
+		</Style>
+
+		<!--Pressed-->
+		<Style Selector="^:pressed">
+			<!--Handle-->
+			<Style Selector="^ /template/ Ellipse#PART_SwitchHandle">
+				<Setter Property="Width" Value="{DynamicResource ToggleSwitchPressedHandleSize}"/>
+				<Setter Property="Height" Value="{DynamicResource ToggleSwitchPressedHandleSize}"/>
+			</Style>
+		</Style>
+
+		<!--Checked-->
+		<Style Selector="^:checked">
+			<!--Statelayer-->
+			<Style Selector="^ /template/ Ellipse#PART_Statelayer">
+				<Setter Property="RenderTransform" Value="translate(13px, 0px)"/>
+				<Setter Property="Fill" Value="{DynamicResource ToggleSwitchStatelayerSelectedBackgroundBrush}"/>
+			</Style>
+
+			<!--Track-->
+			<Style Selector="^ /template/ Border#PART_SwitchTrack">
+				<Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchTrackSelectedBorderBrush}"/>
+				<Setter Property="Background" Value="{DynamicResource ToggleSwitchTrackSelectedBackgroundBrush}"/>
+			</Style>
+			
+			<!--Handle-->
+			<Style Selector="^ /template/ Ellipse#PART_SwitchHandle">
+				<Setter Property="RenderTransform" Value="translate(13px, 0px)"/>
+				<Setter Property="Width" Value="{DynamicResource ToggleSwitchSelectedHandleSize}"/>
+				<Setter Property="Height" Value="{DynamicResource ToggleSwitchSelectedHandleSize}"/>
+				<Setter Property="Fill" Value="{DynamicResource ToggleSwitchHandleSelectedBackgroundBrush}"/>
+			</Style>
+			
+			<Style Selector="^:pressed /template/ Ellipse#PART_SwitchHandle">
+				<Setter Property="Width" Value="{DynamicResource ToggleSwitchPressedHandleSize}"/>
+				<Setter Property="Height" Value="{DynamicResource ToggleSwitchPressedHandleSize}"/>
+			</Style>
+			
+			<Style Selector="^:pointerover /template/ Ellipse#PART_SwitchHandle">
+				<Setter Property="Fill" Value="{DynamicResource ToggleSwitchHandleSelectedPointerOverBackgroundBrush}"/>
+			</Style>
+		</Style>
+		
+		<Style Selector="^:disabled">		
+			<!--Handle-->
+			<Style Selector="^ /template/ Ellipse#PART_SwitchHandle">
+				<Setter Property="Fill" Value="{DynamicResource ToggleSwitchHandleDisabledBackgroundBrush}"/>
+			</Style>
+
+			<Style Selector="^:checked /template/ Ellipse#PART_SwitchHandle">
+				<Setter Property="Fill" Value="{DynamicResource ToggleSwitchHandleDisabledSelectedBackgroundBrush}"/>
+			</Style>
+
+			<!--Track-->
+			<Style Selector="^ /template/ Border#PART_SwitchTrack">
+				<Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchTrackDisabledBorderBrush}"/>
+				<Setter Property="Background" Value="{DynamicResource ToggleSwitchTrackDisabledBackgroundBrush}"/>
+			</Style>
+			
+			<Style Selector="^:checked /template/ Border#PART_SwitchTrack">
+				<Setter Property="BorderBrush" Value="{DynamicResource ToggleSwitchTrackDisabledSelectedBorderBrush}"/>
+				<Setter Property="Background" Value="{DynamicResource ToggleSwitchTrackDisabledSelectedBackgroundBrush}"/>
+			</Style>
+		</Style>
+	</ControlTheme>
+</ResourceDictionary>

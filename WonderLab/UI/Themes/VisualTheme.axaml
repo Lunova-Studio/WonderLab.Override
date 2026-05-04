@@ -24,6 +24,7 @@
 
 	<SolidColorBrush x:Key="ButtonFABBackgroundBrush" Color="{DynamicResource PrimaryContainerColor}"/>
     <SolidColorBrush x:Key="ButtonFABForegroundBrush" Color="{DynamicResource OnPrimaryContainerColor}"/>
+    <SolidColorBrush x:Key="ButtonGoBackBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
     <SolidColorBrush x:Key="ButtonDefaultBorderBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
     <SolidColorBrush x:Key="ButtonDefaultForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
 	<SolidColorBrush x:Key="ButtonDefaultBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
@@ -38,10 +39,27 @@
     <SolidColorBrush x:Key="NavigationItemDefaultForegroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
     <SolidColorBrush x:Key="NavigationItemSelectedForegroundBrush" Color="{DynamicResource OnSecondaryContainerColor}"/>
     <SolidColorBrush x:Key="NavigationItemSelectedBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
-    <SolidColorBrush x:Key="NavigationItemPointerOverBackgroundBrush" Color="{DynamicResource InverseSurfaceColor}" Opacity="0.1"/>
     <SolidColorBrush x:Key="NavigationItemSelectedPointerOverBackgroundBrush" Color="{DynamicResource OnSecondaryContainerColor}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="NavigationItemPointerOverBackgroundBrush" Color="{DynamicResource InverseSurfaceColor}" Opacity="0.1"/>
 
     <SolidColorBrush x:Key="SettingsCardItemDefaultForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
     <SolidColorBrush x:Key="SettingsCardItemDefaultBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
+
+    <SolidColorBrush x:Key="ToggleSwitchTrackDefaultBorderBrush" Color="{DynamicResource OutlineColor}"/>
+    <SolidColorBrush x:Key="ToggleSwitchTrackDefaultBackgroundBrush" Color="{DynamicResource SurfaceContainerHighestColor}"/>
+    <SolidColorBrush x:Key="ToggleSwitchTrackSelectedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="ToggleSwitchTrackSelectedBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="ToggleSwitchHandleDefaultBackgroundBrush" Color="{DynamicResource OutlineColor}"/>
+    <SolidColorBrush x:Key="ToggleSwitchHandleSelectedBackgroundBrush" Color="{DynamicResource OnPrimaryColor}"/>
+    <SolidColorBrush x:Key="ToggleSwitchStatelayerSelectedBackgroundBrush" Color="{DynamicResource PrimaryColor}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="ToggleSwitchStatelayerDefaultBackgroundBrush" Color="{DynamicResource OnSurfaceColor}" Opacity="0.08"/>
+    <SolidColorBrush x:Key="ToggleSwitchHandleDisabledSelectedBackgroundBrush" Color="{DynamicResource SurfaceColor}"/>
+    <SolidColorBrush x:Key="ToggleSwitchHandleDisabledBackgroundBrush" Color="{DynamicResource OnSurfaceColor}" Opacity="0.38"/>
+    <SolidColorBrush x:Key="ToggleSwitchTrackDisabledBorderBrush" Color="{DynamicResource OnSurfaceColor}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="ToggleSwitchTrackDisabledBackgroundBrush" Color="{DynamicResource SurfaceContainerHighestColor}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="ToggleSwitchTrackDisabledSelectedBorderBrush" Color="{DynamicResource OnSurfaceColor}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="ToggleSwitchTrackDisabledSelectedBackgroundBrush" Color="{DynamicResource OnSurfaceColor}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="ToggleSwitchHandlePointerOverBackgroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
+    <SolidColorBrush x:Key="ToggleSwitchHandleSelectedPointerOverBackgroundBrush" Color="{DynamicResource PrimaryContainerColor}"/>
 
 </ResourceDictionary>

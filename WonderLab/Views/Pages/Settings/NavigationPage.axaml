@@ -2,62 +2,67 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vms="using:WonderLab.ViewModels.Pages.Settings"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:wc="using:WonderLab.UI.Controls"
+             x:DataType="vms:NavigationPageViewModel"
              x:Class="WonderLab.Views.Pages.Settings.NavigationPage">
-    <DockPanel Margin="12 16"
-               LastChildFill="True">
-        <TextBlock Margin="0 0 0 13"
+    <DockPanel LastChildFill="True">
+        <TextBlock Margin="24 16 24 16"
                    Classes="TitleLarge"
-                   Text="Settings"
+                   Text="Settings" Foreground="{DynamicResource AppTitleBarForegroundBrush}"
                    DockPanel.Dock="Top"/>
 
-        <Border ClipToBounds="True"
-                VerticalAlignment="Top"
-                CornerRadius="{StaticResource MaxCornerRadius}">
-            <StackPanel Spacing="3">
-                <wc:SettingsCardItem Header="Launch"
-                                     IconKind="GamepadVariant"
-                                     Content="Configure game launch settings &amp; parameters"
-                                     BorderBrush="{DynamicResource PrimaryBrush}"
-                                     IconForeground="{DynamicResource OnPrimaryBrush}"
-                                     Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
-                
-                <wc:SettingsCardItem Header="Java Virtual Machine"
-                                     IconKind="Coffee"
-                                     Content="Manage JVM settings &amp; memory allocation"
-                                     BorderBrush="{DynamicResource PrimaryBrush}"
-                                     IconForeground="{DynamicResource OnPrimaryBrush}"
-                                     Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
-                
-                <wc:SettingsCardItem Header="Account"
-                                     IconKind="Account"
-                                     Content="Sign in &amp; manage Minecraft accounts"
-                                     BorderBrush="{DynamicResource PrimaryBrush}"
-                                     IconForeground="{DynamicResource OnPrimaryBrush}"
-                                     Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
-                
-                <wc:SettingsCardItem Header="Network"
-                                     IconKind="Web"
-                                     Content="Configure proxy &amp; connection settings"
-                                     BorderBrush="{DynamicResource SecondaryBrush}"
-                                     IconForeground="{DynamicResource OnSecondaryBrush}"
-                                     Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
-                
-                <wc:SettingsCardItem Header="Appearance"
-                                     IconKind="Palette"
-                                     Content="Customize app theme &amp; appearance"
-                                     BorderBrush="{DynamicResource SecondaryBrush}"
-                                     IconForeground="{DynamicResource OnSecondaryBrush}"
-                                     Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
-                
-                <wc:SettingsCardItem Header="About"
-                                     IconKind="Apps"
-                                     Content="View version &amp; application information"
-                                     BorderBrush="{DynamicResource TertiaryBrush}"
-                                     IconForeground="{DynamicResource OnTertiaryBrush}"
-                                     Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
-            </StackPanel>
-        </Border>
+        <ScrollViewer Padding="24 0">
+            <Border ClipToBounds="True"
+                    VerticalAlignment="Top"
+                    CornerRadius="{StaticResource MaxCornerRadius}">
+                <StackPanel Spacing="3">
+                    <wc:SettingsCardItem IconKind="GamepadVariant"
+                                         CommandParameter="Launch"
+                                         Header="Launch"
+                                         Content="Configure game launch settings &amp; parameters"
+                                         Command="{Binding NavigateCommand}"
+                                         BorderBrush="{DynamicResource PrimaryBrush}"
+                                         IconForeground="{DynamicResource OnPrimaryBrush}"
+                                         Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
+                    
+                    <wc:SettingsCardItem IconKind="Coffee"
+                                         Header="Java Virtual Machine"
+                                         Content="Manage JVM settings &amp; memory allocation"
+                                         BorderBrush="{DynamicResource PrimaryBrush}"
+                                         IconForeground="{DynamicResource OnPrimaryBrush}"
+                                         Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
+                    
+                    <wc:SettingsCardItem IconKind="Account"
+                                         Header="Account"
+                                         Content="Sign in &amp; manage Minecraft accounts"
+                                         BorderBrush="{DynamicResource PrimaryBrush}"
+                                         IconForeground="{DynamicResource OnPrimaryBrush}"
+                                         Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
+                    
+                    <wc:SettingsCardItem IconKind="Web"
+                                         Header="Network"
+                                         Content="Configure proxy &amp; connection settings"
+                                         BorderBrush="{DynamicResource SecondaryBrush}"
+                                         IconForeground="{DynamicResource OnSecondaryBrush}"
+                                         Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
+                    
+                    <wc:SettingsCardItem IconKind="Palette"
+                                         Header="Appearance"
+                                         Content="Customize app theme &amp; appearance"
+                                         BorderBrush="{DynamicResource SecondaryBrush}"
+                                         IconForeground="{DynamicResource OnSecondaryBrush}"
+                                         Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
+                    
+                    <wc:SettingsCardItem IconKind="Apps"
+                                         Header="About"
+                                         Content="View version &amp; application information"
+                                         BorderBrush="{DynamicResource TertiaryBrush}"
+                                         IconForeground="{DynamicResource OnTertiaryBrush}"
+                                         Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
     </DockPanel>
 </UserControl>

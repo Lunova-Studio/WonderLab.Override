@@ -105,6 +105,7 @@
 		<Setter Property="Template">
 			<ControlTemplate>
                 <Button Command="{TemplateBinding Command}"
+                        CommandParameter="{TemplateBinding CommandParameter}"
                         Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
                         CornerRadius="{TemplateBinding CornerRadius}"
@@ -144,7 +145,6 @@
 										  Grid.Column="1"/>
                         
                         <mi:MaterialIcon IconSize="20"
-                                         
                                          Kind="ChevronRight"
                                          Foreground="{TemplateBinding Foreground}"
                                          Width="{DynamicResource SettingsCardItemIconSize}"

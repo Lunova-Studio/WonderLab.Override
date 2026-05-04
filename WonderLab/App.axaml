@@ -32,6 +32,7 @@
                 <ResourceInclude Source="/UI/Themes/TextBlockTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/RadioButtonTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/ContentPageTheme.axaml"/>
+                <ResourceInclude Source="/UI/Themes/ToggleSwitchTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/RippleControlTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/NavigationItemTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/NavigationRailTheme.axaml"/>

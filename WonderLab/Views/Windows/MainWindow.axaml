@@ -45,7 +45,6 @@
         <!--孩子们这动画点快了会导致切换失败-->
         <NavigationPage Name="RootNav"
                         BarHeight="35"
-                        Padding="16 0"
                         Grid.Column="1">
 <!--            <NavigationPage.PageTransition>
 				<wt:ParallaxSlideTransition/>

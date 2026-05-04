@@ -18,11 +18,11 @@
                 <Border Name="PART_LayoutBorder">
 					<Grid ColumnDefinitions="40 *">
 						<wc:RippleControl Padding="0"
-                                Name="PART_CheckRippleControl"
-                                Background="Transparent"
-                                VerticalContentAlignment="Center"
-                                HorizontalContentAlignment="Center"
-                                CornerRadius="{TemplateBinding CornerRadius}">
+                                          Name="PART_CheckRippleControl"
+                                          Background="Transparent"
+                                          VerticalContentAlignment="Center"
+                                          HorizontalContentAlignment="Center"
+                                          CornerRadius="{TemplateBinding CornerRadius}">
 							<Panel>
 								<Ellipse StrokeThickness="2"
                                          Stroke="{TemplateBinding Background}"

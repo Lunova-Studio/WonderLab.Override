@@ -9,7 +9,7 @@ using Monet.Avalonia;
 using Monet.Shared.Enums;
 using System;
 using System.IO;
-using WonderLab.Override.Utilities;
+using WonderLab.Utilities;
 using WonderLab.Services.Navigation;
 using WonderLab.ViewModels.Pages;
 using WonderLab.ViewModels.Pages.Settings;
@@ -28,7 +28,7 @@ public partial class App : Application {
         AvaloniaXamlLoader.Load(this);
         
         Monet = (Styles[0] as MonetColors)!;
-        Monet.BuildScheme(Variant.Content, Colors.Green);
+        Monet.BuildScheme(Variant.Vibrant, Colors.Yellow);
     }
 
     public override void RegisterServices() {
@@ -74,7 +74,10 @@ public partial class App : Application {
         var pages = builder.PageProvider;
         pages.Register<HomePage, HomePageViewModel>();
         pages.Register<MinecraftPage, MinecraftPageViewModel>();
+
+        //Settings
         pages.Register<NavigationPage, NavigationPageViewModel>();
+        pages.Register<LaunchSettingsPage, LaunchSettingsPageViewModel>();
 
         var appHost = builder.Build();
         ServiceProvider = appHost.Services;
