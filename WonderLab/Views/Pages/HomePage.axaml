@@ -8,11 +8,19 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:HomePageViewModel"
              x:Class="WonderLab.HomePage">
-    <Panel>
-        <Label Content="{Binding Info}"
-               FontSize="36"
+    <StackPanel Spacing="12"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+        <Label FontSize="36"
                FontWeight="Medium"
-               VerticalAlignment="Center"
-               HorizontalAlignment="Center"/>
-    </Panel>
+               HorizontalContentAlignment="Center"
+               Content="{Binding Info}"/>
+
+        <Label FontSize="16"
+               FontWeight="Medium"
+               HorizontalContentAlignment="Center"
+               Content="Content area:"/>
+
+        <Slider Width="300"/>
+    </StackPanel>
 </UserControl>

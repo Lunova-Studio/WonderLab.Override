@@ -1,0 +1,150 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Design.PreviewWith>
+		<Border Padding="20">
+			<StackPanel Width="300" Spacing="16">
+				<Slider Value="75"/>
+				<Slider Value="25" Foreground="green" Background="red"/>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+    
+	<x:Double x:Key="SliderHandleWidth">4</x:Double>
+	<x:Double x:Key="SliderHandleHeight">44</x:Double>
+	<x:Double x:Key="SliderPressedHandleWidth">2</x:Double>
+
+	<x:Double x:Key="SliderXSTrackHeight">16</x:Double>
+
+    <Thickness x:Key="SliderHandleHorizontalPadding">6 0</Thickness>
+
+    <CornerRadius x:Key="SliderXSActiveTrackCornerRadius">8 2 2 8</CornerRadius>
+    <CornerRadius x:Key="SliderXSInactiveTrackCornerRadius">2 8 8 2</CornerRadius>
+
+    <!--Control Themes-->
+    <ControlTheme TargetType="Slider"
+                  BasedOn="{StaticResource SliderXSTheme}"
+                  x:Key="{x:Type Slider}"/>
+
+    <!--Xsmall-->
+    <ControlTheme TargetType="Slider" x:Key="SliderXSTheme">
+        <Setter Property="Foreground" Value="{DynamicResource SliderActiveTrackDefaultBackgroundBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource SliderInactiveTrackDefaultBackgroundBrush}"/>
+
+		<Setter Property="Template">
+            <ControlTemplate>
+				<DataValidationErrors>
+                    <Border Name="PART_LayoutBorder"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                <Grid Name="PART_SliderContainer"
+                      Margin="{TemplateBinding Padding}"
+                      Background="{DynamicResource SliderContainerBackground}">
+                    <Grid.Styles>
+                        <Style Selector="TickBar">
+                            <Setter Property="ReservedSpace" Value="{Binding #PART_Track.Thumb.Bounds}" />
+                        </Style>
+                    </Grid.Styles>
+                    
+                    <Grid Name="HorizontalTemplate"
+                          ColumnDefinitions="auto auto *"
+                          MinHeight="{DynamicResource SliderHorizontalHeight}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="{DynamicResource SliderPreContentMargin}" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="{DynamicResource SliderPostContentMargin}" />
+                        </Grid.RowDefinitions>
+                        
+                        <Track Name="PART_Track"
+                               Orientation="Horizontal"
+                               Minimum="{TemplateBinding Minimum}"
+                               Maximum="{TemplateBinding Maximum}"
+                               Value="{TemplateBinding Value, Mode=TwoWay}"
+                               IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                               Grid.Row="1"
+                               Grid.ColumnSpan="3">
+                            <Track.DecreaseButton>
+                                <RepeatButton Focusable="False"
+                                              Name="PART_DecreaseButton"
+                                              Background="{TemplateBinding Foreground}"
+                                              Height="{DynamicResource SliderXSTrackHeight}"
+                                              CornerRadius="{DynamicResource SliderXSActiveTrackCornerRadius}"
+                                              Theme="{StaticResource MaterialSliderHorizontalRepeatButtonTheme}"/>
+                            </Track.DecreaseButton>
+
+                            <Track.IncreaseButton>
+                                <RepeatButton Focusable="False"
+                                              Name="PART_IncreaseButton"
+                                              Background="{TemplateBinding Background}"
+                                              HorizontalContentAlignment="Right"
+                                              Height="{DynamicResource SliderXSTrackHeight}"
+                                              Theme="{StaticResource MaterialSliderHorizontalRepeatButtonTheme}"
+                                              CornerRadius="{DynamicResource SliderXSInactiveTrackCornerRadius}">
+                                    <Ellipse Margin="4 0" Height="4" Width="4" Fill="{TemplateBinding Foreground}"/>
+                                </RepeatButton>
+                            </Track.IncreaseButton>
+
+                            <Thumb Name="thumb"
+                                   Margin="0"
+                                   BorderThickness="0"
+                                   DataContext="{TemplateBinding Value}"
+                                   Padding="{DynamicResource SliderHandleHorizontalPadding}"
+                                   Theme="{StaticResource MaterialSliderHorizontalThumbTheme}"
+                                   Background="{DynamicResource SliderHandleDefaultBackgroundBrush}"/>
+                    </Track>
+                  </Grid>
+                </Grid>
+            </Border>
+          </DataValidationErrors>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+    <ControlTheme x:Key="MaterialSliderHorizontalRepeatButtonTheme" TargetType="RepeatButton">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <Border Margin="0 -10" Name="FocusTarget" Background="Transparent"/>
+                    <Border Name="TrackBackground"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="{TemplateBinding CornerRadius}"
+                            VerticalAlignment="Stretch"/>
+
+                    <ContentPresenter VerticalContentAlignment="Center"
+                                      Content="{TemplateBinding Content}"
+                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+    
+    <ControlTheme x:Key="MaterialSliderHorizontalThumbTheme" TargetType="Thumb">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Border Name="PART_HandleLayout"
+                        Background="Transparent"
+                        Padding="{TemplateBinding Padding}">
+                    <Border Name="PART_Handle"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            Width="{DynamicResource SliderHandleWidth}"
+                            Height="{DynamicResource SliderHandleHeight}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="{DynamicResource FullCornerRadius}">
+                        <Border.Transitions>
+							<Transitions>
+								<DoubleTransition Property="Width"
+                                                  Duration="0:0:.05"
+                                                  Easing="CubicEaseOut"/>
+                            </Transitions>
+                        </Border.Transitions>
+                    </Border>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <Style Selector="^:pressed /template/ Border#PART_Handle">
+			<Setter Property="Width" Value="{DynamicResource SliderPressedHandleWidth}"/>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

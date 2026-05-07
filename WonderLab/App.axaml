@@ -27,6 +27,7 @@
 			<ResourceDictionary.MergedDictionaries>
                 <ResourceInclude Source="/UI/Themes/VisualTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/ButtonTheme.axaml"/>
+                <ResourceInclude Source="/UI/Themes/SliderTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/WindowTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/ListBoxTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/TextBlockTheme.axaml"/>

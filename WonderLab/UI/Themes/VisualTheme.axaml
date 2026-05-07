@@ -62,4 +62,7 @@
     <SolidColorBrush x:Key="ToggleSwitchHandlePointerOverBackgroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
     <SolidColorBrush x:Key="ToggleSwitchHandleSelectedPointerOverBackgroundBrush" Color="{DynamicResource PrimaryContainerColor}"/>
 
+    <SolidColorBrush x:Key="SliderHandleDefaultBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="SliderActiveTrackDefaultBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="SliderInactiveTrackDefaultBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
 </ResourceDictionary>
