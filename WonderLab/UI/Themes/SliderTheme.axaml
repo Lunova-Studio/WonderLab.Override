@@ -49,12 +49,6 @@
                     <Grid Name="HorizontalTemplate"
                           ColumnDefinitions="auto auto *"
                           MinHeight="{DynamicResource SliderHorizontalHeight}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="{DynamicResource SliderPreContentMargin}" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="{DynamicResource SliderPostContentMargin}" />
-                        </Grid.RowDefinitions>
-                        
                         <Track Name="PART_Track"
                                Orientation="Horizontal"
                                Minimum="{TemplateBinding Minimum}"

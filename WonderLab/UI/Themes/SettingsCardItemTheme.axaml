@@ -6,19 +6,39 @@
         <Border CornerRadius="16" ClipToBounds="True" Margin="20" Width="600">
             <StackPanel Spacing="3">
                 <wc:SettingsCardItem Header="Header 1" IconKind="Phone">
-                    <RadioButton/>
+                    <ToggleSwitch/>
                 </wc:SettingsCardItem>
                 
                 <wc:SettingsCardItem Header="Header 2" IconKind="People">
-                    <RadioButton/>
+                    <ToggleSwitch/>
                 </wc:SettingsCardItem>
                                 
                 <wc:SettingsCardItem Header="Header 3" IconKind="Phone">
-                    <RadioButton/>
+                    <ToggleSwitch/>
                 </wc:SettingsCardItem>
 
                 <wc:SettingsCardItem Header="Header 4" IconKind="Phone">
-                    <RadioButton/>
+                    <ToggleSwitch/>
+                </wc:SettingsCardItem>
+                
+                <wc:SettingsCardItem Header="Vertical Header 1" IconKind="Phone"
+                                     Theme="{DynamicResource VerticalSettingsCardItemTheme}">
+                    <Slider Value="100"/>
+                </wc:SettingsCardItem>
+                
+                <wc:SettingsCardItem Header="Vertical Header 2" IconKind="People"
+                                     Theme="{DynamicResource VerticalSettingsCardItemTheme}">
+                    <Slider Value="10"/>
+                </wc:SettingsCardItem>
+                                
+                <wc:SettingsCardItem Header="Vertical Header 3" IconKind="Phone"
+                                     Theme="{DynamicResource VerticalSettingsCardItemTheme}">
+                    <Slider Value="75"/>
+                </wc:SettingsCardItem>
+
+                <wc:SettingsCardItem Header="Vertical Header 4" IconKind="Phone"
+                                     Theme="{DynamicResource VerticalSettingsCardItemTheme}">
+                    <Slider Value="50"/>
                 </wc:SettingsCardItem>
 
                 <wc:SettingsCardItem Header="Navigation Header 1" 
@@ -50,7 +70,7 @@
                   x:Key="{x:Type wc:SettingsCardItem}"/>
 
     <ControlTheme TargetType="wc:SettingsCardItem" x:Key="DefaultSettingsCardItemTheme">
-        <Setter Property="Padding" Value="12"/>
+        <Setter Property="Padding" Value="16"/>
         <Setter Property="IconSize" Value="15"/>
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}"/>
         <Setter Property="Foreground" Value="{DynamicResource SettingsCardItemDefaultForegroundBrush}"/>
@@ -62,7 +82,7 @@
                         Background="{TemplateBinding Background}"
                         CornerRadius="{TemplateBinding CornerRadius}">
                     <Grid ColumnSpacing="12"
-                          ColumnDefinitions="auto * auto">
+                          ColumnDefinitions="* auto">
                         <!--设置选项卡，不用图标-->
                         <!--<Border Padding="4"
                                 VerticalAlignment="Center"
@@ -80,14 +100,49 @@
                                    HorizontalAlignment="Left"
                                    Text="{TemplateBinding Header}"
                                    Foreground="{TemplateBinding Foreground}"
-                                   Grid.Column="1"/>
+                                   Grid.Column="0"/>
 
 						<ContentPresenter Name="PART_ContentPresenter"
 										  Content="{TemplateBinding Content}"
                                           Foreground="{TemplateBinding Foreground}"
 										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
 										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-										  Grid.Column="2"/>
+										  Grid.Column="1"/>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+
+        <ControlTheme TargetType="wc:SettingsCardItem" x:Key="VerticalSettingsCardItemTheme">
+        <Setter Property="Padding" Value="16"/>
+        <Setter Property="IconSize" Value="15"/>
+        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}"/>
+        <Setter Property="Foreground" Value="{DynamicResource SettingsCardItemDefaultForegroundBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource SettingsCardItemDefaultBackgroundBrush}"/>
+
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Border Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <Grid RowDefinitions="* auto">
+
+                        <TextBlock Margin="0 0 0 4"
+                                   Classes="TitleSmall"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Text="{TemplateBinding Header}"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   Grid.Row="0"/>
+
+						<ContentPresenter Margin="16 0"
+                                          Name="PART_ContentPresenter"
+										  Content="{TemplateBinding Content}"
+                                          Foreground="{TemplateBinding Foreground}"
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  Grid.Row="1"/>
                     </Grid>
                 </Border>
             </ControlTemplate>

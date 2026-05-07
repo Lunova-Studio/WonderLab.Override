@@ -46,7 +46,8 @@
                         <wc:SettingsCardItem Header="Header">
                             <ToggleSwitch OffContent="WIP"/>
                         </wc:SettingsCardItem>
-                        
+
+
                         <wc:SettingsCardItem Header="Header">
                             <ToggleSwitch OffContent="WIP"/>
                         </wc:SettingsCardItem>
@@ -67,6 +68,16 @@
                         
                         <wc:SettingsCardItem Header="Header">
                             <ToggleSwitch IsEnabled="False"/>
+                        </wc:SettingsCardItem>
+
+                        <wc:SettingsCardItem Header="Vertical Header 4" IconKind="Phone"
+                                             Theme="{DynamicResource VerticalSettingsCardItemTheme}">
+                            <Slider Value="50"/>
+                        </wc:SettingsCardItem>
+                                                
+                        <wc:SettingsCardItem Header="Vertical Header 4" IconKind="Phone"
+                                             Theme="{DynamicResource VerticalSettingsCardItemTheme}">
+                            <Slider Value="50"/>
                         </wc:SettingsCardItem>
                     </StackPanel>
                 </Border>
