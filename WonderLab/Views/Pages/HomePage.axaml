@@ -8,7 +8,8 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:HomePageViewModel"
              x:Class="WonderLab.HomePage">
-    <StackPanel Spacing="12"
+    <StackPanel Width="600"
+                Spacing="12"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center">
         <Label FontSize="36"
@@ -21,6 +22,13 @@
                HorizontalContentAlignment="Center"
                Content="Content area:"/>
 
-        <Slider Width="300"/>
+        <Slider/>
+
+        <ComboBox PlaceholderText="ComboBox Header 1"
+                  Theme="{StaticResource SettingsCardItemComboBoxTheme}">
+			<ComboBoxItem Content="Content 1"/>
+			<ComboBoxItem Content="Content 2"/>
+			<ComboBoxItem Content="Content 3"/>
+        </ComboBox>
     </StackPanel>
 </UserControl>

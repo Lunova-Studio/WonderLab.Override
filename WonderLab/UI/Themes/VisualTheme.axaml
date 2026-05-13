@@ -11,7 +11,7 @@
     <CornerRadius x:Key="FullCornerRadius">100</CornerRadius>
 
     <!--Brush-->
-    <SolidColorBrush x:Key="RippleEffectFillBrush" Color="{DynamicResource InverseSurfaceColor}" Opacity="0.2"/>
+    <SolidColorBrush x:Key="RippleEffectFillBrush" Color="{DynamicResource InverseSurfaceColor}" Opacity="0.08"/>
 
     <SolidColorBrush x:Key="AppForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
     <SolidColorBrush x:Key="AppBackgroundBrush" Color="{DynamicResource BackgroundColor}"/>
@@ -28,7 +28,7 @@
     <SolidColorBrush x:Key="ButtonDefaultBorderBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
     <SolidColorBrush x:Key="ButtonDefaultForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
 	<SolidColorBrush x:Key="ButtonDefaultBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
-    <SolidColorBrush x:Key="ButtonDefaultPointerOverBackgroundBrush" Color="{DynamicResource InverseSurfaceColor}" Opacity="0.1"/>
+    <SolidColorBrush x:Key="ButtonDefaultPointerOverBackgroundBrush" Color="{DynamicResource InverseSurfaceColor}" Opacity="0.08"/>
 
 	<SolidColorBrush x:Key="RadioButtonDefaultFillBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
 	<SolidColorBrush x:Key="RadioButtonDefaultForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
@@ -40,7 +40,7 @@
     <SolidColorBrush x:Key="NavigationItemSelectedForegroundBrush" Color="{DynamicResource OnSecondaryContainerColor}"/>
     <SolidColorBrush x:Key="NavigationItemSelectedBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
     <SolidColorBrush x:Key="NavigationItemSelectedPointerOverBackgroundBrush" Color="{DynamicResource OnSecondaryContainerColor}" Opacity="0.08"/>
-    <SolidColorBrush x:Key="NavigationItemPointerOverBackgroundBrush" Color="{DynamicResource InverseSurfaceColor}" Opacity="0.1"/>
+    <SolidColorBrush x:Key="NavigationItemPointerOverBackgroundBrush" Color="{DynamicResource InverseSurfaceColor}" Opacity="0.08"/>
 
     <SolidColorBrush x:Key="SettingsCardItemDefaultForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
     <SolidColorBrush x:Key="SettingsCardItemDefaultBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
@@ -65,4 +65,14 @@
     <SolidColorBrush x:Key="SliderHandleDefaultBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
     <SolidColorBrush x:Key="SliderActiveTrackDefaultBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
     <SolidColorBrush x:Key="SliderInactiveTrackDefaultBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
+
+    <SolidColorBrush x:Key="PopupRootDefaultShadowBrush" Color="{DynamicResource ShadowColor}"/>
+    <SolidColorBrush x:Key="PopupRootDefaultBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
+
+    <SolidColorBrush x:Key="ComboBoxItemDefaultBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="ComboBoxItemDefaultForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+    <SolidColorBrush x:Key="ComboBoxItemStatelayerDefaultBackgroundBrush" Color="{DynamicResource OnSurfaceColor}" Opacity="0.08"/>
+
+    <SolidColorBrush x:Key="ComboBoxItemSelectedBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
+    <SolidColorBrush x:Key="ComboBoxItemSelectedForegroundBrush" Color="{DynamicResource OnSecondaryContainerColor}"/>
 </ResourceDictionary>

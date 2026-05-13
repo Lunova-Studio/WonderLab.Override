@@ -1,4 +1,4 @@
-﻿using Avalonia;
+using Avalonia;
 using Avalonia.Animation;
 using Avalonia.Animation.Easings;
 using Avalonia.Controls;
@@ -69,7 +69,7 @@ public sealed partial class RippleControl : ContentControl {
 
     protected override void OnApplyTemplate(TemplateAppliedEventArgs e) {
         base.OnApplyTemplate(e);
-        PART_RippleCanvasRoot = e.NameScope.Find<Canvas>("PART_RippleCanvasRoot")!;
+        PART_RippleCanvasRoot = e.NameScope.Find<Canvas>("PART_RippleCanvasRoot");
     }
 
     private Ripple CreateRipple(PointerPressedEventArgs e, bool center) {

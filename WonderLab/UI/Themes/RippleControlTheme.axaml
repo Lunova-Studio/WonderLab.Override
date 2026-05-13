@@ -12,10 +12,15 @@
 						BorderBrush="{TemplateBinding BorderBrush}"
 						CornerRadius="{TemplateBinding CornerRadius}"
 						BorderThickness="{TemplateBinding BorderThickness}">
-					<Grid>
-						<ContentPresenter Name="Content"
-										  Content="{TemplateBinding Content}"
-										  ContentTemplate="{TemplateBinding ContentTemplate}"/>
+					<Grid>					
+						<ContentPresenter Name="PART_ContentPresenter"
+						                  Content="{TemplateBinding Content}"
+						                  Padding="{TemplateBinding Padding}"
+						                  Foreground="{TemplateBinding Foreground}"
+						                  CornerRadius="{TemplateBinding CornerRadius}"
+						                  ContentTemplate="{TemplateBinding ContentTemplate}"
+						                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+						                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
 
 						<Canvas IsHitTestVisible="False"
 								VerticalAlignment="Stretch"

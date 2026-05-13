@@ -1,0 +1,132 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="using:System"
+                    xmlns:wc="using:WonderLab.UI.Controls"
+                    xmlns:mi="using:Material.Icons.Avalonia"
+                    x:ClassModifier="internal">
+    <Design.PreviewWith>
+        <Border CornerRadius="16" Margin="20" ClipToBounds="True">
+            <StackPanel Width="800" Spacing="3">
+                <wc:SettingsCardItem Header="Header 1" IconKind="Phone">
+                    <ToggleSwitch/>
+                </wc:SettingsCardItem>
+                
+                <wc:SettingsCardItem Header="Header 2" IconKind="People">
+                    <ToggleSwitch/>
+                </wc:SettingsCardItem>
+                                
+                <wc:SettingsCardItem Header="Header 3" IconKind="Phone">
+                    <ToggleSwitch/>
+                </wc:SettingsCardItem>
+
+                <ComboBox SelectedIndex="1"
+                          PlaceholderText="ComboBox Header 1"
+                          Theme="{DynamicResource SettingsCardItemComboBoxTheme}">
+                    <ComboBoxItem Content="Content 1"/>
+			        <ComboBoxItem Content="Content 2"/>
+			        <ComboBoxItem Content="Content 3"/>
+                </ComboBox>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+    
+    <ControlTheme TargetType="ComboBox" x:Key="SettingsCardItemComboBoxTheme">
+        <Setter Property="Padding" Value="16"/>
+        <Setter Property="MinHeight" Value="56"/>
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}"/>
+        <Setter Property="Foreground" Value="{DynamicResource SettingsCardItemDefaultForegroundBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource SettingsCardItemDefaultBackgroundBrush}"/>
+        <Setter Property="PlaceholderForeground" Value="{DynamicResource SettingsCardItemDefaultForegroundBrush}"/>
+		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+
+        <Setter Property="Template">
+			<ControlTemplate>
+				<DataValidationErrors>
+                    <Panel>
+                        <wc:RippleControl Name="PART_LayoutRippleControl" 
+                                          Background="{TemplateBinding Background}"
+                                          CornerRadius="{TemplateBinding CornerRadius}">
+                            <Grid ColumnDefinitions="* auto auto"
+                                  Margin="{TemplateBinding Padding}">
+                                <TextBlock Classes="TitleSmall"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Left"
+                                           Text="{TemplateBinding PlaceholderText}"
+                                           Foreground="{TemplateBinding PlaceholderForeground}"
+                                           Grid.Column="0"/>
+
+						        <ContentControl FontSize="14"
+                                                FontWeight="Medium"
+                                                Name="ContentPresenter"
+                                                Content="{TemplateBinding SelectionBoxItem}"
+						        				ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+						        				VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+						        				HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+						        				Grid.Column="1"/>
+
+                                <mi:MaterialIcon IconSize="20"
+                                                 Margin="8 0 0 0"
+                                                 Name="PART_MaterialIcon"
+                                                 VerticalAlignment="Center"
+                                                 Kind="UnfoldMoreHorizontal"
+                                                 Grid.Column="2"/>
+                            </Grid>
+                        </wc:RippleControl>
+                        
+                        <Border Opacity="0"
+					    		IsHitTestVisible="False"
+					    		VerticalAlignment="Stretch"
+					    		HorizontalAlignment="Stretch"
+					    		Name="PART_PointerOverBorder"
+					    		Background="{DynamicResource ButtonDefaultPointerOverBackgroundBrush}">
+					    	<Border.Transitions>
+					    		<Transitions>
+					    			<DoubleTransition Property="Opacity"
+					    							  Duration="0:0:.1"/>
+					    		</Transitions>
+					    	</Border.Transitions>
+                        </Border>
+
+                        <Popup Name="PART_Popup"
+                               InheritsTransform="True"
+                               IsLightDismissEnabled="True"
+                               WindowManagerAddShadowHint="False"
+                               PlacementTarget="PART_LayoutRippleControl"
+                               MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                               IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
+                               MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}">
+<!--                            <Border Name="PopupBorder"
+                                    HorizontalAlignment="Stretch"
+                                    Background="{DynamicResource ComboBoxDropDownBackground}"
+                                    BorderBrush="{DynamicResource ComboBoxDropDownBorderBrush}"
+                                    BorderThickness="{DynamicResource ComboBoxDropdownBorderThickness}"
+                                    Padding="{DynamicResource ComboBoxDropdownBorderPadding}"
+                                    CornerRadius="{DynamicResource OverlayCornerRadius}">
+                            </Border>
+                            -->
+                                <ScrollViewer IsScrollChainingEnabled="False"
+                                              IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
+                                              VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                              HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}">
+                                    <ItemsPresenter Name="PART_ItemsPresenter"
+                                                    ItemsPanel="{TemplateBinding ItemsPanel}"
+                                                    Margin="{DynamicResource ComboBoxDropdownContentMargin}"/>
+                                </ScrollViewer>
+                        </Popup>
+                    </Panel>
+                </DataValidationErrors>
+            </ControlTemplate>
+        </Setter>
+
+		<Style Selector="^:pointerover /template/ Border#PART_PointerOverBorder">
+			<Setter Property="Opacity" Value="1"/>
+		</Style>
+
+        <Style Selector="^:dropdownopen /template/ mi|MaterialIcon#PART_MaterialIcon">
+			<Setter Property="Kind" Value="UnfoldLessHorizontal"/>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

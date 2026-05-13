@@ -1,0 +1,74 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wc="using:WonderLab.UI.Controls">
+  <Design.PreviewWith>
+    <Border Padding="20">
+      <Border>
+        <StackPanel HorizontalAlignment="Stretch">
+          <ComboBoxItem>Item 1</ComboBoxItem>
+          <ComboBoxItem>Item 2 long</ComboBoxItem>
+          <ComboBoxItem IsSelected="True">Item 3</ComboBoxItem>
+          <ComboBoxItem IsEnabled="False">Item 4</ComboBoxItem>
+          <ComboBoxItem IsSelected="True" IsEnabled="False">Item 5</ComboBoxItem>
+        </StackPanel>
+      </Border>
+    </Border>
+  </Design.PreviewWith>
+    
+    <ControlTheme x:Key="{x:Type ComboBoxItem}" TargetType="ComboBoxItem">
+      <Setter Property="FontSize" Value="14"/>
+      <Setter Property="Padding" Value="16 10"/>
+      <Setter Property="FontWeight" Value="Regular"/>
+      <Setter Property="VerticalContentAlignment" Value="Center"/>
+      <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+      <Setter Property="Background" Value="{DynamicResource ComboBoxItemDefaultBackgroundBrush}"/>
+      <Setter Property="Foreground" Value="{DynamicResource ComboBoxItemDefaultForegroundBrush}"/>
+      <Setter Property="Template">
+          <ControlTemplate>
+              <Panel>
+                  <wc:RippleControl Name="PART_RippleControl"
+                                    Content="{TemplateBinding Content}"
+                                    Padding="{TemplateBinding Padding}"
+                                    FontSize="{TemplateBinding FontSize}"
+                                    FontWeight="{TemplateBinding FontWeight}"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    CornerRadius="{TemplateBinding CornerRadius}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+
+                  <Border Opacity="0"
+                          IsHitTestVisible="False"
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Stretch"
+                          Background="{DynamicResource ComboBoxItemStatelayerDefaultBackgroundBrush}">
+                      <Border.Transitions>
+                          <Transitions>
+                              <DoubleTransition Property="Opacity"
+                                                Duration="0:0:.1"/>
+                          </Transitions>
+                      </Border.Transitions>
+                  </Border>
+              </Panel>
+          </ControlTemplate>
+      </Setter>
+      
+      <Style Selector="^:pointerover /template/ Border">
+          <Setter Property="Opacity" Value="1" />
+      </Style>
+      
+      <Style Selector="^:selected">
+          <Style Selector="^ /template/ wc|RippleControl">
+              <Setter Property="Background" Value="{DynamicResource ComboBoxItemSelectedBackgroundBrush}" />
+              <Setter Property="Foreground" Value="{DynamicResource ComboBoxItemSelectedForegroundBrush}" />
+          </Style>
+        
+          <Style Selector="^:pointerover /template/ Border">
+              <Setter Property="Opacity" Value="1" />
+          </Style>
+      </Style>
+    </ControlTheme>
+</ResourceDictionary>

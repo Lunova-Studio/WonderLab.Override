@@ -25,7 +25,8 @@
         <TextBlock Margin="16 0 0 0"
                    Classes="TitleLarge"
                    VerticalAlignment="Center"
-                   Text="Launch" Foreground="{DynamicResource AppTitleBarForegroundBrush}"
+                   Text="Launch"
+                   Foreground="{DynamicResource AppTitleBarForegroundBrush}"
                    Grid.Row="0"
                    Grid.Column="1"/>
         
@@ -35,8 +36,9 @@
                       Grid.Column="0"
                       Grid.ColumnSpan="2">
             <StackPanel>
-                <TextBlock Margin="8 0 0 8"
-                           Classes="TitleSmall" Foreground="{DynamicResource AppTitleBarForegroundBrush}"
+                <TextBlock Margin="10 0 0 8"
+                           Classes="TitleSmall"
+                           Foreground="{DynamicResource AppTitleBarForegroundBrush}"
                            Text="Launch settings"/>
 
                 <Border ClipToBounds="True"
@@ -44,7 +46,7 @@
                         CornerRadius="{StaticResource MaxCornerRadius}">
                     <StackPanel Spacing="3">
                         <wc:SettingsCardItem Header="Header">
-                            <ToggleSwitch OffContent="WIP"/>
+                            <TextBox/>
                         </wc:SettingsCardItem>
 
 
@@ -54,8 +56,9 @@
                     </StackPanel>
                 </Border>
                 
-                <TextBlock Margin="8 024 0 8"
-                           Classes="TitleSmall" Foreground="{DynamicResource AppTitleBarForegroundBrush}"
+                <TextBlock Margin="10 24 0 8"
+                           Classes="TitleSmall"
+                           Foreground="{DynamicResource AppTitleBarForegroundBrush}"
                            Text="Launcher behavior"/>
 
                 <Border ClipToBounds="True"

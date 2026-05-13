@@ -3,7 +3,7 @@
              xmlns:ma="using:Monet.Avalonia"
              xmlns:mi="using:Material.Icons.Avalonia"
              x:Class="WonderLab.App"
-             RequestedThemeVariant="Default">
+             RequestedThemeVariant="Dark">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
   
     <Application.Styles>
@@ -29,15 +29,20 @@
                 <ResourceInclude Source="/UI/Themes/ButtonTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/SliderTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/WindowTheme.axaml"/>
+                <ResourceInclude Source="/UI/Themes/TextBoxTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/ListBoxTheme.axaml"/>
+                <ResourceInclude Source="/UI/Themes/ComboBoxTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/TextBlockTheme.axaml"/>
+                <ResourceInclude Source="/UI/Themes/PopupRootTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/RadioButtonTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/ContentPageTheme.axaml"/>
+                <ResourceInclude Source="/UI/Themes/ComboBoxItemTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/ToggleSwitchTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/RippleControlTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/NavigationItemTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/NavigationRailTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/NavigationPageTheme.axaml"/>
+                <ResourceInclude Source="/UI/Themes/FlyoutPresenterTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/SettingsCardItemTheme.axaml"/>
                 <ResourceInclude Source="/UI/Themes/WindowDrawnDecorationsTheme.axaml"/>
             </ResourceDictionary.MergedDictionaries>

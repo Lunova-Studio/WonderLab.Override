@@ -8,11 +8,14 @@
         <Setter Property="Template">
             <ControlTemplate>
                 <Panel>
-                    <Border Name="PART_TransparencyFallback" IsHitTestVisible="False" />
+                    <Border IsHitTestVisible="False"
+                            Name="PART_TransparencyFallback"/>
                     
-                    <Border Background="{TemplateBinding Background}" IsHitTestVisible="False" />
+                    <Border IsHitTestVisible="False"
+                            Background="{TemplateBinding Background}"/>
                     
-                    <Panel Background="Transparent" Margin="0"/>
+                    <Panel Background="Transparent"
+                           Margin="{TemplateBinding WindowDecorationMargin}"/>
 
                     <VisualLayerManager Name="PART_VisualLayerManager">
                         <ContentPresenter Name="PART_ContentPresenter"
