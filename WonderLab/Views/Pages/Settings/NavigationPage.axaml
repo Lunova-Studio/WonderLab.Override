@@ -19,8 +19,8 @@
                     CornerRadius="{StaticResource MaxCornerRadius}">
                 <StackPanel Spacing="3">
                     <wc:SettingsCardItem IconKind="GamepadVariant"
-                                         CommandParameter="Launch"
                                          Header="Launch"
+                                         CommandParameter="Launch"
                                          Content="Configure game launch settings &amp; parameters"
                                          Command="{Binding NavigateCommand}"
                                          BorderBrush="{DynamicResource PrimaryBrush}"
@@ -28,8 +28,10 @@
                                          Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
                     
                     <wc:SettingsCardItem IconKind="Coffee"
+                                         CommandParameter="Java"
                                          Header="Java Virtual Machine"
                                          Content="Manage JVM settings &amp; memory allocation"
+                                         Command="{Binding NavigateCommand}"
                                          BorderBrush="{DynamicResource PrimaryBrush}"
                                          IconForeground="{DynamicResource OnPrimaryBrush}"
                                          Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>

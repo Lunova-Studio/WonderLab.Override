@@ -77,6 +77,7 @@ public partial class App : Application {
 
         //Settings
         pages.Register<NavigationPage, NavigationPageViewModel>();
+        pages.Register<JavaSettingsPage, JavaSettingsPageViewModel>();
         pages.Register<LaunchSettingsPage, LaunchSettingsPageViewModel>();
 
         var appHost = builder.Build();

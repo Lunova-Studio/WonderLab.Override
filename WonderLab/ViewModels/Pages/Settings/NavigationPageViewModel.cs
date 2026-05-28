@@ -24,6 +24,9 @@ public sealed partial class NavigationPageViewModel : ViewModelBase {
                 case "Launch":
                     _ = _navigationService.NavigateToAsync<LaunchSettingsPageViewModel>();
                     break;
+                case "Java":
+                    _ = _navigationService.NavigateToAsync<JavaSettingsPageViewModel>();
+                    break;
                 default:
                     break;
             }

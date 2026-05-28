@@ -44,6 +44,7 @@
 
     <SolidColorBrush x:Key="SettingsCardItemDefaultForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
     <SolidColorBrush x:Key="SettingsCardItemDefaultBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
+    <SolidColorBrush x:Key="SettingsCardItemSubtitleDefaultForegroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
 
     <SolidColorBrush x:Key="ToggleSwitchTrackDefaultBorderBrush" Color="{DynamicResource OutlineColor}"/>
     <SolidColorBrush x:Key="ToggleSwitchTrackDefaultBackgroundBrush" Color="{DynamicResource SurfaceContainerHighestColor}"/>
@@ -63,8 +64,11 @@
     <SolidColorBrush x:Key="ToggleSwitchHandleSelectedPointerOverBackgroundBrush" Color="{DynamicResource PrimaryContainerColor}"/>
 
     <SolidColorBrush x:Key="SliderHandleDefaultBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="SliderHandleDisabledBackgroundBrush" Color="{DynamicResource OnSurfaceColor}" Opacity="0.38"/>
     <SolidColorBrush x:Key="SliderActiveTrackDefaultBackgroundBrush" Color="{DynamicResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="SliderActiveTrackDisabledBackgroundBrush" Color="{DynamicResource OnSurfaceColor}" Opacity="0.38"/>
     <SolidColorBrush x:Key="SliderInactiveTrackDefaultBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
+    <SolidColorBrush x:Key="SliderInactiveTrackDisabledBackgroundBrush" Color="{DynamicResource OnSurfaceColor}" Opacity="0.12"/>
 
     <SolidColorBrush x:Key="PopupRootDefaultShadowBrush" Color="{DynamicResource ShadowColor}"/>
     <SolidColorBrush x:Key="PopupRootDefaultBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>

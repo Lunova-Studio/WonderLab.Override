@@ -5,9 +5,10 @@
              xmlns:wc="using:WonderLab.UI.Controls"
              xmlns:mi="using:Material.Icons.Avalonia"
              xmlns:vm="using:WonderLab.ViewModels.Pages.Settings"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="850"
-             x:DataType="vm:LaunchSettingsPageViewModel"
-             x:Class="WonderLab.Views.Pages.Settings.LaunchSettingsPage">
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:DataType="vm:JavaSettingsPageViewModel"
+             x:Class="WonderLab.JavaSettingsPage">
+    
     <Grid Margin="0 16 0 13"
           RowDefinitions="auto *"
           ColumnDefinitions="auto *">
@@ -25,11 +26,11 @@
         <TextBlock Margin="16 0 0 0"
                    Classes="TitleLarge"
                    VerticalAlignment="Center"
-                   Text="Launch"
+                   Text="Java"
                    Foreground="{DynamicResource AppTitleBarForegroundBrush}"
                    Grid.Row="0"
                    Grid.Column="1"/>
-        
+                
         <ScrollViewer Margin="0 16 0 0"
                       Padding="24 0 24 0"
                       Grid.Row="1"
@@ -39,47 +40,60 @@
                 <TextBlock Margin="10 0 0 8"
                            Classes="TitleSmall"
                            Foreground="{DynamicResource AppTitleBarForegroundBrush}"
-                           Text="Launch settings"/>
-
+                           Text="Java settings"/>       
+                
                 <Border ClipToBounds="True"
                         VerticalAlignment="Top"
                         CornerRadius="{StaticResource MaxCornerRadius}">
                     <StackPanel Spacing="3">
-                        <wc:SettingsCardItem Header="Version Isolation">
+                        <wc:SettingsCardItem Header="Automatically select Java">
                             <ToggleSwitch/>
                         </wc:SettingsCardItem>
-
-                        <ComboBox PlaceholderText="Process Priority"
-                                  Theme="{StaticResource SettingsCardItemComboBoxTheme}"/>
-                        
-                        
-                        <wc:SettingsCardItem Header="Fullscreen Mode">
-                            <ToggleSwitch/>
-                        </wc:SettingsCardItem>
-
-                        <ComboBox PlaceholderText="Game Window Resolution"
-                                  Theme="{StaticResource SettingsCardItemComboBoxTheme}"/>
-
                     </StackPanel>
                 </Border>
-                
+
                 <TextBlock Margin="10 24 0 8"
                            Classes="TitleSmall"
                            Foreground="{DynamicResource AppTitleBarForegroundBrush}"
-                           Text="Launcher behavior"/>
-
+                           Text="RAM settings (Auto Configure RAM)"/>
+                                
                 <Border ClipToBounds="True"
                         VerticalAlignment="Top"
                         CornerRadius="{StaticResource MaxCornerRadius}">
                     <StackPanel Spacing="3">
+                        <wc:SettingsCardItem Header="Automatically allocate memory">
+                            <ToggleSwitch/>
+                        </wc:SettingsCardItem>
                         
-                        <ComboBox PlaceholderText="Launcher Visibility"
-                                  Theme="{StaticResource SettingsCardItemComboBoxTheme}"/>
-                        <wc:SettingsCardItem Header="Show Logs">
-                            <ToggleSwitch />
+                        <wc:SettingsCardItem Header="Perform memory optimization before launch">
+                            <ToggleSwitch/>
+                        </wc:SettingsCardItem>
+                        
+                        <wc:SettingsCardItem IconKind="Phone"
+                                             Header="Manually allocate memory"
+                                             Theme="{DynamicResource VerticalSettingsCardItemTheme}">
+                            <Slider Value="100" IsEnabled="False"/>
                         </wc:SettingsCardItem>
                     </StackPanel>
                 </Border>
+
+                <TextBlock Margin="10 24 0 8"
+                           Classes="TitleSmall"
+                           Foreground="{DynamicResource AppTitleBarForegroundBrush}"
+                           Text="Java List"/>
+
+                <ListBox ClipToBounds="True"
+                         CornerRadius="{StaticResource MaxCornerRadius}">
+                    <ListBox.ItemsPanel>
+						<ItemsPanelTemplate>
+							<StackPanel Spacing="3"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+
+					<ListBoxItem/>
+					<ListBoxItem/>
+					<ListBoxItem/>
+                </ListBox>
             </StackPanel>
         </ScrollViewer>
     </Grid>

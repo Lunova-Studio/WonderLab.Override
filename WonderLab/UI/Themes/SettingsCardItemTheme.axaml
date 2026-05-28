@@ -194,16 +194,16 @@
 						<ContentPresenter FontSize="14"
                                           FontWeight="Medium"
                                           Name="PART_ContentPresenter"
-                                          Foreground="{TemplateBinding Foreground}"
 										  Content="{TemplateBinding Content}"
+                                          Foreground="{DynamicResource SettingsCardItemSubtitleDefaultForegroundBrush}"
                                           Grid.Row="1"
 										  Grid.Column="1"/>
                         
                         <mi:MaterialIcon IconSize="20"
                                          Kind="ChevronRight"
-                                         Foreground="{TemplateBinding Foreground}"
                                          Width="{DynamicResource SettingsCardItemIconSize}"
                                          Height="{DynamicResource SettingsCardItemIconSize}"
+                                         Foreground="{DynamicResource SettingsCardItemSubtitleDefaultForegroundBrush}"
                                          Grid.Row="0"
                                          Grid.Column="2"
                                          Grid.RowSpan="2"/>

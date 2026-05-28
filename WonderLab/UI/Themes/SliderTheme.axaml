@@ -4,6 +4,7 @@
 		<Border Padding="20">
 			<StackPanel Width="300" Spacing="16">
 				<Slider Value="75"/>
+				<Slider Value="75" IsEnabled="False"/>
 				<Slider Value="25" Foreground="green" Background="red"/>
             </StackPanel>
         </Border>
@@ -26,10 +27,7 @@
                   x:Key="{x:Type Slider}"/>
 
     <!--Xsmall-->
-    <ControlTheme TargetType="Slider" x:Key="SliderXSTheme">
-        <Setter Property="Foreground" Value="{DynamicResource SliderActiveTrackDefaultBackgroundBrush}"/>
-        <Setter Property="Background" Value="{DynamicResource SliderInactiveTrackDefaultBackgroundBrush}"/>
-
+    <ControlTheme TargetType="Slider" BasedOn="{StaticResource SliderBaseTheme}" x:Key="SliderXSTheme">
 		<Setter Property="Template">
             <ControlTemplate>
 				<DataValidationErrors>
@@ -37,61 +35,78 @@
                             BorderBrush="{TemplateBinding BorderBrush}"
                             CornerRadius="{TemplateBinding CornerRadius}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                <Grid Name="PART_SliderContainer"
-                      Margin="{TemplateBinding Padding}"
-                      Background="{DynamicResource SliderContainerBackground}">
-                    <Grid.Styles>
-                        <Style Selector="TickBar">
-                            <Setter Property="ReservedSpace" Value="{Binding #PART_Track.Thumb.Bounds}" />
-                        </Style>
-                    </Grid.Styles>
-                    
-                    <Grid Name="HorizontalTemplate"
-                          ColumnDefinitions="auto auto *"
-                          MinHeight="{DynamicResource SliderHorizontalHeight}">
-                        <Track Name="PART_Track"
-                               Orientation="Horizontal"
-                               Minimum="{TemplateBinding Minimum}"
-                               Maximum="{TemplateBinding Maximum}"
-                               Value="{TemplateBinding Value, Mode=TwoWay}"
-                               IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
-                               Grid.Row="1"
-                               Grid.ColumnSpan="3">
-                            <Track.DecreaseButton>
-                                <RepeatButton Focusable="False"
-                                              Name="PART_DecreaseButton"
-                                              Background="{TemplateBinding Foreground}"
-                                              Height="{DynamicResource SliderXSTrackHeight}"
-                                              CornerRadius="{DynamicResource SliderXSActiveTrackCornerRadius}"
-                                              Theme="{StaticResource MaterialSliderHorizontalRepeatButtonTheme}"/>
-                            </Track.DecreaseButton>
-
-                            <Track.IncreaseButton>
-                                <RepeatButton Focusable="False"
-                                              Name="PART_IncreaseButton"
-                                              Background="{TemplateBinding Background}"
-                                              HorizontalContentAlignment="Right"
-                                              Height="{DynamicResource SliderXSTrackHeight}"
-                                              Theme="{StaticResource MaterialSliderHorizontalRepeatButtonTheme}"
-                                              CornerRadius="{DynamicResource SliderXSInactiveTrackCornerRadius}">
-                                    <Ellipse Margin="4 0" Height="4" Width="4" Fill="{TemplateBinding Foreground}"/>
-                                </RepeatButton>
-                            </Track.IncreaseButton>
-
-                            <Thumb Name="thumb"
-                                   Margin="0"
-                                   BorderThickness="0"
-                                   DataContext="{TemplateBinding Value}"
-                                   Padding="{DynamicResource SliderHandleHorizontalPadding}"
-                                   Theme="{StaticResource MaterialSliderHorizontalThumbTheme}"
-                                   Background="{DynamicResource SliderHandleDefaultBackgroundBrush}"/>
-                    </Track>
-                  </Grid>
-                </Grid>
-            </Border>
-          </DataValidationErrors>
+                        <Grid Name="PART_SliderContainer"
+                              Margin="{TemplateBinding Padding}"
+                              Background="{DynamicResource SliderContainerBackground}">
+                            <Grid.Styles>
+                                <Style Selector="TickBar">
+                                    <Setter Property="ReservedSpace" Value="{Binding #PART_Track.Thumb.Bounds}" />
+                                </Style>
+                            </Grid.Styles>
+                            
+                            <Grid Name="HorizontalTemplate"
+                                  ColumnDefinitions="auto auto *"
+                                  MinHeight="{DynamicResource SliderHorizontalHeight}">
+                                <Track Name="PART_Track"
+                                       Orientation="Horizontal"
+                                       Minimum="{TemplateBinding Minimum}"
+                                       Maximum="{TemplateBinding Maximum}"
+                                       Value="{TemplateBinding Value, Mode=TwoWay}"
+                                       IsDirectionReversed="{TemplateBinding IsDirectionReversed}"
+                                       Grid.Row="1"
+                                       Grid.ColumnSpan="3">
+                                    <Track.DecreaseButton>
+                                        <RepeatButton Focusable="False"
+                                                      Name="PART_DecreaseButton"
+                                                      Background="{TemplateBinding Foreground}"
+                                                      Height="{DynamicResource SliderXSTrackHeight}"
+                                                      CornerRadius="{DynamicResource SliderXSActiveTrackCornerRadius}"
+                                                      Theme="{StaticResource MaterialSliderHorizontalRepeatButtonTheme}"/>
+                                    </Track.DecreaseButton>
+                            
+                                    <Track.IncreaseButton>
+                                        <RepeatButton Focusable="False"
+                                                      Name="PART_IncreaseButton"
+                                                      HorizontalContentAlignment="Right"
+                                                      Background="{TemplateBinding Background}"
+                                                      Height="{DynamicResource SliderXSTrackHeight}"
+                                                      Theme="{StaticResource MaterialSliderHorizontalRepeatButtonTheme}"
+                                                      CornerRadius="{DynamicResource SliderXSInactiveTrackCornerRadius}"/>
+                                    </Track.IncreaseButton>
+                            
+                                    <Thumb Name="thumb"
+                                           Margin="0"
+                                           BorderThickness="0"
+                                           DataContext="{TemplateBinding Value}"
+                                           Padding="{DynamicResource SliderHandleHorizontalPadding}"
+                                           Theme="{StaticResource MaterialSliderHorizontalThumbTheme}"
+                                           Background="{DynamicResource SliderHandleDefaultBackgroundBrush}"/>
+                                </Track>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataValidationErrors>
             </ControlTemplate>
         </Setter>
+    </ControlTheme>
+
+    <ControlTheme TargetType="Slider" x:Key="SliderBaseTheme">
+        <Setter Property="Foreground" Value="{DynamicResource SliderActiveTrackDefaultBackgroundBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource SliderInactiveTrackDefaultBackgroundBrush}"/>
+
+        <Style Selector="^:disabled">
+            <Style Selector="^ /template/ RepeatButton#PART_DecreaseButton">
+                <Setter Property="Background" Value="{DynamicResource SliderActiveTrackDisabledBackgroundBrush}"/>
+            </Style>
+
+            <Style Selector="^ /template/ RepeatButton#PART_IncreaseButton">
+                <Setter Property="Background" Value="{DynamicResource SliderInactiveTrackDisabledBackgroundBrush}"/>
+            </Style>
+            
+            <Style Selector="^ /template/ Thumb#thumb">
+                <Setter Property="Background" Value="{DynamicResource SliderHandleDisabledBackgroundBrush}"/>
+            </Style>
+        </Style>
     </ControlTheme>
 
     <ControlTheme x:Key="MaterialSliderHorizontalRepeatButtonTheme" TargetType="RepeatButton">

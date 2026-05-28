@@ -1,0 +1,66 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wc="using:WonderLab.UI.Controls"
+                    xmlns:mi="using:Material.Icons.Avalonia">
+    <Design.PreviewWith>
+		<Border CornerRadius="16" ClipToBounds="True" Margin="20" Width="800" >
+			<StackPanel Spacing="4">
+				<ListBoxItem/>
+				<ListBoxItem/>
+				<ListBoxItem/>
+				<ListBoxItem IsSelected="True"/>
+            </StackPanel>
+        </Border>
+    </Design.PreviewWith>
+
+    <ControlTheme TargetType="ListBoxItem" x:Key="{x:Type ListBoxItem}">
+        <Setter Property="Padding" Value="16"/>
+        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}"/>
+        <Setter Property="Foreground" Value="{DynamicResource SettingsCardItemDefaultForegroundBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource SettingsCardItemDefaultBackgroundBrush}"/>
+
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Border Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <Grid ColumnSpacing="12"
+                          ColumnDefinitions="auto * auto">
+						<mi:MaterialIcon Margin="4"
+                                         Kind="CoffeeOutline"
+                                         Foreground="{TemplateBinding Foreground}"
+                                         Width="{DynamicResource SettingsCardItemIconSize}"
+                                         Height="{DynamicResource SettingsCardItemIconSize}"
+                                         Grid.Column="0"/>
+
+                        <Grid RowDefinitions="* auto" Grid.Column="1">
+                            <TextBlock Classes="TitleSmall"
+                                       Text="Java 114514"
+                                       VerticalAlignment="Center"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       Grid.Row="0"/>
+
+                            <Grid ColumnDefinitions="auto *" Grid.Row="1">
+                                <TextBlock Classes="TitleSmall"
+                                           Text="Selected - "
+                                           Foreground="{DynamicResource OnSurfaceVariantBrush}"
+                                           IsVisible="{TemplateBinding IsSelected}"
+                                           Grid.Row="1"/>
+
+                                <TextBlock Classes="TitleSmall"
+                                           Text="E:/Java"
+                                           Foreground="{DynamicResource OnSurfaceVariantBrush}"
+                                           Grid.Column="1"/>
+                            </Grid>
+
+                        </Grid>
+
+                        <Button FontSize="24" Content="{mi:MaterialIconTextExt DeleteOutline}" 
+                                Theme="{DynamicResource IconButtonTheme}"
+                                Grid.Column="2"/>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>
