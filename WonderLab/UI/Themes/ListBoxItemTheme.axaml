@@ -13,21 +13,22 @@
         </Border>
     </Design.PreviewWith>
 
-    <ControlTheme TargetType="ListBoxItem" x:Key="{x:Type ListBoxItem}">
-        <Setter Property="Padding" Value="16"/>
+    <ControlTheme TargetType="ListBoxItem" x:Key="JavaItemTheme">
+        <Setter Property="Padding" Value="16 12"/>
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}"/>
         <Setter Property="Foreground" Value="{DynamicResource SettingsCardItemDefaultForegroundBrush}"/>
         <Setter Property="Background" Value="{DynamicResource SettingsCardItemDefaultBackgroundBrush}"/>
 
 		<Setter Property="Template">
 			<ControlTemplate>
-				<Border Padding="{TemplateBinding Padding}"
+				<Border Padding="{TemplateBinding Padding}" 
                         Background="{TemplateBinding Background}"
                         CornerRadius="{TemplateBinding CornerRadius}">
                     <Grid ColumnSpacing="12"
                           ColumnDefinitions="auto * auto">
 						<mi:MaterialIcon Margin="4"
                                          Kind="CoffeeOutline"
+                                         Name="PART_MaterialIcon"
                                          Foreground="{TemplateBinding Foreground}"
                                          Width="{DynamicResource SettingsCardItemIconSize}"
                                          Height="{DynamicResource SettingsCardItemIconSize}"
@@ -44,8 +45,7 @@
                                 <TextBlock Classes="TitleSmall"
                                            Text="Selected - "
                                            Foreground="{DynamicResource OnSurfaceVariantBrush}"
-                                           IsVisible="{TemplateBinding IsSelected}"
-                                           Grid.Row="1"/>
+                                           IsVisible="{TemplateBinding IsSelected}"/>
 
                                 <TextBlock Classes="TitleSmall"
                                            Text="E:/Java"
@@ -62,5 +62,9 @@
                 </Border>
             </ControlTemplate>
         </Setter>
+        
+        <Style Selector="^:selected /template/ mi|MaterialIcon#PART_MaterialIcon">
+            <Setter Property="Foreground" Value="{DynamicResource ListBoxItemJavaItemSelectedForegroundBrush}"/>
+        </Style>
     </ControlTheme>
 </ResourceDictionary>

@@ -98,15 +98,6 @@
                                MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
                                MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}">
-<!--                            <Border Name="PopupBorder"
-                                    HorizontalAlignment="Stretch"
-                                    Background="{DynamicResource ComboBoxDropDownBackground}"
-                                    BorderBrush="{DynamicResource ComboBoxDropDownBorderBrush}"
-                                    BorderThickness="{DynamicResource ComboBoxDropdownBorderThickness}"
-                                    Padding="{DynamicResource ComboBoxDropdownBorderPadding}"
-                                    CornerRadius="{DynamicResource OverlayCornerRadius}">
-                            </Border>
-                            -->
                                 <ScrollViewer IsScrollChainingEnabled="False"
                                               IsDeferredScrollingEnabled="{TemplateBinding (ScrollViewer.IsDeferredScrollingEnabled)}"
                                               VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"

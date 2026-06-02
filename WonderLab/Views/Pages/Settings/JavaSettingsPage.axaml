@@ -55,7 +55,7 @@
                 <TextBlock Margin="10 24 0 8"
                            Classes="TitleSmall"
                            Foreground="{DynamicResource AppTitleBarForegroundBrush}"
-                           Text="RAM settings (Auto Configure RAM)"/>
+                           Text="RAM settings"/>
                                 
                 <Border ClipToBounds="True"
                         VerticalAlignment="Top"
@@ -83,7 +83,8 @@
                            Text="Java List"/>
 
                 <ListBox ClipToBounds="True"
-                         CornerRadius="{StaticResource MaxCornerRadius}">
+                         CornerRadius="{StaticResource MaxCornerRadius}"
+                         ItemContainerTheme="{StaticResource JavaItemTheme}">
                     <ListBox.ItemsPanel>
 						<ItemsPanelTemplate>
 							<StackPanel Spacing="3"/>

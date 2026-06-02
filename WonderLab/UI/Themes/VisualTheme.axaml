@@ -46,6 +46,8 @@
     <SolidColorBrush x:Key="SettingsCardItemDefaultBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
     <SolidColorBrush x:Key="SettingsCardItemSubtitleDefaultForegroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
 
+    <SolidColorBrush x:Key="ListBoxItemJavaItemSelectedForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
+    
     <SolidColorBrush x:Key="ToggleSwitchTrackDefaultBorderBrush" Color="{DynamicResource OutlineColor}"/>
     <SolidColorBrush x:Key="ToggleSwitchTrackDefaultBackgroundBrush" Color="{DynamicResource SurfaceContainerHighestColor}"/>
     <SolidColorBrush x:Key="ToggleSwitchTrackSelectedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
