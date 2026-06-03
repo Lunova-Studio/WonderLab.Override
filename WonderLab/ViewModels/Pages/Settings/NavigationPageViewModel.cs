@@ -19,16 +19,28 @@ public sealed partial class NavigationPageViewModel : ViewModelBase {
     private void Navigate(object index) {
         _logger.ZLogInformation($"Current page index: {index}");
 
-        if (index is string key)
-            switch (key) {
-                case "Launch":
-                    _ = _navigationService.NavigateToAsync<LaunchSettingsPageViewModel>();
-                    break;
-                case "Java":
-                    _ = _navigationService.NavigateToAsync<JavaSettingsPageViewModel>();
-                    break;
-                default:
-                    break;
-            }
+        if (index is not string key)
+            return;
+        
+        switch (key) {
+            case "Launch":
+                _ = _navigationService.NavigateToAsync<LaunchSettingsPageViewModel>();
+                break;
+            case "Java":
+                _ = _navigationService.NavigateToAsync<JavaSettingsPageViewModel>();
+                break;
+            case "Account":
+                _ = _navigationService.NavigateToAsync<AccountSettingsPageViewModel>();
+                break;
+            case "Network":
+                _ = _navigationService.NavigateToAsync<NetworkSettingsPageViewModel>();
+                break;
+            case "Appearance":
+                _ = _navigationService.NavigateToAsync<AppearanceSettingsPageViewModel>();
+                break;
+            case "About":
+                _ = _navigationService.NavigateToAsync<AboutPageViewModel>();
+                break;
+        }
     }
 }

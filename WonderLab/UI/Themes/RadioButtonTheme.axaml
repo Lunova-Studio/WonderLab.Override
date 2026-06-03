@@ -70,4 +70,93 @@
 			<Setter Property="RenderTransform" Value="scale(1)"/>
         </Style>
     </ControlTheme>
+    
+    <ControlTheme TargetType="RadioButton" x:Key="BasicRadioButtonTheme">
+		<Setter Property="RenderTransform" Value="none"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="Padding" Value="{DynamicResource ButtonDefaultPadding}"/>
+		<Setter Property="CornerRadius" Value="{DynamicResource MediumCornerRadius}"/>
+		<Setter Property="BorderBrush" Value="{DynamicResource ButtonDefaultBorderBrush}"/>
+		<Setter Property="Foreground" Value="{DynamicResource ButtonDefaultForegroundBrush}"/>
+		<Setter Property="Background" Value="{DynamicResource ButtonDefaultBackgroundBrush}"/>
+		
+		<Setter Property="Template">
+			<ControlTemplate>
+					<wc:RippleControl Width="{TemplateBinding Width}"
+									  Height="{TemplateBinding Height}"
+									  Background="{TemplateBinding Background}"
+									  BorderBrush="{TemplateBinding BorderBrush}"
+									  CornerRadius="{TemplateBinding CornerRadius}"
+									  BorderThickness="{TemplateBinding BorderThickness}"
+									  RenderTransform="{TemplateBinding RenderTransform}"
+									  RippleFill="{DynamicResource RippleEffectFillBrush}"
+									  RenderTransformOrigin="{TemplateBinding RenderTransformOrigin}">
+						<Panel>
+							<Border Opacity="0"
+							        RenderTransform="scale(0, 1)"
+							        IsHitTestVisible="False"
+							        Name="PART_CheckedBorder"
+							        UseLayoutRounding="False"
+							        VerticalAlignment="Stretch"
+							        HorizontalAlignment="Stretch"
+							        CornerRadius="{TemplateBinding CornerRadius}"
+							        Background="{DynamicResource RadioButtonCheckedBasicFillBrush}">
+								<Border.Transitions>
+									<Transitions>
+										<DoubleTransition Property="Opacity"
+										                  Duration="0:0:.1"/>
+										
+										<TransformOperationsTransition Duration="0:0:.25"
+										                               Easing="ExponentialEaseOut"
+										                               Property="RenderTransform"/>
+									</Transitions>
+								</Border.Transitions>
+							</Border>
+							
+							<Border Opacity="0"
+							        IsHitTestVisible="False"
+							        VerticalAlignment="Stretch"
+							        HorizontalAlignment="Stretch"
+							        Name="PART_PointerOverBorder"
+							        Background="{DynamicResource ButtonDefaultPointerOverBackgroundBrush}">
+								<Border.Transitions>
+									<Transitions>
+										<DoubleTransition Property="Opacity"
+														  Duration="0:0:.1"/>
+									</Transitions>
+								</Border.Transitions>
+							</Border>
+
+							<ContentPresenter RecognizesAccessKey="True"
+							                  IsHitTestVisible="False"
+							                  Name="PART_ContentPresenter"
+							                  Padding="{TemplateBinding Padding}"
+							                  Content="{TemplateBinding Content}"
+							                  Transitions="{TemplateBinding Transitions}"
+							                  ContentTemplate="{TemplateBinding ContentTemplate}"
+							                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+							                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+						</Panel>
+				</wc:RippleControl>
+			</ControlTemplate>
+		</Setter>
+				
+		<Style Selector="^:pointerover /template/ Border#PART_PointerOverBorder">
+			<Setter Property="Opacity" Value="1"/>
+		</Style>
+
+		<Style Selector="^:disabled /template/ ContentPresenter#PART_ContentPresenter">
+			<Setter Property="Opacity" Value="0.38"/>
+		</Style>
+		
+		<Style Selector="^:checked">
+			<Setter Property="Foreground" Value="{DynamicResource RadioButtonCheckedBasicForegroundBrush}"/>
+			
+			<Style Selector="^ /template/ Border#PART_CheckedBorder">
+				<Setter Property="Opacity" Value="1"/>
+				<Setter Property="RenderTransform" Value="scale(1)"/>
+			</Style>
+		</Style>
+	</ControlTheme>
 </ResourceDictionary>

@@ -48,7 +48,7 @@
                 
                 <wc:SettingsCardItem Header="Navigation Header 2" 
                                      IconKind="Phone"
-                                     Content="description" BorderBrush="red"
+                                     Content="description"
                                      Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
 
                 <wc:SettingsCardItem Header="Navigation Header 3" 
@@ -60,6 +60,16 @@
                                      IconKind="Phone"
                                      Content="description"
                                      Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
+                
+                <wc:SettingsCardItem Header="JumpTo Header 1" 
+                                     IconKind="Phone" 
+                                     Content="description"
+                                     Theme="{DynamicResource JumpToSettingsCardItemTheme}"/>
+                
+                <wc:SettingsCardItem Header="JumpTo Header 2" 
+                                     IconKind="Phone"
+                                     Content="description"
+                                     Theme="{DynamicResource JumpToSettingsCardItemTheme}"/>
             </StackPanel>
         </Border>
     </Design.PreviewWith>
@@ -83,18 +93,6 @@
                         CornerRadius="{TemplateBinding CornerRadius}">
                     <Grid ColumnSpacing="12"
                           ColumnDefinitions="* auto">
-                        <!--设置选项卡，不用图标-->
-                        <!--<Border Padding="4"
-                                VerticalAlignment="Center"
-                                Background="{TemplateBinding BorderBrush}"
-                                CornerRadius="{DynamicResource FullCornerRadius}">
-							<mi:MaterialIcon Kind="{TemplateBinding IconKind}"
-                                             IconSize="{TemplateBinding IconSize}" 
-                                             Foreground="{TemplateBinding Foreground}"
-                                             Width="{DynamicResource SettingsCardItemIconSize}"
-                                             Height="{DynamicResource SettingsCardItemIconSize}"/>
-                        </Border>-->
-
                         <TextBlock Classes="TitleSmall"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Left"
@@ -114,7 +112,7 @@
         </Setter>
     </ControlTheme>
 
-        <ControlTheme TargetType="wc:SettingsCardItem" x:Key="VerticalSettingsCardItemTheme">
+    <ControlTheme TargetType="wc:SettingsCardItem" x:Key="VerticalSettingsCardItemTheme">
         <Setter Property="Padding" Value="16"/>
         <Setter Property="IconSize" Value="15"/>
         <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}"/>
@@ -206,6 +204,58 @@
                                          Foreground="{DynamicResource SettingsCardItemSubtitleDefaultForegroundBrush}"
                                          Grid.Row="0"
                                          Grid.Column="2"
+                                         Grid.RowSpan="2"/>
+                    </Grid>
+                </Button>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+    
+     <ControlTheme TargetType="wc:SettingsCardItem" x:Key="JumpToSettingsCardItemTheme">
+        <Setter Property="Padding" Value="16 12"/>
+        <Setter Property="IconSize" Value="20"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}"/>
+        <Setter Property="Foreground" Value="{DynamicResource SettingsCardItemDefaultForegroundBrush}"/>
+        <Setter Property="Background" Value="{DynamicResource SettingsCardItemDefaultBackgroundBrush}"/>
+
+		<Setter Property="Template">
+			<ControlTemplate>
+                <Button Height="64"
+                        Command="{TemplateBinding Command}"
+                        CommandParameter="{TemplateBinding CommandParameter}"
+                        Padding="{TemplateBinding Padding}"
+                        Background="{TemplateBinding Background}"
+                        CornerRadius="{TemplateBinding CornerRadius}"
+                        VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                        HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}">
+                    <Grid ColumnSpacing="12"
+                          RowDefinitions="* auto"
+                          ColumnDefinitions="* auto">
+                        <TextBlock Classes="TitleSmall"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"
+                                   Text="{TemplateBinding Header}"
+                                   Foreground="{TemplateBinding Foreground}"
+                                   Grid.Row="0"
+                                   Grid.Column="0"/>
+                        
+						<ContentPresenter FontSize="14"
+                                          FontWeight="Medium"
+                                          Name="PART_ContentPresenter"
+										  Content="{TemplateBinding Content}"
+                                          IsVisible="{TemplateBinding Content, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                          Foreground="{DynamicResource SettingsCardItemSubtitleDefaultForegroundBrush}"
+                                          Grid.Row="1"
+										  Grid.Column="0"/>
+                        
+                        <mi:MaterialIcon IconSize="20"
+                                         Kind="ChevronRight"
+                                         Width="{DynamicResource SettingsCardItemIconSize}"
+                                         Height="{DynamicResource SettingsCardItemIconSize}"
+                                         Foreground="{DynamicResource SettingsCardItemSubtitleDefaultForegroundBrush}"
+                                         Grid.Row="0"
+                                         Grid.Column="1"
                                          Grid.RowSpan="2"/>
                     </Grid>
                 </Button>

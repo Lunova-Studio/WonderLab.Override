@@ -26,7 +26,7 @@
                                          BorderBrush="{DynamicResource PrimaryBrush}"
                                          IconForeground="{DynamicResource OnPrimaryBrush}"
                                          Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
-                    
+
                     <wc:SettingsCardItem IconKind="Coffee"
                                          CommandParameter="Java"
                                          Header="Java Virtual Machine"
@@ -37,21 +37,27 @@
                                          Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
                     
                     <wc:SettingsCardItem IconKind="Account"
-                                         Header="Account"
+                                         Header="Account"                                         
+                                         CommandParameter="Account"
+                                         Command="{Binding NavigateCommand}"
                                          Content="Sign in &amp; manage Minecraft accounts"
                                          BorderBrush="{DynamicResource PrimaryBrush}"
                                          IconForeground="{DynamicResource OnPrimaryBrush}"
                                          Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
-                    
+
                     <wc:SettingsCardItem IconKind="Web"
                                          Header="Network"
+                                         CommandParameter="Network"
                                          Content="Configure proxy &amp; connection settings"
+                                         Command="{Binding NavigateCommand}"
                                          BorderBrush="{DynamicResource SecondaryBrush}"
                                          IconForeground="{DynamicResource OnSecondaryBrush}"
                                          Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
                     
                     <wc:SettingsCardItem IconKind="Palette"
                                          Header="Appearance"
+                                         CommandParameter="Appearance"
+                                         Command="{Binding NavigateCommand}"
                                          Content="Customize app theme &amp; appearance"
                                          BorderBrush="{DynamicResource SecondaryBrush}"
                                          IconForeground="{DynamicResource OnSecondaryBrush}"
@@ -59,9 +65,12 @@
                     
                     <wc:SettingsCardItem IconKind="Apps"
                                          Header="About"
+                                         CommandParameter="About"
                                          Content="View version &amp; application information"
+                                         Command="{Binding NavigateCommand}"
                                          BorderBrush="{DynamicResource TertiaryBrush}"
                                          IconForeground="{DynamicResource OnTertiaryBrush}"
+                                         
                                          Theme="{DynamicResource NavigationSettingsCardItemTheme}"/>
                 </StackPanel>
             </Border>

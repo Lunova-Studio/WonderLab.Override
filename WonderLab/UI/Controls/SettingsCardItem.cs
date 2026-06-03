@@ -1,9 +1,11 @@
+using System.Diagnostics;
 using Avalonia.Controls;
 using Avalonia.Controls.Metadata;
 using Avalonia.Controls.Mixins;
 using Avalonia.Media;
 using Material.Icons;
 using System.Windows.Input;
+using Avalonia;
 
 namespace WonderLab.UI.Controls;
 

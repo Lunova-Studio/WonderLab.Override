@@ -76,10 +76,14 @@ public partial class App : Application {
         pages.Register<MinecraftPage, MinecraftPageViewModel>();
 
         //Settings
+        pages.Register<AboutPage, AboutPageViewModel>();
         pages.Register<NavigationPage, NavigationPageViewModel>();
         pages.Register<JavaSettingsPage, JavaSettingsPageViewModel>();
         pages.Register<LaunchSettingsPage, LaunchSettingsPageViewModel>();
-
+        pages.Register<AccountSettingsPage, AccountSettingsPageViewModel>();
+        pages.Register<NetworkSettingsPage, NetworkSettingsPageViewModel>();
+        pages.Register<AppearanceSettingsPage, AppearanceSettingsPageViewModel>();
+        
         var appHost = builder.Build();
         ServiceProvider = appHost.Services;
 
