@@ -9,6 +9,7 @@ using Monet.Avalonia;
 using Monet.Shared.Enums;
 using System;
 using System.IO;
+using WonderLab.Services;
 using WonderLab.Utilities;
 using WonderLab.Services.Navigation;
 using WonderLab.ViewModels.Pages;
@@ -28,7 +29,7 @@ public partial class App : Application {
         AvaloniaXamlLoader.Load(this);
         
         Monet = (Styles[0] as MonetColors)!;
-        Monet.BuildScheme(Variant.TonalSpot, Color.Parse("#ffde3f")); // #769cdf
+        Monet.BuildScheme(Variant.TonalSpot, Color.Parse("#ffde3f")); // #769cdf 4294958655
     }
 
     public override void RegisterServices() {
@@ -36,9 +37,12 @@ public partial class App : Application {
 
         _ = ConfigureIoC().RunAsync();
     }
-
+    
     public override void OnFrameworkInitializationCompleted() {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop) {
+            desktop.Exit += OnExit;
+            desktop.Startup += OnStartup;
+            
             var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
             var mainWindowVM = ServiceProvider.GetRequiredService<MainWindowViewModel>();
 
@@ -49,15 +53,39 @@ public partial class App : Application {
         base.OnFrameworkInitializationCompleted();
     }
 
+    private static async void OnExit(object sender, ControlledApplicationLifetimeExitEventArgs e) {
+        var logger = ServiceProvider.GetService<ILogger<Application>>();
+        
+        try {
+            await ServiceProvider.GetService<SettingsService>()
+                .SaveAsync();
+        }
+        catch (Exception ex) {
+            logger.LogError(ex, "An error occured during saving");
+        }
+    }
+
+    private static async void OnStartup(object sender, ControlledApplicationLifetimeStartupEventArgs e) {
+        var logger = ServiceProvider.GetService<ILogger<Application>>();
+        
+        try {
+            await ServiceProvider.GetService<SettingsService>()
+                .LoadAsync();
+        }
+        catch (Exception ex) {
+            logger.LogError(ex, "An error occured during loading");
+        }
+    }
+    
     private static IHost ConfigureIoC() {
         var builder = new AvaloniaHostBuilder();
         var services = builder.Services;
         
-        //Logger
+        // Logger
         services.AddLogging(configure => {
             configure.AddZLoggerConsole();
             configure.AddZLoggerRollingFile(logConfigure => {
-                logConfigure.FilePathSelector = (dt, index) => Path.Combine(PathUtil.GetLogsFolderPath(), "logs", $"{dt:yyyy-MM-dd}_{index}.log");
+                logConfigure.FilePathSelector = (dt, index) => Path.Combine(PathUtil.GetLogsDirectory(), $"{dt:yyyy-MM-dd}_{index}.log");
                 logConfigure.UsePlainTextFormatter(formatter => {
                     formatter.SetPrefixFormatter($"[{0}] [{1:short}] ({2}): ", (in template, in info) => template.Format(info.Timestamp, info.LogLevel, info.Category));
                     formatter.SetExceptionFormatter((writer, ex) => Utf8StringInterpolation.Utf8String.Format(writer, $"{ex.Message}"));
@@ -67,7 +95,10 @@ public partial class App : Application {
             configure.SetMinimumLevel(LogLevel.Debug);
         });
 
-        //View
+        // Service
+        services.AddSingleton<SettingsService>();
+        
+        // View
         services.AddSingleton<MainWindow>();
         services.AddSingleton<MainWindowViewModel>();
 
@@ -75,7 +106,7 @@ public partial class App : Application {
         pages.Register<HomePage, HomePageViewModel>();
         pages.Register<MinecraftPage, MinecraftPageViewModel>();
 
-        //Settings
+        // Settings
         pages.Register<AboutPage, AboutPageViewModel>();
         pages.Register<NavigationPage, NavigationPageViewModel>();
         pages.Register<JavaSettingsPage, JavaSettingsPageViewModel>();

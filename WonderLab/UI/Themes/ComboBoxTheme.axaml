@@ -94,7 +94,7 @@
                                InheritsTransform="True"
                                IsLightDismissEnabled="True"
                                WindowManagerAddShadowHint="False"
-                               PlacementTarget="PART_LayoutRippleControl"
+                               PlacementTarget="PART_PointerOverBorder"
                                MaxHeight="{TemplateBinding MaxDropDownHeight}"
                                IsOpen="{TemplateBinding IsDropDownOpen, Mode=TwoWay}"
                                MinWidth="{Binding Bounds.Width, RelativeSource={RelativeSource TemplatedParent}}">

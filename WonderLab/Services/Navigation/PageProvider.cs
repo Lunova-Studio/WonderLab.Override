@@ -6,8 +6,8 @@ using System.Collections.Generic;
 namespace WonderLab.Services.Navigation;
 
 public abstract class PageProvider<TPage> {
-    protected readonly IServiceProvider _services;
-    protected readonly IReadOnlyDictionary<string, PageDescriptor> _registeredPages;
+    private readonly IServiceProvider _services;
+    private readonly IReadOnlyDictionary<string, PageDescriptor> _registeredPages;
 
     protected PageProvider(
         IReadOnlyDictionary<string, PageDescriptor> registeredPages,
@@ -31,10 +31,10 @@ public abstract class PageProvider<TPage> {
 
     public object GetViewModel(string key) {
         var descriptor = _registeredPages[key];
-        if (descriptor.ViewModelType is null)
-            return null;
-
-        return _services.GetRequiredService(descriptor.ViewModelType);
+        
+        return descriptor.ViewModelType is null 
+            ? null 
+            : _services.GetRequiredService(descriptor.ViewModelType);
     }
 
     protected abstract void ConfigureViewModel(TPage page, object viewModel);

@@ -32,7 +32,7 @@ public sealed class NavigationService : INavigationService {
         _logger.ZLogInformation($"{key}");
 #endif
 
-        _ = _nav.PushAsync(BuildPage(content));
+        await _nav.PushAsync(BuildPage(content));
     }
 
     public async Task NavigateToPageAsync<TPage>() where TPage : UserControl {
