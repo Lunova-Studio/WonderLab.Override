@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System;
@@ -82,7 +82,7 @@ internal static class SyntaxFactories {
             ITypeSymbol propertyTypeSymbol = null) {
             TypeSyntax controlType = IdentifierName(controlTypeName);
             TypeSyntax propertyType = IdentifierName(propertyTypeName);
-            var typeArgs = SeparatedList(new[] { controlType, propertyType });
+            var typeArgs = SeparatedList([controlType, propertyType]);
             var method = GenericName(
                 Identifier("global::Avalonia.AvaloniaProperty.Register"),
                 TypeArgumentList(typeArgs));
@@ -154,6 +154,68 @@ internal static class SyntaxFactories {
                 : ((int)value!).ToString();
 
             return ParseExpression(enumLiteral);
+        }
+    }
+
+    internal static class SettingsProperty {
+        internal static PropertyDeclarationSyntax Declaration(string settingsPropertyName, IPropertySymbol property) {
+            var typeName = ParseTypeName(property.Type.ToDisplayString());
+
+            return PropertyDeclaration(
+                    typeName,
+                    Identifier(property.Name))
+                .AddModifiers(
+                    Token(SyntaxKind.PublicKeyword))
+                .AddAccessorListAccessors(
+                    Getter(settingsPropertyName, property),
+                    Setter(settingsPropertyName, property));
+        }
+
+        private static AccessorDeclarationSyntax Getter(string settingsPropertyName, IPropertySymbol property) {
+            return AccessorDeclaration(
+                    SyntaxKind.GetAccessorDeclaration)
+                .WithExpressionBody(
+                    ArrowExpressionClause(
+                        MemberAccessExpression(
+                            SyntaxKind.SimpleMemberAccessExpression,
+                            IdentifierName(settingsPropertyName),
+                            IdentifierName(property.Name))))
+                .WithSemicolonToken(
+                    Token(SyntaxKind.SemicolonToken));
+        }
+
+        private static AccessorDeclarationSyntax Setter(string settingsPropertyName, IPropertySymbol property) {
+            return AccessorDeclaration(
+                    SyntaxKind.SetAccessorDeclaration)
+                .WithBody(
+                    Block(
+                        Assignment(property, settingsPropertyName),
+                        RaisePropertyChanged(property)));
+        }
+
+        private static StatementSyntax Assignment(IPropertySymbol property, string settingsPropertyName) {
+            return ExpressionStatement(
+                AssignmentExpression(
+                    SyntaxKind.SimpleAssignmentExpression,
+                    MemberAccessExpression(
+                        SyntaxKind.SimpleMemberAccessExpression,
+                        IdentifierName(settingsPropertyName),
+                        IdentifierName(property.Name)),
+
+                    IdentifierName("value")));
+        }
+
+        private static StatementSyntax RaisePropertyChanged(IPropertySymbol property) {
+            return ExpressionStatement(
+                InvocationExpression(
+                    IdentifierName("OnPropertyChanged"))
+                .AddArgumentListArguments(
+                    Argument(
+                        InvocationExpression(
+                            IdentifierName("nameof"))
+                        .AddArgumentListArguments(
+                            Argument(
+                                IdentifierName(property.Name))))));
         }
     }
 }

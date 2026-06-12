@@ -1,10 +1,8 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Text;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using WonderLab.SourceGenerator.Extensions;
 using WonderLab.SourceGenerator.Models;
 
@@ -36,22 +34,20 @@ internal class StyledPropertyGenerator : AvaloniaPropertyGenerator, IIncremental
     }
 
     private static IEnumerable<MemberDeclarationSyntax> StyledPropsAndClrAccessorsDeclarations(IEnumerable<AvaloniaPropertyInfo> props) {
-        foreach (var p in props) {
-             var typeSymbol = p.TypeSymbol;
-
+        foreach (var (hierarchyInfo, typeName, propertyName, accessorName, _, typeSymbol, defaultValue) in props) {
             yield return SyntaxFactories.StyledProperty.Declaration(
-                controlTypeName: p.HierarchyInfo.Hierarchy[0].QualifiedName,
-                propertyTypeName: p.TypeName,
+                controlTypeName: hierarchyInfo.Hierarchy[0].QualifiedName,
+                propertyTypeName: typeName,
                 propertyTypeSymbol: typeSymbol,
-                propertyName: p.PropertyName,
-                clrAccessorName: p.AccessorName,
-                defaultValue: p.DefaultValue);
+                propertyName: propertyName,
+                clrAccessorName: accessorName,
+                defaultValue: defaultValue);
 
             yield return SyntaxFactories.AvaloniaObject.GetSetValuePropertyDeclaration(
                 typeof(StyledPropertyGenerator),
-                p.TypeName,
-                p.PropertyName,
-                p.AccessorName);
+                typeName,
+                propertyName,
+                accessorName);
         }
     }
 }
