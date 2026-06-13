@@ -3,9 +3,35 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:wc="using:WonderLab.UI.Controls"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
              xmlns:vm="using:WonderLab.ViewModels.Pages"
-             xmlns:mi="using:Material.Icons.Avalonia"
+             xmlns:mi="using:Material.Icons.Avalonia" VerticalContentAlignment="Center"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:DataType="vm:HomePageViewModel"
              x:Class="WonderLab.HomePage">
+    <StackPanel Spacing="8">
+        <TextBox HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 Width="300"
+                 PlaceholderText="Email"
+                 UseFloatingPlaceholder="True"
+                 Theme="{StaticResource OutlineTextBoxTheme}">
+        </TextBox>
+        
+        <TextBox HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 Width="300"
+                 PlaceholderText="Password"
+                 UseFloatingPlaceholder="True"
+                 Theme="{DynamicResource OutlineTextBoxTheme}"/>
+
+        <TextBox Text="Sample"
+                 PlaceholderText="TextBox" 
+                 UseFloatingPlaceholder="True"
+                 Theme="{DynamicResource OutlineTextBoxTheme}">
+            <DataValidationErrors.Error>
+                <system:Exception />
+            </DataValidationErrors.Error>
+        </TextBox>
+    </StackPanel>
 </UserControl>

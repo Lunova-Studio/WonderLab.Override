@@ -5,6 +5,7 @@ namespace WonderLab.Models;
 public record SettingsModel {
     // Game Settings
     [JsonPropertyName("isFullscreen")] public bool IsFullscreen { get; set; }
+    [JsonPropertyName("isolationVersion")] public bool IsolationVersion { get; set; }
     
     // Appearance Settings 
     [JsonPropertyName("color")] public int Color { get; set; }

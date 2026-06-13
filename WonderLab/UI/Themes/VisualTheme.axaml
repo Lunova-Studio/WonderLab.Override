@@ -83,4 +83,23 @@
 
     <SolidColorBrush x:Key="ComboBoxItemSelectedBackgroundBrush" Color="{DynamicResource SecondaryContainerColor}"/>
     <SolidColorBrush x:Key="ComboBoxItemSelectedForegroundBrush" Color="{DynamicResource OnSecondaryContainerColor}"/>
+    
+    <SolidColorBrush x:Key="TextBoxDefaultSelectionBrush" Color="{DynamicResource SecondaryContainerColor}"/>
+    <SolidColorBrush x:Key="TextBoxDefaultSelectionForegroundBrush" Color="{DynamicResource OnSecondaryContainerColor}"/>
+    <SolidColorBrush x:Key="TextBoxOutlineDefaultCaretBrush" Color="{DynamicResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="TextBoxOutlineDefaultBorderBrush" Color="{DynamicResource OutlineColor}"/>
+    <SolidColorBrush x:Key="TextBoxOutlineInputTextDefaultForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+    <SolidColorBrush x:Key="TextBoxOutlineLabelDefaultForegroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
+    <SolidColorBrush x:Key="TextBoxOutlineLabelPointerOverForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
+    <SolidColorBrush x:Key="TextBoxOutlinePointerOverBorderBrush" Color="{DynamicResource OnSurfaceColor}"/>
+    <SolidColorBrush x:Key="TextBoxOutlineLabelFocusedForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="TextBoxOutlineFocusedBorderBrush" Color="{DynamicResource PrimaryColor}"/>
+    <SolidColorBrush x:Key="TextBoxOutlineDisableBorderBrush" Color="{DynamicResource OnSurfaceColor}" Opacity="0.12"/>
+    <SolidColorBrush x:Key="TextBoxOutlineLabelDisableForegroundBrush" Color="{DynamicResource OnSurfaceColor}" Opacity="0.38"/>
+    <SolidColorBrush x:Key="TextBoxOutlineInputTextDisableForegroundBrush" Color="{DynamicResource OnSurfaceColor}" Opacity="0.38"/>
+    <SolidColorBrush x:Key="TextBoxOutlineErrorBorderBrush" Color="{DynamicResource ErrorColor}"/>
+    <SolidColorBrush x:Key="TextBoxOutlineLabelErrorForegroundBrush" Color="{DynamicResource ErrorColor}"/>
+    <SolidColorBrush x:Key="TextBoxOutlineErrorPointerOverBorderBrush" Color="{DynamicResource ErrorContainerColor}"/>
+    <SolidColorBrush x:Key="TextBoxOutlineLabelErrorPointerOverForegroundBrush" Color="{DynamicResource ErrorContainerColor}"/>
+
 </ResourceDictionary>

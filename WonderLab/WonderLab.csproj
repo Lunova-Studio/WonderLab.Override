@@ -17,7 +17,6 @@
 	<ItemGroup>
 		<AvaloniaResource Include="Assets\**" />
 		<Folder Include="Enums\" />
-		<Folder Include="UI\Converters\" />
 		<Folder Include="UI\Attachments\" />
 		<Folder Include="UI\Behaviors\" />
 	</ItemGroup>

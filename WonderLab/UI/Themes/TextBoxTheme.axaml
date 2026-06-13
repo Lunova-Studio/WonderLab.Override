@@ -1,63 +1,243 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    x:ClassModifier="internal">
+                    xmlns:system="clr-namespace:System;assembly=netstandard"
+                    xmlns:converters="clr-namespace:WonderLab.UI.Converters">
     <Design.PreviewWith>
         <Border Padding="20">
-            <StackPanel Width="200" Spacing="20">
-                <TextBox>Left</TextBox>
-                <TextBox>Clear</TextBox>
+            <StackPanel Width="400" Height="300" Spacing="8">
+                <TextBox Text="ddd"
+                         PlaceholderText="TextBox" 
+                         UseFloatingPlaceholder="True"
+                         Theme="{DynamicResource OutlineTextBoxTheme}"/>
+                
+                <TextBox Text="ddd"
+                         IsEnabled="False"
+                         PlaceholderText="Disable TextBox" 
+                         UseFloatingPlaceholder="True"
+                         Theme="{DynamicResource OutlineTextBoxTheme}"/>
+
+                <TextBox Text="Sample"
+                         PlaceholderText="TextBox" 
+                         UseFloatingPlaceholder="True"
+                         Theme="{DynamicResource OutlineTextBoxTheme}">
+                    <DataValidationErrors.Error>
+                        <system:Exception />
+                    </DataValidationErrors.Error>
+                </TextBox>
+                
+                <Button/>
             </StackPanel>
         </Border>
     </Design.PreviewWith>
-
-	<CornerRadius x:Key="TextBoxContainerCornerRadius">4 4 0 0</CornerRadius>
     
-    <ControlTheme x:Key="{x:Type TextBox}" TargetType="TextBox">
-		<Setter Property="MinHeight" Value="56"/>
-		<Setter Property="Background" Value="red"/>
-		<Setter Property="CornerRadius" Value="{DynamicResource TextBoxContainerCornerRadius}"/>
-
+    <converters:RectHollowClipConverter x:Key="RectangleHollowGeometry" />
+    <converters:RectHollowClipParameter x:Key="OutlineTextBoxClippingParameter" Margin="4 0 6 0" Offset="4, -8" />
+    
+    <!-- Tokens -->
+    <x:Double x:Key="OutlineTextfieldContainerHeight">56</x:Double>
+    <Thickness x:Key="OutlineTextfieldContainerWidth">1</Thickness>
+    <Thickness x:Key="OutlineTextfieldContainerFocusedWidth">2</Thickness>
+    
+    <ControlTheme TargetType="TextBox" x:Key="OutlineTextBoxTheme">
+        <Setter Property="Cursor" Value="IBeam"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="CaretBrush" Value="{DynamicResource TextBoxOutlineDefaultCaretBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource TextBoxOutlineInputTextDefaultForegroundBrush}"/>
+        <Setter Property="PlaceholderForeground" Value="{DynamicResource TextBoxOutlineLabelDefaultForegroundBrush}"/>
+        <Setter Property="SelectionBrush" Value="{DynamicResource TextBoxDefaultSelectionBrush}" />
+        <Setter Property="SelectionForegroundBrush" Value="{DynamicResource TextBoxDefaultSelectionForegroundBrush}" />
+        <Setter Property="MinHeight" Value="{DynamicResource OutlineTextfieldContainerHeight}"/>
+        
+        <!-- BodyLarge -->
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontWeight" Value="Regular"/>
+        
+        <Setter Property="InputMethod.IsInputMethodEnabled" Value="True" />
         <Setter Property="Template">
             <ControlTemplate>
-                <DataValidationErrors>
-					<Border Name="PART_BorderContainer"
-							MinWidth="{TemplateBinding MinWidth}"
-							MinHeight="{TemplateBinding MinHeight}"
-							Background="{TemplateBinding Background}"
-							BorderBrush="{TemplateBinding BorderBrush}"
-							CornerRadius="{TemplateBinding CornerRadius}"
-							BorderThickness="{TemplateBinding BorderThickness}">
-						<Border.Transitions>
-							<Transitions>
-								<BrushTransition Duration="0:0:.15"
-												 Easing="CubicEaseOut"
-												 Property="BorderBrush"/>
-							</Transitions>
-						</Border.Transitions>
+                <Border ClipToBounds="True"
+                        Name="PART_RootBorder"
+                        Background="{TemplateBinding Background}"
+                        MinHeight="{TemplateBinding MinHeight}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="{TemplateBinding CornerRadius}">
+                    <DataValidationErrors Name="PART_DataValidation">
+                        <Panel Name="PART_TextFieldPanel">
+                            <Border Name="PART_BackgroundTextField">
+                                <Border.Styles>
+                                    <Style Selector="TextBox[UseFloatingPlaceholder=True] /template/ Border#PART_BackgroundTextField">
+                                        <Setter Property="Clip">
+                                            <MultiBinding Converter="{StaticResource RectangleHollowGeometry}"
+                                                          ConverterParameter="{StaticResource OutlineTextBoxClippingParameter}"
+                                                          RelativeSource="{RelativeSource AncestorType=TextBox}">
+                                                <Binding ElementName="PART_TextFieldPanel" Path="Bounds" />
+                                                <Binding ElementName="PART_LabelRootBorder" Path="Bounds" />
+                                                <Binding ElementName="PART_LabelRootBorder" Path="RenderTransform" />
+                                            </MultiBinding>
+                                        </Setter>
+                                    </Style>
+                                </Border.Styles>
+                            </Border>
 
-                        <Panel>
-                                                    
-										<TextPresenter Name="PART_TextPresenter"
-													   Text="{TemplateBinding Text, Mode=TwoWay}"
-													   CaretIndex="{TemplateBinding CaretIndex}"
-													   CaretBrush="{TemplateBinding CaretBrush}"
-													   LineHeight="{TemplateBinding LineHeight}"
-													   SelectionEnd="{TemplateBinding SelectionEnd}"
-													   TextWrapping="{TemplateBinding TextWrapping}"
-													   PasswordChar="{TemplateBinding PasswordChar}"
-													   LetterSpacing="{TemplateBinding LetterSpacing}"
-													   TextAlignment="{TemplateBinding TextAlignment}"
-													   RevealPassword="{TemplateBinding RevealPassword}"
-													   SelectionBrush="{TemplateBinding SelectionBrush}"
-													   SelectionStart="{TemplateBinding SelectionStart}"
-													   CaretBlinkInterval="{TemplateBinding CaretBlinkInterval}"
-													   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-													   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-													   SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"/>
+                            <DockPanel LastChildFill="True" Name="PART_InnerPanel">
+                                <ContentControl Name="PART_LeftContentControl"
+                                                Content="{TemplateBinding InnerLeftContent}" />
+                  
+                                <ContentControl Name="PART_RightContentControl"
+                                                Content="{TemplateBinding InnerRightContent}" />
+                  
+                                <Panel Name="PART_TextContainer">
+                                    <ScrollViewer Name="PART_ScrollViewer"
+                                                  VerticalScrollBarVisibility="{TemplateBinding (ScrollViewer.VerticalScrollBarVisibility)}"
+                                                  HorizontalScrollBarVisibility="{TemplateBinding (ScrollViewer.HorizontalScrollBarVisibility)}">
+                                        
+                                        <TextPresenter Name="PART_TextPresenter"
+                                                       CaretBrush="{TemplateBinding CaretBrush}"
+                                                       CaretIndex="{TemplateBinding CaretIndex}"
+                                                       TextBlock.FontFamily="{TemplateBinding FontFamily}"
+                                                       TextBlock.FontSize="{TemplateBinding FontSize}"
+                                                       TextBlock.FontStyle="{TemplateBinding FontStyle}"
+                                                       TextBlock.FontWeight="{TemplateBinding FontWeight}"
+                                                       TextBlock.Foreground="{TemplateBinding Foreground}"
+                                                       PasswordChar="{TemplateBinding PasswordChar}"
+                                                       RevealPassword="{TemplateBinding RevealPassword}"
+                                                       SelectionBrush="{TemplateBinding SelectionBrush}"
+                                                       SelectionStart="{TemplateBinding SelectionStart}"
+                                                       SelectionEnd="{TemplateBinding SelectionEnd}"
+                                                       Text="{TemplateBinding Text, Mode=TwoWay}"
+                                                       TextAlignment="{TemplateBinding TextAlignment}"
+                                                       TextWrapping="{TemplateBinding TextWrapping}"
+                                                       SelectionForegroundBrush="{TemplateBinding SelectionForegroundBrush}"
+                                                       InputMethod.IsInputMethodEnabled="{TemplateBinding InputMethod.IsInputMethodEnabled}"/>
+                                    </ScrollViewer>
+                                </Panel>
+                            </DockPanel>
+                            
+                            <Border Name="PART_LabelRootBorder">
+                                <TextBlock Classes="BodyLarge"
+                                           Name="PART_LabelText"
+                                           Text="{TemplateBinding PlaceholderText}"
+                                           Foreground="{TemplateBinding PlaceholderForeground}"/>
+                            </Border>
                         </Panel>
-					</Border>
-                </DataValidationErrors>
+                    </DataValidationErrors>
+                </Border>
             </ControlTemplate>
         </Setter>
+        
+        <Style Selector="^ /template/ Border#PART_LabelRootBorder">
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="RenderTransformOrigin" Value="0 0" />
+        </Style>
+        
+        <Style Selector="^:not(.no-transitions)">
+            <Style Selector="^ /template/ Border#PART_LabelRootBorder">
+                <Setter Property="Transitions">
+                    <Transitions>
+                        <ThicknessTransition Duration="0:0:0.3" Property="Margin" Easing="ExponentialEaseOut" />
+                        <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.3" Easing="ExponentialEaseOut" />
+                    </Transitions>
+                </Setter>
+            </Style>
+
+            <Style Selector="^ /template/ Border#PART_BackgroundTextField">
+                <Setter Property="Transitions">
+                    <Transitions>
+                        <BrushTransition Duration="0:0:.35" Property="BorderBrush" Easing="ExponentialEaseOut" />
+                        <ThicknessTransition Duration="0:0:.35" Property="BorderThickness" Easing="ExponentialEaseOut" />
+                    </Transitions>
+                </Setter>
+            </Style>
+        </Style>
+        
+        <Style Selector="^[UseFloatingPlaceholder=True] /template/ Panel#PART_TextContainer">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        
+        <!-- Default -->
+        <Style Selector="^ /template/ Border#PART_BackgroundTextField">
+            <Setter Property="CornerRadius" Value="{DynamicResource SmallCornerRadius}" />
+            <Setter Property="BorderThickness" Value="{DynamicResource OutlineTextfieldContainerWidth}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource TextBoxOutlineDefaultBorderBrush}" />
+            <Setter Property="Margin" Value="0,8,0,0" />
+        </Style>
+        
+        <Style Selector="^ /template/ Panel#PART_TextContainer">
+            <Setter Property="Margin" Value="12,12,8,2" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style Selector="^ /template/ DockPanel#PART_InnerPanel > ContentControl#PART_RightContentControl">
+            <Setter Property="Margin" Value="0,8,0,0" />
+        </Style>
+        
+        <!-- PointerOver -->
+        <Style Selector="^:pointerover">
+            <Setter Property="PlaceholderForeground" Value="{DynamicResource TextBoxOutlineLabelPointerOverForegroundBrush}"/>
+            
+            <Style Selector="^ /template/ Border#PART_BackgroundTextField">
+                <Setter Property="BorderBrush" Value="{DynamicResource TextBoxOutlinePointerOverBorderBrush}"/>
+            </Style>
+        </Style>
+        
+        <!-- Focused -->
+        <Style Selector="^:empty:not(:focus-within) /template/ Border#PART_LabelRootBorder">
+            <Setter Property="Margin" Value="10,22,1,1" />
+            <Setter Property="RenderTransform" Value="scale(1)" />
+        </Style>
+
+        <Style Selector="^.dense:empty:not(:focus-within) /template/ Border#PART_LabelRootBorder">
+            <Setter Property="Margin" Value="10,18,1,1" />
+        </Style>
+        
+        <Style Selector="^:focus-within /template/ TextBlock#PART_LabelText">
+            <Setter Property="Foreground" Value="{DynamicResource TextBoxOutlineLabelFocusedForegroundBrush}" />
+        </Style>
+        
+        <Style Selector="^:focus-within /template/ Border#PART_BackgroundTextField">
+            <Setter Property="BorderBrush" Value="{DynamicResource TextBoxOutlineFocusedBorderBrush}" />
+            <Setter Property="BorderThickness" Value="{DynamicResource OutlineTextfieldContainerFocusedWidth}" />
+        </Style>
+        
+        <Style Selector="^:focus-within:not(:empty) /template/ Border#PART_LabelRootBorder, ^:focus-within /template/ Border#PART_LabelRootBorder, ^:not(:empty) /template/ Border#PART_LabelRootBorder">
+            <Setter Property="Margin" Value="12 2 1 1" />
+            <Setter Property="RenderTransform" Value="scale(0.75)" />
+        </Style>
+        
+        <!-- Disable -->
+        <Style Selector="^:disabled">
+            <Setter Property="Foreground" Value="{DynamicResource TextBoxOutlineInputTextDisableForegroundBrush}"/>
+            
+            <Style Selector="^ /template/ Border#PART_BackgroundTextField">
+                <Setter Property="BorderBrush" Value="{DynamicResource TextBoxOutlineDisableBorderBrush}" />
+                <Setter Property="BorderThickness" Value="{DynamicResource OutlineTextfieldContainerWidth}" />
+            </Style>
+            
+            <Style Selector="^ /template/ TextBlock#PART_LabelText">
+                <Setter Property="Foreground" Value="{DynamicResource TextBoxOutlineLabelDisableForegroundBrush}" />
+            </Style>
+        </Style>
+        
+        <!-- Error -->
+        <Style Selector="^:error">
+            <Style Selector="^ /template/ Border#PART_BackgroundTextField">
+                <Setter Property="BorderBrush" Value="{DynamicResource TextBoxOutlineErrorBorderBrush}" />
+            </Style>
+            
+            <Style Selector="^ /template/ TextBlock#PART_LabelText">
+                <Setter Property="Foreground" Value="{DynamicResource TextBoxOutlineLabelErrorForegroundBrush}" />
+            </Style>
+            
+            
+            <Style Selector="^:pointerover /template/ Border#PART_BackgroundTextField">
+                <Setter Property="BorderBrush" Value="{DynamicResource TextBoxOutlineErrorPointerOverBorderBrush}" />
+            </Style>
+            
+            <Style Selector="^:pointerover /template/ TextBlock#PART_LabelText">
+                <Setter Property="Foreground" Value="{DynamicResource TextBoxOutlineLabelErrorPointerOverForegroundBrush}" />
+            </Style>
+        </Style>
     </ControlTheme>
 </ResourceDictionary>

@@ -24,7 +24,7 @@
             <wc:NavigationItem IconSize="24"
                                Kind="MicrosoftMinecraft"
                                SelectedKind="Minecraft"
-                               Content="Download"/>
+                               Content="Minecraft"/>
 
             <wc:NavigationItem IconSize="24"
                                Kind="DownloadOutline"

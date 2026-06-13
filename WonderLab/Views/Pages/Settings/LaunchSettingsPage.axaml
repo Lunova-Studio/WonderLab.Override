@@ -46,7 +46,7 @@
                         CornerRadius="{StaticResource MaxCornerRadius}">
                     <StackPanel Spacing="3">
                         <wc:SettingsCardItem Header="Version Isolation">
-                            <ToggleSwitch/>
+                            <ToggleSwitch IsChecked="{Binding Settings.IsolationVersion}"/>
                         </wc:SettingsCardItem>
 
                         <ComboBox PlaceholderText="Process Priority"
@@ -54,7 +54,7 @@
                         
                         
                         <wc:SettingsCardItem Header="Fullscreen Mode">
-                            <ToggleSwitch/>
+                            <ToggleSwitch IsChecked="{Binding Settings.IsFullscreen}"/>
                         </wc:SettingsCardItem>
 
                         <ComboBox PlaceholderText="Game Window Resolution"
@@ -72,12 +72,8 @@
                         VerticalAlignment="Top"
                         CornerRadius="{StaticResource MaxCornerRadius}">
                     <StackPanel Spacing="3">
-                        
                         <ComboBox PlaceholderText="Launcher Visibility"
                                   Theme="{StaticResource SettingsCardItemComboBoxTheme}"/>
-                        <wc:SettingsCardItem Header="Show Logs">
-                            <ToggleSwitch />
-                        </wc:SettingsCardItem>
                     </StackPanel>
                 </Border>
             </StackPanel>
