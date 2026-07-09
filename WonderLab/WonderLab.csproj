@@ -10,6 +10,10 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
+		<Version>2.0.0</Version>
+	</PropertyGroup>
+	
+	<PropertyGroup>
 		<!--<PublishAot>true</PublishAot>
 		<PublishTrimmed>true</PublishTrimmed>-->
 	</PropertyGroup>
@@ -36,7 +40,7 @@
 
 		<PackageReference Include="ZLogger" Version="2.5.10" />
 
-		<PackageReference Include="MinecraftLaunch" Version="4.0.6" />
+		<PackageReference Include="MinecraftLaunch" Version="4.0.7" />
 	</ItemGroup>
 
 	<ItemGroup>

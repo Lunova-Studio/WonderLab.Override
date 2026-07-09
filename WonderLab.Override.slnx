@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/build/">
+    <Project Path=".build/build.csproj" />
+  </Folder>
   <Folder Name="/refs/">
     <Project Path="refs/Monet/Monet.Avalonia/Monet.Avalonia.csproj" />
     <Project Path="refs/Monet/Monet.Shared/Monet.Shared.csproj" />
