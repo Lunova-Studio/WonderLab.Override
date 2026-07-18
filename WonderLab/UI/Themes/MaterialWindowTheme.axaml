@@ -1,0 +1,65 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:controls="clr-namespace:WonderLab.UI.Controls"
+                    xmlns:mi="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia">
+    <ControlTheme x:Key="{x:Type controls:MaterialWindow}" TargetType="controls:MaterialWindow">
+        <Setter Property="FontSize" Value="{DynamicResource AppDefaultFontSize}"/>
+        <Setter Property="Background" Value="{DynamicResource AppBackgroundBrush}"/>
+        <Setter Property="Foreground" Value="{DynamicResource AppForegroundBrush}"/>
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel>
+                    <Border IsHitTestVisible="False"
+                            Name="PART_TransparencyFallback"/>
+                    
+                    <Border IsHitTestVisible="False"
+                            Background="{TemplateBinding Background}"/>
+                    
+                    <Panel Background="Transparent"
+                           Margin="{TemplateBinding WindowDecorationMargin}"/>
+
+                    
+                    <VisualLayerManager Name="PART_VisualLayerManager">
+                        <Panel>
+                            <ContentPresenter Name="PART_ContentPresenter"
+                                              Margin="{TemplateBinding Padding}"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                            
+                            <Border Height="36"
+                                    VerticalAlignment="Top"
+                                    HorizontalAlignment="Stretch"
+                                    Name="PART_TitleBarLayout"
+                                    Background="{DynamicResource AppTitleBarBackgroundBrush}">
+                                <StackPanel Spacing="2"
+                                            VerticalAlignment="Center"
+                                            Name="PART_OverlayPanel"
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Right"
+                                            TextElement.FontSize="10">
+                                    <Button FontSize="22"
+                                            Name="PART_MinimizeButton"
+                                            Content="{mi:MaterialIconTextExt Minus}"
+                                            IsVisible="{OnPlatform Default=True, macOS=False}"
+                                            Theme="{StaticResource CaptionButtonTheme}"
+                                            WindowDecorationProperties.ElementRole="MinimizeButton"/>
+                                
+                                    <Button FontSize="22"
+                                            Margin="4 0 8 0"
+                                            Name="PART_CloseButton"
+                                            Content="{mi:MaterialIconTextExt Close}"
+                                            IsVisible="{OnPlatform Default=True, macOS=False}"
+                                            Theme="{StaticResource CaptionButtonTheme}"
+                                            WindowDecorationProperties.ElementRole="CloseButton"/>
+                                </StackPanel>
+                            </Border>
+                        </Panel>
+                    </VisualLayerManager>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>
