@@ -2,11 +2,12 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using WonderLab.Interfaces.Navigation;
+using WonderLab.UI.Controls;
 using WonderLab.ViewModels.Pages;
 
 namespace WonderLab.Views.Windows;
 
-public partial class MainWindow : Window {
+public partial class MainWindow : MaterialWindow {
     public MainWindow(INavigationService nav) {
         InitializeComponent();
 

@@ -8,7 +8,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="950"
              x:DataType="vm:AboutPageViewModel"
              x:Class="WonderLab.Views.Pages.Settings.AboutPage">
-    <Grid Margin="0 16 0 16"
+    <Grid Margin="0 16 0 0"
           RowDefinitions="auto *"
           ColumnDefinitions="auto *">
 		<Button Width="36"
@@ -31,11 +31,10 @@
                    Grid.Column="1"/>
         
         <ScrollViewer Margin="0 16 0 0"
-                      Padding="24 0 24 0"
                       Grid.Row="1"
                       Grid.Column="0"
                       Grid.ColumnSpan="2">
-            <StackPanel>
+            <StackPanel Margin="24 0 24 24">
                 <TextBlock Margin="10 0 0 8"
                            Classes="TitleSmall"
                            Foreground="{DynamicResource AppTitleBarForegroundBrush}"

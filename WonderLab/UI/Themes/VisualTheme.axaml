@@ -102,4 +102,6 @@
     <SolidColorBrush x:Key="TextBoxOutlineErrorPointerOverBorderBrush" Color="{DynamicResource ErrorContainerColor}"/>
     <SolidColorBrush x:Key="TextBoxOutlineLabelErrorPointerOverForegroundBrush" Color="{DynamicResource ErrorContainerColor}"/>
 
+    <SolidColorBrush x:Key="ScrollBarThumbPointerOverBackgroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
+    <SolidColorBrush x:Key="ScrollBarThumbBackgroundBrush" Color="{DynamicResource OnSurfaceVariantColor}" Opacity="0.38"/>
 </ResourceDictionary>

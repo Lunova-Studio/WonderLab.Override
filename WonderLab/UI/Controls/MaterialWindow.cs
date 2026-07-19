@@ -6,9 +6,9 @@ using DialogHostAvalonia;
 
 namespace WonderLab.UI.Controls;
 
+[TemplatePart(Name = "PART_DialogHost", Type = typeof(DialogHost))]
 [TemplatePart(Name = "PART_CloseButton", Type = typeof(Button), IsRequired = true)]
 [TemplatePart(Name = "PART_MinimizeButton", Type = typeof(Button), IsRequired = true)]
-[TemplatePart(Name = "PART_DialogHost", Type = typeof(DialogHost))]
 public class MaterialWindow : Window {
     private Border _PART_TitleBarLayout;
     private Button _PART_CloseButton;
