@@ -42,7 +42,7 @@
 
                 <Border ClipToBounds="True"
                         VerticalAlignment="Top"
-                        CornerRadius="{StaticResource MaxCornerRadius}">
+                        CornerRadius="{StaticResource LargeCornerRadius}">
                     <StackPanel Spacing="3">
                         <wc:SettingsCardItem Header="Launcher version"
                                              Content="Brownie 2.0.0"
@@ -61,7 +61,7 @@
                 
                 <Border ClipToBounds="True"
                         VerticalAlignment="Top"
-                        CornerRadius="{StaticResource MaxCornerRadius}">
+                        CornerRadius="{StaticResource LargeCornerRadius}">
                     <wc:SettingsCardItem Header="Afdian"
                                          Theme="{StaticResource JumpToSettingsCardItemTheme}"/>
                 </Border>
@@ -73,7 +73,7 @@
                 
                 <Border ClipToBounds="True"
                         VerticalAlignment="Top"
-                        CornerRadius="{StaticResource MaxCornerRadius}">
+                        CornerRadius="{StaticResource LargeCornerRadius}">
                     <StackPanel Spacing="3">
                         <wc:SettingsCardItem Header="Yang429"
                                              Content="(https://github.com/YangSpring429)"
@@ -100,7 +100,7 @@
                 
                 <Border ClipToBounds="True"
                         VerticalAlignment="Top"
-                        CornerRadius="{StaticResource MaxCornerRadius}">
+                        CornerRadius="{StaticResource LargeCornerRadius}">
                     <StackPanel Spacing="3">
                         <wc:SettingsCardItem Header="FTS427"
                                              Content="(https://github.com/laolarou726)"
@@ -116,7 +116,7 @@
                 
                 <Border ClipToBounds="True"
                         VerticalAlignment="Top"
-                        CornerRadius="{StaticResource MaxCornerRadius}">
+                        CornerRadius="{StaticResource LargeCornerRadius}">
                     <StackPanel Spacing="3">
                         <wc:SettingsCardItem Header="Rwagsu"
                                              Content="(https://github.com/Rwagsu)"
@@ -134,7 +134,7 @@
                 
                 <Border ClipToBounds="True"
                         VerticalAlignment="Top"
-                        CornerRadius="{StaticResource MaxCornerRadius}">
+                        CornerRadius="{StaticResource LargeCornerRadius}">
                     <StackPanel Spacing="3">
                         <wc:SettingsCardItem Header="BMCLAPI"
                                              Content="(https://bmclapidoc.bangbang93.com/)"
@@ -157,7 +157,7 @@
                 
                 <Border ClipToBounds="True"
                         VerticalAlignment="Top"
-                        CornerRadius="{StaticResource MaxCornerRadius}">
+                        CornerRadius="{StaticResource LargeCornerRadius}">
                     <StackPanel Spacing="3">
                         <wc:SettingsCardItem Header="Avalonia"
                                              Theme="{StaticResource JumpToSettingsCardItemTheme}"/>
@@ -189,7 +189,7 @@
                 
                 <Border ClipToBounds="True"
                         VerticalAlignment="Top"
-                        CornerRadius="{StaticResource MaxCornerRadius}">
+                        CornerRadius="{StaticResource LargeCornerRadius}">
                     <StackPanel Spacing="3">
                         <wc:SettingsCardItem Header="Open source"
                                              Content="BSD v3 (https://github.com/Lunova-Studio/WonderLab.Override)"

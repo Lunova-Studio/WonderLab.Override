@@ -16,7 +16,7 @@
         <ScrollViewer Padding="24 0">
             <Border ClipToBounds="True"
                     VerticalAlignment="Top"
-                    CornerRadius="{StaticResource MaxCornerRadius}">
+                    CornerRadius="{StaticResource LargeCornerRadius}">
                 <StackPanel Spacing="3">
                     <wc:SettingsCardItem IconKind="GamepadVariant"
                                          Header="Launch"

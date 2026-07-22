@@ -80,15 +80,5 @@
                         Grid.Column="3"/>
             </Grid>
         </Border>
-        
-        <!-- <dha:DialogHost Identifier="PART_DialogHost" -->
-        <!--                 BlurBackground="True" -->
-        <!--                 Grid.Column="0" -->
-        <!--                 Grid.ColumnSpan="2"> -->
-        <!--     <TextBlock  -->
-        <!--                TextWrapping="Wrap"> -->
-        <!--         SAMPLE 2: Dialog without animation. -->
-        <!--     </TextBlock> -->
-        <!-- </dha:DialogHost> -->
     </Grid>
 </wc:MaterialWindow>

@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dha="using:DialogHostAvalonia">
+	<ControlTheme TargetType="dha:DialogOverlayPopupHost" x:Key="{x:Type dha:DialogOverlayPopupHost}">
+		<Setter Property="IsTabStop" Value="False" />
+		<Setter Property="Focusable" Value="True" />
+		<Setter Property="KeyboardNavigation.TabNavigation" Value="Cycle" />
+		<Setter Property="Template">
+			<ControlTemplate>
+				<ContentPresenter Name="PART_ContentPresenter"
+				                  Background="{TemplateBinding Background}"
+				                  ContentTemplate="{TemplateBinding ContentTemplate}"
+				                  Content="{TemplateBinding Content}"
+				                  Padding="{TemplateBinding Padding}" />
+			</ControlTemplate>
+		</Setter>
+		
+		<Style Selector="^[IsOpen=True][DisableOpeningAnimation=False]">
+			<Style.Animations>
+				<Animation Duration="0:0:.15"
+				           FillMode="Forward"
+				           Easing="CubicEaseOut">
+					
+					<KeyFrame Cue="0%">
+						<Setter Property="Opacity" Value="0"/>
+                        
+						<Setter Property="ScaleTransform.ScaleX" Value="0.7"/>
+						<Setter Property="ScaleTransform.ScaleY" Value="0.7"/>
+					</KeyFrame>
+
+					<KeyFrame Cue="100%">
+						<Setter Property="Opacity" Value="1"/>
+                        
+						<Setter Property="ScaleTransform.ScaleX" Value="1"/>
+						<Setter Property="ScaleTransform.ScaleY" Value="1"/>
+					</KeyFrame>
+				</Animation>
+			</Style.Animations>
+		</Style>
+
+		<Style Selector="^[IsOpen=False][DisableOpeningAnimation=True]">
+			<Setter Property="IsActuallyOpen" Value="False"/>
+		</Style>
+  </ControlTheme>
+</ResourceDictionary>

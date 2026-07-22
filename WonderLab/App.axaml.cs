@@ -96,6 +96,7 @@ public partial class App : Application {
         });
 
         // Service
+        services.AddSingleton<DialogService>();
         services.AddSingleton<SettingsService>();
         
         // View

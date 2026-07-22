@@ -10,7 +10,7 @@ using WonderLab.Interfaces.Navigation;
 namespace WonderLab.Services.Navigation;
 
 public sealed class AvaloniaHostBuilder : IHostApplicationBuilder {
-    private readonly HostApplicationBuilder _hostBuilder;
+    private readonly HostApplicationBuilder _hostBuilder = new();
 
     public ILoggingBuilder Logging => _hostBuilder.Logging;
     public IMetricsBuilder Metrics => _hostBuilder.Metrics;
@@ -19,11 +19,7 @@ public sealed class AvaloniaHostBuilder : IHostApplicationBuilder {
     public IConfigurationManager Configuration => _hostBuilder.Configuration;
     public IDictionary<object, object> Properties => ((IHostApplicationBuilder)_hostBuilder).Properties;
 
-    public AvaloniaPageProviderBuilder PageProvider { get; private set; } = new();
-
-    public AvaloniaHostBuilder() {
-        _hostBuilder = new HostApplicationBuilder();
-    }
+    public AvaloniaPageProviderBuilder PageProvider { get; } = new();
 
     public IHost Build() {
         RegisterDescriptors(PageProvider.RegisteredPages,

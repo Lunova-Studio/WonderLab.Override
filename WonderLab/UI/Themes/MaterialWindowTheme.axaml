@@ -1,7 +1,8 @@
 ﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:WonderLab.UI.Controls"
-                    xmlns:mi="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia">
+                    xmlns:mi="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+                    xmlns:dha="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia">
     <ControlTheme x:Key="{x:Type controls:MaterialWindow}" TargetType="controls:MaterialWindow">
         <Setter Property="FontSize" Value="{DynamicResource AppDefaultFontSize}"/>
         <Setter Property="Background" Value="{DynamicResource AppBackgroundBrush}"/>
@@ -21,19 +22,22 @@
 
                     
                     <VisualLayerManager Name="PART_VisualLayerManager">
-                        <Panel>
+                        <Grid RowDefinitions="36 *">
                             <ContentPresenter Name="PART_ContentPresenter"
                                               Margin="{TemplateBinding Padding}"
                                               Content="{TemplateBinding Content}"
                                               ContentTemplate="{TemplateBinding ContentTemplate}"
                                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"/>
+                                              HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              Grid.Row="0"
+                                              Grid.RowSpan="2"/>
                             
                             <Border Height="36"
                                     VerticalAlignment="Top"
                                     HorizontalAlignment="Stretch"
                                     Name="PART_TitleBarLayout"
-                                    Background="{DynamicResource AppTitleBarBackgroundBrush}">
+                                    Background="{DynamicResource AppTitleBarBackgroundBrush}"
+                                    Grid.Row="0">
                                 <StackPanel Spacing="2"
                                             VerticalAlignment="Center"
                                             Name="PART_OverlayPanel"
@@ -56,7 +60,11 @@
                                             WindowDecorationProperties.ElementRole="CloseButton"/>
                                 </StackPanel>
                             </Border>
-                        </Panel>
+                            
+                            <dha:DialogHost CloseOnClickAway="True"
+                                            Identifier="PART_DialogHost"
+                                            Grid.Row="1"/>
+                        </Grid>
                     </VisualLayerManager>
                 </Panel>
             </ControlTemplate>

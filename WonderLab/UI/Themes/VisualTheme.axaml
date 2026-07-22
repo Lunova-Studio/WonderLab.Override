@@ -7,7 +7,8 @@
     <CornerRadius x:Key="NoneCornerRadius">0</CornerRadius>
     <CornerRadius x:Key="SmallCornerRadius">4</CornerRadius>
     <CornerRadius x:Key="MediumCornerRadius">8</CornerRadius>
-    <CornerRadius x:Key="MaxCornerRadius">16</CornerRadius>
+    <CornerRadius x:Key="LargeCornerRadius">16</CornerRadius>
+    <CornerRadius x:Key="ExtraLargeCornerRadius">28</CornerRadius>
     <CornerRadius x:Key="FullCornerRadius">100</CornerRadius>
 
     <!--Brush-->
@@ -25,6 +26,7 @@
 	<SolidColorBrush x:Key="ButtonFABBackgroundBrush" Color="{DynamicResource PrimaryContainerColor}"/>
     <SolidColorBrush x:Key="ButtonFABForegroundBrush" Color="{DynamicResource OnPrimaryContainerColor}"/>
     <SolidColorBrush x:Key="ButtonGoBackBackgroundBrush" Color="{DynamicResource SurfaceContainerColor}"/>
+    <SolidColorBrush x:Key="ButtonTextForegroundBrush" Color="{DynamicResource PrimaryColor}"/>
     <SolidColorBrush x:Key="ButtonDefaultBorderBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
     <SolidColorBrush x:Key="ButtonDefaultForegroundBrush" Color="{DynamicResource OnSurfaceColor}"/>
 	<SolidColorBrush x:Key="ButtonDefaultBackgroundBrush" Color="{DynamicResource InverseOnSurfaceColor}"/>
@@ -104,4 +106,7 @@
 
     <SolidColorBrush x:Key="ScrollBarThumbPointerOverBackgroundBrush" Color="{DynamicResource OnSurfaceVariantColor}"/>
     <SolidColorBrush x:Key="ScrollBarThumbBackgroundBrush" Color="{DynamicResource OnSurfaceVariantColor}" Opacity="0.38"/>
+
+    <SolidColorBrush x:Key="DialogScrimBackgroundBrush" Color="{DynamicResource ScrimColor}" Opacity="0.32"/>
+    <SolidColorBrush x:Key="DialogContainerBackgroundBrush" Color="{DynamicResource SurfaceContainerHighColor}"/>
 </ResourceDictionary>

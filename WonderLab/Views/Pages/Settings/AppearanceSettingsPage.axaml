@@ -93,7 +93,7 @@
 
                 <Border ClipToBounds="True"
                         VerticalAlignment="Top"
-                        CornerRadius="{StaticResource MaxCornerRadius}">
+                        CornerRadius="{StaticResource LargeCornerRadius}">
                     <StackPanel Spacing="3">
                         <wc:SettingsCardItem Header="Follow system">
                             <ToggleSwitch/>

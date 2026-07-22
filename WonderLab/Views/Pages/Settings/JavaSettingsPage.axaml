@@ -44,7 +44,7 @@
                 
                 <Border ClipToBounds="True"
                         VerticalAlignment="Top"
-                        CornerRadius="{StaticResource MaxCornerRadius}">
+                        CornerRadius="{StaticResource LargeCornerRadius}">
                     <StackPanel Spacing="3">
                         <wc:SettingsCardItem Header="Automatically select Java">
                             <ToggleSwitch/>
@@ -59,7 +59,7 @@
                                 
                 <Border ClipToBounds="True"
                         VerticalAlignment="Top"
-                        CornerRadius="{StaticResource MaxCornerRadius}">
+                        CornerRadius="{StaticResource LargeCornerRadius}">
                     <StackPanel Spacing="3">
                         <wc:SettingsCardItem Header="Automatically allocate memory">
                             <ToggleSwitch/>
@@ -83,7 +83,7 @@
                            Text="Java List"/>
 
                 <ListBox ClipToBounds="True"
-                         CornerRadius="{StaticResource MaxCornerRadius}"
+                         CornerRadius="{StaticResource LargeCornerRadius}"
                          ItemContainerTheme="{StaticResource JavaItemTheme}">
                     <ListBox.ItemsPanel>
 						<ItemsPanelTemplate>

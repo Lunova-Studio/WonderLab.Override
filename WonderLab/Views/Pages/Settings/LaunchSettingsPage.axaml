@@ -43,7 +43,7 @@
 
                 <Border ClipToBounds="True"
                         VerticalAlignment="Top"
-                        CornerRadius="{StaticResource MaxCornerRadius}">
+                        CornerRadius="{StaticResource LargeCornerRadius}">
                     <StackPanel Spacing="3">
                         <wc:SettingsCardItem Header="Version Isolation">
                             <ToggleSwitch IsChecked="{Binding Settings.IsolationVersion}"/>
@@ -70,7 +70,7 @@
 
                 <Border ClipToBounds="True"
                         VerticalAlignment="Top"
-                        CornerRadius="{StaticResource MaxCornerRadius}">
+                        CornerRadius="{StaticResource LargeCornerRadius}">
                     <StackPanel Spacing="3">
                         <ComboBox PlaceholderText="Launcher Visibility"
                                   Theme="{StaticResource SettingsCardItemComboBoxTheme}"/>

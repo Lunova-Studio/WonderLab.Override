@@ -1,0 +1,121 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dha="using:DialogHostAvalonia"
+                    xmlns:utilities="clr-namespace:DialogHostAvalonia.Utilities">
+    <Design.PreviewWith>
+        <dha:DialogHost Name="DialogHost" Height="300" Width="300"
+                        Background="Gray">
+            <dha:DialogHost.DialogContent>
+                <Grid RowDefinitions="Auto Auto">
+                    <TextBlock>You content here</TextBlock>
+                    <Button Grid.Row="1" Command="{Binding #DialogHost.CloseDialogCommand}">
+                        CLOSE
+                    </Button>
+                </Grid>
+            </dha:DialogHost.DialogContent>
+            <Button Margin="8" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                    Command="{Binding #DialogHost.OpenDialogCommand}">
+                OPEN
+            </Button>
+        </dha:DialogHost>
+    </Design.PreviewWith>
+
+    <!-- Min 280dp; Max 560dp -->
+    <x:Double x:Key="DialogContainerMinWidth">280</x:Double>
+    <x:Double x:Key="DialogContainerMaxWidth">560</x:Double>
+    <Thickness x:Key="DialogContentPadding">24</Thickness>
+    
+    <ControlTheme TargetType="dha:DialogHost" BasedOn="{StaticResource BaseDialogTheme}" x:Key="{x:Type dha:DialogHost}"/>
+    
+    <ControlTheme TargetType="dha:DialogHost" x:Key="BaseDialogTheme">
+        <Setter Property="DialogMargin" Value="8"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Stretch" />
+        <Setter Property="Padding" Value="{StaticResource DialogContentPadding}" />
+        <Setter Property="Background" Value="{DynamicResource DialogContainerBackgroundBrush}" />
+        <Setter Property="OverlayBackground" Value="{DynamicResource DialogScrimBackgroundBrush}" />
+        <Setter Property="dha:DialogHostStyle.ClipToBounds" Value="False" />
+        <Setter Property="dha:DialogHostStyle.CornerRadius" Value="{DynamicResource ExtraLargeCornerRadius}" />
+
+        <Setter Property="Template">
+            <ControlTemplate>
+                <Panel Name="PART_DialogHostRoot" Focusable="False">
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                      Content="{TemplateBinding Content}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Tag="{TemplateBinding BlurBackgroundRadius}" />
+                    
+                    <Rectangle Name="PART_ContentCover"
+                               Fill="{TemplateBinding OverlayBackground}"
+                               Focusable="False">
+                        <Rectangle.Styles>
+                            <Style Selector="Rectangle#PART_ContentCover[Opacity=0]">
+                                <Setter Property="IsVisible" Value="False" />
+                            </Style>
+                        </Rectangle.Styles>
+                    </Rectangle>
+                </Panel>
+            </ControlTemplate>
+        </Setter>
+        
+        <Setter Property="PopupTemplate">
+            <ControlTemplate>
+                <Border Name="PART_ContentBackground">
+                    <Border.Styles>
+                        <Style Selector="Border#PART_ContentBackground">
+                            <Setter Property="BorderBrush" Value="{Binding (dha:DialogHostStyle.BorderBrush), RelativeSource={RelativeSource AncestorType=dha:DialogHost}}" />
+                            <Setter Property="BorderThickness" Value="{Binding (dha:DialogHostStyle.BorderThickness), RelativeSource={RelativeSource AncestorType=dha:DialogHost}}" />
+                            <Setter Property="CornerRadius" Value="{Binding (dha:DialogHostStyle.CornerRadius), RelativeSource={RelativeSource AncestorType=dha:DialogHost}}" />
+                            <Setter Property="BoxShadow" Value="{Binding (dha:DialogHostStyle.BoxShadow), RelativeSource={RelativeSource AncestorType=dha:DialogHost}}" />
+                            <Setter Property="ClipToBounds" Value="{Binding (dha:DialogHostStyle.ClipToBounds), RelativeSource={RelativeSource AncestorType=dha:DialogHost}}" />
+                            <Setter Property="Background" Value="{Binding Background, RelativeSource={RelativeSource AncestorType=dha:DialogHost}}" />
+                        </Style>
+                    </Border.Styles>
+                    
+                    <ContentPresenter Name="PART_ContentPresenter"
+                                      Content="{TemplateBinding Content}"
+                                      Padding="{StaticResource DialogContentPadding}"
+                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                      MaxWidth="{StaticResource DialogContainerMaxWidth}"
+                                      MinWidth="{StaticResource DialogContainerMinWidth}"/>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+        
+        <Style Selector="^:not(.no-transitions), ^:not(.notransitions)">
+            <Style Selector="^ /template/ ContentPresenter#PART_ContentPresenter">
+                <Setter Property="Transitions">
+                    <Transitions>
+                        <EffectTransition Property="Effect" Easing="LinearEasing" Duration="0:0:.25" />
+                    </Transitions>
+                </Setter>
+            </Style>
+        
+            <Style Selector="^:not(.disable-content-cover-animations) /template/ Rectangle#PART_ContentCover">
+                <Setter Property="Transitions">
+                    <Transitions>
+                        <DoubleTransition Property="Opacity" Easing="CubicEaseOut" Duration="0:0:.25" />
+                    </Transitions>
+                </Setter>
+            </Style>
+        </Style>
+        
+        <Style Selector="^[IsOpen=True] /template/ Rectangle#PART_ContentCover">
+            <Setter Property="IsHitTestVisible" Value="True" />
+            <Setter Property="Opacity" Value="0.56" />
+        </Style>
+        
+        <Style Selector="^[IsOpen=False] /template/ Rectangle#PART_ContentCover">
+            <Setter Property="IsHitTestVisible" Value="False" />
+            <Setter Property="Opacity" Value="0" />
+        </Style>
+        
+        <Style Selector="^[BlurBackground=True][IsOpen=True] /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Effect">
+                <BlurEffect Radius="{TemplateBinding Tag}" />
+            </Setter>
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

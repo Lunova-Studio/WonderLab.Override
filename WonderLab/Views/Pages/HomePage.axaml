@@ -33,5 +33,9 @@
                 <system:Exception />
             </DataValidationErrors.Error>
         </TextBox>
+        
+        <Button Content="Show Dialog"
+                HorizontalAlignment="Center"
+                Command="{Binding ShowCommand}"/>
     </StackPanel>
 </UserControl>

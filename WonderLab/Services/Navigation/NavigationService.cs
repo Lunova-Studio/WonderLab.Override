@@ -42,7 +42,7 @@ public sealed class NavigationService : INavigationService {
         var key = typeof(TPage).FullName!;
         var content = _provider.GetPage(key);
 
-        _ = _nav.PushAsync(BuildPage(content));
+        await _nav.PushAsync(BuildPage(content));
     }
 
     public Task GoBackAsync() => _nav!.PopAsync();
